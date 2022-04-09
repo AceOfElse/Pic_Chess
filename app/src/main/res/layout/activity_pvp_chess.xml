@@ -8,177 +8,985 @@
     android:background="@color/black"
     tools:context=".PvpChessActivity">
 
-    <TextView
-        android:id="@+id/player1NameText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Player1"
-        android:textColor="@color/white"
-        android:textSize="20sp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/boardLayout"
+        android:layout_width="409dp"
+        android:layout_height="409dp"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.072"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/boardA1"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:srcCompat="@drawable/darksquare"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="351dp" />
+
+        <ImageView
+            android:id="@+id/boardH1"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/lightsquare"
+            tools:layout_editor_absoluteX="357dp"
+            tools:layout_editor_absoluteY="351dp"
+            tools:srcCompat="@drawable/lightsquare" />
+
+        <ImageView
+            android:id="@+id/boardE1"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:srcCompat="@drawable/darksquare"
+            tools:layout_editor_absoluteX="207dp"
+            tools:layout_editor_absoluteY="351dp" />
+
+        <ImageView
+            android:id="@+id/boardG1"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:srcCompat="@drawable/darksquare"
+            tools:layout_editor_absoluteX="307dp"
+            tools:layout_editor_absoluteY="351dp" />
+
+        <ImageView
+            android:id="@+id/boardD1"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/lightsquare"
+            tools:layout_editor_absoluteX="157dp"
+            tools:layout_editor_absoluteY="351dp"
+            tools:srcCompat="@drawable/lightsquare" />
+
+        <ImageView
+            android:id="@+id/boardB1"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/lightsquare"
+            tools:layout_editor_absoluteX="58dp"
+            tools:layout_editor_absoluteY="351dp"
+            tools:srcCompat="@drawable/lightsquare" />
+
+        <ImageView
+            android:id="@+id/boardC1"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:srcCompat="@drawable/darksquare"
+            tools:layout_editor_absoluteX="107dp"
+            tools:layout_editor_absoluteY="351dp" />
+
+        <ImageView
+            android:id="@+id/boardF1"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/lightsquare"
+            tools:layout_editor_absoluteX="257dp"
+            tools:layout_editor_absoluteY="351dp"
+            tools:srcCompat="@drawable/lightsquare" />
+
+        <ImageView
+            android:id="@+id/boardG2"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/lightsquare"
+            tools:layout_editor_absoluteX="307dp"
+            tools:layout_editor_absoluteY="301dp"
+            tools:srcCompat="@drawable/lightsquare" />
+
+        <ImageView
+            android:id="@+id/boardH2"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:srcCompat="@drawable/darksquare"
+            tools:layout_editor_absoluteX="357dp"
+            tools:layout_editor_absoluteY="301dp" />
+
+        <ImageView
+            android:id="@+id/boardC2"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/lightsquare"
+            tools:layout_editor_absoluteX="107dp"
+            tools:layout_editor_absoluteY="301dp"
+            tools:srcCompat="@drawable/lightsquare" />
+
+        <ImageView
+            android:id="@+id/boardA2"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/lightsquare"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="301dp"
+            tools:srcCompat="@drawable/lightsquare" />
+
+        <ImageView
+            android:id="@+id/boardF2"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:srcCompat="@drawable/darksquare"
+            tools:layout_editor_absoluteX="257dp"
+            tools:layout_editor_absoluteY="301dp" />
+
+        <ImageView
+            android:id="@+id/boardB2"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:srcCompat="@drawable/darksquare"
+            tools:layout_editor_absoluteX="58dp"
+            tools:layout_editor_absoluteY="301dp" />
+
+        <ImageView
+            android:id="@+id/boardD2"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:srcCompat="@drawable/darksquare"
+            tools:layout_editor_absoluteX="157dp"
+            tools:layout_editor_absoluteY="301dp" />
+
+        <ImageView
+            android:id="@+id/boardE2"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/lightsquare"
+            tools:layout_editor_absoluteX="207dp"
+            tools:layout_editor_absoluteY="301dp"
+            tools:srcCompat="@drawable/lightsquare" />
+
+        <ImageView
+            android:id="@+id/boardB3"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/lightsquare"
+            tools:layout_editor_absoluteX="58dp"
+            tools:layout_editor_absoluteY="251dp"
+            tools:srcCompat="@drawable/lightsquare" />
+
+        <ImageView
+            android:id="@+id/boardG3"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:srcCompat="@drawable/darksquare"
+            tools:layout_editor_absoluteX="307dp"
+            tools:layout_editor_absoluteY="251dp" />
+
+        <ImageView
+            android:id="@+id/boardH3"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/lightsquare"
+            tools:layout_editor_absoluteX="357dp"
+            tools:layout_editor_absoluteY="251dp"
+            tools:srcCompat="@drawable/lightsquare" />
+
+        <ImageView
+            android:id="@+id/boardF3"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/lightsquare"
+            tools:layout_editor_absoluteX="257dp"
+            tools:layout_editor_absoluteY="251dp"
+            tools:srcCompat="@drawable/lightsquare" />
+
+        <ImageView
+            android:id="@+id/boardE3"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:srcCompat="@drawable/darksquare"
+            tools:layout_editor_absoluteX="207dp"
+            tools:layout_editor_absoluteY="251dp" />
+
+        <ImageView
+            android:id="@+id/boardC3"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:srcCompat="@drawable/darksquare"
+            tools:layout_editor_absoluteX="107dp"
+            tools:layout_editor_absoluteY="251dp" />
+
+        <ImageView
+            android:id="@+id/boardD3"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/lightsquare"
+            tools:layout_editor_absoluteX="157dp"
+            tools:layout_editor_absoluteY="251dp"
+            tools:srcCompat="@drawable/lightsquare" />
+
+        <ImageView
+            android:id="@+id/boardA3"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:srcCompat="@drawable/darksquare"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="251dp" />
+
+        <ImageView
+            android:id="@+id/boardE4"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/lightsquare"
+            tools:layout_editor_absoluteX="207dp"
+            tools:layout_editor_absoluteY="201dp"
+            tools:srcCompat="@drawable/lightsquare" />
+
+        <ImageView
+            android:id="@+id/boardA4"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/lightsquare"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="201dp"
+            tools:srcCompat="@drawable/lightsquare" />
+
+        <ImageView
+            android:id="@+id/boardD4"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:srcCompat="@drawable/darksquare"
+            tools:layout_editor_absoluteX="157dp"
+            tools:layout_editor_absoluteY="201dp" />
+
+        <ImageView
+            android:id="@+id/boardH4"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:srcCompat="@drawable/darksquare"
+            tools:layout_editor_absoluteX="357dp"
+            tools:layout_editor_absoluteY="201dp" />
+
+        <ImageView
+            android:id="@+id/boardF4"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:srcCompat="@drawable/darksquare"
+            tools:layout_editor_absoluteX="257dp"
+            tools:layout_editor_absoluteY="201dp" />
+
+        <ImageView
+            android:id="@+id/boardG4"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/lightsquare"
+            tools:layout_editor_absoluteX="307dp"
+            tools:layout_editor_absoluteY="201dp"
+            tools:srcCompat="@drawable/lightsquare" />
+
+        <ImageView
+            android:id="@+id/boardC4"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/lightsquare"
+            tools:layout_editor_absoluteX="107dp"
+            tools:layout_editor_absoluteY="201dp"
+            tools:srcCompat="@drawable/lightsquare" />
+
+        <ImageView
+            android:id="@+id/boardB4"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:srcCompat="@drawable/darksquare"
+            tools:layout_editor_absoluteX="58dp"
+            tools:layout_editor_absoluteY="201dp" />
+
+        <ImageView
+            android:id="@+id/boardF5"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/lightsquare"
+            tools:layout_editor_absoluteX="257dp"
+            tools:layout_editor_absoluteY="151dp"
+            tools:srcCompat="@drawable/lightsquare" />
+
+        <ImageView
+            android:id="@+id/boardD5"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/lightsquare"
+            tools:layout_editor_absoluteX="157dp"
+            tools:layout_editor_absoluteY="151dp"
+            tools:srcCompat="@drawable/lightsquare" />
+
+        <ImageView
+            android:id="@+id/boardB5"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/lightsquare"
+            tools:layout_editor_absoluteX="58dp"
+            tools:layout_editor_absoluteY="151dp"
+            tools:srcCompat="@drawable/lightsquare" />
+
+        <ImageView
+            android:id="@+id/boardE5"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:srcCompat="@drawable/darksquare"
+            tools:layout_editor_absoluteX="207dp"
+            tools:layout_editor_absoluteY="151dp" />
+
+        <ImageView
+            android:id="@+id/boardC5"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:srcCompat="@drawable/darksquare"
+            tools:layout_editor_absoluteX="107dp"
+            tools:layout_editor_absoluteY="151dp" />
+
+        <ImageView
+            android:id="@+id/boardH5"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/lightsquare"
+            tools:layout_editor_absoluteX="357dp"
+            tools:layout_editor_absoluteY="151dp"
+            tools:srcCompat="@drawable/lightsquare" />
+
+        <ImageView
+            android:id="@+id/boardA5"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:srcCompat="@drawable/darksquare"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="151dp" />
+
+        <ImageView
+            android:id="@+id/boardG5"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:srcCompat="@drawable/darksquare"
+            tools:layout_editor_absoluteX="307dp"
+            tools:layout_editor_absoluteY="151dp" />
+
+        <ImageView
+            android:id="@+id/boardD6"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:srcCompat="@drawable/darksquare"
+            tools:layout_editor_absoluteX="157dp"
+            tools:layout_editor_absoluteY="101dp" />
+
+        <ImageView
+            android:id="@+id/boardG6"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/lightsquare"
+            tools:layout_editor_absoluteX="307dp"
+            tools:layout_editor_absoluteY="101dp"
+            tools:srcCompat="@drawable/lightsquare" />
+
+        <ImageView
+            android:id="@+id/boardF6"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:srcCompat="@drawable/darksquare"
+            tools:layout_editor_absoluteX="257dp"
+            tools:layout_editor_absoluteY="101dp" />
+
+        <ImageView
+            android:id="@+id/boardA6"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/lightsquare"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="101dp"
+            tools:srcCompat="@drawable/lightsquare" />
+
+        <ImageView
+            android:id="@+id/boardC6"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/lightsquare"
+            tools:layout_editor_absoluteX="107dp"
+            tools:layout_editor_absoluteY="101dp"
+            tools:srcCompat="@drawable/lightsquare" />
+
+        <ImageView
+            android:id="@+id/boardB6"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:srcCompat="@drawable/darksquare"
+            tools:layout_editor_absoluteX="58dp"
+            tools:layout_editor_absoluteY="101dp" />
+
+        <ImageView
+            android:id="@+id/boardH6"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:srcCompat="@drawable/darksquare"
+            tools:layout_editor_absoluteX="357dp"
+            tools:layout_editor_absoluteY="101dp" />
+
+        <ImageView
+            android:id="@+id/boardE6"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/lightsquare"
+            tools:layout_editor_absoluteX="207dp"
+            tools:layout_editor_absoluteY="101dp"
+            tools:srcCompat="@drawable/lightsquare" />
+
+        <ImageView
+            android:id="@+id/boardG7"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:srcCompat="@drawable/darksquare"
+            tools:layout_editor_absoluteX="307dp"
+            tools:layout_editor_absoluteY="51dp" />
+
+        <ImageView
+            android:id="@+id/boardA7"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:srcCompat="@drawable/darksquare"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="51dp" />
+
+        <ImageView
+            android:id="@+id/boardE7"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:srcCompat="@drawable/darksquare"
+            tools:layout_editor_absoluteX="207dp"
+            tools:layout_editor_absoluteY="51dp" />
+
+        <ImageView
+            android:id="@+id/boardB7"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/lightsquare"
+            tools:layout_editor_absoluteX="58dp"
+            tools:layout_editor_absoluteY="51dp"
+            tools:srcCompat="@drawable/lightsquare" />
+
+        <ImageView
+            android:id="@+id/boardD7"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/lightsquare"
+            tools:layout_editor_absoluteX="157dp"
+            tools:layout_editor_absoluteY="51dp"
+            tools:srcCompat="@drawable/lightsquare" />
+
+        <ImageView
+            android:id="@+id/boardC7"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:srcCompat="@drawable/darksquare"
+            tools:layout_editor_absoluteX="107dp"
+            tools:layout_editor_absoluteY="51dp" />
+
+        <ImageView
+            android:id="@+id/boardF7"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/lightsquare"
+            tools:layout_editor_absoluteX="257dp"
+            tools:layout_editor_absoluteY="51dp"
+            tools:srcCompat="@drawable/lightsquare" />
+
+        <ImageView
+            android:id="@+id/boardH7"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/lightsquare"
+            tools:layout_editor_absoluteX="357dp"
+            tools:layout_editor_absoluteY="51dp"
+            tools:srcCompat="@drawable/lightsquare" />
+
+        <ImageView
+            android:id="@+id/boardE8"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/lightsquare"
+            tools:layout_editor_absoluteX="207dp"
+            tools:layout_editor_absoluteY="1dp"
+            tools:srcCompat="@drawable/lightsquare" />
+
+        <ImageView
+            android:id="@+id/boardF8"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:srcCompat="@drawable/darksquare"
+            tools:layout_editor_absoluteX="257dp"
+            tools:layout_editor_absoluteY="1dp" />
+
+        <ImageView
+            android:id="@+id/boardG8"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/lightsquare"
+            tools:layout_editor_absoluteX="307dp"
+            tools:layout_editor_absoluteY="1dp"
+            tools:srcCompat="@drawable/lightsquare" />
+
+        <ImageView
+            android:id="@+id/boardH8"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:srcCompat="@drawable/darksquare"
+            tools:layout_editor_absoluteX="357dp"
+            tools:layout_editor_absoluteY="1dp" />
+
+        <ImageView
+            android:id="@+id/boardA8"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/lightsquare"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="1dp"
+            tools:srcCompat="@drawable/lightsquare" />
+
+        <ImageView
+            android:id="@+id/boardB8"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:srcCompat="@drawable/darksquare"
+            tools:layout_editor_absoluteX="58dp"
+            tools:layout_editor_absoluteY="1dp" />
+
+        <ImageView
+            android:id="@+id/boardC8"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/lightsquare"
+            tools:layout_editor_absoluteX="107dp"
+            tools:layout_editor_absoluteY="1dp"
+            tools:srcCompat="@drawable/lightsquare" />
+
+        <ImageView
+            android:id="@+id/boardD8"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:srcCompat="@drawable/darksquare"
+            tools:layout_editor_absoluteX="157dp"
+            tools:layout_editor_absoluteY="1dp" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/pieceLayout"
+            android:layout_width="409dp"
+            android:layout_height="409dp"
+            android:layout_marginStart="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/rookWhite1"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                app:srcCompat="@drawable/whiterook"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="0dp"
+                tools:srcCompat="@drawable/whiterook" />
+
+            <ImageView
+                android:id="@+id/knightWhite1"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                app:srcCompat="@drawable/whiteknight"
+                tools:layout_editor_absoluteX="50dp"
+                tools:layout_editor_absoluteY="0dp"
+                tools:srcCompat="@drawable/whiteknight" />
+
+            <ImageView
+                android:id="@+id/knightWhite2"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                app:srcCompat="@drawable/whiteknight"
+                tools:layout_editor_absoluteX="299dp"
+                tools:layout_editor_absoluteY="0dp"
+                tools:srcCompat="@drawable/whiteknight" />
+
+            <ImageView
+                android:id="@+id/bishopWhite1"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                app:srcCompat="@drawable/whitebishop"
+                tools:layout_editor_absoluteX="100dp"
+                tools:layout_editor_absoluteY="0dp"
+                tools:srcCompat="@drawable/whitebishop" />
+
+            <ImageView
+                android:id="@+id/bishopWhite2"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                app:srcCompat="@drawable/whitebishop"
+                tools:layout_editor_absoluteX="249dp"
+                tools:layout_editor_absoluteY="0dp"
+                tools:srcCompat="@drawable/whitebishop" />
+
+            <ImageView
+                android:id="@+id/queenWhite"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                app:srcCompat="@drawable/whitequeen"
+                tools:layout_editor_absoluteX="149dp"
+                tools:layout_editor_absoluteY="0dp"
+                tools:srcCompat="@drawable/whitequeen" />
+
+            <ImageView
+                android:id="@+id/kingWhite"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                app:srcCompat="@drawable/whiteking"
+                tools:layout_editor_absoluteX="199dp"
+                tools:layout_editor_absoluteY="0dp"
+                tools:srcCompat="@drawable/whiteking" />
+
+            <ImageView
+                android:id="@+id/rookWhite2"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                app:srcCompat="@drawable/whiterook"
+                tools:layout_editor_absoluteX="349dp"
+                tools:layout_editor_absoluteY="0dp"
+                tools:srcCompat="@drawable/whiterook" />
+
+            <ImageView
+                android:id="@+id/pawnWhite1"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/whitepawn"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="50dp"
+                tools:srcCompat="@drawable/whitepawn" />
+
+            <ImageView
+                android:id="@+id/pawnWhite2"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/whitepawn"
+                tools:layout_editor_absoluteX="50dp"
+                tools:layout_editor_absoluteY="50dp"
+                tools:srcCompat="@drawable/whitepawn" />
+
+            <ImageView
+                android:id="@+id/pawnWhite3"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/whitepawn"
+                tools:layout_editor_absoluteX="100dp"
+                tools:layout_editor_absoluteY="50dp"
+                tools:srcCompat="@drawable/whitepawn" />
+
+            <ImageView
+                android:id="@+id/pawnWhite4"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/whitepawn"
+                tools:layout_editor_absoluteX="150dp"
+                tools:layout_editor_absoluteY="50dp"
+                tools:srcCompat="@drawable/whitepawn" />
+
+            <ImageView
+                android:id="@+id/pawnWhite5"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/whitepawn"
+                tools:layout_editor_absoluteX="199dp"
+                tools:layout_editor_absoluteY="50dp"
+                tools:srcCompat="@drawable/whitepawn" />
+
+            <ImageView
+                android:id="@+id/pawnWhite6"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/whitepawn"
+                tools:layout_editor_absoluteX="250dp"
+                tools:layout_editor_absoluteY="50dp"
+                tools:srcCompat="@drawable/whitepawn" />
+
+            <ImageView
+                android:id="@+id/pawnWhite7"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/whitepawn"
+                tools:layout_editor_absoluteX="300dp"
+                tools:layout_editor_absoluteY="50dp"
+                tools:srcCompat="@drawable/whitepawn" />
+
+            <ImageView
+                android:id="@+id/pawnWhite8"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/whitepawn"
+                tools:layout_editor_absoluteX="350dp"
+                tools:layout_editor_absoluteY="50dp"
+                tools:srcCompat="@drawable/whitepawn" />
+
+            <ImageView
+                android:id="@+id/pawnBlack8"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/blackpawn"
+                tools:layout_editor_absoluteX="299dp"
+                tools:layout_editor_absoluteY="301dp"
+                tools:srcCompat="@drawable/blackpawn" />
+
+            <ImageView
+                android:id="@+id/pawnBlack7"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/blackpawn"
+                tools:layout_editor_absoluteX="349dp"
+                tools:layout_editor_absoluteY="301dp"
+                tools:srcCompat="@drawable/blackpawn" />
+
+            <ImageView
+                android:id="@+id/pawnBlack6"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/blackpawn"
+                tools:layout_editor_absoluteX="199dp"
+                tools:layout_editor_absoluteY="301dp"
+                tools:srcCompat="@drawable/blackpawn" />
+
+            <ImageView
+                android:id="@+id/pawnBlack5"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/blackpawn"
+                tools:layout_editor_absoluteX="249dp"
+                tools:layout_editor_absoluteY="301dp"
+                tools:srcCompat="@drawable/blackpawn" />
+
+            <ImageView
+                android:id="@+id/pawnBlack4"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/blackpawn"
+                tools:layout_editor_absoluteX="149dp"
+                tools:layout_editor_absoluteY="301dp"
+                tools:srcCompat="@drawable/blackpawn" />
+
+            <ImageView
+                android:id="@+id/pawnBlack3"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/blackpawn"
+                tools:layout_editor_absoluteX="99dp"
+                tools:layout_editor_absoluteY="301dp"
+                tools:srcCompat="@drawable/blackpawn" />
+
+            <ImageView
+                android:id="@+id/pawnBlack2"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/blackpawn"
+                tools:layout_editor_absoluteX="49dp"
+                tools:layout_editor_absoluteY="301dp"
+                tools:srcCompat="@drawable/blackpawn" />
+
+            <ImageView
+                android:id="@+id/pawnBlack1"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/blackpawn"
+                tools:layout_editor_absoluteX="-2dp"
+                tools:layout_editor_absoluteY="301dp"
+                tools:srcCompat="@drawable/blackpawn" />
+
+            <ImageView
+                android:id="@+id/rookBlack1"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                app:srcCompat="@drawable/blackrook"
+                tools:layout_editor_absoluteX="-1dp"
+                tools:layout_editor_absoluteY="351dp"
+                tools:srcCompat="@drawable/blackrook" />
+
+            <ImageView
+                android:id="@+id/rookBlack2"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                app:srcCompat="@drawable/blackrook"
+                tools:layout_editor_absoluteX="349dp"
+                tools:layout_editor_absoluteY="351dp"
+                tools:srcCompat="@drawable/blackrook" />
+
+            <ImageView
+                android:id="@+id/knightBlack1"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                app:srcCompat="@drawable/blackknight"
+                tools:layout_editor_absoluteX="50dp"
+                tools:layout_editor_absoluteY="351dp"
+                tools:srcCompat="@drawable/blackknight" />
+
+            <ImageView
+                android:id="@+id/knightBlack2"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                app:srcCompat="@drawable/blackknight"
+                tools:layout_editor_absoluteX="299dp"
+                tools:layout_editor_absoluteY="351dp"
+                tools:srcCompat="@drawable/blackknight" />
+
+            <ImageView
+                android:id="@+id/bishopBlack1"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                app:srcCompat="@drawable/blackbishop"
+                tools:layout_editor_absoluteX="100dp"
+                tools:layout_editor_absoluteY="351dp"
+                tools:srcCompat="@drawable/blackbishop" />
+
+            <ImageView
+                android:id="@+id/bishopBlack2"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                app:srcCompat="@drawable/blackbishop"
+                tools:layout_editor_absoluteX="249dp"
+                tools:layout_editor_absoluteY="351dp"
+                tools:srcCompat="@drawable/blackbishop" />
+
+            <ImageView
+                android:id="@+id/queenBlack"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                app:srcCompat="@drawable/blackqueen"
+                tools:layout_editor_absoluteX="149dp"
+                tools:layout_editor_absoluteY="351dp"
+                tools:srcCompat="@drawable/blackqueen" />
+
+            <ImageView
+                android:id="@+id/kingBlack"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                app:srcCompat="@drawable/blackking"
+                tools:layout_editor_absoluteX="199dp"
+                tools:layout_editor_absoluteY="351dp"
+                tools:srcCompat="@drawable/blackking" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageButton
+        android:id="@+id/newGameButton"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/timerText"
+        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintStart_toEndOf="@+id/backButton"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.161" />
-
-    <ImageView
-        android:id="@+id/boardG6"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:scaleType="fitXY"
-        app:srcCompat="@drawable/lightsquare"
-        tools:layout_editor_absoluteX="307dp"
-        tools:layout_editor_absoluteY="273dp"
-        tools:srcCompat="@drawable/lightsquare" />
-
-    <ImageView
-        android:id="@+id/boardC6"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:scaleType="fitXY"
-        app:srcCompat="@drawable/lightsquare"
-        tools:layout_editor_absoluteX="107dp"
-        tools:layout_editor_absoluteY="273dp"
-        tools:srcCompat="@drawable/lightsquare" />
-
-    <ImageView
-        android:id="@+id/boardB6"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        app:srcCompat="@drawable/darksquare"
-        tools:layout_editor_absoluteX="58dp"
-        tools:layout_editor_absoluteY="273dp" />
-
-    <ImageView
-        android:id="@+id/boardE6"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:scaleType="fitXY"
-        app:srcCompat="@drawable/lightsquare"
-        tools:layout_editor_absoluteX="207dp"
-        tools:layout_editor_absoluteY="273dp"
-        tools:srcCompat="@drawable/lightsquare" />
-
-    <ImageView
-        android:id="@+id/boardD6"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        app:srcCompat="@drawable/darksquare"
-        tools:layout_editor_absoluteX="157dp"
-        tools:layout_editor_absoluteY="273dp" />
-
-    <ImageView
-        android:id="@+id/boardH6"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        app:srcCompat="@drawable/darksquare"
-        tools:layout_editor_absoluteX="357dp"
-        tools:layout_editor_absoluteY="273dp" />
-
-    <ImageView
-        android:id="@+id/boardA6"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:scaleType="fitXY"
-        app:srcCompat="@drawable/lightsquare"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="273dp"
-        tools:srcCompat="@drawable/lightsquare" />
-
-    <ImageView
-        android:id="@+id/boardF6"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        app:srcCompat="@drawable/darksquare"
-        tools:layout_editor_absoluteX="257dp"
-        tools:layout_editor_absoluteY="273dp" />
+        app:layout_constraintVertical_bias="0.023"
+        app:srcCompat="@drawable/back_image"
+        tools:srcCompat="@drawable/new_game_image" />
 
     <TextView
-        android:id="@+id/player2NameText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Player2"
+        android:id="@+id/newGameText"
+        android:layout_width="50dp"
+        android:layout_height="19dp"
+        android:layout_marginStart="92dp"
+        android:text="@string/newgame_text"
+        android:textAlignment="center"
         android:textColor="@color/white"
-        android:textSize="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="66dp" />
+
+    <TextView
+        android:id="@+id/backText"
+        android:layout_width="50dp"
+        android:layout_height="19dp"
+        android:layout_marginStart="16dp"
+        android:text="@string/back_text"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="66dp" />
+
+    <ImageButton
+        android:id="@+id/resignButton"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.931"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.6"
+        app:layout_constraintStart_toEndOf="@+id/endButton"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.838" />
+        app:layout_constraintVertical_bias="0.023"
+        app:srcCompat="@drawable/back_image"
+        tools:srcCompat="@drawable/resign_image" />
 
-    <ImageView
-        android:id="@+id/boardC3"
+    <ImageButton
+        android:id="@+id/endButton"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        app:srcCompat="@drawable/darksquare"
-        tools:layout_editor_absoluteX="107dp"
-        tools:layout_editor_absoluteY="423dp" />
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.25"
+        app:layout_constraintStart_toEndOf="@+id/timerText"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.023"
+        app:srcCompat="@drawable/back_image"
+        tools:srcCompat="@drawable/draw_chess_image" />
 
-    <ImageView
-        android:id="@+id/boardE3"
+    <TextView
+        android:id="@+id/endText"
         android:layout_width="50dp"
-        android:layout_height="50dp"
-        app:srcCompat="@drawable/darksquare"
-        tools:layout_editor_absoluteX="207dp"
-        tools:layout_editor_absoluteY="423dp" />
-
-    <ImageView
-        android:id="@+id/boardF3"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:scaleType="fitXY"
-        app:srcCompat="@drawable/lightsquare"
-        tools:layout_editor_absoluteX="257dp"
-        tools:layout_editor_absoluteY="423dp"
-        tools:srcCompat="@drawable/lightsquare" />
-
-    <ImageView
-        android:id="@+id/boardG3"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        app:srcCompat="@drawable/darksquare"
-        tools:layout_editor_absoluteX="307dp"
-        tools:layout_editor_absoluteY="423dp" />
-
-    <ImageView
-        android:id="@+id/boardH3"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:scaleType="fitXY"
-        app:srcCompat="@drawable/lightsquare"
-        tools:layout_editor_absoluteX="357dp"
-        tools:layout_editor_absoluteY="423dp"
-        tools:srcCompat="@drawable/lightsquare" />
-
-    <ImageView
-        android:id="@+id/boardD3"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:scaleType="fitXY"
-        app:srcCompat="@drawable/lightsquare"
-        tools:layout_editor_absoluteX="157dp"
-        tools:layout_editor_absoluteY="423dp"
-        tools:srcCompat="@drawable/lightsquare" />
-
-    <ImageView
-        android:id="@+id/boardB3"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:scaleType="fitXY"
-        app:srcCompat="@drawable/lightsquare"
-        tools:layout_editor_absoluteX="58dp"
-        tools:layout_editor_absoluteY="423dp"
-        tools:srcCompat="@drawable/lightsquare" />
-
-    <ImageView
-        android:id="@+id/boardA3"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        app:srcCompat="@drawable/darksquare"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="423dp" />
+        android:layout_height="19dp"
+        android:text="@string/end_text"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        tools:layout_editor_absoluteX="271dp"
+        tools:layout_editor_absoluteY="66dp" />
 
     <ImageButton
         android:id="@+id/backButton"
@@ -194,490 +1002,63 @@
         app:layout_constraintVertical_bias="0.023"
         app:srcCompat="@drawable/back_image" />
 
-    <ImageButton
-        android:id="@+id/newGameButton"
+    <TextView
+        android:id="@+id/resignText"
         android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:adjustViewBounds="true"
-        android:scaleType="fitCenter"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/timerText"
-        app:layout_constraintHorizontal_bias="0.49"
-        app:layout_constraintStart_toEndOf="@+id/backButton"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.023"
-        app:srcCompat="@drawable/back_image" />
+        android:layout_height="19dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/resign_text"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:layout_editor_absoluteY="66dp" />
 
-    <ImageButton
-        android:id="@+id/endButton"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:adjustViewBounds="true"
-        android:scaleType="fitCenter"
+    <TextView
+        android:id="@+id/player1NameText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Player1"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.25"
-        app:layout_constraintStart_toEndOf="@+id/timerText"
+        app:layout_constraintHorizontal_bias="0.072"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.023"
-        app:srcCompat="@drawable/back_image" />
+        app:layout_constraintVertical_bias="0.161" />
 
-    <ImageButton
-        android:id="@+id/resignButton"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:adjustViewBounds="true"
-        android:scaleType="fitCenter"
+    <TextView
+        android:id="@+id/player2NameText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Player2"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.6"
-        app:layout_constraintStart_toEndOf="@+id/endButton"
+        app:layout_constraintHorizontal_bias="0.931"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.023"
-        app:srcCompat="@drawable/back_image" />
+        app:layout_constraintVertical_bias="0.838" />
 
     <TextView
         android:id="@+id/timerText"
         android:layout_width="72dp"
         android:layout_height="50dp"
-        android:layout_marginTop="16dp"
+        android:text="@string/timer_text"
+        android:textAlignment="center"
+        android:textAllCaps="true"
         android:textColor="@color/white"
-        android:visibility="invisible"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/boardH2"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        app:srcCompat="@drawable/darksquare"
-        tools:layout_editor_absoluteX="357dp"
-        tools:layout_editor_absoluteY="473dp" />
-
-    <ImageView
-        android:id="@+id/boardA2"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:scaleType="fitXY"
-        app:srcCompat="@drawable/lightsquare"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="473dp"
-        tools:srcCompat="@drawable/lightsquare" />
-
-    <ImageView
-        android:id="@+id/boardG2"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:scaleType="fitXY"
-        app:srcCompat="@drawable/lightsquare"
-        tools:layout_editor_absoluteX="307dp"
-        tools:layout_editor_absoluteY="473dp"
-        tools:srcCompat="@drawable/lightsquare" />
-
-    <ImageView
-        android:id="@+id/boardB2"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        app:srcCompat="@drawable/darksquare"
-        tools:layout_editor_absoluteX="58dp"
-        tools:layout_editor_absoluteY="473dp" />
-
-    <ImageView
-        android:id="@+id/boardC2"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:scaleType="fitXY"
-        app:srcCompat="@drawable/lightsquare"
-        tools:layout_editor_absoluteX="107dp"
-        tools:layout_editor_absoluteY="473dp"
-        tools:srcCompat="@drawable/lightsquare" />
-
-    <ImageView
-        android:id="@+id/boardE2"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:scaleType="fitXY"
-        app:srcCompat="@drawable/lightsquare"
-        tools:layout_editor_absoluteX="207dp"
-        tools:layout_editor_absoluteY="473dp"
-        tools:srcCompat="@drawable/lightsquare" />
-
-    <ImageView
-        android:id="@+id/boardD2"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        app:srcCompat="@drawable/darksquare"
-        tools:layout_editor_absoluteX="157dp"
-        tools:layout_editor_absoluteY="473dp" />
-
-    <ImageView
-        android:id="@+id/boardF2"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        app:srcCompat="@drawable/darksquare"
-        tools:layout_editor_absoluteX="257dp"
-        tools:layout_editor_absoluteY="473dp" />
-
-    <ImageView
-        android:id="@+id/boardG7"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        app:srcCompat="@drawable/darksquare"
-        tools:layout_editor_absoluteX="307dp"
-        tools:layout_editor_absoluteY="223dp" />
-
-    <ImageView
-        android:id="@+id/boardA7"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        app:srcCompat="@drawable/darksquare"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="223dp" />
-
-    <ImageView
-        android:id="@+id/boardB7"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:scaleType="fitXY"
-        app:srcCompat="@drawable/lightsquare"
-        tools:layout_editor_absoluteX="58dp"
-        tools:layout_editor_absoluteY="223dp"
-        tools:srcCompat="@drawable/lightsquare" />
-
-    <ImageView
-        android:id="@+id/boardF7"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:scaleType="fitXY"
-        app:srcCompat="@drawable/lightsquare"
-        tools:layout_editor_absoluteX="257dp"
-        tools:layout_editor_absoluteY="223dp"
-        tools:srcCompat="@drawable/lightsquare" />
-
-    <ImageView
-        android:id="@+id/boardH7"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:scaleType="fitXY"
-        app:srcCompat="@drawable/lightsquare"
-        tools:layout_editor_absoluteX="357dp"
-        tools:layout_editor_absoluteY="223dp"
-        tools:srcCompat="@drawable/lightsquare" />
-
-    <ImageView
-        android:id="@+id/boardC7"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        app:srcCompat="@drawable/darksquare"
-        tools:layout_editor_absoluteX="107dp"
-        tools:layout_editor_absoluteY="223dp" />
-
-    <ImageView
-        android:id="@+id/boardD7"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:scaleType="fitXY"
-        app:srcCompat="@drawable/lightsquare"
-        tools:layout_editor_absoluteX="157dp"
-        tools:layout_editor_absoluteY="223dp"
-        tools:srcCompat="@drawable/lightsquare" />
-
-    <ImageView
-        android:id="@+id/boardE7"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        app:srcCompat="@drawable/darksquare"
-        tools:layout_editor_absoluteX="207dp"
-        tools:layout_editor_absoluteY="223dp" />
-
-    <ImageView
-        android:id="@+id/boardG4"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:scaleType="fitXY"
-        app:srcCompat="@drawable/lightsquare"
-        tools:layout_editor_absoluteX="307dp"
-        tools:layout_editor_absoluteY="373dp"
-        tools:srcCompat="@drawable/lightsquare" />
-
-    <ImageView
-        android:id="@+id/boardB4"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        app:srcCompat="@drawable/darksquare"
-        tools:layout_editor_absoluteX="58dp"
-        tools:layout_editor_absoluteY="373dp" />
-
-    <ImageView
-        android:id="@+id/boardA4"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:scaleType="fitXY"
-        app:srcCompat="@drawable/lightsquare"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="373dp"
-        tools:srcCompat="@drawable/lightsquare" />
-
-    <ImageView
-        android:id="@+id/boardD4"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        app:srcCompat="@drawable/darksquare"
-        tools:layout_editor_absoluteX="157dp"
-        tools:layout_editor_absoluteY="373dp" />
-
-    <ImageView
-        android:id="@+id/boardC4"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:scaleType="fitXY"
-        app:srcCompat="@drawable/lightsquare"
-        tools:layout_editor_absoluteX="107dp"
-        tools:layout_editor_absoluteY="373dp"
-        tools:srcCompat="@drawable/lightsquare" />
-
-    <ImageView
-        android:id="@+id/boardH4"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        app:srcCompat="@drawable/darksquare"
-        tools:layout_editor_absoluteX="357dp"
-        tools:layout_editor_absoluteY="373dp" />
-
-    <ImageView
-        android:id="@+id/boardF4"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        app:srcCompat="@drawable/darksquare"
-        tools:layout_editor_absoluteX="257dp"
-        tools:layout_editor_absoluteY="373dp" />
-
-    <ImageView
-        android:id="@+id/boardE4"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:scaleType="fitXY"
-        app:srcCompat="@drawable/lightsquare"
-        tools:layout_editor_absoluteX="207dp"
-        tools:layout_editor_absoluteY="373dp"
-        tools:srcCompat="@drawable/lightsquare" />
-
-    <ImageView
-        android:id="@+id/boardA8"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:scaleType="fitXY"
-        app:layout_constraintEnd_toStartOf="@+id/boardB8"
-        app:srcCompat="@drawable/lightsquare"
-        tools:layout_editor_absoluteY="173dp"
-        tools:srcCompat="@drawable/lightsquare" />
-
-    <ImageView
-        android:id="@+id/boardB8"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        app:layout_constraintEnd_toStartOf="@+id/boardC8"
-        app:srcCompat="@drawable/darksquare"
-        tools:layout_editor_absoluteY="173dp" />
-
-    <ImageView
-        android:id="@+id/boardC8"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:scaleType="fitXY"
-        app:layout_constraintEnd_toStartOf="@+id/boardD8"
-        app:srcCompat="@drawable/lightsquare"
-        tools:layout_editor_absoluteY="173dp"
-        tools:srcCompat="@drawable/lightsquare" />
-
-    <ImageView
-        android:id="@+id/boardD8"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        app:layout_constraintEnd_toStartOf="@+id/boardE8"
-        app:srcCompat="@drawable/darksquare"
-        tools:layout_editor_absoluteY="173dp" />
-
-    <ImageView
-        android:id="@+id/boardE8"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:scaleType="fitXY"
-        app:layout_constraintEnd_toStartOf="@+id/boardF8"
-        app:srcCompat="@drawable/lightsquare"
-        tools:layout_editor_absoluteY="173dp"
-        tools:srcCompat="@drawable/lightsquare" />
-
-    <ImageView
-        android:id="@+id/boardF8"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        app:layout_constraintEnd_toStartOf="@+id/boardG8"
-        app:srcCompat="@drawable/darksquare"
-        tools:layout_editor_absoluteY="173dp" />
-
-    <ImageView
-        android:id="@+id/boardG8"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:scaleType="fitXY"
-        app:layout_constraintEnd_toStartOf="@+id/boardH8"
-        app:srcCompat="@drawable/lightsquare"
-        tools:layout_editor_absoluteY="173dp"
-        tools:srcCompat="@drawable/lightsquare" />
-
-    <ImageView
-        android:id="@+id/boardH8"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        app:srcCompat="@drawable/darksquare"
-        tools:layout_editor_absoluteX="357dp"
-        tools:layout_editor_absoluteY="173dp" />
-
-    <ImageView
-        android:id="@+id/boardD5"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:scaleType="fitXY"
-        app:srcCompat="@drawable/lightsquare"
-        tools:layout_editor_absoluteX="157dp"
-        tools:layout_editor_absoluteY="323dp"
-        tools:srcCompat="@drawable/lightsquare" />
-
-    <ImageView
-        android:id="@+id/boardG5"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        app:srcCompat="@drawable/darksquare"
-        tools:layout_editor_absoluteX="307dp"
-        tools:layout_editor_absoluteY="323dp" />
-
-    <ImageView
-        android:id="@+id/boardF5"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:scaleType="fitXY"
-        app:srcCompat="@drawable/lightsquare"
-        tools:layout_editor_absoluteX="257dp"
-        tools:layout_editor_absoluteY="323dp"
-        tools:srcCompat="@drawable/lightsquare" />
-
-    <ImageView
-        android:id="@+id/boardC5"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        app:srcCompat="@drawable/darksquare"
-        tools:layout_editor_absoluteX="107dp"
-        tools:layout_editor_absoluteY="323dp" />
-
-    <ImageView
-        android:id="@+id/boardA5"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        app:srcCompat="@drawable/darksquare"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="323dp" />
-
-    <ImageView
-        android:id="@+id/boardE5"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        app:srcCompat="@drawable/darksquare"
-        tools:layout_editor_absoluteX="207dp"
-        tools:layout_editor_absoluteY="323dp" />
-
-    <ImageView
-        android:id="@+id/boardB5"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:scaleType="fitXY"
-        app:srcCompat="@drawable/lightsquare"
-        tools:layout_editor_absoluteX="58dp"
-        tools:layout_editor_absoluteY="323dp"
-        tools:srcCompat="@drawable/lightsquare" />
-
-    <ImageView
-        android:id="@+id/boardH5"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:scaleType="fitXY"
-        app:srcCompat="@drawable/lightsquare"
-        tools:layout_editor_absoluteX="357dp"
-        tools:layout_editor_absoluteY="323dp"
-        tools:srcCompat="@drawable/lightsquare" />
-
-    <ImageView
-        android:id="@+id/boardH1"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:scaleType="fitXY"
-        app:srcCompat="@drawable/lightsquare"
-        tools:layout_editor_absoluteX="357dp"
-        tools:layout_editor_absoluteY="523dp"
-        tools:srcCompat="@drawable/lightsquare" />
-
-    <ImageView
-        android:id="@+id/boardB1"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:scaleType="fitXY"
-        app:srcCompat="@drawable/lightsquare"
-        tools:layout_editor_absoluteX="58dp"
-        tools:layout_editor_absoluteY="523dp"
-        tools:srcCompat="@drawable/lightsquare" />
-
-    <ImageView
-        android:id="@+id/boardG1"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        app:srcCompat="@drawable/darksquare"
-        tools:layout_editor_absoluteX="307dp"
-        tools:layout_editor_absoluteY="523dp" />
-
-    <ImageView
-        android:id="@+id/boardF1"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:scaleType="fitXY"
-        app:srcCompat="@drawable/lightsquare"
-        tools:layout_editor_absoluteX="257dp"
-        tools:layout_editor_absoluteY="523dp"
-        tools:srcCompat="@drawable/lightsquare" />
-
-    <ImageView
-        android:id="@+id/boardC1"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        app:srcCompat="@drawable/darksquare"
-        tools:layout_editor_absoluteX="107dp"
-        tools:layout_editor_absoluteY="523dp" />
-
-    <ImageView
-        android:id="@+id/boardA1"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        app:srcCompat="@drawable/darksquare"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="523dp" />
-
-    <ImageView
-        android:id="@+id/boardE1"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        app:srcCompat="@drawable/darksquare"
-        tools:layout_editor_absoluteX="207dp"
-        tools:layout_editor_absoluteY="523dp" />
-
-    <ImageView
-        android:id="@+id/boardD1"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:scaleType="fitXY"
-        app:srcCompat="@drawable/lightsquare"
-        tools:layout_editor_absoluteX="157dp"
-        tools:layout_editor_absoluteY="523dp"
-        tools:srcCompat="@drawable/lightsquare" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.023" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
