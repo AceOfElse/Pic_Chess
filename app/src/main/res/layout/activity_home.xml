@@ -21,7 +21,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.976"
-        app:srcCompat="@drawable/back_image"
+        app:srcCompat="@drawable/setting_image"
         tools:srcCompat="@drawable/setting_image" />
 
     <TextView
@@ -44,26 +44,26 @@
         android:id="@+id/chessPreviewImage"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:background="@drawable/lightsquare"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.269"
+        app:srcCompat="@drawable/chess_preview_image"
         tools:srcCompat="@drawable/chess_preview_image" />
 
     <ImageView
         android:id="@+id/drawPreviewImage"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:background="@drawable/lightsquare"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.775"
+        app:layout_constraintVertical_bias="0.785"
+        app:srcCompat="@drawable/chesspic_preview_image"
         tools:srcCompat="@drawable/chesspic_preview_image" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

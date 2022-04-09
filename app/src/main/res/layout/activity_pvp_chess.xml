@@ -923,7 +923,7 @@
         app:layout_constraintStart_toEndOf="@+id/backButton"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.023"
-        app:srcCompat="@drawable/back_image"
+        app:srcCompat="@drawable/new_game_image"
         tools:srcCompat="@drawable/new_game_image" />
 
     <TextView
@@ -960,7 +960,7 @@
         app:layout_constraintStart_toEndOf="@+id/endButton"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.023"
-        app:srcCompat="@drawable/back_image"
+        app:srcCompat="@drawable/resign_image"
         tools:srcCompat="@drawable/resign_image" />
 
     <ImageButton
@@ -975,7 +975,7 @@
         app:layout_constraintStart_toEndOf="@+id/timerText"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.023"
-        app:srcCompat="@drawable/back_image"
+        app:srcCompat="@drawable/draw_chess_image"
         tools:srcCompat="@drawable/draw_chess_image" />
 
     <TextView
