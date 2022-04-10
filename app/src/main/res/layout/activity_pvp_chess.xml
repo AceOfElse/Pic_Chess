@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/pvpChessLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:alpha="0.9"
@@ -15,10 +16,8 @@
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/timerText"
-        app:layout_constraintVertical_bias="0.371">
+        app:layout_constraintTop_toBottomOf="@+id/timerText">
 
         <ImageView
             android:id="@+id/boardA1"
@@ -34,7 +33,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="1.0"
-            app:srcCompat="@drawable/darksquare" />
+            app:srcCompat="@drawable/darksquare"
+            tools:ignore="ContentDescription" />
 
         <ImageView
             android:id="@+id/boardG1"
@@ -50,7 +50,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
-            app:srcCompat="@drawable/darksquare" />
+            app:srcCompat="@drawable/darksquare"
+            tools:ignore="ContentDescription" />
 
         <ImageView
             android:id="@+id/boardD1"
@@ -119,6 +120,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
             app:srcCompat="@drawable/lightsquare"
+            tools:ignore="ImageContrastCheck"
             tools:srcCompat="@drawable/lightsquare" />
 
         <ImageView
@@ -167,7 +169,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/darksquare" />
+            app:srcCompat="@drawable/darksquare"
+            tools:ignore="ImageContrastCheck" />
 
         <ImageView
             android:id="@+id/boardC2"
@@ -1619,6 +1622,7 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:adjustViewBounds="true"
+        android:contentDescription="@string/empty_string_text"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/timerText"
@@ -1626,7 +1630,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.023"
-        app:srcCompat="@drawable/back_image" />
+        app:srcCompat="@drawable/back_image"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <ImageButton
         android:id="@+id/newGameButton"
@@ -1642,6 +1647,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.023"
         app:srcCompat="@drawable/new_game_image"
+        tools:ignore="SpeakableTextPresentCheck"
         tools:srcCompat="@drawable/new_game_image" />
 
     <ImageButton
@@ -1649,6 +1655,7 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:adjustViewBounds="true"
+        android:contentDescription="@string/empty_string_text"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -1657,6 +1664,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.023"
         app:srcCompat="@drawable/resign_image"
+        tools:ignore="SpeakableTextPresentCheck"
         tools:srcCompat="@drawable/resign_image" />
 
     <ImageButton
@@ -1664,6 +1672,7 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:adjustViewBounds="true"
+        android:contentDescription="@string/empty_string_text"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -1672,69 +1681,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.023"
         app:srcCompat="@drawable/draw_chess_image"
+        tools:ignore="SpeakableTextPresentCheck"
         tools:srcCompat="@drawable/draw_chess_image" />
-
-    <TextView
-        android:id="@+id/backText"
-        android:layout_width="50dp"
-        android:layout_height="19dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="345dp"
-        android:layout_marginBottom="646dp"
-        android:text="@string/back_text"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/backButton" />
-
-    <TextView
-        android:id="@+id/newGameText"
-        android:layout_width="50dp"
-        android:layout_height="19dp"
-        android:layout_marginStart="92dp"
-        android:layout_marginEnd="269dp"
-        android:layout_marginBottom="646dp"
-        android:text="@string/newgame_text"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/newGameButton"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
-        android:id="@+id/endText"
-        android:layout_width="50dp"
-        android:layout_height="19dp"
-        android:layout_marginStart="271dp"
-        android:layout_marginEnd="90dp"
-        android:layout_marginBottom="646dp"
-        android:text="@string/end_text"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/endButton" />
-
-    <TextView
-        android:id="@+id/resignText"
-        android:layout_width="50dp"
-        android:layout_height="19dp"
-        android:layout_marginStart="346dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="646dp"
-        android:text="@string/resign_text"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/resignButton" />
 
     <TextView
         android:id="@+id/player1NameText"
@@ -1746,10 +1694,10 @@
         android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/boardLayout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.049"
+        app:layout_constraintHorizontal_bias="0.046"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.791" />
+        app:layout_constraintTop_toBottomOf="@+id/timerText"
+        app:layout_constraintVertical_bias="0.386" />
 
     <TextView
         android:id="@+id/player2NameText"

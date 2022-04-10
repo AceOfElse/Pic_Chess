@@ -28,6 +28,7 @@ public class PvpChessActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pvp_chess);
 
+
         backButton = findViewById(R.id.backButton);
         newGameButton = findViewById(R.id.newGameButton);
         endButton = findViewById(R.id.endButton);
@@ -140,7 +141,7 @@ public class PvpChessActivity extends AppCompatActivity {
             pieceImages.add(findViewById(R.id.rookWhite2));
         }
 
-        //Set listeners
+        //Set button listeners
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -10,13 +10,20 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Pic_Chess">
         <activity
-            android:name=".PvpChessActivity"
+            android:name=".ChessPicActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
             android:exported="false" />
+        <activity
+            android:name=".PvpChessActivity"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".HomeActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".MainActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
