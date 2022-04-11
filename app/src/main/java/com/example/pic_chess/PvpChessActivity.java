@@ -1,5 +1,6 @@
 package com.example.pic_chess;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
@@ -151,7 +152,7 @@ public class PvpChessActivity extends AppCompatActivity {
     private void generatePositionfromFEN(String s) {
         int square = 57;
         for(int x = 0; x < s.length(); x++){
-            ImageView iv = new ImageView(this);
+            ImageView iv = boardImages.get(1);
             switch(s.charAt(x)){
                 case 'p':
                     iv.setImageResource(R.drawable.blackpawn);
