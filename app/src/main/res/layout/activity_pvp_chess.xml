@@ -1131,7 +1131,8 @@
                 android:layout_height="50dp"
                 app:srcCompat="@drawable/whitebishop"
                 tools:layout_editor_absoluteX="104dp"
-                tools:srcCompat="@drawable/whitebishop" />
+                tools:srcCompat="@drawable/whitebishop"
+                tools:ignore="MissingConstraints" />
 
             <ImageView
                 android:id="@+id/whiteQueen"
@@ -1140,7 +1141,8 @@
                 app:srcCompat="@drawable/whitequeen"
                 tools:layout_editor_absoluteX="154dp"
                 tools:layout_editor_absoluteY="0dp"
-                tools:srcCompat="@drawable/whitequeen" />
+                tools:srcCompat="@drawable/whitequeen"
+                tools:ignore="MissingConstraints" />
 
             <ImageView
                 android:id="@+id/whiteKing"
@@ -1148,7 +1150,8 @@
                 android:layout_height="50dp"
                 app:srcCompat="@drawable/whiteking"
                 tools:layout_editor_absoluteX="205dp"
-                tools:srcCompat="@drawable/whiteking" />
+                tools:srcCompat="@drawable/whiteking"
+                tools:ignore="MissingConstraints" />
 
             <ImageView
                 android:id="@+id/whitePawn"
@@ -1158,7 +1161,8 @@
                 app:srcCompat="@drawable/whitepawn"
                 tools:layout_editor_absoluteX="4dp"
                 tools:layout_editor_absoluteY="50dp"
-                tools:srcCompat="@drawable/whitepawn" />
+                tools:srcCompat="@drawable/whitepawn"
+                tools:ignore="MissingConstraints" />
 
             <ImageView
                 android:id="@+id/blackPawn"
@@ -1168,7 +1172,8 @@
                 app:srcCompat="@drawable/blackpawn"
                 tools:layout_editor_absoluteX="4dp"
                 tools:layout_editor_absoluteY="301dp"
-                tools:srcCompat="@drawable/blackpawn" />
+                tools:srcCompat="@drawable/blackpawn"
+                tools:ignore="MissingConstraints" />
 
             <ImageView
                 android:id="@+id/blackRook"
@@ -1177,7 +1182,8 @@
                 app:srcCompat="@drawable/blackrook"
                 tools:layout_editor_absoluteX="5dp"
                 tools:layout_editor_absoluteY="351dp"
-                tools:srcCompat="@drawable/blackrook" />
+                tools:srcCompat="@drawable/blackrook"
+                tools:ignore="MissingConstraints" />
 
             <ImageView
                 android:id="@+id/blackKnight"
@@ -1186,7 +1192,8 @@
                 app:srcCompat="@drawable/blackknight"
                 tools:layout_editor_absoluteX="55dp"
                 tools:layout_editor_absoluteY="351dp"
-                tools:srcCompat="@drawable/blackknight" />
+                tools:srcCompat="@drawable/blackknight"
+                tools:ignore="MissingConstraints" />
 
             <ImageView
                 android:id="@+id/blackBishop"
@@ -1195,7 +1202,8 @@
                 app:srcCompat="@drawable/blackbishop"
                 tools:layout_editor_absoluteX="105dp"
                 tools:layout_editor_absoluteY="351dp"
-                tools:srcCompat="@drawable/blackbishop" />
+                tools:srcCompat="@drawable/blackbishop"
+                tools:ignore="MissingConstraints" />
 
             <ImageView
                 android:id="@+id/blackQueen"
@@ -1204,7 +1212,8 @@
                 app:srcCompat="@drawable/blackqueen"
                 tools:layout_editor_absoluteX="155dp"
                 tools:layout_editor_absoluteY="351dp"
-                tools:srcCompat="@drawable/blackqueen" />
+                tools:srcCompat="@drawable/blackqueen"
+                tools:ignore="MissingConstraints" />
 
             <ImageView
                 android:id="@+id/blackKing"
@@ -1213,7 +1222,8 @@
                 app:srcCompat="@drawable/blackking"
                 tools:layout_editor_absoluteX="205dp"
                 tools:layout_editor_absoluteY="351dp"
-                tools:srcCompat="@drawable/blackking" />
+                tools:srcCompat="@drawable/blackking"
+                tools:ignore="MissingConstraints" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -253,6 +253,14 @@ public class PvpChessActivity extends AppCompatActivity {
         if (selectedView != null){
             for (Move m: selectedMoves) {
                 if (m.getTargetSquare() == getSquare(v)) {
+                    int x = 0;
+                    for(ImageView i: boardImages){
+                        if (x%2 == 0)
+                            i.setImageDrawable(R.drawable.darksquare);
+                        else
+                            i.setImageDrawable(R.drawable.lightsquare);
+                        x++;
+                    }
                     setSquare(selectedView, m.getTargetSquare());
                     if (getSquare(selectedView) == 3 && getSquare(v) == 5 && checkFirstMove(v))
                         setSquare(pieces.get(1), 4);
