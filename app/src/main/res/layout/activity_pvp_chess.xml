@@ -1113,7 +1113,8 @@
                 android:layout_height="50dp"
                 app:srcCompat="@drawable/whiterook"
                 tools:layout_editor_absoluteX="4dp"
-                tools:srcCompat="@drawable/whiterook" />
+                tools:srcCompat="@drawable/whiterook"
+                tools:ignore="MissingConstraints" />
 
             <ImageView
                 android:id="@+id/whiteKnight"
@@ -1121,7 +1122,8 @@
                 android:layout_height="50dp"
                 app:srcCompat="@drawable/whiteknight"
                 tools:layout_editor_absoluteX="54dp"
-                tools:srcCompat="@drawable/whiteknight" />
+                tools:srcCompat="@drawable/whiteknight"
+                tools:ignore="MissingConstraints" />
 
             <ImageView
                 android:id="@+id/whiteBishop"
