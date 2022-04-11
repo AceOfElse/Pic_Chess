@@ -1131,6 +1131,7 @@
                 android:id="@+id/whiteBishop"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
+                android:visibility="gone"
                 app:srcCompat="@drawable/whitebishop"
                 tools:layout_editor_absoluteX="104dp"
                 tools:srcCompat="@drawable/whitebishop"
