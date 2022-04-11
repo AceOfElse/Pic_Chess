@@ -1,6 +1,5 @@
 package com.example.pic_chess;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
@@ -28,14 +27,13 @@ public class PvpChessActivity extends AppCompatActivity {
     private int whiteMaterial = 0;
     private int blackMaterial = 0;
     private int numMoves = 0;
-    private ConstraintLayout layout = (ConstraintLayout) findViewById(R.id.pieceLayout);
-
-
+    private ConstraintLayout layout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pvp_chess);
+        layout = (ConstraintLayout) findViewById(R.id.pieceLayout);
 
 
         backButton = findViewById(R.id.backButton);
