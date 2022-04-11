@@ -1718,7 +1718,7 @@
         android:id="@+id/timerText"
         android:layout_width="72dp"
         android:layout_height="50dp"
-        android:text="@string/timer_text"
+        android:text="0:00"
         android:textAlignment="center"
         android:textAllCaps="true"
         android:textColor="@color/white"
