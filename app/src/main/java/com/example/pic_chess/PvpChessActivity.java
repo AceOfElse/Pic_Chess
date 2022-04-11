@@ -2,15 +2,12 @@ package com.example.pic_chess;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.constraintlayout.widget.ConstraintSet;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.TableLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -107,38 +104,18 @@ public class PvpChessActivity extends AppCompatActivity {
 
         //Add piece image views to array list (From rookBlack1 -> rookWhite2, bottom to top, left to right)
         {
-            pieceImages.add(findViewById(R.id.rookBlack1));
-            pieceImages.add(findViewById(R.id.knightBlack1));
-            pieceImages.add(findViewById(R.id.bishopBlack1));
+            pieceImages.add(findViewById(R.id.rookBlack));
+            pieceImages.add(findViewById(R.id.knightBlack));
+            pieceImages.add(findViewById(R.id.bishopBlack));
             pieceImages.add(findViewById(R.id.queenBlack));
             pieceImages.add(findViewById(R.id.kingBlack));
-            pieceImages.add(findViewById(R.id.bishopBlack2));
-            pieceImages.add(findViewById(R.id.knightBlack2));
-            pieceImages.add(findViewById(R.id.rookBlack2));
-            pieceImages.add(findViewById(R.id.pawnBlack1));
-            pieceImages.add(findViewById(R.id.pawnBlack2));
-            pieceImages.add(findViewById(R.id.pawnBlack3));
-            pieceImages.add(findViewById(R.id.pawnBlack4));
-            pieceImages.add(findViewById(R.id.pawnBlack5));
-            pieceImages.add(findViewById(R.id.pawnBlack6));
-            pieceImages.add(findViewById(R.id.pawnBlack7));
-            pieceImages.add(findViewById(R.id.pawnBlack8));
-            pieceImages.add(findViewById(R.id.pawnWhite1));
-            pieceImages.add(findViewById(R.id.pawnWhite2));
-            pieceImages.add(findViewById(R.id.pawnWhite3));
-            pieceImages.add(findViewById(R.id.pawnWhite4));
-            pieceImages.add(findViewById(R.id.pawnWhite5));
-            pieceImages.add(findViewById(R.id.pawnWhite6));
-            pieceImages.add(findViewById(R.id.pawnWhite7));
-            pieceImages.add(findViewById(R.id.pawnWhite8));
-            pieceImages.add(findViewById(R.id.rookWhite1));
-            pieceImages.add(findViewById(R.id.knightWhite1));
-            pieceImages.add(findViewById(R.id.bishopWhite1));
+            pieceImages.add(findViewById(R.id.pawnBlack));
+            pieceImages.add(findViewById(R.id.pawnWhite));
+            pieceImages.add(findViewById(R.id.rookWhite));
+            pieceImages.add(findViewById(R.id.knightWhite));
+            pieceImages.add(findViewById(R.id.bishopWhite));
             pieceImages.add(findViewById(R.id.queenWhite));
             pieceImages.add(findViewById(R.id.kingWhite));
-            pieceImages.add(findViewById(R.id.bishopWhite2));
-            pieceImages.add(findViewById(R.id.knightWhite2));
-            pieceImages.add(findViewById(R.id.rookWhite2));
         }
 
         //Set button listeners
