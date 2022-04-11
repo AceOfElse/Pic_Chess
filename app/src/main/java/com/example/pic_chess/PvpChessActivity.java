@@ -8,10 +8,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.TableLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -298,7 +296,7 @@ public class PvpChessActivity extends AppCompatActivity {
         constraintSet.connect(view.getId(),ConstraintSet.END,square.getId(),ConstraintSet.END);
         constraintSet.connect(view.getId(),ConstraintSet.TOP,square.getId(),ConstraintSet.TOP);
         constraintSet.connect(view.getId(),ConstraintSet.BOTTOM,square.getId(),ConstraintSet.BOTTOM);
-        constraintSet.applyTo(v);
+        //constraintSet.applyTo(v);
         v.setTranslationX(x);
         v.setTranslationY(y2);
         v.setTranslationZ(1);
@@ -790,5 +788,4 @@ public class PvpChessActivity extends AppCompatActivity {
         }
 
     }
-}
 }

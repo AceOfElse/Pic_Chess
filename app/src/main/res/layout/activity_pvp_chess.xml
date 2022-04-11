@@ -1108,7 +1108,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:id="@+id/rookWhite"
+                android:id="@+id/whiteRook"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 app:srcCompat="@drawable/whiterook"
@@ -1116,7 +1116,7 @@
                 tools:srcCompat="@drawable/whiterook" />
 
             <ImageView
-                android:id="@+id/knightWhite"
+                android:id="@+id/whiteKnight"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 app:srcCompat="@drawable/whiteknight"
@@ -1124,7 +1124,7 @@
                 tools:srcCompat="@drawable/whiteknight" />
 
             <ImageView
-                android:id="@+id/bishopWhite"
+                android:id="@+id/whiteBishop"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 app:srcCompat="@drawable/whitebishop"
@@ -1132,7 +1132,7 @@
                 tools:srcCompat="@drawable/whitebishop" />
 
             <ImageView
-                android:id="@+id/queenWhite"
+                android:id="@+id/whiteQueen"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 app:srcCompat="@drawable/whitequeen"
@@ -1141,7 +1141,7 @@
                 tools:srcCompat="@drawable/whitequeen" />
 
             <ImageView
-                android:id="@+id/kingWhite"
+                android:id="@+id/whiteKing"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 app:srcCompat="@drawable/whiteking"
@@ -1149,7 +1149,7 @@
                 tools:srcCompat="@drawable/whiteking" />
 
             <ImageView
-                android:id="@+id/pawnWhite"
+                android:id="@+id/whitePawn"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:scaleType="fitXY"
@@ -1159,7 +1159,7 @@
                 tools:srcCompat="@drawable/whitepawn" />
 
             <ImageView
-                android:id="@+id/pawnBlack"
+                android:id="@+id/blackPawn"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:scaleType="fitXY"
@@ -1169,7 +1169,7 @@
                 tools:srcCompat="@drawable/blackpawn" />
 
             <ImageView
-                android:id="@+id/rookBlack"
+                android:id="@+id/blackRook"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 app:srcCompat="@drawable/blackrook"
@@ -1178,7 +1178,7 @@
                 tools:srcCompat="@drawable/blackrook" />
 
             <ImageView
-                android:id="@+id/knightBlack"
+                android:id="@+id/blackKnight"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 app:srcCompat="@drawable/blackknight"
@@ -1187,7 +1187,7 @@
                 tools:srcCompat="@drawable/blackknight" />
 
             <ImageView
-                android:id="@+id/bishopBlack"
+                android:id="@+id/blackBishop"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 app:srcCompat="@drawable/blackbishop"
@@ -1196,7 +1196,7 @@
                 tools:srcCompat="@drawable/blackbishop" />
 
             <ImageView
-                android:id="@+id/queenBlack"
+                android:id="@+id/blackQueen"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 app:srcCompat="@drawable/blackqueen"
@@ -1205,7 +1205,7 @@
                 tools:srcCompat="@drawable/blackqueen" />
 
             <ImageView
-                android:id="@+id/kingBlack"
+                android:id="@+id/blackKing"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 app:srcCompat="@drawable/blackking"
