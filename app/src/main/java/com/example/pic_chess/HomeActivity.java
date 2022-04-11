@@ -5,16 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 public class HomeActivity extends AppCompatActivity {
     private TextView titleText;
-    private ImageView chessPreviewImage, drawPreviewImage;
-    //private Button chessPopUpButton, drawPopUpButton;
-    private ImageButton settingButton;
+    private ImageButton settingButton, chessPreviewButton, drawPreviewButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,22 +18,32 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         titleText = findViewById(R.id.titleText);
-        chessPreviewImage = findViewById(R.id.chessPreviewImage);
-        drawPreviewImage = findViewById(R.id.drawPreviewImage);
-        //chessPopUpButton = findViewById(R.id.chessPopUpButton);
-        //drawPopUpButton = findViewById(R.id.drawPopUpButton);
+        chessPreviewButton = findViewById(R.id.chessPreviewButton);
+        drawPreviewButton = findViewById(R.id.drawPreviewButton);
         settingButton = findViewById(R.id.settingButton);
 
-        chessPreviewImage.setOnClickListener(new View.OnClickListener() {
+        //Set button listeners
+        chessPreviewButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 openPvp();
             }
         });
+        drawPreviewButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openChessPic();
+            }
+        });
     }
 
-    public void openPvp() {
+    private void openPvp() {
         Intent pvpIntent = new Intent(HomeActivity.this, PvpChessActivity.class);
         startActivity(pvpIntent);
+    }
+
+    private void openChessPic() {
+        Intent chessPicIntent = new Intent(HomeActivity.this, ChessPicActivity.class);
+        startActivity(chessPicIntent);
     }
 }

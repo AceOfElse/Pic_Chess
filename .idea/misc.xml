@@ -3,9 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/nguye/Desktop/AndroidStudioProjects/Pic_Chess/app/src/main/res/layout/activity_home.xml" value="0.31567028985507245" />
-        <entry key="..\:/Users/nguye/Desktop/AndroidStudioProjects/Pic_Chess/app/src/main/res/layout/activity_main.xml" value="0.31567028985507245" />
-        <entry key="..\:/Users/nguye/Desktop/AndroidStudioProjects/Pic_Chess/app/src/main/res/layout/activity_pvp_chess.xml" value="0.33" />
+        <entry key="..\:/Users/nguye/Desktop/Pic_Chess/app/src/main/res/layout/activity_chess_pic.xml" value="0.22" />
+        <entry key="..\:/Users/nguye/Desktop/Pic_Chess/app/src/main/res/layout/activity_home.xml" value="0.1796875" />
+        <entry key="..\:/Users/nguye/Desktop/Pic_Chess/app/src/main/res/layout/activity_main.xml" value="0.1796875" />
+        <entry key="..\:/Users/nguye/Desktop/Pic_Chess/app/src/main/res/layout/activity_pvp_chess.xml" value="0.22" />
       </map>
     </option>
   </component>
