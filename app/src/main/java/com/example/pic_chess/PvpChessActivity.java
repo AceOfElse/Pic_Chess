@@ -410,8 +410,9 @@ public class PvpChessActivity extends AppCompatActivity {
         constraintSet.connect(view.getId(),ConstraintSet.END,square.getId(),ConstraintSet.END);
         constraintSet.connect(view.getId(),ConstraintSet.TOP,square.getId(),ConstraintSet.TOP);
         constraintSet.connect(view.getId(),ConstraintSet.BOTTOM,square.getId(),ConstraintSet.BOTTOM);
+        constraintSet.setVisibility(view.getId(),100);
         constraintSet.applyTo(layout);
-        v.setTranslationZ(1);
+        v.setTranslationZ(10);
         Log.d("chess1","Moved "+ getPieceColor(v) + " " + getPieceType(v) + " to " + getSquare(v));
     }
     private int getSquare(View v){
