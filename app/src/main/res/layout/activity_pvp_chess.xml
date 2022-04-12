@@ -17,7 +17,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/timerText">
+        app:layout_constraintTop_toBottomOf="@+id/resignButton">
 
         <ImageView
             android:id="@+id/boardA1"
@@ -27,6 +27,7 @@
             android:layout_marginTop="351dp"
             android:layout_marginEnd="351dp"
             android:layout_marginBottom="8dp"
+            android:onClick="squareOnClick"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -34,7 +35,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="1.0"
             app:srcCompat="@drawable/darksquare"
-            android:onClick="squareOnClick"
             tools:ignore="ContentDescription" />
 
         <ImageView
@@ -45,6 +45,7 @@
             android:layout_marginTop="351dp"
             android:layout_marginEnd="52dp"
             android:layout_marginBottom="8dp"
+            android:onClick="squareOnClick"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.25"
@@ -52,7 +53,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
             app:srcCompat="@drawable/darksquare"
-            android:onClick="squareOnClick"
             tools:ignore="ContentDescription" />
 
         <ImageView
@@ -63,6 +63,7 @@
             android:layout_marginTop="351dp"
             android:layout_marginEnd="202dp"
             android:layout_marginBottom="8dp"
+            android:onClick="squareOnClick"
             android:scaleType="fitXY"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -71,7 +72,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
             app:srcCompat="@drawable/lightsquare"
-            android:onClick="squareOnClick"
             tools:srcCompat="@drawable/lightsquare" />
 
         <ImageView
@@ -82,13 +82,13 @@
             android:layout_marginTop="351dp"
             android:layout_marginEnd="252dp"
             android:layout_marginBottom="8dp"
+            android:onClick="squareOnClick"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.25"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
-            android:onClick="squareOnClick"
             app:srcCompat="@drawable/darksquare" />
 
         <ImageView
@@ -99,6 +99,7 @@
             android:layout_marginTop="351dp"
             android:layout_marginEnd="102dp"
             android:layout_marginBottom="8dp"
+            android:onClick="squareOnClick"
             android:scaleType="fitXY"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -107,7 +108,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
             app:srcCompat="@drawable/lightsquare"
-            android:onClick="squareOnClick"
             tools:srcCompat="@drawable/lightsquare" />
 
         <ImageView
@@ -118,6 +118,7 @@
             android:layout_marginTop="351dp"
             android:layout_marginEnd="4dp"
             android:layout_marginBottom="8dp"
+            android:onClick="squareOnClick"
             android:scaleType="fitXY"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -126,7 +127,6 @@
             app:layout_constraintVertical_bias="0.0"
             app:srcCompat="@drawable/lightsquare"
             tools:ignore="ImageContrastCheck"
-            android:onClick="squareOnClick"
             tools:srcCompat="@drawable/lightsquare" />
 
         <ImageView
@@ -137,13 +137,13 @@
             android:layout_marginTop="351dp"
             android:layout_marginEnd="152dp"
             android:layout_marginBottom="8dp"
+            android:onClick="squareOnClick"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.25"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
-            android:onClick="squareOnClick"
             app:srcCompat="@drawable/darksquare" />
 
         <ImageView
@@ -154,6 +154,7 @@
             android:layout_marginTop="301dp"
             android:layout_marginEnd="52dp"
             android:layout_marginBottom="58dp"
+            android:onClick="squareOnClick"
             android:scaleType="fitXY"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -161,7 +162,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
-            android:onClick="squareOnClick"
             app:srcCompat="@drawable/lightsquare"
             tools:srcCompat="@drawable/lightsquare" />
 
@@ -173,11 +173,11 @@
             android:layout_marginTop="301dp"
             android:layout_marginEnd="4dp"
             android:layout_marginBottom="58dp"
+            android:onClick="squareOnClick"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:onClick="squareOnClick"
             app:srcCompat="@drawable/darksquare"
             tools:ignore="ImageContrastCheck" />
 
@@ -189,6 +189,7 @@
             android:layout_marginTop="301dp"
             android:layout_marginEnd="252dp"
             android:layout_marginBottom="58dp"
+            android:onClick="squareOnClick"
             android:scaleType="fitXY"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -196,7 +197,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
-            android:onClick="squareOnClick"
             app:srcCompat="@drawable/lightsquare"
             tools:srcCompat="@drawable/lightsquare" />
 
@@ -208,13 +208,13 @@
             android:layout_marginTop="301dp"
             android:layout_marginEnd="351dp"
             android:layout_marginBottom="58dp"
+            android:onClick="squareOnClick"
             android:scaleType="fitXY"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:onClick="squareOnClick"
             app:layout_constraintVertical_bias="0.0"
             app:srcCompat="@drawable/lightsquare"
             tools:srcCompat="@drawable/lightsquare" />
@@ -227,12 +227,12 @@
             android:layout_marginTop="301dp"
             android:layout_marginEnd="102dp"
             android:layout_marginBottom="58dp"
+            android:onClick="squareOnClick"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.25"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:onClick="squareOnClick"
             app:layout_constraintVertical_bias="0.0"
             app:srcCompat="@drawable/darksquare" />
 
@@ -244,13 +244,13 @@
             android:layout_marginTop="301dp"
             android:layout_marginEnd="202dp"
             android:layout_marginBottom="58dp"
+            android:onClick="squareOnClick"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.25"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
-            android:onClick="squareOnClick"
             app:srcCompat="@drawable/darksquare" />
 
         <ImageView
@@ -261,6 +261,7 @@
             android:layout_marginTop="301dp"
             android:layout_marginEnd="152dp"
             android:layout_marginBottom="58dp"
+            android:onClick="squareOnClick"
             android:scaleType="fitXY"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -269,7 +270,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
             app:srcCompat="@drawable/lightsquare"
-            android:onClick="squareOnClick"
             tools:srcCompat="@drawable/lightsquare" />
 
         <ImageView
@@ -280,13 +280,13 @@
             android:layout_marginTop="251dp"
             android:layout_marginEnd="52dp"
             android:layout_marginBottom="108dp"
+            android:onClick="squareOnClick"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.25"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
-            android:onClick="squareOnClick"
             app:srcCompat="@drawable/darksquare" />
 
         <ImageView
@@ -297,13 +297,13 @@
             android:layout_marginTop="251dp"
             android:layout_marginEnd="4dp"
             android:layout_marginBottom="108dp"
+            android:onClick="squareOnClick"
             android:scaleType="fitXY"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/lightsquare"
-            android:onClick="squareOnClick"
             tools:srcCompat="@drawable/lightsquare" />
 
         <ImageView
@@ -314,6 +314,7 @@
             android:layout_marginTop="251dp"
             android:layout_marginEnd="102dp"
             android:layout_marginBottom="108dp"
+            android:onClick="squareOnClick"
             android:scaleType="fitXY"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -321,7 +322,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
-            android:onClick="squareOnClick"
             app:srcCompat="@drawable/lightsquare"
             tools:srcCompat="@drawable/lightsquare" />
 
@@ -333,12 +333,12 @@
             android:layout_marginTop="251dp"
             android:layout_marginEnd="152dp"
             android:layout_marginBottom="108dp"
+            android:onClick="squareOnClick"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.25"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:onClick="squareOnClick"
             app:layout_constraintVertical_bias="0.0"
             app:srcCompat="@drawable/darksquare" />
 
@@ -350,12 +350,12 @@
             android:layout_marginTop="251dp"
             android:layout_marginEnd="252dp"
             android:layout_marginBottom="108dp"
+            android:onClick="squareOnClick"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.25"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:onClick="squareOnClick"
             app:layout_constraintVertical_bias="0.0"
             app:srcCompat="@drawable/darksquare" />
 
@@ -367,6 +367,7 @@
             android:layout_marginTop="251dp"
             android:layout_marginEnd="202dp"
             android:layout_marginBottom="108dp"
+            android:onClick="squareOnClick"
             android:scaleType="fitXY"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -375,7 +376,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
             app:srcCompat="@drawable/lightsquare"
-            android:onClick="squareOnClick"
             tools:srcCompat="@drawable/lightsquare" />
 
         <ImageView
@@ -386,13 +386,13 @@
             android:layout_marginTop="251dp"
             android:layout_marginEnd="351dp"
             android:layout_marginBottom="108dp"
+            android:onClick="squareOnClick"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
-            android:onClick="squareOnClick"
             app:srcCompat="@drawable/darksquare" />
 
         <ImageView
@@ -403,6 +403,7 @@
             android:layout_marginTop="201dp"
             android:layout_marginEnd="152dp"
             android:layout_marginBottom="158dp"
+            android:onClick="squareOnClick"
             android:scaleType="fitXY"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -411,7 +412,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
             app:srcCompat="@drawable/lightsquare"
-            android:onClick="squareOnClick"
             tools:srcCompat="@drawable/lightsquare" />
 
         <ImageView
@@ -422,6 +422,7 @@
             android:layout_marginTop="201dp"
             android:layout_marginEnd="351dp"
             android:layout_marginBottom="158dp"
+            android:onClick="squareOnClick"
             android:scaleType="fitXY"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -430,7 +431,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
             app:srcCompat="@drawable/lightsquare"
-            android:onClick="squareOnClick"
             tools:srcCompat="@drawable/lightsquare" />
 
         <ImageView
@@ -441,12 +441,12 @@
             android:layout_marginTop="201dp"
             android:layout_marginEnd="202dp"
             android:layout_marginBottom="158dp"
+            android:onClick="squareOnClick"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.25"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:onClick="squareOnClick"
             app:layout_constraintVertical_bias="0.0"
             app:srcCompat="@drawable/darksquare" />
 
@@ -458,10 +458,10 @@
             android:layout_marginTop="201dp"
             android:layout_marginEnd="4dp"
             android:layout_marginBottom="158dp"
+            android:onClick="squareOnClick"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:onClick="squareOnClick"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/darksquare" />
 
@@ -473,12 +473,12 @@
             android:layout_marginTop="201dp"
             android:layout_marginEnd="102dp"
             android:layout_marginBottom="158dp"
+            android:onClick="squareOnClick"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.25"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:onClick="squareOnClick"
             app:layout_constraintVertical_bias="0.0"
             app:srcCompat="@drawable/darksquare" />
 
@@ -490,6 +490,7 @@
             android:layout_marginTop="201dp"
             android:layout_marginEnd="52dp"
             android:layout_marginBottom="158dp"
+            android:onClick="squareOnClick"
             android:scaleType="fitXY"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -497,7 +498,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
-            android:onClick="squareOnClick"
             app:srcCompat="@drawable/lightsquare"
             tools:srcCompat="@drawable/lightsquare" />
 
@@ -509,6 +509,7 @@
             android:layout_marginTop="201dp"
             android:layout_marginEnd="252dp"
             android:layout_marginBottom="158dp"
+            android:onClick="squareOnClick"
             android:scaleType="fitXY"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -517,7 +518,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
             app:srcCompat="@drawable/lightsquare"
-            android:onClick="squareOnClick"
             tools:srcCompat="@drawable/lightsquare" />
 
         <ImageView
@@ -528,6 +528,7 @@
             android:layout_marginTop="151dp"
             android:layout_marginEnd="102dp"
             android:layout_marginBottom="208dp"
+            android:onClick="squareOnClick"
             android:scaleType="fitXY"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -535,7 +536,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
-            android:onClick="squareOnClick"
             app:srcCompat="@drawable/lightsquare"
             tools:srcCompat="@drawable/lightsquare" />
 
@@ -547,13 +547,13 @@
             android:layout_marginTop="151dp"
             android:layout_marginEnd="202dp"
             android:layout_marginBottom="208dp"
+            android:onClick="squareOnClick"
             android:scaleType="fitXY"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.25"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:onClick="squareOnClick"
             app:layout_constraintVertical_bias="0.0"
             app:srcCompat="@drawable/lightsquare"
             tools:srcCompat="@drawable/lightsquare" />
@@ -566,12 +566,12 @@
             android:layout_marginTop="151dp"
             android:layout_marginEnd="152dp"
             android:layout_marginBottom="208dp"
+            android:onClick="squareOnClick"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.25"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:onClick="squareOnClick"
             app:layout_constraintVertical_bias="0.0"
             app:srcCompat="@drawable/darksquare" />
 
@@ -583,12 +583,12 @@
             android:layout_marginTop="151dp"
             android:layout_marginEnd="252dp"
             android:layout_marginBottom="208dp"
+            android:onClick="squareOnClick"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.25"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:onClick="squareOnClick"
             app:layout_constraintVertical_bias="0.0"
             app:srcCompat="@drawable/darksquare" />
 
@@ -600,11 +600,11 @@
             android:layout_marginTop="151dp"
             android:layout_marginEnd="4dp"
             android:layout_marginBottom="208dp"
+            android:onClick="squareOnClick"
             android:scaleType="fitXY"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:onClick="squareOnClick"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/lightsquare"
             tools:srcCompat="@drawable/lightsquare" />
@@ -617,13 +617,13 @@
             android:layout_marginTop="151dp"
             android:layout_marginEnd="351dp"
             android:layout_marginBottom="208dp"
+            android:onClick="squareOnClick"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
-            android:onClick="squareOnClick"
             app:srcCompat="@drawable/darksquare" />
 
         <ImageView
@@ -634,13 +634,13 @@
             android:layout_marginTop="151dp"
             android:layout_marginEnd="52dp"
             android:layout_marginBottom="208dp"
+            android:onClick="squareOnClick"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.25"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
-            android:onClick="squareOnClick"
             app:srcCompat="@drawable/darksquare" />
 
         <ImageView
@@ -651,12 +651,12 @@
             android:layout_marginTop="101dp"
             android:layout_marginEnd="202dp"
             android:layout_marginBottom="258dp"
+            android:onClick="squareOnClick"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.25"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:onClick="squareOnClick"
             app:layout_constraintVertical_bias="0.0"
             app:srcCompat="@drawable/darksquare" />
 
@@ -668,6 +668,7 @@
             android:layout_marginTop="101dp"
             android:layout_marginEnd="52dp"
             android:layout_marginBottom="258dp"
+            android:onClick="squareOnClick"
             android:scaleType="fitXY"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -675,7 +676,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
-            android:onClick="squareOnClick"
             app:srcCompat="@drawable/lightsquare"
             tools:srcCompat="@drawable/lightsquare" />
 
@@ -687,12 +687,12 @@
             android:layout_marginTop="101dp"
             android:layout_marginEnd="102dp"
             android:layout_marginBottom="258dp"
+            android:onClick="squareOnClick"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.25"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:onClick="squareOnClick"
             app:layout_constraintVertical_bias="0.0"
             app:srcCompat="@drawable/darksquare" />
 
@@ -704,6 +704,7 @@
             android:layout_marginTop="101dp"
             android:layout_marginEnd="351dp"
             android:layout_marginBottom="258dp"
+            android:onClick="squareOnClick"
             android:scaleType="fitXY"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -712,7 +713,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
             app:srcCompat="@drawable/lightsquare"
-            android:onClick="squareOnClick"
             tools:srcCompat="@drawable/lightsquare" />
 
         <ImageView
@@ -723,6 +723,7 @@
             android:layout_marginTop="101dp"
             android:layout_marginEnd="252dp"
             android:layout_marginBottom="258dp"
+            android:onClick="squareOnClick"
             android:scaleType="fitXY"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -731,7 +732,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
             app:srcCompat="@drawable/lightsquare"
-            android:onClick="squareOnClick"
             tools:srcCompat="@drawable/lightsquare" />
 
         <ImageView
@@ -742,13 +742,13 @@
             android:layout_marginTop="101dp"
             android:layout_marginEnd="301dp"
             android:layout_marginBottom="258dp"
+            android:onClick="squareOnClick"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
-            android:onClick="squareOnClick"
             app:srcCompat="@drawable/darksquare" />
 
         <ImageView
@@ -759,13 +759,13 @@
             android:layout_marginTop="1dp"
             android:layout_marginEnd="301dp"
             android:layout_marginBottom="358dp"
+            android:onClick="squareOnClick"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
-            android:onClick="squareOnClick"
             app:srcCompat="@drawable/darksquare" />
 
         <ImageView
@@ -776,6 +776,7 @@
             android:layout_marginTop="151dp"
             android:layout_marginEnd="301dp"
             android:layout_marginBottom="208dp"
+            android:onClick="squareOnClick"
             android:scaleType="fitXY"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -783,7 +784,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
-            android:onClick="squareOnClick"
             app:srcCompat="@drawable/lightsquare"
             tools:srcCompat="@drawable/lightsquare" />
 
@@ -795,13 +795,13 @@
             android:layout_marginTop="201dp"
             android:layout_marginEnd="301dp"
             android:layout_marginBottom="158dp"
+            android:onClick="squareOnClick"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
-            android:onClick="squareOnClick"
             app:srcCompat="@drawable/darksquare" />
 
         <ImageView
@@ -812,6 +812,7 @@
             android:layout_marginTop="251dp"
             android:layout_marginEnd="301dp"
             android:layout_marginBottom="108dp"
+            android:onClick="squareOnClick"
             android:scaleType="fitXY"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -820,7 +821,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
             app:srcCompat="@drawable/lightsquare"
-            android:onClick="squareOnClick"
             tools:srcCompat="@drawable/lightsquare" />
 
         <ImageView
@@ -831,13 +831,13 @@
             android:layout_marginTop="301dp"
             android:layout_marginEnd="301dp"
             android:layout_marginBottom="58dp"
+            android:onClick="squareOnClick"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
-            android:onClick="squareOnClick"
             app:srcCompat="@drawable/darksquare" />
 
         <ImageView
@@ -848,6 +848,7 @@
             android:layout_marginTop="351dp"
             android:layout_marginEnd="301dp"
             android:layout_marginBottom="8dp"
+            android:onClick="squareOnClick"
             android:scaleType="fitXY"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -856,7 +857,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
             app:srcCompat="@drawable/lightsquare"
-            android:onClick="squareOnClick"
             tools:srcCompat="@drawable/lightsquare" />
 
         <ImageView
@@ -867,6 +867,7 @@
             android:layout_marginTop="51dp"
             android:layout_marginEnd="301dp"
             android:layout_marginBottom="308dp"
+            android:onClick="squareOnClick"
             android:scaleType="fitXY"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -875,7 +876,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
             app:srcCompat="@drawable/lightsquare"
-            android:onClick="squareOnClick"
             tools:srcCompat="@drawable/lightsquare" />
 
         <ImageView
@@ -886,11 +886,11 @@
             android:layout_marginTop="101dp"
             android:layout_marginEnd="4dp"
             android:layout_marginBottom="258dp"
+            android:onClick="squareOnClick"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:onClick="squareOnClick"
             app:srcCompat="@drawable/darksquare" />
 
         <ImageView
@@ -901,6 +901,7 @@
             android:layout_marginTop="101dp"
             android:layout_marginEnd="152dp"
             android:layout_marginBottom="258dp"
+            android:onClick="squareOnClick"
             android:scaleType="fitXY"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -909,7 +910,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
             app:srcCompat="@drawable/lightsquare"
-            android:onClick="squareOnClick"
             tools:srcCompat="@drawable/lightsquare" />
 
         <ImageView
@@ -920,13 +920,13 @@
             android:layout_marginTop="51dp"
             android:layout_marginEnd="52dp"
             android:layout_marginBottom="308dp"
+            android:onClick="squareOnClick"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.25"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
-            android:onClick="squareOnClick"
             app:srcCompat="@drawable/darksquare" />
 
         <ImageView
@@ -937,12 +937,12 @@
             android:layout_marginTop="51dp"
             android:layout_marginEnd="351dp"
             android:layout_marginBottom="308dp"
+            android:onClick="squareOnClick"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:onClick="squareOnClick"
             app:layout_constraintVertical_bias="0.0"
             app:srcCompat="@drawable/darksquare" />
 
@@ -954,13 +954,13 @@
             android:layout_marginTop="51dp"
             android:layout_marginEnd="152dp"
             android:layout_marginBottom="308dp"
+            android:onClick="squareOnClick"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.25"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
-            android:onClick="squareOnClick"
             app:srcCompat="@drawable/darksquare" />
 
         <ImageView
@@ -971,6 +971,7 @@
             android:layout_marginTop="51dp"
             android:layout_marginEnd="202dp"
             android:layout_marginBottom="308dp"
+            android:onClick="squareOnClick"
             android:scaleType="fitXY"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -979,7 +980,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
             app:srcCompat="@drawable/lightsquare"
-            android:onClick="squareOnClick"
             tools:srcCompat="@drawable/lightsquare" />
 
         <ImageView
@@ -990,13 +990,13 @@
             android:layout_marginTop="51dp"
             android:layout_marginEnd="252dp"
             android:layout_marginBottom="308dp"
+            android:onClick="squareOnClick"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.25"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
-            android:onClick="squareOnClick"
             app:srcCompat="@drawable/darksquare" />
 
         <ImageView
@@ -1007,6 +1007,7 @@
             android:layout_marginTop="51dp"
             android:layout_marginEnd="102dp"
             android:layout_marginBottom="308dp"
+            android:onClick="squareOnClick"
             android:scaleType="fitXY"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -1015,7 +1016,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
             app:srcCompat="@drawable/lightsquare"
-            android:onClick="squareOnClick"
             tools:srcCompat="@drawable/lightsquare" />
 
         <ImageView
@@ -1026,13 +1026,13 @@
             android:layout_marginTop="51dp"
             android:layout_marginEnd="4dp"
             android:layout_marginBottom="308dp"
+            android:onClick="squareOnClick"
             android:scaleType="fitXY"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/lightsquare"
-            android:onClick="squareOnClick"
             tools:srcCompat="@drawable/lightsquare" />
 
         <ImageView
@@ -1043,6 +1043,7 @@
             android:layout_marginTop="1dp"
             android:layout_marginEnd="152dp"
             android:layout_marginBottom="358dp"
+            android:onClick="squareOnClick"
             android:scaleType="fitXY"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -1051,7 +1052,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
             app:srcCompat="@drawable/lightsquare"
-            android:onClick="squareOnClick"
             tools:srcCompat="@drawable/lightsquare" />
 
         <ImageView
@@ -1062,13 +1062,13 @@
             android:layout_marginTop="1dp"
             android:layout_marginEnd="102dp"
             android:layout_marginBottom="358dp"
+            android:onClick="squareOnClick"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.25"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
-            android:onClick="squareOnClick"
             app:srcCompat="@drawable/darksquare" />
 
         <ImageView
@@ -1079,6 +1079,7 @@
             android:layout_marginTop="1dp"
             android:layout_marginEnd="52dp"
             android:layout_marginBottom="358dp"
+            android:onClick="squareOnClick"
             android:scaleType="fitXY"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -1087,7 +1088,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
             app:srcCompat="@drawable/lightsquare"
-            android:onClick="squareOnClick"
             tools:srcCompat="@drawable/lightsquare" />
 
         <ImageView
@@ -1098,11 +1098,11 @@
             android:layout_marginTop="1dp"
             android:layout_marginEnd="4dp"
             android:layout_marginBottom="358dp"
+            android:onClick="squareOnClick"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:onClick="squareOnClick"
             app:srcCompat="@drawable/darksquare" />
 
         <ImageView
@@ -1113,6 +1113,7 @@
             android:layout_marginTop="1dp"
             android:layout_marginEnd="351dp"
             android:layout_marginBottom="358dp"
+            android:onClick="squareOnClick"
             android:scaleType="fitXY"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -1121,7 +1122,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
             app:srcCompat="@drawable/lightsquare"
-            android:onClick="squareOnClick"
             tools:srcCompat="@drawable/lightsquare" />
 
         <ImageView
@@ -1132,6 +1132,7 @@
             android:layout_marginTop="1dp"
             android:layout_marginEnd="252dp"
             android:layout_marginBottom="358dp"
+            android:onClick="squareOnClick"
             android:scaleType="fitXY"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -1140,7 +1141,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
             app:srcCompat="@drawable/lightsquare"
-            android:onClick="squareOnClick"
             tools:srcCompat="@drawable/lightsquare" />
 
         <ImageView
@@ -1151,13 +1151,13 @@
             android:layout_marginTop="1dp"
             android:layout_marginEnd="202dp"
             android:layout_marginBottom="358dp"
+            android:onClick="squareOnClick"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.25"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
-            android:onClick="squareOnClick"
             app:srcCompat="@drawable/darksquare" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -1175,143 +1175,143 @@
                 android:id="@+id/whiteRook"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
+                android:onClick="pieceOnClick"
                 android:visibility="gone"
                 app:srcCompat="@drawable/whiterook"
+                tools:ignore="MissingConstraints"
                 tools:layout_editor_absoluteX="4dp"
-                tools:srcCompat="@drawable/whiterook"
-                android:onClick="pieceOnClick"
-                tools:ignore="MissingConstraints" />
+                tools:srcCompat="@drawable/whiterook" />
 
             <ImageView
                 android:id="@+id/whiteKnight"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
+                android:onClick="pieceOnClick"
                 android:visibility="gone"
                 app:srcCompat="@drawable/whiteknight"
+                tools:ignore="MissingConstraints"
                 tools:layout_editor_absoluteX="54dp"
-                tools:srcCompat="@drawable/whiteknight"
-                android:onClick="pieceOnClick"
-                tools:ignore="MissingConstraints" />
+                tools:srcCompat="@drawable/whiteknight" />
 
             <ImageView
                 android:id="@+id/whiteBishop"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
+                android:onClick="pieceOnClick"
                 android:visibility="gone"
                 app:srcCompat="@drawable/whitebishop"
+                tools:ignore="MissingConstraints"
                 tools:layout_editor_absoluteX="104dp"
-                tools:srcCompat="@drawable/whitebishop"
-                android:onClick="pieceOnClick"
-                tools:ignore="MissingConstraints" />
+                tools:srcCompat="@drawable/whitebishop" />
 
             <ImageView
                 android:id="@+id/whiteQueen"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
+                android:onClick="pieceOnClick"
                 android:visibility="gone"
                 app:srcCompat="@drawable/whitequeen"
+                tools:ignore="MissingConstraints"
                 tools:layout_editor_absoluteX="154dp"
                 tools:layout_editor_absoluteY="0dp"
-                tools:srcCompat="@drawable/whitequeen"
-                android:onClick="pieceOnClick"
-                tools:ignore="MissingConstraints" />
+                tools:srcCompat="@drawable/whitequeen" />
 
             <ImageView
                 android:id="@+id/whiteKing"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
+                android:onClick="pieceOnClick"
                 android:visibility="gone"
                 app:srcCompat="@drawable/whiteking"
+                tools:ignore="MissingConstraints"
                 tools:layout_editor_absoluteX="205dp"
-                tools:srcCompat="@drawable/whiteking"
-                android:onClick="pieceOnClick"
-                tools:ignore="MissingConstraints" />
+                tools:srcCompat="@drawable/whiteking" />
 
             <ImageView
                 android:id="@+id/whitePawn"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
+                android:onClick="pieceOnClick"
                 android:scaleType="fitXY"
                 android:visibility="gone"
                 app:srcCompat="@drawable/whitepawn"
+                tools:ignore="MissingConstraints"
                 tools:layout_editor_absoluteX="4dp"
                 tools:layout_editor_absoluteY="50dp"
-                tools:srcCompat="@drawable/whitepawn"
-                android:onClick="pieceOnClick"
-                tools:ignore="MissingConstraints" />
+                tools:srcCompat="@drawable/whitepawn" />
 
             <ImageView
                 android:id="@+id/blackPawn"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
+                android:onClick="pieceOnClick"
                 android:scaleType="fitXY"
                 android:visibility="gone"
                 app:srcCompat="@drawable/blackpawn"
+                tools:ignore="MissingConstraints"
                 tools:layout_editor_absoluteX="4dp"
                 tools:layout_editor_absoluteY="301dp"
-                tools:srcCompat="@drawable/blackpawn"
-                android:onClick="pieceOnClick"
-                tools:ignore="MissingConstraints" />
+                tools:srcCompat="@drawable/blackpawn" />
 
             <ImageView
                 android:id="@+id/blackRook"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
+                android:onClick="pieceOnClick"
                 android:visibility="gone"
                 app:srcCompat="@drawable/blackrook"
+                tools:ignore="MissingConstraints"
                 tools:layout_editor_absoluteX="5dp"
                 tools:layout_editor_absoluteY="351dp"
-                tools:srcCompat="@drawable/blackrook"
-                android:onClick="pieceOnClick"
-                tools:ignore="MissingConstraints" />
+                tools:srcCompat="@drawable/blackrook" />
 
             <ImageView
                 android:id="@+id/blackKnight"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
+                android:onClick="pieceOnClick"
                 android:visibility="gone"
                 app:srcCompat="@drawable/blackknight"
+                tools:ignore="MissingConstraints"
                 tools:layout_editor_absoluteX="55dp"
                 tools:layout_editor_absoluteY="351dp"
-                tools:srcCompat="@drawable/blackknight"
-                android:onClick="pieceOnClick"
-                tools:ignore="MissingConstraints" />
+                tools:srcCompat="@drawable/blackknight" />
 
             <ImageView
                 android:id="@+id/blackBishop"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
+                android:onClick="pieceOnClick"
                 android:visibility="gone"
                 app:srcCompat="@drawable/blackbishop"
+                tools:ignore="MissingConstraints"
                 tools:layout_editor_absoluteX="105dp"
                 tools:layout_editor_absoluteY="351dp"
-                tools:srcCompat="@drawable/blackbishop"
-                android:onClick="pieceOnClick"
-                tools:ignore="MissingConstraints" />
+                tools:srcCompat="@drawable/blackbishop" />
 
             <ImageView
                 android:id="@+id/blackQueen"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
+                android:onClick="pieceOnClick"
                 android:visibility="gone"
                 app:srcCompat="@drawable/blackqueen"
+                tools:ignore="MissingConstraints"
                 tools:layout_editor_absoluteX="155dp"
                 tools:layout_editor_absoluteY="351dp"
-                tools:srcCompat="@drawable/blackqueen"
-                android:onClick="pieceOnClick"
-                tools:ignore="MissingConstraints" />
+                tools:srcCompat="@drawable/blackqueen" />
 
             <ImageView
                 android:id="@+id/blackKing"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
+                android:onClick="pieceOnClick"
                 android:visibility="gone"
                 app:srcCompat="@drawable/blackking"
+                tools:ignore="MissingConstraints"
                 tools:layout_editor_absoluteX="205dp"
                 tools:layout_editor_absoluteY="351dp"
-                tools:srcCompat="@drawable/blackking"
-                android:onClick="pieceOnClick"
-                tools:ignore="MissingConstraints" />
+                tools:srcCompat="@drawable/blackking" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -1325,7 +1325,7 @@
         android:contentDescription="@string/empty_string_text"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/timerText"
+        app:layout_constraintEnd_toStartOf="@+id/newGameButton"
         app:layout_constraintHorizontal_bias="0.134"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -1341,7 +1341,7 @@
         android:contentDescription="@string/empty_string_text"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/timerText"
+        app:layout_constraintEnd_toStartOf="@+id/endButton"
         app:layout_constraintHorizontal_bias="0.49"
         app:layout_constraintStart_toEndOf="@+id/backButton"
         app:layout_constraintTop_toTopOf="parent"
@@ -1371,13 +1371,12 @@
         android:id="@+id/endButton"
         android:layout_width="50dp"
         android:layout_height="50dp"
+        android:layout_marginEnd="124dp"
         android:adjustViewBounds="true"
         android:contentDescription="@string/empty_string_text"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.25"
-        app:layout_constraintStart_toEndOf="@+id/timerText"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.023"
         app:srcCompat="@drawable/draw_chess_image"
@@ -1388,7 +1387,7 @@
         android:id="@+id/player1NameText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Player1"
+        android:text="Black"
         android:textColor="@color/white"
         android:textSize="20sp"
         android:visibility="visible"
@@ -1396,26 +1395,26 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.046"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/timerText"
+        app:layout_constraintTop_toBottomOf="@+id/resignButton"
         app:layout_constraintVertical_bias="0.386" />
 
     <TextView
         android:id="@+id/player2NameText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Player2"
+        android:text="White"
         android:textColor="@color/white"
         android:textSize="20sp"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.933"
+        app:layout_constraintHorizontal_bias="0.952"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/boardLayout"
-        app:layout_constraintVertical_bias="0.261" />
+        app:layout_constraintVertical_bias="0.455" />
 
     <TextView
-        android:id="@+id/timerText"
+        android:id="@+id/timerText1"
         android:layout_width="72dp"
         android:layout_height="50dp"
         android:text="0:00"
@@ -1427,9 +1426,27 @@
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.047"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.023" />
+        app:layout_constraintVertical_bias="0.193" />
+
+    <TextView
+        android:id="@+id/timerText2"
+        android:layout_width="72dp"
+        android:layout_height="50dp"
+        android:text="0:00"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.979"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.879" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
