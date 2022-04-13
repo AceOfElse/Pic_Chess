@@ -8,4 +8,5 @@
     <string name="empty_string_text"></string>
     <string name="hint_text_field">Hint...</string>
     <string name="toolbar_togglebutton_text">TOOL</string>
+    <string name="answer_field_textfield">Your descriptions...</string>
 </resources>
