@@ -13,7 +13,6 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.PopupMenu;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
@@ -24,7 +23,7 @@ public class PvpChessActivity extends AppCompatActivity {
     private LinearLayout popupLayout, gameLayout;
     private Button yesButton, noButton, closeButton;
     private TextView timerText1, timerText2, resignText;
-    private ConstraintLayout boardLayout, pieceLayout, mainLayout;
+    private ConstraintLayout boardLayout, layout, mainLayout;
     private PopupWindow resignMenu, gameMenu;
     private ArrayList<ImageView> boardImages = new ArrayList<ImageView>();
     private ArrayList<ImageView> pieces = new ArrayList<ImageView>();
@@ -37,7 +36,6 @@ public class PvpChessActivity extends AppCompatActivity {
     private int numMoves = 0;
     private boolean gameInProgress = false;
     private boolean prompted = false;
-    private ConstraintLayout layout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -210,6 +208,7 @@ public class PvpChessActivity extends AppCompatActivity {
                 }
             }
         });
+        generatePositionfromFEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
     }
 
     public void returnHome() {
@@ -217,13 +216,6 @@ public class PvpChessActivity extends AppCompatActivity {
         startActivity(homeIntent);
     }
 
-    private void promptPanel(boolean areYouSureYouWantToResign, boolean showGameOptions) {
-        if (areYouSureYouWantToResign){
-
-        } else if (showGameOptions) {
-
-        }
-    }
     private void generatePositionfromFEN(String s) {
         int square = 57;
         for(int x = 0; x < s.length(); x++){
@@ -262,7 +254,9 @@ public class PvpChessActivity extends AppCompatActivity {
                 case 'r':
                     iv.setImageResource(R.drawable.blackrook);
                     pieces.add(iv);
+                    Log.d("chess2",getPieceType(pieces.get(x)));
                     layout.addView(pieces.get(x));
+                    Log.d("chess2",getPieceType(pieces.get(x)));
                     setSquare(pieces.get(x),square);
                     Log.d("chess2",getPieceType(pieces.get(x)));
                     square++;
