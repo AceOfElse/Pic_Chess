@@ -111,7 +111,6 @@ public class PvpChessActivity extends AppCompatActivity {
             boardImages.add(findViewById(R.id.boardG8));
             boardImages.add(findViewById(R.id.boardH8));
         }
-
         //Set button listeners
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -154,16 +153,16 @@ public class PvpChessActivity extends AppCompatActivity {
             switch(s.charAt(x)){
                 case 'p':
                     iv.setImageResource(R.drawable.blackpawn);
-                    layout.addView(iv);
-                    setSquare(iv,square);
                     pieces.add(iv);
+                    layout.addView(pieces.get(x));
+                    setSquare(pieces.get(x),square);
                     Log.d("chess2",getPieceType(pieces.get(x)));
                     square++;
                 case 'P':
                     iv.setImageResource(R.drawable.whitepawn);
-                    layout.addView(iv);
-                    setSquare(iv,square);
                     pieces.add(iv);
+                    layout.addView(pieces.get(x));
+                    setSquare(pieces.get(x),square);
                     Log.d("chess2",getPieceType(pieces.get(x)));
                     square++;
                 case '8':
@@ -184,72 +183,72 @@ public class PvpChessActivity extends AppCompatActivity {
                     square++;
                 case 'r':
                     iv.setImageResource(R.drawable.blackrook);
-                    layout.addView(iv);
-                    setSquare(iv,square);
                     pieces.add(iv);
+                    layout.addView(pieces.get(x));
+                    setSquare(pieces.get(x),square);
                     Log.d("chess2",getPieceType(pieces.get(x)));
                     square++;
                 case 'R':
                     iv.setImageResource(R.drawable.whiterook);
-                    layout.addView(iv);
-                    setSquare(iv,square);
                     pieces.add(iv);
+                    layout.addView(pieces.get(x));
+                    setSquare(pieces.get(x),square);
                     Log.d("chess2",getPieceType(pieces.get(x)));
                     square++;
                 case 'n':
                     iv.setImageResource(R.drawable.blackknight);
-                    layout.addView(iv);
-                    setSquare(iv,square);
                     pieces.add(iv);
+                    layout.addView(pieces.get(x));
+                    setSquare(pieces.get(x),square);
                     Log.d("chess2",getPieceType(pieces.get(x)));
                     square++;
                 case 'N':
                     iv.setImageResource(R.drawable.whiteknight);
-                    layout.addView(iv);
-                    setSquare(iv,square);
                     pieces.add(iv);
+                    layout.addView(pieces.get(x));
+                    setSquare(pieces.get(x),square);
                     Log.d("chess2",getPieceType(pieces.get(x)));
                     square++;
                 case 'b':
                     iv.setImageResource(R.drawable.blackbishop);
-                    layout.addView(iv);
-                    setSquare(iv,square);
                     pieces.add(iv);
+                    layout.addView(pieces.get(x));
+                    setSquare(pieces.get(x),square);
                     Log.d("chess2",getPieceType(pieces.get(x)));
                     square++;
                 case 'B':
                     iv.setImageResource(R.drawable.whitebishop);
-                    layout.addView(iv);
-                    setSquare(iv,square);
                     pieces.add(iv);
+                    layout.addView(pieces.get(x));
+                    setSquare(pieces.get(x),square);
                     Log.d("chess2",getPieceType(pieces.get(x)));
                     square++;
                 case 'k':
                     iv.setImageResource(R.drawable.blackking);
-                    layout.addView(iv);
-                    setSquare(iv,square);
                     pieces.add(iv);
+                    layout.addView(pieces.get(x));
+                    setSquare(pieces.get(x),square);
                     Log.d("chess2",getPieceType(pieces.get(x)));
                     square++;
                 case 'K':
                     iv.setImageResource(R.drawable.whiteking);
-                    layout.addView(iv);
-                    setSquare(iv,square);
                     pieces.add(iv);
+                    layout.addView(pieces.get(x));
+                    setSquare(pieces.get(x),square);
                     Log.d("chess2",getPieceType(pieces.get(x)));
                     square++;
                 case 'q':
                     iv.setImageResource(R.drawable.blackqueen);
-                    layout.addView(iv);
-                    setSquare(iv,square);
                     pieces.add(iv);
+                    layout.addView(pieces.get(x));
+                    setSquare(pieces.get(x),square);
                     Log.d("chess2",getPieceType(pieces.get(x)));
                     square++;
                 case 'Q':
                     iv.setImageResource(R.drawable.whitequeen);
-                    layout.addView(iv);
-                    setSquare(iv,square);
                     pieces.add(iv);
+                    layout.addView(pieces.get(x));
+                    setSquare(pieces.get(x),square);
                     Log.d("chess2",getPieceType(pieces.get(x)));
                     square++;
                 case '/':
@@ -402,16 +401,16 @@ public class PvpChessActivity extends AppCompatActivity {
     }
 
     private void setSquare (View v, Integer i){
-        ImageView view = (ImageView) v;
         ImageView square = getSquarebyInt(i);
         ConstraintSet constraintSet = new ConstraintSet();
         constraintSet.clone(layout);
-        constraintSet.connect(view.getId(),ConstraintSet.START,square.getId(),ConstraintSet.START);
-        constraintSet.connect(view.getId(),ConstraintSet.END,square.getId(),ConstraintSet.END);
-        constraintSet.connect(view.getId(),ConstraintSet.TOP,square.getId(),ConstraintSet.TOP);
-        constraintSet.connect(view.getId(),ConstraintSet.BOTTOM,square.getId(),ConstraintSet.BOTTOM);
+        constraintSet.connect(v.getId(),ConstraintSet.START,square.getId(),ConstraintSet.START);
+        constraintSet.connect(v.getId(),ConstraintSet.END,square.getId(),ConstraintSet.END);
+        constraintSet.connect(v.getId(),ConstraintSet.TOP,square.getId(),ConstraintSet.TOP);
+        constraintSet.connect(v.getId(),ConstraintSet.BOTTOM,square.getId(),ConstraintSet.BOTTOM);
+        constraintSet.setVisibility(v.getId(),View.VISIBLE);
         constraintSet.applyTo(layout);
-        v.setTranslationZ(1);
+        v.setTranslationZ(10);
         Log.d("chess1","Moved "+ getPieceColor(v) + " " + getPieceType(v) + " to " + getSquare(v));
     }
     private int getSquare(View v){

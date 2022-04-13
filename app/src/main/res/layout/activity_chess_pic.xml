@@ -32,14 +32,78 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginStart="16dp"
+        android:layout_marginEnd="345dp"
+        android:layout_marginBottom="665dp"
         android:adjustViewBounds="true"
         android:contentDescription="@string/empty_string_text"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.134"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.023"
+        app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/back_image"
         tools:ignore="SpeakableTextPresentCheck" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/piecePickerLayout"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
+
+        <ImageView
+            android:id="@+id/pieceBishopCP"
+            android:layout_width="67dp"
+            android:layout_height="67dp"
+            app:srcCompat="@drawable/whitebishop" />
+
+        <ImageView
+            android:id="@+id/pieceKnightCP"
+            android:layout_width="67dp"
+            android:layout_height="67dp"
+            app:srcCompat="@drawable/whiteknight"
+            tools:layout_editor_absoluteX="67dp"
+            tools:layout_editor_absoluteY="0dp" />
+
+        <ImageView
+            android:id="@+id/piecePawnCP"
+            android:layout_width="67dp"
+            android:layout_height="67dp"
+            app:srcCompat="@drawable/whitepawn"
+            tools:layout_editor_absoluteX="134dp"
+            tools:layout_editor_absoluteY="0dp" />
+
+        <ImageView
+            android:id="@+id/pieceRookCP"
+            android:layout_width="67dp"
+            android:layout_height="67dp"
+            app:srcCompat="@drawable/whiterook"
+            tools:layout_editor_absoluteX="201dp"
+            tools:layout_editor_absoluteY="0dp" />
+
+        <ImageView
+            android:id="@+id/pieceKingCP"
+            android:layout_width="67dp"
+            android:layout_height="67dp"
+            app:srcCompat="@drawable/whiteking"
+            tools:layout_editor_absoluteX="268dp"
+            tools:layout_editor_absoluteY="0dp" />
+
+        <ImageView
+            android:id="@+id/pieceQueenCP"
+            android:layout_width="67dp"
+            android:layout_height="67dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/whitequeen"
+            tools:layout_editor_absoluteY="0dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
