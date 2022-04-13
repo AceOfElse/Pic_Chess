@@ -40,7 +40,7 @@ public class PvpChessActivity extends AppCompatActivity {
         newGameButton = findViewById(R.id.newGameButton);
         endButton = findViewById(R.id.endButton);
         resignButton = findViewById(R.id.resignButton);
-        timerText = findViewById(R.id.timerText);
+        //timerText = findViewById(R.id.timerText);
         boardLayout = findViewById(R.id.boardLayout);
         pieceLayout = findViewById(R.id.pieceLayout);
 

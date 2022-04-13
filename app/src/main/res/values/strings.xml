@@ -6,4 +6,6 @@
     <string name="resign_text">RESIGN</string>
     <string name="timer_text">TIME:</string>
     <string name="empty_string_text"></string>
+    <string name="hint_text_field">Hint...</string>
+    <string name="toolbar_togglebutton_text">TOOL</string>
 </resources>
