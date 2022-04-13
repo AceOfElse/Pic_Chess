@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 public class PvpChessActivity extends AppCompatActivity {
     private ImageButton backButton, newGameButton, endButton, resignButton;
-    private TextView timerText;
+    private TextView timerText1, timerText2;
     private ConstraintLayout boardLayout, pieceLayout;
     private ArrayList<ImageView> boardImages = new ArrayList<ImageView>();
     private ArrayList<ImageView> pieces = new ArrayList<ImageView>();
@@ -35,12 +35,12 @@ public class PvpChessActivity extends AppCompatActivity {
         setContentView(R.layout.activity_pvp_chess);
         layout = (ConstraintLayout) findViewById(R.id.pieceLayout);
 
-
         backButton = findViewById(R.id.backButton);
         newGameButton = findViewById(R.id.newGameButton);
         endButton = findViewById(R.id.endButton);
         resignButton = findViewById(R.id.resignButton);
-        //timerText = findViewById(R.id.timerText);
+        timerText1 = findViewById(R.id.timerText1);
+        timerText2 = findViewById(R.id.timerText2);
         boardLayout = findViewById(R.id.boardLayout);
         pieceLayout = findViewById(R.id.pieceLayout);
 
