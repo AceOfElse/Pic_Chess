@@ -7,17 +7,25 @@ import androidx.constraintlayout.widget.ConstraintSet;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.PopupMenu;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 public class PvpChessActivity extends AppCompatActivity {
     private ImageButton backButton, newGameButton, endButton, resignButton;
-    private TextView timerText1, timerText2;
-    private ConstraintLayout boardLayout, pieceLayout;
+    private LinearLayout popupLayout, gameLayout;
+    private Button yesButton, noButton, closeButton;
+    private TextView timerText1, timerText2, resignText;
+    private ConstraintLayout boardLayout, pieceLayout, mainLayout;
+    private PopupWindow resignMenu, gameMenu;
     private ArrayList<ImageView> boardImages = new ArrayList<ImageView>();
     private ArrayList<ImageView> pieces = new ArrayList<ImageView>();
     private ArrayList<Move> selectedMoves = new ArrayList<Move>();
@@ -27,22 +35,34 @@ public class PvpChessActivity extends AppCompatActivity {
     private int whiteMaterial = 0;
     private int blackMaterial = 0;
     private int numMoves = 0;
+    private boolean gameInProgress = false;
+    private boolean prompted = false;
     private ConstraintLayout layout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pvp_chess);
+        mainLayout = (ConstraintLayout) findViewById(R.id.pvpChessLayout);
         layout = (ConstraintLayout) findViewById(R.id.pieceLayout);
-
+        gameLayout = new LinearLayout(this);
+        popupLayout = new LinearLayout(this);
+        resignMenu = new PopupWindow(this);
+        gameMenu = new PopupWindow(this);
+        resignText = new TextView(this);
+        yesButton = new Button(this);
+        yesButton.setText("YES");
+        noButton = new Button(this);
+        noButton.setText("NO");
+        closeButton = new Button(this);
+        closeButton.setText("CLOSE");
         backButton = findViewById(R.id.backButton);
         newGameButton = findViewById(R.id.newGameButton);
         endButton = findViewById(R.id.endButton);
         resignButton = findViewById(R.id.resignButton);
         timerText1 = findViewById(R.id.timerText1);
         timerText2 = findViewById(R.id.timerText2);
-        boardLayout = findViewById(R.id.boardLayout);
-        pieceLayout = findViewById(R.id.pieceLayout);
+        boardLayout = (ConstraintLayout) findViewById(R.id.boardLayout);
 
         //Add board image views to array list (From boardA1 -> board H8, bottom to top, left to right)
         {
@@ -111,29 +131,83 @@ public class PvpChessActivity extends AppCompatActivity {
             boardImages.add(findViewById(R.id.boardG8));
             boardImages.add(findViewById(R.id.boardH8));
         }
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT);
+        popupLayout.setOrientation(LinearLayout.HORIZONTAL);
+        gameLayout.setOrientation(LinearLayout.HORIZONTAL);
+        resignText.setText("Are you sure you want to resign?");
+        popupLayout.addView(resignText, params);
+        resignMenu.setContentView(popupLayout);
+        gameMenu.setContentView(gameLayout);
+        popupLayout.addView(yesButton, params);
+        popupLayout.addView(noButton, params);
+        gameLayout.addView(closeButton,params);
+        setContentView(mainLayout);
         //Set button listeners
+        yesButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick (View view){
+                prompted = false;
+                gameInProgress = false;
+                resignMenu.dismiss();
+            }
+        });
+        noButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick (View view){
+                prompted = false;
+                resignMenu.dismiss();
+            }
+        });
+        closeButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick (View view){
+                prompted = false;
+                gameMenu.dismiss();
+            }
+        });
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                returnHome();
+                if (!gameInProgress)
+                    returnHome();
+                else {
+                    resignMenu.showAtLocation(boardLayout, Gravity.CENTER,300,80);
+                    resignMenu.update(50,50,300,80);
+                    prompted = !prompted;
+                    //Are you sure
+                }
             }
         });
         newGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (!gameInProgress){
+                    gameMenu.showAtLocation(boardLayout, Gravity.CENTER,300,80);
+                    gameMenu.update(50,50,300,80);
+                    prompted = !prompted;
+                } else {
+                    resignMenu.showAtLocation(boardLayout, Gravity.CENTER,300,80);
+                    resignMenu.update(50,50,300,80);
+                    prompted = !prompted;
+                }
 
             }
         });
         endButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                //prompt the other player for a draw
             }
         });
         resignButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                if (gameInProgress){
+                    resignMenu.showAtLocation(boardLayout, Gravity.CENTER,300,80);
+                    resignMenu.update(50,50,300,80);
+                    prompted = !prompted;
+                }
             }
         });
     }
@@ -143,8 +217,12 @@ public class PvpChessActivity extends AppCompatActivity {
         startActivity(homeIntent);
     }
 
-    private void promptPanel() {
+    private void promptPanel(boolean areYouSureYouWantToResign, boolean showGameOptions) {
+        if (areYouSureYouWantToResign){
 
+        } else if (showGameOptions) {
+
+        }
     }
     private void generatePositionfromFEN(String s) {
         int square = 57;
