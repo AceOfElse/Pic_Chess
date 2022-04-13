@@ -1,5 +1,7 @@
 package com.example.pic_chess;
 
+import static com.example.pic_chess.R.id.pieceLayout;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
@@ -23,7 +25,7 @@ public class PvpChessActivity extends AppCompatActivity {
     private LinearLayout popupLayout, gameLayout;
     private Button yesButton, noButton, closeButton;
     private TextView timerText1, timerText2, resignText;
-    private ConstraintLayout boardLayout, layout, mainLayout;
+    private ConstraintLayout boardLayout, pieceLayout, mainLayout;
     private PopupWindow resignMenu, gameMenu;
     private ArrayList<ImageView> boardImages = new ArrayList<ImageView>();
     private ArrayList<ImageView> pieces = new ArrayList<ImageView>();
@@ -42,7 +44,7 @@ public class PvpChessActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pvp_chess);
         mainLayout = (ConstraintLayout) findViewById(R.id.pvpChessLayout);
-        layout = (ConstraintLayout) findViewById(R.id.pieceLayout);
+        pieceLayout = (ConstraintLayout) findViewById(R.id.pieceLayout);
         gameLayout = new LinearLayout(this);
         popupLayout = new LinearLayout(this);
         resignMenu = new PopupWindow(this);
@@ -218,20 +220,21 @@ public class PvpChessActivity extends AppCompatActivity {
 
     private void generatePositionfromFEN(String s) {
         int square = 57;
+        ImageView iv;
         for(int x = 0; x < s.length(); x++){
-            ImageView iv = boardImages.get(1);
+            iv = new ImageView(this);
             switch(s.charAt(x)){
                 case 'p':
                     iv.setImageResource(R.drawable.blackpawn);
+                    pieceLayout.addView(iv);
                     pieces.add(iv);
-                    layout.addView(pieces.get(x));
                     setSquare(pieces.get(x),square);
                     Log.d("chess2",getPieceType(pieces.get(x)));
                     square++;
                 case 'P':
                     iv.setImageResource(R.drawable.whitepawn);
+                    pieceLayout.addView(iv);
                     pieces.add(iv);
-                    layout.addView(pieces.get(x));
                     setSquare(pieces.get(x),square);
                     Log.d("chess2",getPieceType(pieces.get(x)));
                     square++;
@@ -253,73 +256,72 @@ public class PvpChessActivity extends AppCompatActivity {
                     square++;
                 case 'r':
                     iv.setImageResource(R.drawable.blackrook);
+                    pieceLayout.addView(iv);
                     pieces.add(iv);
-                    Log.d("chess2",getPieceType(pieces.get(x)));
-                    layout.addView(pieces.get(x));
                     Log.d("chess2",getPieceType(pieces.get(x)));
                     setSquare(pieces.get(x),square);
                     Log.d("chess2",getPieceType(pieces.get(x)));
                     square++;
                 case 'R':
                     iv.setImageResource(R.drawable.whiterook);
+                    pieceLayout.addView(iv);
                     pieces.add(iv);
-                    layout.addView(pieces.get(x));
                     setSquare(pieces.get(x),square);
                     Log.d("chess2",getPieceType(pieces.get(x)));
                     square++;
                 case 'n':
                     iv.setImageResource(R.drawable.blackknight);
+                    pieceLayout.addView(iv);
                     pieces.add(iv);
-                    layout.addView(pieces.get(x));
                     setSquare(pieces.get(x),square);
                     Log.d("chess2",getPieceType(pieces.get(x)));
                     square++;
                 case 'N':
                     iv.setImageResource(R.drawable.whiteknight);
                     pieces.add(iv);
-                    layout.addView(pieces.get(x));
+                    pieceLayout.addView(pieces.get(x));
                     setSquare(pieces.get(x),square);
                     Log.d("chess2",getPieceType(pieces.get(x)));
                     square++;
                 case 'b':
                     iv.setImageResource(R.drawable.blackbishop);
+                    pieceLayout.addView(iv);
                     pieces.add(iv);
-                    layout.addView(pieces.get(x));
                     setSquare(pieces.get(x),square);
                     Log.d("chess2",getPieceType(pieces.get(x)));
                     square++;
                 case 'B':
                     iv.setImageResource(R.drawable.whitebishop);
+                    pieceLayout.addView(iv);
                     pieces.add(iv);
-                    layout.addView(pieces.get(x));
                     setSquare(pieces.get(x),square);
                     Log.d("chess2",getPieceType(pieces.get(x)));
                     square++;
                 case 'k':
                     iv.setImageResource(R.drawable.blackking);
+                    pieceLayout.addView(iv);
                     pieces.add(iv);
-                    layout.addView(pieces.get(x));
                     setSquare(pieces.get(x),square);
                     Log.d("chess2",getPieceType(pieces.get(x)));
                     square++;
                 case 'K':
                     iv.setImageResource(R.drawable.whiteking);
+                    pieceLayout.addView(iv);
                     pieces.add(iv);
-                    layout.addView(pieces.get(x));
                     setSquare(pieces.get(x),square);
                     Log.d("chess2",getPieceType(pieces.get(x)));
                     square++;
                 case 'q':
                     iv.setImageResource(R.drawable.blackqueen);
+                    pieceLayout.addView(iv);
                     pieces.add(iv);
-                    layout.addView(pieces.get(x));
                     setSquare(pieces.get(x),square);
                     Log.d("chess2",getPieceType(pieces.get(x)));
                     square++;
                 case 'Q':
                     iv.setImageResource(R.drawable.whitequeen);
+                    pieceLayout.addView(iv);
                     pieces.add(iv);
-                    layout.addView(pieces.get(x));
                     setSquare(pieces.get(x),square);
                     Log.d("chess2",getPieceType(pieces.get(x)));
                     square++;
@@ -474,14 +476,15 @@ public class PvpChessActivity extends AppCompatActivity {
 
     private void setSquare (View v, Integer i){
         ImageView square = getSquarebyInt(i);
+        v.setId(View.generateViewId());
         ConstraintSet constraintSet = new ConstraintSet();
-        constraintSet.clone(layout);
+        constraintSet.clone(pieceLayout);
         constraintSet.connect(v.getId(),ConstraintSet.START,square.getId(),ConstraintSet.START);
         constraintSet.connect(v.getId(),ConstraintSet.END,square.getId(),ConstraintSet.END);
         constraintSet.connect(v.getId(),ConstraintSet.TOP,square.getId(),ConstraintSet.TOP);
         constraintSet.connect(v.getId(),ConstraintSet.BOTTOM,square.getId(),ConstraintSet.BOTTOM);
         constraintSet.setVisibility(v.getId(),View.VISIBLE);
-        constraintSet.applyTo(layout);
+        constraintSet.applyTo(pieceLayout);
         v.setTranslationZ(10);
         Log.d("chess1","Moved "+ getPieceColor(v) + " " + getPieceType(v) + " to " + getSquare(v));
     }
