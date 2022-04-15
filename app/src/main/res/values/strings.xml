@@ -9,4 +9,6 @@
     <string name="hint_text_field">Hint...</string>
     <string name="toolbar_togglebutton_text">TOOL</string>
     <string name="answer_field_textfield">Your descriptions...</string>
+    <string name="prompt_back_text">Are you sure want to return?</string>
+    <string name="prompt_quit_text">Are you sure want to quit?</string>
 </resources>
