@@ -2,15 +2,19 @@ package com.example.pic_chess;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.view.DragStartHelper;
 
 import android.app.AlertDialog;
+import android.content.ClipData;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.DragEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ToggleButton;
@@ -25,11 +29,13 @@ public class ChessPicActivity extends AppCompatActivity {
     private ToggleButton toolbarButton;
     private AlertDialog.Builder alertDialogue;
 
-    private ImageView bishopTool, knightTool, pawnTool, rookTool, kingTool, queenTool;
+    private ImageView bishopTool, knightTool, pawnTool, rookTool, kingTool, queenTool, currentTool;
 
     private TextView bishopPieceNum, knightPieceNum, pawnPieceNum, rookPieceNum, kingPieceNum, queenPieceNum;
 
     private int bishopsLeft, knightsLeft, pawnsLeft, rooksLeft, kingsLeft, queensLeft;
+
+    private float dX, dY;
 
     private View canvas;
     private Bitmap bitmap;
@@ -67,7 +73,6 @@ public class ChessPicActivity extends AppCompatActivity {
 
         canvas = findViewById(R.id.canvasLayoutCP);
 
-
         //Set button listeners
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,39 +81,55 @@ public class ChessPicActivity extends AppCompatActivity {
             }
         });
 
-        bishopTool.setOnDragListener(new View.OnDragListener() {
-            @Override
-            public boolean onDrag(View view, DragEvent dragEvent) {
-                return true;
-            }
-        });
-
-//        createDraggableImage();
+        createDraggableImage();
 
         createCanvas();
     }
 
+    private View.OnTouchListener touchListener = new View.OnTouchListener() {
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+            switch (event.getActionMasked()) {
+                case MotionEvent.ACTION_DOWN:
+                    // capture the difference between view's top left corner and touch point
+                    dX = v.getX() - event.getRawX();
+                    dY = v.getY() - event.getRawY();
+                    break;
+                case MotionEvent.ACTION_MOVE:
+                    //  a different approach would be to change the view's LayoutParams.
+                    v.animate()
+                            .x(event.getRawX() + dX)
+                            .y(event.getRawY() + dY)
+                            .setDuration(0)
+                            .start();
+                    break;
+                case MotionEvent.ACTION_UP:
+                    break;
+            }
+            currentTool = (ImageView) v;
+            return true;
+        }
+    };
 
+    //user touches desired piece, allows them to click and drag this imageview to canvas
+    private void createDraggableImage(){
+        bishopTool.setOnTouchListener(touchListener);
+        knightTool.setOnTouchListener(touchListener);
+        pawnTool.setOnTouchListener(touchListener);
+        rookTool.setOnTouchListener(touchListener);
+        kingTool.setOnTouchListener(touchListener);
+        queenTool.setOnTouchListener(touchListener);
 
-    //user touches desired piece, allows them to click and drag to canvas
-//    private void createDraggableImage(){
-//        /// set currentSelectedPiece to whatever the user clicks on
-//
-//        //Get ID of the currently selected chess piece to use for drawing
-//        pieceID = currentSelectedPiece.getId();
-//
-//        ///Find what the piece is based on the ID
-//        findViewById(pieceID);
-//
-//        ///Get text from currently selected piece's number of pieces left to see if not zero
-//        ///switch statement
-//
-//    }
+        ///TODO: Get currently selected tool's number of pieces left to see if not zero
+        ///switch statement
+
+    }
+
 
     //creates a canvas for drawing
     private void createCanvas(){
         canvas.draw(new Canvas());
-//        Paint paint = new Paint();
+        Paint paint = new Paint();
 
     }
 
