@@ -158,6 +158,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <View
+            android:id="@+id/canvas_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -175,64 +183,76 @@
             android:layout_height="67dp"
             android:layout_marginStart="4dp"
             android:layout_marginBottom="33dp"
+            android:longClickable="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/pieceKnightCP"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/whitebishop" />
+            app:srcCompat="@drawable/whitebishop"
+            tools:ignore="SpeakableTextPresentCheck" />
 
         <ImageView
             android:id="@+id/piecePawnCP"
             android:layout_width="67dp"
             android:layout_height="67dp"
             android:layout_marginBottom="33dp"
+            android:longClickable="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/pieceRookCP"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
-            app:srcCompat="@drawable/whitepawn" />
+            app:srcCompat="@drawable/whitepawn"
+            tools:ignore="SpeakableTextPresentCheck" />
 
         <ImageView
             android:id="@+id/pieceRookCP"
             android:layout_width="67dp"
             android:layout_height="67dp"
             android:layout_marginBottom="33dp"
+            android:longClickable="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/pieceKingCP"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/whiterook" />
+            app:srcCompat="@drawable/whiterook"
+            tools:ignore="SpeakableTextPresentCheck" />
 
         <ImageView
             android:id="@+id/pieceKingCP"
             android:layout_width="67dp"
             android:layout_height="67dp"
             android:layout_marginBottom="33dp"
+            android:longClickable="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/pieceQueenCP"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/whiteking" />
+            app:srcCompat="@drawable/whiteking"
+            tools:ignore="SpeakableTextPresentCheck" />
 
         <ImageView
             android:id="@+id/pieceQueenCP"
             android:layout_width="67dp"
             android:layout_height="67dp"
             android:layout_marginEnd="4dp"
+            android:longClickable="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
-            app:srcCompat="@drawable/whitequeen" />
+            app:srcCompat="@drawable/whitequeen"
+            tools:ignore="SpeakableTextPresentCheck" />
 
         <ImageView
             android:id="@+id/pieceKnightCP"
             android:layout_width="67dp"
             android:layout_height="67dp"
             android:layout_marginBottom="33dp"
+            android:longClickable="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/piecePawnCP"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
-            app:srcCompat="@drawable/whiteknight" />
+            app:srcCompat="@drawable/whiteknight"
+            tools:ignore="SpeakableTextPresentCheck" />
 
         <TextView
             android:id="@+id/bishopPieceNumber"
