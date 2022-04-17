@@ -17,6 +17,7 @@ import android.view.DragEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -24,7 +25,7 @@ import android.widget.TextView;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-public class ChessPicActivity extends AppCompatActivity {
+public class ChessPicActivity extends AppCompatActivity implements NewCanvasPromptFragment.OnInputSelected {
     private ImageButton backButton, newCanvasButton, loadFileButton, saveFileButton, submitFileButton;
     private ToggleButton toolbarButton;
     private AlertDialog.Builder alertDialogue;
@@ -41,6 +42,12 @@ public class ChessPicActivity extends AppCompatActivity {
     private Bitmap bitmap;
 
     private ConstraintLayout constraintLayout;
+
+    private NewCanvasPromptFragment fragmentNCF;
+    private String nameFile;
+
+    //Tags for fragment
+    private static final String TAG = "NewCanvasPromptFragment";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +80,9 @@ public class ChessPicActivity extends AppCompatActivity {
 
         canvas = findViewById(R.id.canvasLayoutCP);
 
+        //Set fragments
+        fragmentNCF = new NewCanvasPromptFragment();
+
         //Set button listeners
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,9 +91,28 @@ public class ChessPicActivity extends AppCompatActivity {
             }
         });
 
+        newCanvasButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fragmentNCF.show(getSupportFragmentManager(), "Create New File");
+            }
+        });
+
         createDraggableImage();
 
         createCanvas();
+    }
+
+    //Implement methods from interface
+    public void sendInput(String inputName) {
+        nameFile = inputName;
+    }
+
+    public void sendNewCanvasState(boolean state) {
+        if (state) {
+            //Test fragment data passing
+            Toast.makeText(this, "Created new file '" + nameFile + "'.", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private View.OnTouchListener touchListener = new View.OnTouchListener() {
@@ -125,12 +154,10 @@ public class ChessPicActivity extends AppCompatActivity {
 
     }
 
-
     //creates a canvas for drawing
     private void createCanvas(){
         canvas.draw(new Canvas());
         Paint paint = new Paint();
-
     }
 
     //Set activity life cycles
@@ -154,7 +181,28 @@ public class ChessPicActivity extends AppCompatActivity {
         super.onStop();
     }
 
+    //Dealing with app's back button
     private void onClickShowAlert(View view) {
+        alertDialogue.setMessage(R.string.prompt_back_text);
+        alertDialogue.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+                finish();
+            }
+        });
+        alertDialogue.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+        alertDialogue.create();
+        alertDialogue.show();
+    }
+
+    //Dealing with Android's back button
+    public void onBackPressed() {
         alertDialogue.setMessage(R.string.prompt_back_text);
         alertDialogue.setPositiveButton("YES", new DialogInterface.OnClickListener() {
             @Override
