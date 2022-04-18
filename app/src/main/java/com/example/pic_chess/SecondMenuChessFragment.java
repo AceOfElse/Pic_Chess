@@ -64,7 +64,6 @@ public class SecondMenuChessFragment extends DialogFragment {
             public void onClick(View view) {
                 //Temporarily
                 mModeSelection.sendModeToThirdFromSecondChess(0);
-                getDialog().dismiss();
             }
         });
         mPvrPreviewButton.setOnClickListener(new View.OnClickListener() {
@@ -72,7 +71,6 @@ public class SecondMenuChessFragment extends DialogFragment {
             public void onClick(View view) {
                 //Temporarily
                 mModeSelection.sendModeToThirdFromSecondChess(1);
-                getDialog().dismiss();
             }
         });
         mOnlinePreviewButton.setOnClickListener(new View.OnClickListener() {
@@ -80,7 +78,6 @@ public class SecondMenuChessFragment extends DialogFragment {
             public void onClick(View view) {
                 //Temporarily
                 mModeSelection.sendModeToThirdFromSecondChess(2);
-                getDialog().dismiss();
             }
         });
         mCustomGamePreviewButton.setOnClickListener(new View.OnClickListener() {
@@ -88,7 +85,6 @@ public class SecondMenuChessFragment extends DialogFragment {
             public void onClick(View view) {
                 //Temporarily
                 mModeSelection.sendModeToThirdFromSecondChess(3);
-                getDialog().dismiss();
             }
         });
 

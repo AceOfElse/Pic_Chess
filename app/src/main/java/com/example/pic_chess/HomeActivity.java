@@ -105,43 +105,75 @@ public class HomeActivity extends AppCompatActivity implements SecondMenuChessFr
             case 0:
                 switch (firstMode) {
                     case 0:
+                        secondMenuChessFragment.getDialog().dismiss();
+                        thirdMenuTimeFragment.getDialog().dismiss();
                         openPvp(true);
                         break;
                     case 1:
+                        secondMenuChessFragment.getDialog().dismiss();
+                        thirdMenuTimeFragment.getDialog().dismiss();
                         break;
                     case 2:
+                        secondMenuChessFragment.getDialog().dismiss();
+                        thirdMenuTimeFragment.getDialog().dismiss();
                         break;
                     case 3:
+                        secondMenuChessFragment.getDialog().dismiss();
+                        thirdMenuTimeFragment.getDialog().dismiss();
                         break;
                     case 4:
+                        secondMenuChessPicFragment.getDialog().dismiss();
+                        thirdMenuTimeFragment.getDialog().dismiss();
                         openChessPic(true);
                         break;
                     case 5:
+                        secondMenuChessPicFragment.getDialog().dismiss();
+                        thirdMenuTimeFragment.getDialog().dismiss();
                         openChessPicReceive(true);
                         break;
                     default:
+                        secondMenuChessFragment.getDialog().dismiss();
+                        secondMenuChessPicFragment.getDialog().dismiss();
+                        thirdMenuTimeFragment.getDialog().dismiss();
                         break;
                 }
+                break;
             case 1:
                 switch (firstMode) {
                     case 0:
+                        secondMenuChessFragment.getDialog().dismiss();
+                        thirdMenuTimeFragment.getDialog().dismiss();
                         openPvp(false);
                         break;
                     case 1:
+                        secondMenuChessFragment.getDialog().dismiss();
+                        thirdMenuTimeFragment.getDialog().dismiss();
                         break;
                     case 2:
+                        secondMenuChessFragment.getDialog().dismiss();
+                        thirdMenuTimeFragment.getDialog().dismiss();
                         break;
                     case 3:
+                        secondMenuChessFragment.getDialog().dismiss();
+                        thirdMenuTimeFragment.getDialog().dismiss();
                         break;
                     case 4:
+                        secondMenuChessPicFragment.getDialog().dismiss();
+                        thirdMenuTimeFragment.getDialog().dismiss();
                         openChessPic(false);
                         break;
                     case 5:
+                        secondMenuChessPicFragment.getDialog().dismiss();
+                        thirdMenuTimeFragment.getDialog().dismiss();
                         openChessPicReceive(false);
                         break;
                     default:
+                        secondMenuChessFragment.getDialog().dismiss();
+                        secondMenuChessPicFragment.getDialog().dismiss();
+                        thirdMenuTimeFragment.getDialog().dismiss();
                         break;
                 }
+                break;
             default:
                 break;
         }
@@ -190,7 +222,7 @@ public class HomeActivity extends AppCompatActivity implements SecondMenuChessFr
 
     private void openPvp(boolean isTimed) {
         Intent pvpIntent = new Intent(HomeActivity.this, PvpChessActivity.class);
-        pvpIntent.putExtra("TTIME", isTimed);
+        pvpIntent.putExtra("TIME", isTimed);
         startActivity(pvpIntent);
         onStop();
         onRestart();

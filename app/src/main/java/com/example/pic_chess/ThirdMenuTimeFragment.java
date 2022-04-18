@@ -63,8 +63,6 @@ public class ThirdMenuTimeFragment extends DialogFragment {
             public void onClick(View view) {
                 mModeSelection.sendModeToActivityFromThirdTime(0);
                 getDialog().dismiss();
-                //SecondMenuChessFragment.newInstance().getDialog().dismiss();
-                //SecondMenuChessPicFragment.newInstance().getDialog().dismiss();
             }
         });
         mUnlimitedPreviewButton .setOnClickListener(new View.OnClickListener() {
@@ -72,8 +70,6 @@ public class ThirdMenuTimeFragment extends DialogFragment {
             public void onClick(View view) {
                 mModeSelection.sendModeToActivityFromThirdTime(1);
                 getDialog().dismiss();
-                //SecondMenuChessFragment.newInstance().getDialog().dismiss();
-                //SecondMenuChessPicFragment.newInstance().getDialog().dismiss();
             }
         });
 
