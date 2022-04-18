@@ -11,17 +11,20 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-public class HomeActivity extends AppCompatActivity implements SecondMenuFragmentOne.OnClickSelection{
+public class HomeActivity extends AppCompatActivity implements SecondMenuChessFragment.OnClickSelection, SecondMenuChessPicFragment.OnClickSelection, ThirdMenuTimeFragment.OnClickSelection {
     private TextView titleText;
     private ImageButton settingButton, chessPreviewButton, drawPreviewButton;
     private AlertDialog.Builder alertDialogue;
-    private SecondMenuFragmentOne secondMenuFragmentOne;
+    private SecondMenuChessFragment secondMenuChessFragment;
+    private SecondMenuChessPicFragment secondMenuChessPicFragment;
+    private ThirdMenuTimeFragment thirdMenuTimeFragment;
     private FragmentTransaction transaction;
+    private int firstMode, secondMode, thirdMode;
 
     //Tags for fragment
     private static final String TAG1 = "SecondMenuFragmentOne";
     private static final String TAG2 = "SecondMenuFragmentTwo";
-
+    private static final String TAG3 = "ThirdMenuTimeFragment";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,13 +33,15 @@ public class HomeActivity extends AppCompatActivity implements SecondMenuFragmen
         alertDialogue = new AlertDialog.Builder(HomeActivity.this);
 
         //Find views
-        titleText = findViewById(R.id.titleText);
+        titleText = findViewById(R.id.homeTitleText);
         chessPreviewButton = findViewById(R.id.chessPreviewButton);
         drawPreviewButton = findViewById(R.id.drawPreviewButton);
         settingButton = findViewById(R.id.settingButton);
 
         //Set fragments
-        secondMenuFragmentOne = SecondMenuFragmentOne.newInstance();
+        secondMenuChessFragment = SecondMenuChessFragment.newInstance();
+        secondMenuChessPicFragment = SecondMenuChessPicFragment.newInstance();
+        thirdMenuTimeFragment = ThirdMenuTimeFragment.newInstance();
 
         //Set button listeners
         chessPreviewButton.setOnClickListener(new View.OnClickListener() {
@@ -45,33 +50,103 @@ public class HomeActivity extends AppCompatActivity implements SecondMenuFragmen
                 //transaction = getSupportFragmentManager().beginTransaction();
                 //transaction.replace(R.id.secondMenuFragmentContainer, secondMenuFragmentOne);
                 //transaction.commit();
-                secondMenuFragmentOne.show(getSupportFragmentManager(), "Open second menu one");
+                secondMenuChessFragment.show(getSupportFragmentManager(), "Open second menu Chess");
             }
         });
         drawPreviewButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openChessPic();
+                secondMenuChessPicFragment.show(getSupportFragmentManager(), "Open second menu ChessPic");
             }
         });
     }
 
-    //Implements method from interface
-    public void sendMode(int mode) {
-        //executions on each case are just temporarily for testing, might invoke third layer fragment later
+    //Implements method from interfaces
+    public void sendModeToThirdFromSecondChess(int mode) {
         switch(mode) {
             case 0:
-                openPvp();
+                firstMode = 0;
+                thirdMenuTimeFragment.show(getSupportFragmentManager(), "Open third menu Time");
                 break;
             case 1:
-                openChessPic();
+                firstMode = 1;
+                thirdMenuTimeFragment.show(getSupportFragmentManager(), "Open third menu Time");
                 break;
             case 2:
+                firstMode = 2;
+                thirdMenuTimeFragment.show(getSupportFragmentManager(), "Open third menu Time");
+                break;
             case 3:
+                firstMode = 3;
+                thirdMenuTimeFragment.show(getSupportFragmentManager(), "Open third menu Time");
+                break;
             default:
                 break;
         }
     }
+
+    public void sendModeToThirdFromSecondChessPic(int mode) {
+        switch(mode) {
+            case 0:
+                firstMode = 4;
+                thirdMenuTimeFragment.show(getSupportFragmentManager(), "Open third menu Time");
+                break;
+            case 1:
+                firstMode = 5;
+                thirdMenuTimeFragment.show(getSupportFragmentManager(), "Open third menu Time");
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void sendModeToActivityFromThirdTime(int mode) {
+        switch(mode) {
+            case 0:
+                switch (firstMode) {
+                    case 0:
+                        openPvp(true);
+                        break;
+                    case 1:
+                        break;
+                    case 2:
+                        break;
+                    case 3:
+                        break;
+                    case 4:
+                        openChessPic(true);
+                        break;
+                    case 5:
+                        openChessPicReceive(true);
+                        break;
+                    default:
+                        break;
+                }
+            case 1:
+                switch (firstMode) {
+                    case 0:
+                        openPvp(false);
+                        break;
+                    case 1:
+                        break;
+                    case 2:
+                        break;
+                    case 3:
+                        break;
+                    case 4:
+                        openChessPic(false);
+                        break;
+                    case 5:
+                        openChessPicReceive(false);
+                        break;
+                    default:
+                        break;
+                }
+            default:
+                break;
+        }
+    }
+
 
     //Set activity life cycles
     protected void onStart() {
@@ -113,14 +188,26 @@ public class HomeActivity extends AppCompatActivity implements SecondMenuFragmen
         alertDialogue.show();
     }
 
-    private void openPvp() {
+    private void openPvp(boolean isTimed) {
         Intent pvpIntent = new Intent(HomeActivity.this, PvpChessActivity.class);
+        pvpIntent.putExtra("TTIME", isTimed);
         startActivity(pvpIntent);
+        onStop();
+        onRestart();
     }
 
-    private void openChessPic() {
+    private void openChessPic(boolean isTimed) {
         Intent chessPicIntent = new Intent(HomeActivity.this, ChessPicActivity.class);
+        chessPicIntent.putExtra("TIME", isTimed);
         startActivity(chessPicIntent);
+        onStop();
+        onRestart();
+    }
+
+    private void openChessPicReceive(boolean isTimed) {
+        Intent chessPicReceiveIntent = new Intent(HomeActivity.this, ChessPicReceiveActivity.class);
+        chessPicReceiveIntent.putExtra("TIME", isTimed);
+        startActivity(chessPicReceiveIntent);
         onStop();
         onRestart();
     }

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,10 +13,10 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 
 
-public class SecondMenuFragmentOne extends DialogFragment {
+public class SecondMenuChessFragment extends DialogFragment {
     //Interface for transferring data between fragment an activity
     public interface OnClickSelection {
-        void sendMode(int mode);
+        void sendModeToThirdFromSecondChess(int mode);
     }
 
     private ImageView mFirstChoiceImage;
@@ -27,13 +26,13 @@ public class SecondMenuFragmentOne extends DialogFragment {
     //Tags for fragment
     private static final String TAG1 = "SecondMenuFragmentOne";
 
-    public SecondMenuFragmentOne() {
+    public SecondMenuChessFragment() {
         // Required empty public constructor
     }
 
     //Invoke fragment
-    public static SecondMenuFragmentOne newInstance() {
-        SecondMenuFragmentOne fragment = new SecondMenuFragmentOne();
+    public static SecondMenuChessFragment newInstance() {
+        SecondMenuChessFragment fragment = new SecondMenuChessFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -50,7 +49,7 @@ public class SecondMenuFragmentOne extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_second_menu_one, container, false);
+        View view = inflater.inflate(R.layout.fragment_second_menu_chess, container, false);
 
         //Find views
         mFirstChoiceImage = view.findViewById(R.id.firstChoiceImage);
@@ -64,7 +63,7 @@ public class SecondMenuFragmentOne extends DialogFragment {
             @Override
             public void onClick(View view) {
                 //Temporarily
-                mModeSelection.sendMode(0);
+                mModeSelection.sendModeToThirdFromSecondChess(0);
                 getDialog().dismiss();
             }
         });
@@ -72,7 +71,7 @@ public class SecondMenuFragmentOne extends DialogFragment {
             @Override
             public void onClick(View view) {
                 //Temporarily
-                mModeSelection.sendMode(1);
+                mModeSelection.sendModeToThirdFromSecondChess(1);
                 getDialog().dismiss();
             }
         });
@@ -80,7 +79,7 @@ public class SecondMenuFragmentOne extends DialogFragment {
             @Override
             public void onClick(View view) {
                 //Temporarily
-                mModeSelection.sendMode(2);
+                mModeSelection.sendModeToThirdFromSecondChess(2);
                 getDialog().dismiss();
             }
         });
@@ -88,7 +87,7 @@ public class SecondMenuFragmentOne extends DialogFragment {
             @Override
             public void onClick(View view) {
                 //Temporarily
-                mModeSelection.sendMode(3);
+                mModeSelection.sendModeToThirdFromSecondChess(3);
                 getDialog().dismiss();
             }
         });
@@ -100,7 +99,7 @@ public class SecondMenuFragmentOne extends DialogFragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         try {
-            mModeSelection = (SecondMenuFragmentOne.OnClickSelection) getActivity();
+            mModeSelection = (SecondMenuChessFragment.OnClickSelection) getActivity();
         } catch (ClassCastException e) {
             Log.e(TAG1, "onAttach: ClassCastException : " + e.getMessage());
         }

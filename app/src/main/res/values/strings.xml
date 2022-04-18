@@ -15,6 +15,7 @@
     <string name="new_canvas_prompt_file_name">Enter File Name</string>
     <string name="create_button_text">Create</string>
     <string name="cancel_button_text">Cancel</string>
-    <string name="mode_text">MODES</string>
+    <string name="mode_text">GAME MODES</string>
     <string name="drawing_description_text">Start drawing... a</string>
+    <string name="time_mode_text">TIME MODES</string>
 </resources>

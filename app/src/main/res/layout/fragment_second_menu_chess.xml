@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:alpha="0.9"
     android:background="@color/black"
-    tools:context=".SecondMenuFragmentOne">
+    tools:context=".SecondMenuChessFragment">
 
     <TextView
         android:id="@+id/secondMenuTitleText"
