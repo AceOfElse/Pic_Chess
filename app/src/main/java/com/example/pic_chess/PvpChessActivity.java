@@ -1,12 +1,8 @@
 package com.example.pic_chess;
 
-import static com.example.pic_chess.R.id.pieceLayout;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.constraintlayout.widget.ConstraintSet;
-
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -17,6 +13,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
 
 import java.util.ArrayList;
 
@@ -226,14 +226,12 @@ public class PvpChessActivity extends AppCompatActivity {
             switch(s.charAt(x)){
                 case 'p':
                     iv.setImageResource(R.drawable.blackpawn);
-                    pieceLayout.addView(iv);
                     pieces.add(iv);
                     setSquare(pieces.get(x),square);
                     Log.d("chess2",getPieceType(pieces.get(x)));
                     square++;
                 case 'P':
                     iv.setImageResource(R.drawable.whitepawn);
-                    pieceLayout.addView(iv);
                     pieces.add(iv);
                     setSquare(pieces.get(x),square);
                     Log.d("chess2",getPieceType(pieces.get(x)));
@@ -256,22 +254,17 @@ public class PvpChessActivity extends AppCompatActivity {
                     square++;
                 case 'r':
                     iv.setImageResource(R.drawable.blackrook);
-                    pieceLayout.addView(iv);
                     pieces.add(iv);
-                    Log.d("chess2",getPieceType(pieces.get(x)));
                     setSquare(pieces.get(x),square);
-                    Log.d("chess2",getPieceType(pieces.get(x)));
                     square++;
                 case 'R':
                     iv.setImageResource(R.drawable.whiterook);
-                    pieceLayout.addView(iv);
                     pieces.add(iv);
                     setSquare(pieces.get(x),square);
                     Log.d("chess2",getPieceType(pieces.get(x)));
                     square++;
                 case 'n':
                     iv.setImageResource(R.drawable.blackknight);
-                    pieceLayout.addView(iv);
                     pieces.add(iv);
                     setSquare(pieces.get(x),square);
                     Log.d("chess2",getPieceType(pieces.get(x)));
@@ -279,48 +272,41 @@ public class PvpChessActivity extends AppCompatActivity {
                 case 'N':
                     iv.setImageResource(R.drawable.whiteknight);
                     pieces.add(iv);
-                    pieceLayout.addView(pieces.get(x));
                     setSquare(pieces.get(x),square);
                     Log.d("chess2",getPieceType(pieces.get(x)));
                     square++;
                 case 'b':
                     iv.setImageResource(R.drawable.blackbishop);
-                    pieceLayout.addView(iv);
                     pieces.add(iv);
                     setSquare(pieces.get(x),square);
                     Log.d("chess2",getPieceType(pieces.get(x)));
                     square++;
                 case 'B':
                     iv.setImageResource(R.drawable.whitebishop);
-                    pieceLayout.addView(iv);
                     pieces.add(iv);
                     setSquare(pieces.get(x),square);
                     Log.d("chess2",getPieceType(pieces.get(x)));
                     square++;
                 case 'k':
                     iv.setImageResource(R.drawable.blackking);
-                    pieceLayout.addView(iv);
                     pieces.add(iv);
                     setSquare(pieces.get(x),square);
                     Log.d("chess2",getPieceType(pieces.get(x)));
                     square++;
                 case 'K':
                     iv.setImageResource(R.drawable.whiteking);
-                    pieceLayout.addView(iv);
                     pieces.add(iv);
                     setSquare(pieces.get(x),square);
                     Log.d("chess2",getPieceType(pieces.get(x)));
                     square++;
                 case 'q':
                     iv.setImageResource(R.drawable.blackqueen);
-                    pieceLayout.addView(iv);
                     pieces.add(iv);
                     setSquare(pieces.get(x),square);
                     Log.d("chess2",getPieceType(pieces.get(x)));
                     square++;
                 case 'Q':
                     iv.setImageResource(R.drawable.whitequeen);
-                    pieceLayout.addView(iv);
                     pieces.add(iv);
                     setSquare(pieces.get(x),square);
                     Log.d("chess2",getPieceType(pieces.get(x)));
@@ -346,7 +332,7 @@ public class PvpChessActivity extends AppCompatActivity {
             return searchAllCaptures(alpha,beta);
         ArrayList<Move> moves = new ArrayList<Move>();
         for (View v: pieces) {
-            if (getPieceColor(v) == getTurn()){
+            if (getPieceColor((ImageView) v) == getTurn()){
                 moves = getLegalMoves(v,false);
             }
             if (moves.size() == 0) {
@@ -410,7 +396,7 @@ public class PvpChessActivity extends AppCompatActivity {
         setSquare(v,move.getCurrentSquare());
     }
     public void pieceOnClick(View v){
-        if(getTurn() == getPieceColor(v)) {
+        if(getTurn() == getPieceColor((ImageView) v)) {
             selectedMoves = getLegalMoves(v,false);
             for (Move m: selectedMoves) {
                 getSquarebyInt(m.getTargetSquare()).setImageResource(R.drawable.redsquare);
@@ -477,27 +463,26 @@ public class PvpChessActivity extends AppCompatActivity {
     private void setSquare (View v, Integer i){
         ImageView square = getSquarebyInt(i);
         v.setId(View.generateViewId());
+        pieceLayout.removeAllViewsInLayout();
+        pieceLayout.addView(v);
         ConstraintSet constraintSet = new ConstraintSet();
         constraintSet.clone(pieceLayout);
         constraintSet.connect(v.getId(),ConstraintSet.START,square.getId(),ConstraintSet.START);
         constraintSet.connect(v.getId(),ConstraintSet.END,square.getId(),ConstraintSet.END);
         constraintSet.connect(v.getId(),ConstraintSet.TOP,square.getId(),ConstraintSet.TOP);
         constraintSet.connect(v.getId(),ConstraintSet.BOTTOM,square.getId(),ConstraintSet.BOTTOM);
+        constraintSet.setTranslation(v.getId(),i%8*5, (float) (i/8.0*5));
+        constraintSet.setScaleX(v.getId(), (float) 0.15);
+        constraintSet.setScaleY(v.getId(), (float) 0.15);
         constraintSet.setVisibility(v.getId(),View.VISIBLE);
+        constraintSet.setTranslationZ(v.getId(),100);
         constraintSet.applyTo(pieceLayout);
-        v.setTranslationZ(10);
-        Log.d("chess1","Moved "+ getPieceColor(v) + " " + getPieceType(v) + " to " + getSquare(v));
+        Log.d("chess1","Moved "+ getPieceColor((ImageView)v) + " " + getPieceType((ImageView) v) + " to " + i);
     }
     private int getSquare(View v){
-        int fromBottom = 15;
-        int fromLeft = 0;
-        float x = v.getTranslationX();
-        float y = v.getTranslationY();
-        int i = 0;
-        x = (x - fromLeft) / 45 * 8;
-        y = (y - fromBottom) / 45 * 8;
-        i = (int) (x + 1 + (y*8));
-        return i;
+        int rank = (int) (v.getTranslationY()%9+1);
+        int file = (int) (v.getTranslationX()%9+1);
+        return rank*file;
     }
     public View getPiecebySquare(int square){
         for(View v: pieces){
@@ -509,12 +494,12 @@ public class PvpChessActivity extends AppCompatActivity {
     }
     public ArrayList<Move> getLegalMoves(View v, boolean capturesOnly){
         ArrayList <Move> moves = new ArrayList <Move> ();
-        String piece = getPieceType(v);
+        String piece = getPieceType((ImageView) v);
         boolean placeholder = false;
         int currentSquare = getSquare(v);
         if (piece == "bishop"){
             for (int upRight = currentSquare; upRight < 64; upRight += 9)
-                if (!openSquare(upRight) && getPieceColor(getPiecebySquare(upRight)) != getTurn()) {
+                if (!openSquare(upRight) && getPieceColor((ImageView) getPiecebySquare(upRight)) != getTurn()) {
                     moves.add(new Move(currentSquare,upRight));
                     break;
                 } else if (!openSquare(upRight)){
@@ -523,7 +508,7 @@ public class PvpChessActivity extends AppCompatActivity {
                     moves.add(new Move(currentSquare, upRight));
                 }
             for (int upLeft = currentSquare; upLeft < 58; upLeft += 7)
-                if (!openSquare(upLeft) && getPieceColor(getPiecebySquare(upLeft)) != getTurn()) {
+                if (!openSquare(upLeft) && getPieceColor((ImageView) getPiecebySquare(upLeft)) != getTurn()) {
                     moves.add(new Move(currentSquare,upLeft));
                     break;
                 } else if (!openSquare(upLeft)){
@@ -544,17 +529,17 @@ public class PvpChessActivity extends AppCompatActivity {
                 } else
                     moves.add(new Move (currentSquare,downLeft));
         } else if (piece == "king"){
-            if(checkFirstMove(v) && openSquare(2) && openSquare(3) && openSquare(4) && checkFirstMove(pieces.get(1)) && notAttacked(5) && notAttacked(4) && notAttacked(3) && notAttacked(2) && getPieceColor(v) == "white"){
+            if(checkFirstMove(v) && openSquare(2) && openSquare(3) && openSquare(4) && checkFirstMove(pieces.get(1)) && notAttacked(5) && notAttacked(4) && notAttacked(3) && notAttacked(2) && getPieceColor((ImageView) v) == "white"){
                 moves.add(new Move(currentSquare,2));
             } // long castle
-            if (checkFirstMove(v) && openSquare(6) && openSquare(7) && checkFirstMove(pieces.get(8)) && notAttacked(6) && notAttacked(7) && notAttacked(5) && getPieceColor(v) == "white"){
+            if (checkFirstMove(v) && openSquare(6) && openSquare(7) && checkFirstMove(pieces.get(8)) && notAttacked(6) && notAttacked(7) && notAttacked(5) && getPieceColor((ImageView) v) == "white"){
                 moves.add(new Move(currentSquare,7));
             }// short castle
             if(checkFirstMove(v) && openSquare(58) && openSquare(59) && openSquare(60) && checkFirstMove(pieces.get(25)) && notAttacked(61) && notAttacked(60) && notAttacked(59) &&
-                    notAttacked(58) && getPieceColor(v) == "black"){
+                    notAttacked(58) && getPieceColor((ImageView) v) == "black"){
                 moves.add(new Move(currentSquare,59));
             } // long castle
-            if (checkFirstMove(v) && openSquare(62) && openSquare(63) && checkFirstMove(pieces.get(32)) && notAttacked(62) && notAttacked(63) && notAttacked(61) && getPieceColor(v) == "black"){
+            if (checkFirstMove(v) && openSquare(62) && openSquare(63) && checkFirstMove(pieces.get(32)) && notAttacked(62) && notAttacked(63) && notAttacked(61) && getPieceColor((ImageView) v) == "black"){
                 moves.add(new Move(currentSquare,63));
             }// short castle
             if (notAttacked(currentSquare-1) && currentSquare % 8 != 1){
@@ -729,7 +714,7 @@ public class PvpChessActivity extends AppCompatActivity {
     private boolean notAttacked(int square) {
         ArrayList <Move> pieceMoves = new ArrayList <Move>();
         for (View v: pieces){
-            if (getPieceColor(v) != getTurn()) {
+            if (getPieceColor((ImageView) v) != getTurn()) {
                 pieceMoves = getLegalMoves(v,true);
                 for (Move m : pieceMoves) {
                     if (m.getTargetSquare() == square)
@@ -764,7 +749,7 @@ public class PvpChessActivity extends AppCompatActivity {
             return "black";
     }
     private int getMaterialValue(View v){
-        String piece = getPieceType(v);
+        String piece = getPieceType((ImageView) v);
         if (piece == "bishop" || piece == "knight" || piece == "king")
             return 3;
         else if (piece == "rook")
@@ -774,7 +759,9 @@ public class PvpChessActivity extends AppCompatActivity {
         else
             return 1;
     }
-    private String getPieceColor(View v){
+    private String getPieceColor(ImageView v){
+        Drawable d = v.getDrawable();
+        String pieceType = "";
         if (v == null) {
             String result = getTurn();
             if (result == "white"){
@@ -782,43 +769,36 @@ public class PvpChessActivity extends AppCompatActivity {
             }
             return "white";
         }
-        if (v == findViewById(R.id.blackBishop))
+        ImageView blackBishop = findViewById(R.id.blackBishop);
+        ImageView blackKing = findViewById(R.id.blackKing);
+        ImageView blackKnight = findViewById(R.id.blackKnight);
+        ImageView blackPawn = findViewById(R.id.blackPawn);
+        ImageView blackQueen = findViewById(R.id.blackQueen);
+        ImageView blackRook = findViewById(R.id.blackRook);
+        if (d == blackBishop.getDrawable() || d == blackRook.getDrawable())
             return "black";
-        else if (v == findViewById(R.id.blackKing))
+        else if (d == blackKing.getDrawable() || d == blackQueen.getDrawable())
             return "black";
-        else if (v == findViewById(R.id.blackKnight))
+        else if (d == blackKnight.getDrawable() || d == blackPawn.getDrawable())
             return "black";
-        else if (v == findViewById(R.id.blackPawn))
-            return "black";
-        else if (v == findViewById(R.id.blackQueen))
-            return "black";
-        else if (v == findViewById(R.id.blackRook))
-            return "black";
-        else if (v == findViewById(R.id.whiteBishop))
-            return "white";
-        else if (v == findViewById(R.id.whiteKing))
-            return "white";
-        else if (v == findViewById(R.id.whiteKnight))
-            return "white";
-        else if (v == findViewById(R.id.whitePawn))
-            return "white";
-        else if (v == findViewById(R.id.whiteQueen))
-            return "white";
         else
             return "white";
     }
-    private String getPieceType(View v){
-        if (v == findViewById(R.id.blackBishop) || v == findViewById(R.id.whiteBishop))
+
+    @SuppressLint("UseCompatLoadingForDrawables")
+    private String getPieceType(ImageView v){
+        Drawable i = v.getDrawable();
+        if (i == getDrawable(R.drawable.blackbishop) || i == getDrawable(R.drawable.whitebishop))
             return "bishop";
-        else if (v == findViewById(R.id.blackKing) || v == findViewById(R.id.whiteKing))
+        else if (i == getDrawable(R.drawable.blackking) || i == getDrawable(R.drawable.whiteking))
             return "king";
-        else if (v == findViewById(R.id.blackKnight) || v == findViewById(R.id.whiteKnight))
+        else if (i == getDrawable(R.drawable.blackknight) || i == getDrawable(R.drawable.whiteknight))
             return "knight";
-        else if (v == findViewById(R.id.blackPawn))
+        else if (i == getDrawable(R.drawable.blackpawn))
             return "black pawn";
-        else if (v == findViewById(R.id.blackQueen) || v == findViewById(R.id.whiteQueen))
+        else if (i == getDrawable(R.drawable.blackqueen) || i == getDrawable(R.drawable.whitequeen))
             return "queen";
-        else if (v == findViewById(R.id.whitePawn))
+        else if (i == getDrawable(R.drawable.whitepawn))
             return "white pawn";
         else
             return "rook";
