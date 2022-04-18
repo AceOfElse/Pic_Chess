@@ -6,12 +6,16 @@ import androidx.core.view.DragStartHelper;
 
 import android.app.AlertDialog;
 import android.content.ClipData;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.os.Bundle;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.DragEvent;
 import android.view.MotionEvent;
@@ -29,6 +33,7 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
     private ImageButton backButton, newCanvasButton, loadFileButton, saveFileButton, submitFileButton;
     private ToggleButton toolbarButton;
     private AlertDialog.Builder alertDialogue;
+    private DrawingView drawingView;
 
     private ImageView bishopTool, knightTool, pawnTool, rookTool, kingTool, queenTool, currentTool;
 
@@ -63,6 +68,7 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
         saveFileButton = findViewById(R.id.saveFileCP);
         submitFileButton = findViewById(R.id.submitFileCP);
         toolbarButton = findViewById(R.id.toolbarButtonCP);
+        drawingView = findViewById(R.id.canvas_view);
 
         bishopTool = findViewById(R.id.pieceBishopCP);
         knightTool = findViewById(R.id.pieceKnightCP);
@@ -220,4 +226,55 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
         alertDialogue.create();
         alertDialogue.show();
     }
+
+    ///Start Creating Canvas Properties\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+    //Making custom drawing view
+    public static class DrawingView extends View {
+        private static Paint paint = new Paint();
+        private static Path path = new Path();
+        //private static Canvas canvas = new Canvas();
+
+        public DrawingView(Context context, AttributeSet attributes) {
+            super(context, attributes);
+
+            //Set line attributes
+            paint.setAntiAlias(true);
+            paint.setStrokeWidth(5f);
+            paint.setColor(Color.BLACK);
+            paint.setStyle(Paint.Style.STROKE);
+            paint.setStrokeJoin(Paint.Join.ROUND);
+        }
+
+        protected void onDraw(Canvas canvas) {
+            canvas.drawPath(path, paint);
+        }
+
+        public boolean onTouchEvent(MotionEvent event) {
+            float touchX = event.getX();
+            float touchY = event.getY();
+
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    //Point to the touch coordinate
+                    path.moveTo(touchX, touchY);
+                    return true;
+                case MotionEvent.ACTION_MOVE:
+                    //Connect the point every frame
+                    path.lineTo(touchX, touchY);
+                    break;
+                default:
+                    return false;
+            }
+
+            //Repaint by calling onDraw()
+            invalidate();
+            return true;
+        }
+
+        public void resetCanvas() {
+            path.reset();
+        }
+
+    }
+///End Creating Canvas Properties\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 }
