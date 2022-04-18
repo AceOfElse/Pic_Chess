@@ -40,7 +40,7 @@ public class NewCanvasPromptFragment extends DialogFragment {
         // Required empty public constructor
     }
 
-    public static NewCanvasPromptFragment newInstance(String param1, String param2) {
+    public static NewCanvasPromptFragment newInstance() {
         NewCanvasPromptFragment fragment = new NewCanvasPromptFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);

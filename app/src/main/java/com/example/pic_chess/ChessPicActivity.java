@@ -3,6 +3,7 @@ package com.example.pic_chess;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.view.DragStartHelper;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.app.AlertDialog;
 import android.content.ClipData;
@@ -20,6 +21,7 @@ import android.util.Log;
 import android.view.DragEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -49,10 +51,13 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
     private ConstraintLayout constraintLayout;
 
     private NewCanvasPromptFragment fragmentNCF;
+    private ToolBarFragmentTest toolbarFragment;
+    private FragmentTransaction transaction;
     private String nameFile;
 
     //Tags for fragment
     private static final String TAG = "NewCanvasPromptFragment";
+    private static final String TAG2 = "ToolbarFragment";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +73,7 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
         saveFileButton = findViewById(R.id.saveFileCP);
         submitFileButton = findViewById(R.id.submitFileCP);
         toolbarButton = findViewById(R.id.toolbarButtonCP);
-        drawingView = findViewById(R.id.canvas_view);
+        drawingView = findViewById(R.id.drawingViewCP);
 
         bishopTool = findViewById(R.id.pieceBishopCP);
         knightTool = findViewById(R.id.pieceKnightCP);
@@ -87,7 +92,9 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
         canvas = findViewById(R.id.canvasLayoutCP);
 
         //Set fragments
-        fragmentNCF = new NewCanvasPromptFragment();
+        fragmentNCF = NewCanvasPromptFragment.newInstance();
+        toolbarFragment = ToolBarFragmentTest.newInstance();
+
 
         //Set button listeners
         backButton.setOnClickListener(new View.OnClickListener() {
@@ -101,6 +108,29 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
             @Override
             public void onClick(View view) {
                 fragmentNCF.show(getSupportFragmentManager(), "Create New File");
+            }
+        });
+        loadFileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                transaction = getSupportFragmentManager().beginTransaction();
+                transaction.add(R.id.toolbarFragmentContainer, toolbarFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
+        toolbarButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton toggleButton, boolean isChecked) {
+                if (isChecked) {
+                    transaction = getSupportFragmentManager().beginTransaction();
+                    transaction.add(R.id.toolbarFragmentContainer, toolbarFragment);
+                    transaction.addToBackStack(null);
+                    transaction.commit();
+                } else {
+                    transaction.remove(toolbarFragment);
+                    transaction.commit();
+                }
             }
         });
 
@@ -165,6 +195,9 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
         canvas.draw(new Canvas());
         Paint paint = new Paint();
     }
+
+    //Open and close toolBar fragment
+
 
     //Set activity life cycles
     protected void onStart() {
