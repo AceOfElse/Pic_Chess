@@ -28,9 +28,10 @@ public class PvpChessActivity extends AppCompatActivity {
     private ConstraintLayout boardLayout, pieceLayout, mainLayout;
     private PopupWindow resignMenu, gameMenu;
     private ArrayList<ImageView> boardImages = new ArrayList<ImageView>();
-    private ArrayList<ImageView> pieces = new ArrayList<ImageView>();
+    private ArrayList<Piece> pieces = new ArrayList<Piece>();
     private ArrayList<Move> selectedMoves = new ArrayList<Move>();
-    private ArrayList<Boolean> moved = new ArrayList<Boolean>();
+    private Piece selectedPiece;
+    private ArrayList<ImageView> pieceImages = new ArrayList<ImageView>();
     private ArrayList<ImageView> captured = new ArrayList<ImageView>();
     private ImageView selectedView;
     private int whiteMaterial = 0;
@@ -226,15 +227,17 @@ public class PvpChessActivity extends AppCompatActivity {
             switch(s.charAt(x)){
                 case 'p':
                     iv.setImageResource(R.drawable.blackpawn);
-                    pieces.add(iv);
-                    setSquare(pieces.get(x),square);
-                    Log.d("chess2",getPieceType(pieces.get(x)));
+                    pieceImages.add(iv);
+                    pieces.add(new Piece(square%8+1,square/8+1,"black","pawn"));
+                    setSquare(pieces.get(x),pieceImages.get(x),square);
+                    Log.d("chess2",pieces.get(x).getPieceType());
                     square++;
                 case 'P':
                     iv.setImageResource(R.drawable.whitepawn);
-                    pieces.add(iv);
-                    setSquare(pieces.get(x),square);
-                    Log.d("chess2",getPieceType(pieces.get(x)));
+                    pieceImages.add(iv);
+                    pieces.add(new Piece(square%8+1,square/8+1,"white","pawn"));
+                    setSquare(pieces.get(x),pieceImages.get(x),square);
+                    Log.d("chess2",pieces.get(x).getPieceType());
                     square++;
                 case '8':
                     square += 8;
@@ -254,66 +257,78 @@ public class PvpChessActivity extends AppCompatActivity {
                     square++;
                 case 'r':
                     iv.setImageResource(R.drawable.blackrook);
-                    pieces.add(iv);
-                    setSquare(pieces.get(x),square);
+                    pieceImages.add(iv);
+                    pieces.add(new Piece(square%8+1,square/8+1,"black","rook"));
+                    setSquare(pieces.get(x),pieceImages.get(x),square);
+                    Log.d("chess2",pieces.get(x).getPieceType());
                     square++;
                 case 'R':
                     iv.setImageResource(R.drawable.whiterook);
-                    pieces.add(iv);
-                    setSquare(pieces.get(x),square);
-                    Log.d("chess2",getPieceType(pieces.get(x)));
+                    pieceImages.add(iv);
+                    pieces.add(new Piece(square%8+1,square/8+1,"white","rook"));
+                    setSquare(pieces.get(x),pieceImages.get(x),square);
+                    Log.d("chess2",pieces.get(x).getPieceType());
                     square++;
                 case 'n':
                     iv.setImageResource(R.drawable.blackknight);
-                    pieces.add(iv);
-                    setSquare(pieces.get(x),square);
-                    Log.d("chess2",getPieceType(pieces.get(x)));
+                    pieceImages.add(iv);
+                    pieces.add(new Piece(square%8+1,square/8+1,"black","knight"));
+                    setSquare(pieces.get(x),pieceImages.get(x),square);
+                    Log.d("chess2",pieces.get(x).getPieceType());
                     square++;
                 case 'N':
                     iv.setImageResource(R.drawable.whiteknight);
-                    pieces.add(iv);
-                    setSquare(pieces.get(x),square);
-                    Log.d("chess2",getPieceType(pieces.get(x)));
+                    pieceImages.add(iv);
+                    pieces.add(new Piece(square%8+1,square/8+1,"white","knight"));
+                    setSquare(pieces.get(x),pieceImages.get(x),square);
+                    Log.d("chess2",pieces.get(x).getPieceType());
                     square++;
                 case 'b':
                     iv.setImageResource(R.drawable.blackbishop);
-                    pieces.add(iv);
-                    setSquare(pieces.get(x),square);
-                    Log.d("chess2",getPieceType(pieces.get(x)));
+                    pieceImages.add(iv);
+                    pieces.add(new Piece(square%8+1,square/8+1,"black","bishop"));
+                    setSquare(pieces.get(x),pieceImages.get(x),square);
+                    Log.d("chess2",pieces.get(x).getPieceType());
                     square++;
                 case 'B':
                     iv.setImageResource(R.drawable.whitebishop);
-                    pieces.add(iv);
-                    setSquare(pieces.get(x),square);
-                    Log.d("chess2",getPieceType(pieces.get(x)));
+                    pieceImages.add(iv);
+                    pieces.add(new Piece(square%8+1,square/8+1,"white","bishop"));
+                    setSquare(pieces.get(x),pieceImages.get(x),square);
+                    Log.d("chess2",pieces.get(x).getPieceType());
                     square++;
                 case 'k':
                     iv.setImageResource(R.drawable.blackking);
-                    pieces.add(iv);
-                    setSquare(pieces.get(x),square);
-                    Log.d("chess2",getPieceType(pieces.get(x)));
+                    pieceImages.add(iv);
+                    pieces.add(new Piece(square%8+1,square/8+1,"black","king"));
+                    setSquare(pieces.get(x),pieceImages.get(x),square);
+                    Log.d("chess2",pieces.get(x).getPieceType());
                     square++;
                 case 'K':
                     iv.setImageResource(R.drawable.whiteking);
-                    pieces.add(iv);
-                    setSquare(pieces.get(x),square);
-                    Log.d("chess2",getPieceType(pieces.get(x)));
+                    pieceImages.add(iv);
+                    pieces.add(new Piece(square%8+1,square/8+1,"white","king"));
+                    setSquare(pieces.get(x),pieceImages.get(x),square);
+                    Log.d("chess2",pieces.get(x).getPieceType());
                     square++;
                 case 'q':
                     iv.setImageResource(R.drawable.blackqueen);
-                    pieces.add(iv);
-                    setSquare(pieces.get(x),square);
-                    Log.d("chess2",getPieceType(pieces.get(x)));
+                    pieceImages.add(iv);
+                    pieces.add(new Piece(square%8+1,square/8+1,"black","queen"));
+                    setSquare(pieces.get(x),pieceImages.get(x),square);
+                    Log.d("chess2",pieces.get(x).getPieceType());
                     square++;
                 case 'Q':
                     iv.setImageResource(R.drawable.whitequeen);
-                    pieces.add(iv);
-                    setSquare(pieces.get(x),square);
-                    Log.d("chess2",getPieceType(pieces.get(x)));
+                    pieceImages.add(iv);
+                    pieces.add(new Piece(square%8+1,square/8+1,"white","queen"));
+                    setSquare(pieces.get(x),pieceImages.get(x),square);
+                    Log.d("chess2",pieces.get(x).getPieceType());
                     square++;
                 case '/':
                     square -= 15;
             }
+            Log.d("chess1","Moved "+ pieces.get(x).getPieceColor() + " " + pieces.get(x).getPieceType() + " to " + square);
         }
     }
     public int evaluate(){
@@ -331,9 +346,9 @@ public class PvpChessActivity extends AppCompatActivity {
         if (depth == 0)
             return searchAllCaptures(alpha,beta);
         ArrayList<Move> moves = new ArrayList<Move>();
-        for (View v: pieces) {
-            if (getPieceColor((ImageView) v) == getTurn()){
-                moves = getLegalMoves(v,false);
+        for (Piece p: pieces) {
+            if (p.getPieceColor() == getTurn()){
+                moves = getLegalMoves(p,false);
             }
             if (moves.size() == 0) {
                 if (playerInCheck())
@@ -342,9 +357,9 @@ public class PvpChessActivity extends AppCompatActivity {
             }
 
             for (Move m: moves){
-                makeMove(m,v);
+                makeMove(m,p);
                 int eval = -search(depth-1, -beta, -alpha);
-                unmakeMove(m,v);
+                unmakeMove(m,p);
                 if (eval >= beta){
                     //Move was too good, opponent will avoid this pos
                     return beta;
@@ -362,13 +377,13 @@ public class PvpChessActivity extends AppCompatActivity {
         alpha = Math.max(alpha,eval);
 
         ArrayList<Move> captureMoves = new ArrayList<Move>();
-        for(View v: pieces) {
-            captureMoves = getLegalMoves(v,true);
-            orderMoves(captureMoves,v);
+        for(Piece p: pieces) {
+            captureMoves = getLegalMoves(p,true);
+            orderMoves(captureMoves,p);
             for(Move m: captureMoves){
-                makeMove(m,v);
+                makeMove(m,p);
                 eval = -searchAllCaptures(-beta,-alpha);
-                unmakeMove(m,v);
+                unmakeMove(m,p);
                 if (eval >= beta)
                     return beta;
                 alpha = Math.max(alpha,eval);
@@ -376,11 +391,11 @@ public class PvpChessActivity extends AppCompatActivity {
         }
         return alpha;
     }
-    public void orderMoves (ArrayList<Move> moves,View v){
+    public void orderMoves (ArrayList<Move> moves,Piece p){
         for (Move m: moves){
             int moveScoreGuess = 0;
-            int movePieceType = getMaterialValue(v);
-            int capturePieceType = getMaterialValue(v);
+            int movePieceType = getMaterialValue(p);
+            int capturePieceType = getMaterialValue(p);
             if (capturePieceType != 1) {
                 moveScoreGuess += 10 * capturePieceType - movePieceType;
             }
@@ -389,28 +404,35 @@ public class PvpChessActivity extends AppCompatActivity {
             }
         }
     }
-    public void makeMove(Move move,View v){
-        setSquare(v,move.getTargetSquare());
+    public void makeMove(Move move,Piece p){
+        setSquare(p,getViewbyPiece(p),move.getTargetSquare());
     }
-    public void unmakeMove(Move move,View v){
-        setSquare(v,move.getCurrentSquare());
+
+    private View getViewbyPiece(Piece p) {
+        return v;
+    }
+
+    public void unmakeMove(Move move,Piece p){
+        setSquare(p,getViewbyPiece(p),move.getCurrentSquare());
     }
     public void pieceOnClick(View v){
-        if(getTurn() == getPieceColor((ImageView) v)) {
-            selectedMoves = getLegalMoves(v,false);
+        p = getPiecebyView(v);
+        if(getTurn() == p.getPieceColor()) {
+            selectedMoves = getLegalMoves(p,false);
             for (Move m: selectedMoves) {
                 getSquarebyInt(m.getTargetSquare()).setImageResource(R.drawable.redsquare);
             }
             selectedView = (ImageView) v;
-            getSquarebyInt(getSquare(v)).setImageResource(R.drawable.goldsquare);
+            selectedPiece = p;
+            getSquarebyInt(getSquare(p)).setImageResource(R.drawable.goldsquare);
         } else {
             for (Move m: selectedMoves) {
-                if(m.getTargetSquare() == getSquare(v)){
+                if(m.getTargetSquare() == getSquare(p)){
                     if (getTurn() == "white")
-                        blackMaterial -= getMaterialValue(v);
+                        blackMaterial -= getMaterialValue(p);
                     else
-                        whiteMaterial -= getMaterialValue(v);
-                    moved.set(getSquare(selectedView)-1,true);
+                        whiteMaterial -= getMaterialValue(p);
+                    p.setMoved(false);
                     setSquare(selectedView,m.getTargetSquare());
                     captured.add((ImageView) v);
                     numMoves++;
@@ -418,10 +440,25 @@ public class PvpChessActivity extends AppCompatActivity {
             }
         }
     }
+
+    private Piece getPiecebyView(View v) {
+        Piece piece = new Piece();
+        for(Piece p:pieces){
+            if (p == v){
+                piece = p;
+                break;
+            }
+        }
+        if (piece != null)
+            return piece;
+        return null;
+    }
+
     public void squareOnClick(View v){
-        if (selectedView != null){
+        if (selectedView != null && selectedPiece != null){
+            Square s = getSquarebyView(v);
             for (Move m: selectedMoves) {
-                if (m.getTargetSquare() == getSquare(v)) {
+                if (m.getTargetSquare() == getSquare(s)) {
                     int x = 0;
                     for(ImageView i: boardImages){
                         if (x%2 == 0)
@@ -430,37 +467,45 @@ public class PvpChessActivity extends AppCompatActivity {
                             i.setImageResource(R.drawable.lightsquare);
                         x++;
                     }
-                    setSquare(selectedView, m.getTargetSquare());
-                    if (getSquare(selectedView) == 3 && getSquare(v) == 5 && checkFirstMove(v))
+                    setSquare(selectedPiece,selectedView, m.getTargetSquare());
+                    if (getSquare(selectedPiece) == 3 && getSquare(s) == 5 && selectedPiece.checkFirstMove())
                         setSquare(pieces.get(1), 4);
-                    if (getSquare(selectedView) == 7 && getSquare(v) == 5 && checkFirstMove(v))
+                    if (getSquare(selectedPiece) == 7 && getSquare(s) == 5 && selectedPiece.checkFirstMove())
                         setSquare(pieces.get(8), 6);
-                    if (getSquare(selectedView) == 59 && getSquare(v) == 61 && checkFirstMove(v))
+                    if (getSquare(selectedPiece) == 59 && getSquare(s) == 61 && selectedPiece.checkFirstMove())
                         setSquare(pieces.get(25), 60);
-                    if (getSquare(selectedView) == 63 && getSquare(v) == 61 && checkFirstMove(v))
+                    if (getSquare(selectedPiece) == 63 && getSquare(s) == 61 && selectedPiece.checkFirstMove())
                         setSquare(pieces.get(32), 62);
-                    if (getSquare(selectedView) > 56 && getSquare(selectedView) < 65 && getPieceType(selectedView) == "white pawn") {
+                    if (getSquare(selectedPiece) > 56 && getSquare(selectedPiece) < 65 && selectedPiece.getPieceType() == "white pawn") {
                         whiteMaterial += 8;
                         ImageView iv = new ImageView(this);
                         iv.setImageResource(R.drawable.whitequeen);
-                        pieces.set(pieces.indexOf(selectedView),iv);
+                        pieces.set(pieces.indexOf(selectedPiece),new Piece(selectedPiece.getFile(),selectedPiece.getRank(),selectedPiece.getPieceColor(),"queen"));
                         setSquare(iv, m.getTargetSquare());
                     }
-                    if (getSquare(selectedView) > 0 && getSquare(selectedView) < 9 && getPieceType(selectedView) == "black pawn") {
+                    if (getSquare(selectedPiece) > 0 && getSquare(selectedPiece) < 9 && selectedPiece.getPieceType() == "black pawn") {
                         blackMaterial += 8;
                         ImageView iv = new ImageView(this);
                         iv.setImageResource(R.drawable.blackqueen);
-                        pieces.set(pieces.indexOf(selectedView),iv);
+                        pieces.set(pieces.indexOf(selectedPiece),new Piece(selectedPiece.getFile(),selectedPiece.getRank(),selectedPiece.getPieceColor(),"queen"));
                         setSquare(iv, m.getTargetSquare());
                     }
-                    moved.set(getSquare(v) - 1, true);
+                    selectedPiece.setMoved(true);
                     numMoves++;
                 }
             }
         }
     }
 
-    private void setSquare (View v, Integer i){
+    private Square getSquarebyView(View v) {
+        Square s = new Square(0,0);
+        for (Square square:boardSquares){
+
+        }
+        return s;
+    }
+
+    private void setSquare (Piece p, View v, Integer i){
         ImageView square = getSquarebyInt(i);
         v.setId(View.generateViewId());
         pieceLayout.removeAllViewsInLayout();
@@ -471,35 +516,40 @@ public class PvpChessActivity extends AppCompatActivity {
         constraintSet.connect(v.getId(),ConstraintSet.END,square.getId(),ConstraintSet.END);
         constraintSet.connect(v.getId(),ConstraintSet.TOP,square.getId(),ConstraintSet.TOP);
         constraintSet.connect(v.getId(),ConstraintSet.BOTTOM,square.getId(),ConstraintSet.BOTTOM);
-        constraintSet.setTranslation(v.getId(),i%8*5, (float) (i/8.0*5));
         constraintSet.setScaleX(v.getId(), (float) 0.15);
         constraintSet.setScaleY(v.getId(), (float) 0.15);
+        p.setRank(i/8+1);
+        p.setFile(i%8+1);
         constraintSet.setVisibility(v.getId(),View.VISIBLE);
-        constraintSet.setTranslationZ(v.getId(),100);
+        constraintSet.setTranslationZ(v.getId(),1);
         constraintSet.applyTo(pieceLayout);
-        Log.d("chess1","Moved "+ getPieceColor((ImageView)v) + " " + getPieceType((ImageView) v) + " to " + i);
     }
-    private int getSquare(View v){
-        int rank = (int) (v.getTranslationY()%9+1);
-        int file = (int) (v.getTranslationX()%9+1);
-        return rank*file;
+    private int getSquare(Piece p){
+        int rank = p.getRank();
+        int file = p.getFile();
+        return rank*8+file;
     }
-    public View getPiecebySquare(int square){
-        for(View v: pieces){
-            if (getSquare(v) == square) {
-                return v;
+    private int getSquare(Square s){
+        int rank = s.getRank();
+        int file = s.getFile();
+        return rank*8+file;
+    }
+    public Piece getPiecebySquare(int square){
+        for(Piece p: pieces){
+            if (getSquare(p) == square) {
+                return p;
             }
         }
         return null;
     }
-    public ArrayList<Move> getLegalMoves(View v, boolean capturesOnly){
+    public ArrayList<Move> getLegalMoves(Piece p, boolean capturesOnly){
         ArrayList <Move> moves = new ArrayList <Move> ();
-        String piece = getPieceType((ImageView) v);
+        String piece = p.getPieceType();
         boolean placeholder = false;
-        int currentSquare = getSquare(v);
+        int currentSquare = getSquare(p);
         if (piece == "bishop"){
             for (int upRight = currentSquare; upRight < 64; upRight += 9)
-                if (!openSquare(upRight) && getPieceColor((ImageView) getPiecebySquare(upRight)) != getTurn()) {
+                if (!openSquare(upRight) && getPiecebySquare(upRight).getPieceColor() != getTurn()) {
                     moves.add(new Move(currentSquare,upRight));
                     break;
                 } else if (!openSquare(upRight)){
@@ -508,7 +558,7 @@ public class PvpChessActivity extends AppCompatActivity {
                     moves.add(new Move(currentSquare, upRight));
                 }
             for (int upLeft = currentSquare; upLeft < 58; upLeft += 7)
-                if (!openSquare(upLeft) && getPieceColor((ImageView) getPiecebySquare(upLeft)) != getTurn()) {
+                if (!openSquare(upLeft) && getPiecebySquare(upLeft).getPieceColor() != getTurn()) {
                     moves.add(new Move(currentSquare,upLeft));
                     break;
                 } else if (!openSquare(upLeft)){
@@ -529,17 +579,17 @@ public class PvpChessActivity extends AppCompatActivity {
                 } else
                     moves.add(new Move (currentSquare,downLeft));
         } else if (piece == "king"){
-            if(checkFirstMove(v) && openSquare(2) && openSquare(3) && openSquare(4) && checkFirstMove(pieces.get(1)) && notAttacked(5) && notAttacked(4) && notAttacked(3) && notAttacked(2) && getPieceColor((ImageView) v) == "white"){
+            if(p.checkFirstMove() && openSquare(2) && openSquare(3) && openSquare(4) && pieces.get(1).checkFirstMove() && notAttacked(5) && notAttacked(4) && notAttacked(3) && notAttacked(2) && p.getPieceColor() == "white"){
                 moves.add(new Move(currentSquare,2));
             } // long castle
-            if (checkFirstMove(v) && openSquare(6) && openSquare(7) && checkFirstMove(pieces.get(8)) && notAttacked(6) && notAttacked(7) && notAttacked(5) && getPieceColor((ImageView) v) == "white"){
+            if (p.checkFirstMove() && openSquare(6) && openSquare(7) && pieces.get(8).checkFirstMove() && notAttacked(6) && notAttacked(7) && notAttacked(5) && p.getPieceColor() == "white"){
                 moves.add(new Move(currentSquare,7));
             }// short castle
-            if(checkFirstMove(v) && openSquare(58) && openSquare(59) && openSquare(60) && checkFirstMove(pieces.get(25)) && notAttacked(61) && notAttacked(60) && notAttacked(59) &&
-                    notAttacked(58) && getPieceColor((ImageView) v) == "black"){
+            if(p.checkFirstMove() && openSquare(58) && openSquare(59) && openSquare(60) && pieces.get(25).checkFirstMove() && notAttacked(61) && notAttacked(60) && notAttacked(59) &&
+                    notAttacked(58) && p.getPieceColor() == "black"){
                 moves.add(new Move(currentSquare,59));
             } // long castle
-            if (checkFirstMove(v) && openSquare(62) && openSquare(63) && checkFirstMove(pieces.get(32)) && notAttacked(62) && notAttacked(63) && notAttacked(61) && getPieceColor((ImageView) v) == "black"){
+            if (p.checkFirstMove() && openSquare(62) && openSquare(63) && pieces.get(32).checkFirstMove() && notAttacked(62) && notAttacked(63) && notAttacked(61) && p.getPieceColor() == "black"){
                 moves.add(new Move(currentSquare,63));
             }// short castle
             if (notAttacked(currentSquare-1) && currentSquare % 8 != 1){
@@ -591,7 +641,7 @@ public class PvpChessActivity extends AppCompatActivity {
         } else if (piece == "white pawn") {
             if (openSquare(currentSquare+8))
                 moves.add(new Move(currentSquare,currentSquare + 8));
-            if (checkFirstMove(v) && openSquare(currentSquare+16))
+            if (p.checkFirstMove() && openSquare(currentSquare+16))
                 moves.add(new Move(currentSquare,currentSquare + 16));
             if (!openSquare(currentSquare-1) && openSquare(currentSquare+7) && currentSquare < 41 && currentSquare > 33 && placeholder)
                 moves.add(new Move(currentSquare,currentSquare+7));
@@ -606,7 +656,7 @@ public class PvpChessActivity extends AppCompatActivity {
         } else if (piece == "black pawn"){
             if (openSquare(currentSquare-8))
                 moves.add(new Move(currentSquare,currentSquare - 8));
-            if (checkFirstMove(v) && openSquare(currentSquare-16))
+            if (p.checkFirstMove() && openSquare(currentSquare-16))
                 moves.add(new Move (currentSquare,currentSquare - 16));
             if (placeholder)
                 moves.add(new Move(currentSquare,currentSquare-7));
@@ -695,17 +745,9 @@ public class PvpChessActivity extends AppCompatActivity {
         }
         return moves;
     }
-    private boolean checkFirstMove(View v){
-        int x = 0;
-        for (x = 0; x < pieces.size()-1; x++) {
-            if (pieces.get(x) == v)
-                break;
-        }
-        return moved.get(x);
-    }
     private boolean openSquare(int square){
-        for(View v:pieces) {
-            if (getSquare(v) == square) {
+        for(Piece p:pieces) {
+            if (getSquare(p) == square) {
                 return false;
             }
         }
@@ -713,9 +755,9 @@ public class PvpChessActivity extends AppCompatActivity {
     }
     private boolean notAttacked(int square) {
         ArrayList <Move> pieceMoves = new ArrayList <Move>();
-        for (View v: pieces){
-            if (getPieceColor((ImageView) v) != getTurn()) {
-                pieceMoves = getLegalMoves(v,true);
+        for (Piece p: pieces){
+            if (p.getPieceColor() != getTurn()) {
+                pieceMoves = getLegalMoves(p,true);
                 for (Move m : pieceMoves) {
                     if (m.getTargetSquare() == square)
                         return false;
@@ -748,8 +790,8 @@ public class PvpChessActivity extends AppCompatActivity {
         else
             return "black";
     }
-    private int getMaterialValue(View v){
-        String piece = getPieceType((ImageView) v);
+    private int getMaterialValue(Piece p){
+        String piece = p.getPieceType();
         if (piece == "bishop" || piece == "knight" || piece == "king")
             return 3;
         else if (piece == "rook")
@@ -758,51 +800,6 @@ public class PvpChessActivity extends AppCompatActivity {
             return 9;
         else
             return 1;
-    }
-    private String getPieceColor(ImageView v){
-        Drawable d = v.getDrawable();
-        String pieceType = "";
-        if (v == null) {
-            String result = getTurn();
-            if (result == "white"){
-                return "black";
-            }
-            return "white";
-        }
-        ImageView blackBishop = findViewById(R.id.blackBishop);
-        ImageView blackKing = findViewById(R.id.blackKing);
-        ImageView blackKnight = findViewById(R.id.blackKnight);
-        ImageView blackPawn = findViewById(R.id.blackPawn);
-        ImageView blackQueen = findViewById(R.id.blackQueen);
-        ImageView blackRook = findViewById(R.id.blackRook);
-        if (d == blackBishop.getDrawable() || d == blackRook.getDrawable())
-            return "black";
-        else if (d == blackKing.getDrawable() || d == blackQueen.getDrawable())
-            return "black";
-        else if (d == blackKnight.getDrawable() || d == blackPawn.getDrawable())
-            return "black";
-        else
-            return "white";
-    }
-
-    @SuppressLint("UseCompatLoadingForDrawables")
-    private String getPieceType(ImageView v){
-        Drawable i = v.getDrawable();
-        if (i == getDrawable(R.drawable.blackbishop) || i == getDrawable(R.drawable.whitebishop))
-            return "bishop";
-        else if (i == getDrawable(R.drawable.blackking) || i == getDrawable(R.drawable.whiteking))
-            return "king";
-        else if (i == getDrawable(R.drawable.blackknight) || i == getDrawable(R.drawable.whiteknight))
-            return "knight";
-        else if (i == getDrawable(R.drawable.blackpawn))
-            return "black pawn";
-        else if (i == getDrawable(R.drawable.blackqueen) || i == getDrawable(R.drawable.whitequeen))
-            return "queen";
-        else if (i == getDrawable(R.drawable.whitepawn))
-            return "white pawn";
-        else
-            return "rook";
-
     }
     private ImageView getSquarebyInt(int i){
         ImageView s = new ImageView(this);
@@ -953,5 +950,69 @@ public class PvpChessActivity extends AppCompatActivity {
             return targetSquare;
         }
 
+    }
+    public static class Square {
+        private int rank;
+        private int file;
+        public Square(int f, int r){
+            rank = r;
+            file = f;
+        }
+        public int getFile() {
+            return file;
+        }
+
+        public int getRank() {
+            return rank;
+        }
+    }
+    public static class Piece {
+        private int rank;
+        private int file;
+        private String pieceType;
+        private String pieceColor;
+        private boolean moved;
+        public Piece(){
+            rank = 0;
+            file = 0;
+            pieceColor = "";
+            pieceType = "";
+            moved = false;
+        }
+        public Piece(int f, int r, String c, String t){
+            rank = r;
+            file = f;
+            pieceColor = c;
+            pieceType = t;
+            moved = false;
+        }
+        public int getRank(){
+            return rank;
+        }
+        public int getFile(){
+            return file;
+        }
+        public String getPieceType(){
+            return pieceType;
+        }
+        public String getPieceColor(){
+            return pieceColor;
+        }
+        public boolean checkFirstMove(){
+            return moved;
+        }
+        public void setMoved(boolean x){
+            moved = x;
+        }
+
+        public void setRank(int i) {
+            rank = i;
+        }
+        public void setFile(int i){
+            file = i;
+        }
+        public void setPieceType(String s){
+            pieceType = s;
+        }
     }
 }
