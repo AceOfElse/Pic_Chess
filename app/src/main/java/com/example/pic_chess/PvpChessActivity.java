@@ -1,8 +1,10 @@
 package com.example.pic_chess;
 
-import android.annotation.SuppressLint;
+import static com.example.pic_chess.R.drawable;
+import static com.example.pic_chess.R.id;
+import static com.example.pic_chess.R.layout;
+
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -28,6 +30,7 @@ public class PvpChessActivity extends AppCompatActivity {
     private ConstraintLayout boardLayout, pieceLayout, mainLayout;
     private PopupWindow resignMenu, gameMenu;
     private ArrayList<ImageView> boardImages = new ArrayList<ImageView>();
+    private ArrayList<Square> boardSquares = new ArrayList<Square>();
     private ArrayList<Piece> pieces = new ArrayList<Piece>();
     private ArrayList<Move> selectedMoves = new ArrayList<Move>();
     private Piece selectedPiece;
@@ -43,9 +46,9 @@ public class PvpChessActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pvp_chess);
-        mainLayout = (ConstraintLayout) findViewById(R.id.pvpChessLayout);
-        pieceLayout = (ConstraintLayout) findViewById(R.id.pieceLayout);
+        setContentView(layout.activity_pvp_chess);
+        mainLayout = (ConstraintLayout) findViewById(id.pvpChessLayout);
+        pieceLayout = (ConstraintLayout) findViewById(id.pieceLayout);
         gameLayout = new LinearLayout(this);
         popupLayout = new LinearLayout(this);
         resignMenu = new PopupWindow(this);
@@ -57,80 +60,80 @@ public class PvpChessActivity extends AppCompatActivity {
         noButton.setText("NO");
         closeButton = new Button(this);
         closeButton.setText("CLOSE");
-        backButton = findViewById(R.id.backButton);
-        newGameButton = findViewById(R.id.newGameButton);
-        endButton = findViewById(R.id.endButton);
-        resignButton = findViewById(R.id.resignButton);
-        timerText1 = findViewById(R.id.timerText1);
-        timerText2 = findViewById(R.id.timerText2);
-        boardLayout = (ConstraintLayout) findViewById(R.id.boardLayout);
+        backButton = findViewById(id.backButton);
+        newGameButton = findViewById(id.newGameButton);
+        endButton = findViewById(id.endButton);
+        resignButton = findViewById(id.resignButton);
+        timerText1 = findViewById(id.timerText1);
+        timerText2 = findViewById(id.timerText2);
+        boardLayout = (ConstraintLayout) findViewById(id.boardLayout);
 
         //Add board image views to array list (From boardA1 -> board H8, bottom to top, left to right)
         {
-            boardImages.add(findViewById(R.id.boardA1));
-            boardImages.add(findViewById(R.id.boardB1));
-            boardImages.add(findViewById(R.id.boardC1));
-            boardImages.add(findViewById(R.id.boardD1));
-            boardImages.add(findViewById(R.id.boardE1));
-            boardImages.add(findViewById(R.id.boardF1));
-            boardImages.add(findViewById(R.id.boardG1));
-            boardImages.add(findViewById(R.id.boardH1));
-            boardImages.add(findViewById(R.id.boardA2));
-            boardImages.add(findViewById(R.id.boardB2));
-            boardImages.add(findViewById(R.id.boardC2));
-            boardImages.add(findViewById(R.id.boardD2));
-            boardImages.add(findViewById(R.id.boardE2));
-            boardImages.add(findViewById(R.id.boardF2));
-            boardImages.add(findViewById(R.id.boardG2));
-            boardImages.add(findViewById(R.id.boardH2));
-            boardImages.add(findViewById(R.id.boardA3));
-            boardImages.add(findViewById(R.id.boardB3));
-            boardImages.add(findViewById(R.id.boardC3));
-            boardImages.add(findViewById(R.id.boardD3));
-            boardImages.add(findViewById(R.id.boardE3));
-            boardImages.add(findViewById(R.id.boardF3));
-            boardImages.add(findViewById(R.id.boardG3));
-            boardImages.add(findViewById(R.id.boardH3));
-            boardImages.add(findViewById(R.id.boardA4));
-            boardImages.add(findViewById(R.id.boardB4));
-            boardImages.add(findViewById(R.id.boardC4));
-            boardImages.add(findViewById(R.id.boardD4));
-            boardImages.add(findViewById(R.id.boardE4));
-            boardImages.add(findViewById(R.id.boardF4));
-            boardImages.add(findViewById(R.id.boardG4));
-            boardImages.add(findViewById(R.id.boardH4));
-            boardImages.add(findViewById(R.id.boardA5));
-            boardImages.add(findViewById(R.id.boardB5));
-            boardImages.add(findViewById(R.id.boardC5));
-            boardImages.add(findViewById(R.id.boardD5));
-            boardImages.add(findViewById(R.id.boardE5));
-            boardImages.add(findViewById(R.id.boardF5));
-            boardImages.add(findViewById(R.id.boardG5));
-            boardImages.add(findViewById(R.id.boardH5));
-            boardImages.add(findViewById(R.id.boardA6));
-            boardImages.add(findViewById(R.id.boardB6));
-            boardImages.add(findViewById(R.id.boardC6));
-            boardImages.add(findViewById(R.id.boardD6));
-            boardImages.add(findViewById(R.id.boardE6));
-            boardImages.add(findViewById(R.id.boardF6));
-            boardImages.add(findViewById(R.id.boardG6));
-            boardImages.add(findViewById(R.id.boardH6));
-            boardImages.add(findViewById(R.id.boardA7));
-            boardImages.add(findViewById(R.id.boardB7));
-            boardImages.add(findViewById(R.id.boardC7));
-            boardImages.add(findViewById(R.id.boardD7));
-            boardImages.add(findViewById(R.id.boardE7));
-            boardImages.add(findViewById(R.id.boardF7));
-            boardImages.add(findViewById(R.id.boardG7));
-            boardImages.add(findViewById(R.id.boardH7));
-            boardImages.add(findViewById(R.id.boardA8));
-            boardImages.add(findViewById(R.id.boardB8));
-            boardImages.add(findViewById(R.id.boardC8));
-            boardImages.add(findViewById(R.id.boardD8));
-            boardImages.add(findViewById(R.id.boardE8));
-            boardImages.add(findViewById(R.id.boardF8));
-            boardImages.add(findViewById(R.id.boardG8));
-            boardImages.add(findViewById(R.id.boardH8));
+            boardImages.add(findViewById(id.boardA1));
+            boardImages.add(findViewById(id.boardB1));
+            boardImages.add(findViewById(id.boardC1));
+            boardImages.add(findViewById(id.boardD1));
+            boardImages.add(findViewById(id.boardE1));
+            boardImages.add(findViewById(id.boardF1));
+            boardImages.add(findViewById(id.boardG1));
+            boardImages.add(findViewById(id.boardH1));
+            boardImages.add(findViewById(id.boardA2));
+            boardImages.add(findViewById(id.boardB2));
+            boardImages.add(findViewById(id.boardC2));
+            boardImages.add(findViewById(id.boardD2));
+            boardImages.add(findViewById(id.boardE2));
+            boardImages.add(findViewById(id.boardF2));
+            boardImages.add(findViewById(id.boardG2));
+            boardImages.add(findViewById(id.boardH2));
+            boardImages.add(findViewById(id.boardA3));
+            boardImages.add(findViewById(id.boardB3));
+            boardImages.add(findViewById(id.boardC3));
+            boardImages.add(findViewById(id.boardD3));
+            boardImages.add(findViewById(id.boardE3));
+            boardImages.add(findViewById(id.boardF3));
+            boardImages.add(findViewById(id.boardG3));
+            boardImages.add(findViewById(id.boardH3));
+            boardImages.add(findViewById(id.boardA4));
+            boardImages.add(findViewById(id.boardB4));
+            boardImages.add(findViewById(id.boardC4));
+            boardImages.add(findViewById(id.boardD4));
+            boardImages.add(findViewById(id.boardE4));
+            boardImages.add(findViewById(id.boardF4));
+            boardImages.add(findViewById(id.boardG4));
+            boardImages.add(findViewById(id.boardH4));
+            boardImages.add(findViewById(id.boardA5));
+            boardImages.add(findViewById(id.boardB5));
+            boardImages.add(findViewById(id.boardC5));
+            boardImages.add(findViewById(id.boardD5));
+            boardImages.add(findViewById(id.boardE5));
+            boardImages.add(findViewById(id.boardF5));
+            boardImages.add(findViewById(id.boardG5));
+            boardImages.add(findViewById(id.boardH5));
+            boardImages.add(findViewById(id.boardA6));
+            boardImages.add(findViewById(id.boardB6));
+            boardImages.add(findViewById(id.boardC6));
+            boardImages.add(findViewById(id.boardD6));
+            boardImages.add(findViewById(id.boardE6));
+            boardImages.add(findViewById(id.boardF6));
+            boardImages.add(findViewById(id.boardG6));
+            boardImages.add(findViewById(id.boardH6));
+            boardImages.add(findViewById(id.boardA7));
+            boardImages.add(findViewById(id.boardB7));
+            boardImages.add(findViewById(id.boardC7));
+            boardImages.add(findViewById(id.boardD7));
+            boardImages.add(findViewById(id.boardE7));
+            boardImages.add(findViewById(id.boardF7));
+            boardImages.add(findViewById(id.boardG7));
+            boardImages.add(findViewById(id.boardH7));
+            boardImages.add(findViewById(id.boardA8));
+            boardImages.add(findViewById(id.boardB8));
+            boardImages.add(findViewById(id.boardC8));
+            boardImages.add(findViewById(id.boardD8));
+            boardImages.add(findViewById(id.boardE8));
+            boardImages.add(findViewById(id.boardF8));
+            boardImages.add(findViewById(id.boardG8));
+            boardImages.add(findViewById(id.boardH8));
         }
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -226,17 +229,15 @@ public class PvpChessActivity extends AppCompatActivity {
             iv = new ImageView(this);
             switch(s.charAt(x)){
                 case 'p':
-                    iv.setImageResource(R.drawable.blackpawn);
-                    pieceImages.add(iv);
-                    pieces.add(new Piece(square%8+1,square/8+1,"black","pawn"));
-                    setSquare(pieces.get(x),pieceImages.get(x),square);
+                    iv.setImageResource(drawable.blackpawn);
+                    pieces.add(new Piece(square%8+1,square/8+1,"black","pawn",iv));
+                    setSquare(pieces.get(x),square);
                     Log.d("chess2",pieces.get(x).getPieceType());
                     square++;
                 case 'P':
-                    iv.setImageResource(R.drawable.whitepawn);
-                    pieceImages.add(iv);
-                    pieces.add(new Piece(square%8+1,square/8+1,"white","pawn"));
-                    setSquare(pieces.get(x),pieceImages.get(x),square);
+                    iv.setImageResource(drawable.whitepawn);
+                    pieces.add(new Piece(square%8+1,square/8+1,"white","pawn",iv));
+                    setSquare(pieces.get(x),square);
                     Log.d("chess2",pieces.get(x).getPieceType());
                     square++;
                 case '8':
@@ -256,73 +257,63 @@ public class PvpChessActivity extends AppCompatActivity {
                 case '1':
                     square++;
                 case 'r':
-                    iv.setImageResource(R.drawable.blackrook);
-                    pieceImages.add(iv);
-                    pieces.add(new Piece(square%8+1,square/8+1,"black","rook"));
-                    setSquare(pieces.get(x),pieceImages.get(x),square);
+                    iv.setImageResource(drawable.blackrook);
+                    pieces.add(new Piece(square%8+1,square/8+1,"black","rook",iv));
+                    setSquare(pieces.get(x),square);
                     Log.d("chess2",pieces.get(x).getPieceType());
                     square++;
                 case 'R':
-                    iv.setImageResource(R.drawable.whiterook);
-                    pieceImages.add(iv);
-                    pieces.add(new Piece(square%8+1,square/8+1,"white","rook"));
-                    setSquare(pieces.get(x),pieceImages.get(x),square);
+                    iv.setImageResource(drawable.whiterook);
+                    pieces.add(new Piece(square%8+1,square/8+1,"white","rook",iv));
+                    setSquare(pieces.get(x),square);
                     Log.d("chess2",pieces.get(x).getPieceType());
                     square++;
                 case 'n':
-                    iv.setImageResource(R.drawable.blackknight);
-                    pieceImages.add(iv);
-                    pieces.add(new Piece(square%8+1,square/8+1,"black","knight"));
-                    setSquare(pieces.get(x),pieceImages.get(x),square);
+                    iv.setImageResource(drawable.blackknight);
+                    pieces.add(new Piece(square%8+1,square/8+1,"black","knight",iv));
+                    setSquare(pieces.get(x),square);
                     Log.d("chess2",pieces.get(x).getPieceType());
                     square++;
                 case 'N':
-                    iv.setImageResource(R.drawable.whiteknight);
-                    pieceImages.add(iv);
-                    pieces.add(new Piece(square%8+1,square/8+1,"white","knight"));
-                    setSquare(pieces.get(x),pieceImages.get(x),square);
+                    iv.setImageResource(drawable.whiteknight);
+                    pieces.add(new Piece(square%8+1,square/8+1,"white","knight",iv));
+                    setSquare(pieces.get(x),square);
                     Log.d("chess2",pieces.get(x).getPieceType());
                     square++;
                 case 'b':
-                    iv.setImageResource(R.drawable.blackbishop);
-                    pieceImages.add(iv);
-                    pieces.add(new Piece(square%8+1,square/8+1,"black","bishop"));
-                    setSquare(pieces.get(x),pieceImages.get(x),square);
+                    iv.setImageResource(drawable.blackbishop);
+                    pieces.add(new Piece(square%8+1,square/8+1,"black","bishop",iv));
+                    setSquare(pieces.get(x),square);
                     Log.d("chess2",pieces.get(x).getPieceType());
                     square++;
                 case 'B':
-                    iv.setImageResource(R.drawable.whitebishop);
-                    pieceImages.add(iv);
-                    pieces.add(new Piece(square%8+1,square/8+1,"white","bishop"));
-                    setSquare(pieces.get(x),pieceImages.get(x),square);
+                    iv.setImageResource(drawable.whitebishop);
+                    pieces.add(new Piece(square%8+1,square/8+1,"white","bishop",iv));
+                    setSquare(pieces.get(x),square);
                     Log.d("chess2",pieces.get(x).getPieceType());
                     square++;
                 case 'k':
-                    iv.setImageResource(R.drawable.blackking);
-                    pieceImages.add(iv);
-                    pieces.add(new Piece(square%8+1,square/8+1,"black","king"));
-                    setSquare(pieces.get(x),pieceImages.get(x),square);
+                    iv.setImageResource(drawable.blackking);
+                    pieces.add(new Piece(square%8+1,square/8+1,"black","king",iv));
+                    setSquare(pieces.get(x),square);
                     Log.d("chess2",pieces.get(x).getPieceType());
                     square++;
                 case 'K':
-                    iv.setImageResource(R.drawable.whiteking);
-                    pieceImages.add(iv);
-                    pieces.add(new Piece(square%8+1,square/8+1,"white","king"));
-                    setSquare(pieces.get(x),pieceImages.get(x),square);
+                    iv.setImageResource(drawable.whiteking);
+                    pieces.add(new Piece(square%8+1,square/8+1,"white","king",iv));
+                    setSquare(pieces.get(x),square);
                     Log.d("chess2",pieces.get(x).getPieceType());
                     square++;
                 case 'q':
-                    iv.setImageResource(R.drawable.blackqueen);
-                    pieceImages.add(iv);
-                    pieces.add(new Piece(square%8+1,square/8+1,"black","queen"));
-                    setSquare(pieces.get(x),pieceImages.get(x),square);
+                    iv.setImageResource(drawable.blackqueen);
+                    pieces.add(new Piece(square%8+1,square/8+1,"black","queen",iv));
+                    setSquare(pieces.get(x),square);
                     Log.d("chess2",pieces.get(x).getPieceType());
                     square++;
                 case 'Q':
-                    iv.setImageResource(R.drawable.whitequeen);
-                    pieceImages.add(iv);
-                    pieces.add(new Piece(square%8+1,square/8+1,"white","queen"));
-                    setSquare(pieces.get(x),pieceImages.get(x),square);
+                    iv.setImageResource(drawable.whitequeen);
+                    pieces.add(new Piece(square%8+1,square/8+1,"white","queen",iv));
+                    setSquare(pieces.get(x),square);
                     Log.d("chess2",pieces.get(x).getPieceType());
                     square++;
                 case '/':
@@ -405,26 +396,22 @@ public class PvpChessActivity extends AppCompatActivity {
         }
     }
     public void makeMove(Move move,Piece p){
-        setSquare(p,getViewbyPiece(p),move.getTargetSquare());
-    }
-
-    private View getViewbyPiece(Piece p) {
-        return v;
+        setSquare(p,move.getTargetSquare());
     }
 
     public void unmakeMove(Move move,Piece p){
-        setSquare(p,getViewbyPiece(p),move.getCurrentSquare());
+        setSquare(p,move.getCurrentSquare());
     }
     public void pieceOnClick(View v){
-        p = getPiecebyView(v);
+        Piece p = getPiecebyView(v);
         if(getTurn() == p.getPieceColor()) {
             selectedMoves = getLegalMoves(p,false);
             for (Move m: selectedMoves) {
-                getSquarebyInt(m.getTargetSquare()).setImageResource(R.drawable.redsquare);
+                getSquarebyInt(m.getTargetSquare()).setImageResource(drawable.redsquare);
             }
             selectedView = (ImageView) v;
             selectedPiece = p;
-            getSquarebyInt(getSquare(p)).setImageResource(R.drawable.goldsquare);
+            getSquarebyInt(getSquare(p)).setImageResource(drawable.goldsquare);
         } else {
             for (Move m: selectedMoves) {
                 if(m.getTargetSquare() == getSquare(p)){
@@ -433,25 +420,12 @@ public class PvpChessActivity extends AppCompatActivity {
                     else
                         whiteMaterial -= getMaterialValue(p);
                     p.setMoved(false);
-                    setSquare(selectedView,m.getTargetSquare());
+                    setSquare(selectedPiece,m.getTargetSquare());
                     captured.add((ImageView) v);
                     numMoves++;
                 }
             }
         }
-    }
-
-    private Piece getPiecebyView(View v) {
-        Piece piece = new Piece();
-        for(Piece p:pieces){
-            if (p == v){
-                piece = p;
-                break;
-            }
-        }
-        if (piece != null)
-            return piece;
-        return null;
     }
 
     public void squareOnClick(View v){
@@ -462,12 +436,12 @@ public class PvpChessActivity extends AppCompatActivity {
                     int x = 0;
                     for(ImageView i: boardImages){
                         if (x%2 == 0)
-                            i.setImageResource(R.drawable.darksquare);
+                            i.setImageResource(drawable.darksquare);
                         else
-                            i.setImageResource(R.drawable.lightsquare);
+                            i.setImageResource(drawable.lightsquare);
                         x++;
                     }
-                    setSquare(selectedPiece,selectedView, m.getTargetSquare());
+                    setSquare(selectedPiece, m.getTargetSquare());
                     if (getSquare(selectedPiece) == 3 && getSquare(s) == 5 && selectedPiece.checkFirstMove())
                         setSquare(pieces.get(1), 4);
                     if (getSquare(selectedPiece) == 7 && getSquare(s) == 5 && selectedPiece.checkFirstMove())
@@ -478,17 +452,13 @@ public class PvpChessActivity extends AppCompatActivity {
                         setSquare(pieces.get(32), 62);
                     if (getSquare(selectedPiece) > 56 && getSquare(selectedPiece) < 65 && selectedPiece.getPieceType() == "white pawn") {
                         whiteMaterial += 8;
-                        ImageView iv = new ImageView(this);
-                        iv.setImageResource(R.drawable.whitequeen);
+                        selectedPiece.promote(true);
                         pieces.set(pieces.indexOf(selectedPiece),new Piece(selectedPiece.getFile(),selectedPiece.getRank(),selectedPiece.getPieceColor(),"queen"));
-                        setSquare(iv, m.getTargetSquare());
                     }
                     if (getSquare(selectedPiece) > 0 && getSquare(selectedPiece) < 9 && selectedPiece.getPieceType() == "black pawn") {
                         blackMaterial += 8;
-                        ImageView iv = new ImageView(this);
-                        iv.setImageResource(R.drawable.blackqueen);
+                        selectedPiece.promote(false);
                         pieces.set(pieces.indexOf(selectedPiece),new Piece(selectedPiece.getFile(),selectedPiece.getRank(),selectedPiece.getPieceColor(),"queen"));
-                        setSquare(iv, m.getTargetSquare());
                     }
                     selectedPiece.setMoved(true);
                     numMoves++;
@@ -498,14 +468,16 @@ public class PvpChessActivity extends AppCompatActivity {
     }
 
     private Square getSquarebyView(View v) {
-        Square s = new Square(0,0);
         for (Square square:boardSquares){
-
+            if (square.getView() == v){
+                return square;
+            }
         }
-        return s;
+        return null;
     }
 
-    private void setSquare (Piece p, View v, Integer i){
+    private void setSquare (Piece p, Integer i){
+        ImageView v = p.getPic();
         ImageView square = getSquarebyInt(i);
         v.setId(View.generateViewId());
         pieceLayout.removeAllViewsInLayout();
@@ -767,20 +739,20 @@ public class PvpChessActivity extends AppCompatActivity {
         return true;
     }
     private boolean playerInCheck(){
-        for (View v: pieces)
+        for (Piece p: pieces)
             if (getTurn() == "white")
                 return !notAttacked(getSquare(pieces.get(4)));
         return !notAttacked(getSquare(pieces.get(28)));
     }
-    private boolean pinnedPiece(View v){
-        ArrayList <Move> moves = getLegalMoves(v,false);
+    private boolean pinnedPiece(Piece p){
+        ArrayList <Move> moves = getLegalMoves(p,false);
         boolean result = false;
         for (Move m: moves){
-            makeMove(m,v);
+            makeMove(m,p);
             if (!notAttacked(getSquare(pieces.get(4)))) {
                 result = true;
             }
-            unmakeMove(m,v);
+            unmakeMove(m,p);
         }
         return result;
     }
@@ -801,137 +773,145 @@ public class PvpChessActivity extends AppCompatActivity {
         else
             return 1;
     }
+    public Piece getPiecebyView(View v){
+        for (Piece p: pieces){
+            if (p.getPic() == v){
+                return p;
+            }
+        }
+        return null;
+    }
     private ImageView getSquarebyInt(int i){
         ImageView s = new ImageView(this);
         switch(i) {
             case 1:
-                s = findViewById(R.id.boardA1);
+                s = findViewById(id.boardA1);
             case 2:
-                s = findViewById(R.id.boardB1);
+                s = findViewById(id.boardB1);
             case 3:
-                s = findViewById(R.id.boardC1);
+                s = findViewById(id.boardC1);
             case 4:
-                s = findViewById(R.id.boardD1);
+                s = findViewById(id.boardD1);
             case 5:
-                s = findViewById(R.id.boardE1);
+                s = findViewById(id.boardE1);
             case 6:
-                s = findViewById(R.id.boardF1);
+                s = findViewById(id.boardF1);
             case 7:
-                s = findViewById(R.id.boardG1);
+                s = findViewById(id.boardG1);
             case 8:
-                s = findViewById(R.id.boardH1);
+                s = findViewById(id.boardH1);
             case 9:
-                s = findViewById(R.id.boardA2);
+                s = findViewById(id.boardA2);
             case 10:
-                s = findViewById(R.id.boardB2);
+                s = findViewById(id.boardB2);
             case 11:
-                s = findViewById(R.id.boardC2);
+                s = findViewById(id.boardC2);
             case 12:
-                s = findViewById(R.id.boardD2);
+                s = findViewById(id.boardD2);
             case 13:
-                s = findViewById(R.id.boardE2);
+                s = findViewById(id.boardE2);
             case 14:
-                s = findViewById(R.id.boardF2);
+                s = findViewById(id.boardF2);
             case 15:
-                s = findViewById(R.id.boardG2);
+                s = findViewById(id.boardG2);
             case 16:
-                s = findViewById(R.id.boardH2);
+                s = findViewById(id.boardH2);
             case 17:
-                s = findViewById(R.id.boardA3);
+                s = findViewById(id.boardA3);
             case 18:
-                s = findViewById(R.id.boardB3);
+                s = findViewById(id.boardB3);
             case 19:
-                s = findViewById(R.id.boardC3);
+                s = findViewById(id.boardC3);
             case 20:
-                s = findViewById(R.id.boardD3);
+                s = findViewById(id.boardD3);
             case 21:
-                s = findViewById(R.id.boardE3);
+                s = findViewById(id.boardE3);
             case 22:
-                s = findViewById(R.id.boardF3);
+                s = findViewById(id.boardF3);
             case 23:
-                s = findViewById(R.id.boardG3);
+                s = findViewById(id.boardG3);
             case 24:
-                s = findViewById(R.id.boardH3);
+                s = findViewById(id.boardH3);
             case 25:
-                s = findViewById(R.id.boardA4);
+                s = findViewById(id.boardA4);
             case 26:
-                s = findViewById(R.id.boardB4);
+                s = findViewById(id.boardB4);
             case 27:
-                s = findViewById(R.id.boardC4);
+                s = findViewById(id.boardC4);
             case 28:
-                s = findViewById(R.id.boardD4);
+                s = findViewById(id.boardD4);
             case 29:
-                s = findViewById(R.id.boardE4);
+                s = findViewById(id.boardE4);
             case 30:
-                s = findViewById(R.id.boardF4);
+                s = findViewById(id.boardF4);
             case 31:
-                s = findViewById(R.id.boardG4);
+                s = findViewById(id.boardG4);
             case 32:
-                s = findViewById(R.id.boardH4);
+                s = findViewById(id.boardH4);
             case 33:
-                s = findViewById(R.id.boardA5);
+                s = findViewById(id.boardA5);
             case 34:
-                s = findViewById(R.id.boardB5);
+                s = findViewById(id.boardB5);
             case 35:
-                s = findViewById(R.id.boardC5);
+                s = findViewById(id.boardC5);
             case 36:
-                s = findViewById(R.id.boardD5);
+                s = findViewById(id.boardD5);
             case 37:
-                s = findViewById(R.id.boardE5);
+                s = findViewById(id.boardE5);
             case 38:
-                s = findViewById(R.id.boardF5);
+                s = findViewById(id.boardF5);
             case 39:
-                s = findViewById(R.id.boardG5);
+                s = findViewById(id.boardG5);
             case 40:
-                s = findViewById(R.id.boardH5);
+                s = findViewById(id.boardH5);
             case 41:
-                s = findViewById(R.id.boardA6);
+                s = findViewById(id.boardA6);
             case 42:
-                s = findViewById(R.id.boardB6);
+                s = findViewById(id.boardB6);
             case 43:
-                s = findViewById(R.id.boardC6);
+                s = findViewById(id.boardC6);
             case 44:
-                s = findViewById(R.id.boardD6);
+                s = findViewById(id.boardD6);
             case 45:
-                s = findViewById(R.id.boardE6);
+                s = findViewById(id.boardE6);
             case 46:
-                s = findViewById(R.id.boardF6);
+                s = findViewById(id.boardF6);
             case 47:
-                s = findViewById(R.id.boardG6);
+                s = findViewById(id.boardG6);
             case 48:
-                s = findViewById(R.id.boardH6);
+                s = findViewById(id.boardH6);
             case 49:
-                s = findViewById(R.id.boardA7);
+                s = findViewById(id.boardA7);
             case 50:
-                s = findViewById(R.id.boardB7);
+                s = findViewById(id.boardB7);
             case 51:
-                s = findViewById(R.id.boardC7);
+                s = findViewById(id.boardC7);
             case 52:
-                s = findViewById(R.id.boardD7);
+                s = findViewById(id.boardD7);
             case 53:
-                s = findViewById(R.id.boardE7);
+                s = findViewById(id.boardE7);
             case 54:
-                s = findViewById(R.id.boardF7);
+                s = findViewById(id.boardF7);
             case 55:
-                s = findViewById(R.id.boardG7);
+                s = findViewById(id.boardG7);
             case 56:
-                s = findViewById(R.id.boardH7);
+                s = findViewById(id.boardH7);
             case 57:
-                s = findViewById(R.id.boardA8);
+                s = findViewById(id.boardA8);
             case 58:
-                s = findViewById(R.id.boardB8);
+                s = findViewById(id.boardB8);
             case 59:
-                s = findViewById(R.id.boardC8);
+                s = findViewById(id.boardC8);
             case 60:
-                s = findViewById(R.id.boardD8);
+                s = findViewById(id.boardD8);
             case 61:
-                s = findViewById(R.id.boardE8);
+                s = findViewById(id.boardE8);
             case 62:
-                s = findViewById(R.id.boardF8);
+                s = findViewById(id.boardF8);
             case 63:
-                s = findViewById(R.id.boardG8);
+                s = findViewById(id.boardG8);
             case 64:
-                s = findViewById(R.id.boardH8);
+                s = findViewById(id.boardH8);
         }
         return s;
     }
@@ -954,9 +934,11 @@ public class PvpChessActivity extends AppCompatActivity {
     public static class Square {
         private int rank;
         private int file;
-        public Square(int f, int r){
+        private View view;
+        public Square(int f, int r, View v){
             rank = r;
             file = f;
+            view = v;
         }
         public int getFile() {
             return file;
@@ -965,6 +947,10 @@ public class PvpChessActivity extends AppCompatActivity {
         public int getRank() {
             return rank;
         }
+
+        public View getView() {
+            return view;
+        }
     }
     public static class Piece {
         private int rank;
@@ -972,6 +958,7 @@ public class PvpChessActivity extends AppCompatActivity {
         private String pieceType;
         private String pieceColor;
         private boolean moved;
+        private ImageView pic;
         public Piece(){
             rank = 0;
             file = 0;
@@ -984,7 +971,15 @@ public class PvpChessActivity extends AppCompatActivity {
             file = f;
             pieceColor = c;
             pieceType = t;
+            moved = true;
+        }
+        public Piece(int f, int r, String c, String t, ImageView i){
+            rank = r;
+            file = f;
+            pieceColor = c;
+            pieceType = t;
             moved = false;
+            pic = i;
         }
         public int getRank(){
             return rank;
@@ -1004,15 +999,23 @@ public class PvpChessActivity extends AppCompatActivity {
         public void setMoved(boolean x){
             moved = x;
         }
-
         public void setRank(int i) {
             rank = i;
         }
         public void setFile(int i){
             file = i;
         }
+        public ImageView getPic() {
+            return pic;
+        }
         public void setPieceType(String s){
             pieceType = s;
+        }
+        public void promote(boolean white){
+            if (white)
+                pic.setImageResource(R.drawable.whitequeen);
+            else
+                pic.setImageResource(R.drawable.blackqueen);
         }
     }
 }
