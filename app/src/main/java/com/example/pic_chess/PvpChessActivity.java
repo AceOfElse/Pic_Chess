@@ -230,14 +230,14 @@ public class PvpChessActivity extends AppCompatActivity {
             iv = new ImageView(this);
             if(s.charAt(x)=='p') {
                 iv.setImageResource(drawable.blackpawn);
-                pieces.add(new Piece(square % 8 + 1, square / 8 + 1, "black", "pawn", iv));
+                pieces.add(new Piece(square % 8 + 1, square / 8 + 1, "black", "black pawn", iv));
                 setSquare(pieces.get(index), square);
                 Log.d("chess2", pieces.get(index).getPieceType() + " moved to " + square);
                 index++;
                 square++;
             }else if (s.charAt(x)=='P') {
                 iv.setImageResource(drawable.whitepawn);
-                pieces.add(new Piece(square % 8 + 1, square / 8 + 1, "white", "pawn", iv));
+                pieces.add(new Piece(square % 8 + 1, square / 8 + 1, "white", "white pawn", iv));
                 setSquare(pieces.get(index), square);
                 Log.d("chess2", pieces.get(index).getPieceType() + " moved to " + square);
                 index++;
@@ -404,7 +404,26 @@ public class PvpChessActivity extends AppCompatActivity {
             if (!notAttacked(m.getTargetSquare())){
                 moveScoreGuess -= movePieceType;
             }
+            if (p.getPieceType() == "white" && p.getRank() == 7){
+                moveScoreGuess += 80;
+            }
+            moveScoreGuess += forceKingtoCornerEndgameEval((float)numMoves/50);
         }
+    }
+    public int forceKingtoCornerEndgameEval (float endgameWeight){
+        int opponentKingRank = pieces.get(4).getRank();
+        int opponentKingFile = pieces.get(4).getFile();
+        int opponentKingDstToCenterFile = Math.max(3-opponentKingFile,opponentKingFile-4);
+        int opponentKingDstToCenterRank = Math.max(3-opponentKingRank,opponentKingRank-4);
+        int opponentKingDstFromCenter = opponentKingDstToCenterFile + opponentKingDstToCenterRank;
+        int eval = opponentKingDstFromCenter;
+        int friendlyKingRank = pieces.get(4).getRank();
+        int friendlyKingFile = pieces.get(4).getFile();
+        int fileDst = Math.abs(friendlyKingFile-opponentKingFile);
+        int rankDst = Math.abs(friendlyKingRank-opponentKingRank);
+        int dstBetweenKings = fileDst + rankDst;
+        eval += 14-dstBetweenKings;
+        return (int)(eval * 10 * endgameWeight);
     }
     public void makeMove(Move move,Piece p){
         setSquare(p,move.getTargetSquare());
@@ -435,6 +454,28 @@ public class PvpChessActivity extends AppCompatActivity {
                     captured.add((ImageView) v);
                     numMoves++;
                 }
+            }
+        }
+        checkEnd();
+    }
+
+    private void checkEnd() {
+        ArrayList<ArrayList<Move>> allLegalMoves = new ArrayList<>();
+        for (Piece p:pieces){
+            if (getTurn() == p.getPieceColor())
+                allLegalMoves.add(getLegalMoves(p,false));
+        }
+        if (getTurn() == "white") {
+            if (allLegalMoves.get(0) == null && !notAttacked(getSquare(pieces.get(4)))) {
+                gameInProgress = false; //Checkmate
+            } else if (allLegalMoves.get(0) == null) {
+                gameInProgress = false; //Stalemate
+            }
+        } else {
+            if (allLegalMoves.get(0) == null && !notAttacked(getSquare(pieces.get(29)))) {
+                gameInProgress = false; //Checkmate
+            } else if (allLegalMoves.get(0) == null) {
+                gameInProgress = false; //Stalemate
             }
         }
     }
@@ -525,7 +566,7 @@ public class PvpChessActivity extends AppCompatActivity {
         }
         return null;
     }
-    public ArrayList<Move> getLegalMoves(Piece p, boolean capturesOnly){
+    public ArrayList<Move> getMoves(Piece p, boolean capturesOnly){
         ArrayList <Move> moves = new ArrayList <Move> ();
         String piece = p.getPieceType();
         boolean placeholder = false;
@@ -727,6 +768,33 @@ public class PvpChessActivity extends AppCompatActivity {
                     moves.add(new Move(currentSquare,currentSquare-x));
         }
         return moves;
+    }
+    private ArrayList<Move> getLegalMoves (Piece p, boolean capturesOnly){
+        ArrayList<Move> moves = getMoves(p,capturesOnly);
+        ArrayList <Move> legalMoves = new ArrayList<Move>();
+        int myKingSquare=0;
+        for (Piece piece:pieces){
+            if (getTurn() == piece.getPieceColor() && piece.getPieceType() == "king"){
+                myKingSquare = getSquare(piece);
+            }
+        }
+        for (Move moveToVerify:moves){
+            makeMove(moveToVerify,p);
+            for (Piece piece: pieces){
+                if (getTurn() != piece.getPieceColor()){
+                    ArrayList<Move> opponentMoves = getMoves(piece,true);
+                    for (Move opponentMove:opponentMoves) {
+                        if (opponentMove.getTargetSquare() == myKingSquare) {
+
+                        } else {
+                            legalMoves.add(moveToVerify);
+                        }
+                    }
+                }
+            }
+            unmakeMove(moveToVerify,p);
+        }
+        return legalMoves;
     }
     private boolean openSquare(int square){
         for(Piece p:pieces) {
