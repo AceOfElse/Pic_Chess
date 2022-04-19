@@ -224,102 +224,113 @@ public class PvpChessActivity extends AppCompatActivity {
 
     private void generatePositionfromFEN(String s) {
         int square = 57;
+        int index = 0;
         ImageView iv;
         for(int x = 0; x < s.length(); x++){
             iv = new ImageView(this);
-            switch(s.charAt(x)){
-                case 'p':
-                    iv.setImageResource(drawable.blackpawn);
-                    pieces.add(new Piece(square%8+1,square/8+1,"black","pawn",iv));
-                    setSquare(pieces.get(x),square);
-                    Log.d("chess2",pieces.get(x).getPieceType());
-                    square++;
-                case 'P':
-                    iv.setImageResource(drawable.whitepawn);
-                    pieces.add(new Piece(square%8+1,square/8+1,"white","pawn",iv));
-                    setSquare(pieces.get(x),square);
-                    Log.d("chess2",pieces.get(x).getPieceType());
-                    square++;
-                case '8':
-                    square += 8;
-                case '7':
-                    square += 7;
-                case '6':
-                    square += 6;
-                case '5':
-                    square += 5;
-                case '4':
-                    square += 4;
-                case '3':
-                    square += 3;
-                case '2':
-                    square += 2;
-                case '1':
-                    square++;
-                case 'r':
-                    iv.setImageResource(drawable.blackrook);
-                    pieces.add(new Piece(square%8+1,square/8+1,"black","rook",iv));
-                    setSquare(pieces.get(x),square);
-                    Log.d("chess2",pieces.get(x).getPieceType());
-                    square++;
-                case 'R':
-                    iv.setImageResource(drawable.whiterook);
-                    pieces.add(new Piece(square%8+1,square/8+1,"white","rook",iv));
-                    setSquare(pieces.get(x),square);
-                    Log.d("chess2",pieces.get(x).getPieceType());
-                    square++;
-                case 'n':
-                    iv.setImageResource(drawable.blackknight);
-                    pieces.add(new Piece(square%8+1,square/8+1,"black","knight",iv));
-                    setSquare(pieces.get(x),square);
-                    Log.d("chess2",pieces.get(x).getPieceType());
-                    square++;
-                case 'N':
-                    iv.setImageResource(drawable.whiteknight);
-                    pieces.add(new Piece(square%8+1,square/8+1,"white","knight",iv));
-                    setSquare(pieces.get(x),square);
-                    Log.d("chess2",pieces.get(x).getPieceType());
-                    square++;
-                case 'b':
-                    iv.setImageResource(drawable.blackbishop);
-                    pieces.add(new Piece(square%8+1,square/8+1,"black","bishop",iv));
-                    setSquare(pieces.get(x),square);
-                    Log.d("chess2",pieces.get(x).getPieceType());
-                    square++;
-                case 'B':
-                    iv.setImageResource(drawable.whitebishop);
-                    pieces.add(new Piece(square%8+1,square/8+1,"white","bishop",iv));
-                    setSquare(pieces.get(x),square);
-                    Log.d("chess2",pieces.get(x).getPieceType());
-                    square++;
-                case 'k':
-                    iv.setImageResource(drawable.blackking);
-                    pieces.add(new Piece(square%8+1,square/8+1,"black","king",iv));
-                    setSquare(pieces.get(x),square);
-                    Log.d("chess2",pieces.get(x).getPieceType());
-                    square++;
-                case 'K':
-                    iv.setImageResource(drawable.whiteking);
-                    pieces.add(new Piece(square%8+1,square/8+1,"white","king",iv));
-                    setSquare(pieces.get(x),square);
-                    Log.d("chess2",pieces.get(x).getPieceType());
-                    square++;
-                case 'q':
-                    iv.setImageResource(drawable.blackqueen);
-                    pieces.add(new Piece(square%8+1,square/8+1,"black","queen",iv));
-                    setSquare(pieces.get(x),square);
-                    Log.d("chess2",pieces.get(x).getPieceType());
-                    square++;
-                case 'Q':
-                    iv.setImageResource(drawable.whitequeen);
-                    pieces.add(new Piece(square%8+1,square/8+1,"white","queen",iv));
-                    setSquare(pieces.get(x),square);
-                    Log.d("chess2",pieces.get(x).getPieceType());
-                    square++;
-                case '/':
-                    square -= 15;
+            if(s.charAt(x)=='p') {
+                iv.setImageResource(drawable.blackpawn);
+                pieces.add(new Piece(square % 8 + 1, square / 8 + 1, "black", "pawn", iv));
+                setSquare(pieces.get(index), square);
+                Log.d("chess2", pieces.get(index).getPieceType() + " moved to " + square);
+                index++;
+                square++;
+            }else if (s.charAt(x)=='P') {
+                iv.setImageResource(drawable.whitepawn);
+                pieces.add(new Piece(square % 8 + 1, square / 8 + 1, "white", "pawn", iv));
+                setSquare(pieces.get(index), square);
+                Log.d("chess2", pieces.get(index).getPieceType() + " moved to " + square);
+                index++;
+                square++;
+            } else if (s.charAt(x) == '8') {
+                square += 8;
+            } else if (s.charAt(x) == '7') {
+                square += 7;
+            } else if (s.charAt(x) == '6') {
+                square += 6;
+            } else if (s.charAt(x) == '5') {
+                square += 5;
+            } else if (s.charAt(x) == '4') {
+                square += 4;
+            } else if (s.charAt(x) == '3') {
+                square += 3;
+            } else if (s.charAt(x) == '2') {
+                square += 2;
+            } else if (s.charAt(x) == '1') {
+                square++;
+            } else if (s.charAt(x) == 'r') {
+                iv.setImageResource(drawable.blackrook);
+                pieces.add(new Piece(square % 8 + 1, square / 8 + 1, "black", "rook", iv));
+                setSquare(pieces.get(index), square);
+                Log.d("chess2", pieces.get(index).getPieceType() + " moved to " + square);
+                index++;
+                square++;
+            } else if (s.charAt(x) == 'R') {
+                iv.setImageResource(drawable.whiterook);
+                pieces.add(new Piece(square % 8 + 1, square / 8 + 1, "white", "rook", iv));
+                setSquare(pieces.get(index), square);
+                Log.d("chess2", pieces.get(index).getPieceType() + " moved to " + square);
+                index++;
+                square++;
+            } else if (s.charAt(x) == 'n') {
+                iv.setImageResource(drawable.blackknight);
+                pieces.add(new Piece(square % 8 + 1, square / 8 + 1, "black", "knight", iv));
+                setSquare(pieces.get(index), square);
+                Log.d("chess2", pieces.get(index).getPieceType() + " moved to " + square);
+                index++;
+                square++;
+            } else if (s.charAt(x) == 'N') {
+                iv.setImageResource(drawable.whiteknight);
+                pieces.add(new Piece(square % 8 + 1, square / 8 + 1, "white", "knight", iv));
+                setSquare(pieces.get(index), square);
+                Log.d("chess2", pieces.get(index).getPieceType() + " moved to " + square);
+                index++;
+                square++;
+            } else if (s.charAt(x) == 'b') {
+                iv.setImageResource(drawable.blackbishop);
+                pieces.add(new Piece(square % 8 + 1, square / 8 + 1, "black", "bishop", iv));
+                setSquare(pieces.get(index), square);
+                Log.d("chess2", pieces.get(index).getPieceType() + " moved to " + square);
+                index++;
+                square++;
+            } else if (s.charAt(x) == 'B') {
+                iv.setImageResource(drawable.whitebishop);
+                pieces.add(new Piece(square % 8 + 1, square / 8 + 1, "white", "bishop", iv));
+                setSquare(pieces.get(index), square);
+                Log.d("chess2", pieces.get(index).getPieceType() + " moved to " + square);
+                index++;
+                square++;
+            } else if (s.charAt(x) == 'k') {
+                iv.setImageResource(drawable.blackking);
+                pieces.add(new Piece(square % 8 + 1, square / 8 + 1, "black", "king", iv));
+                setSquare(pieces.get(index), square);
+                Log.d("chess2", pieces.get(index).getPieceType() + " moved to " + square);
+                index++;
+                square++;
+            } else if (s.charAt(x) == 'K') {
+                iv.setImageResource(drawable.whiteking);
+                pieces.add(new Piece(square % 8 + 1, square / 8 + 1, "white", "king", iv));
+                setSquare(pieces.get(index), square);
+                Log.d("chess2", pieces.get(index).getPieceType() + " moved to " + square);
+                index++;
+                square++;
+            } else if (s.charAt(x) == 'q') {
+                iv.setImageResource(drawable.blackqueen);
+                pieces.add(new Piece(square % 8 + 1, square / 8 + 1, "black", "queen", iv));
+                setSquare(pieces.get(index), square);
+                Log.d("chess2", pieces.get(index).getPieceType() + " moved to " + square);
+                index++;
+                square++;
+            } else if (s.charAt(x) == 'Q') {
+                iv.setImageResource(drawable.whitequeen);
+                pieces.add(new Piece(square % 8 + 1, square / 8 + 1, "white", "queen", iv));
+                setSquare(pieces.get(index), square);
+                Log.d("chess2", pieces.get(index).getPieceType() + " moved to " + square);
+                index++;
+                square++;
+            } else if (s.charAt(x) == '/'){
+                square -= 16;
             }
-            Log.d("chess1","Moved "+ pieces.get(x).getPieceColor() + " " + pieces.get(x).getPieceType() + " to " + square);
         }
     }
     public int evaluate(){
