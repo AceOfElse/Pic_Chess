@@ -136,6 +136,16 @@ public class PvpChessActivity extends AppCompatActivity {
             boardImages.add(findViewById(id.boardG8));
             boardImages.add(findViewById(id.boardH8));
         }
+        int f = 0;
+        int r = 1;
+        for (View v: boardImages){
+            f++;
+            if (f>8){
+                f = 1;
+                r++;
+            }
+            boardSquares.add(new Square(f,r,v));
+        }
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT);
         popupLayout.setOrientation(LinearLayout.HORIZONTAL);
