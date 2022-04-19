@@ -1,0 +1,80 @@
+I have a problem with github, I think I need to fix my computer. So I can't push the codes inside.
+Instead, I will upload the how to make toolbar with back button with code below.
+
+
+Tool Bar
+
+1. Delete Action Bar
+
+2. Set the Tool Bar
+
+2-1. Register Toolbar in Activity.java
+
+Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+setSupportActionBar(myToolbar);
+getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+2-2.
+res right click -> new -> Android resource directory
+make new folder -> make menu.xml inside
+
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+ 
+    <item
+        android:id="@+id/action_info"
+        android:title="info"
+        android:icon="@drawable/information"
+        app:showAsAction="always"/>
+ 
+</menu>
+
+2-3.
+Put these code in the Activity.java
+
+ @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.menu, menu);
+        return true;
+    }
+ 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_info:
+                //Define which icon does what function.
+                Intent intent = new Intent(getApplicationContext(), InfoActivity.class);
+                startActivity(intent);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
+3. Back button
+
+myToolbar = (Toolbar) findViewById(R.id.drinks_toolbar);
+        setSupportActionBar(myToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.menu_left_arrow);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+
+4. add case in existing method
+
+ @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_shoppingcart:
+                Intent intent = new Intent(getApplicationContext(), ShoppingCartActivity.class);
+                startActivity(intent);
+                break;
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
