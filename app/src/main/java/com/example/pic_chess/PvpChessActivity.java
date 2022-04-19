@@ -5,6 +5,7 @@ import static com.example.pic_chess.R.id;
 import static com.example.pic_chess.R.layout;
 
 import android.content.Intent;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -455,8 +456,8 @@ public class PvpChessActivity extends AppCompatActivity {
                     numMoves++;
                 }
             }
+            checkEnd();
         }
-        checkEnd();
     }
 
     private void checkEnd() {
@@ -505,17 +506,20 @@ public class PvpChessActivity extends AppCompatActivity {
                     if (getSquare(selectedPiece) > 56 && getSquare(selectedPiece) < 65 && selectedPiece.getPieceType() == "white pawn") {
                         whiteMaterial += 8;
                         selectedPiece.promote(true);
+                        selectedPiece.setPieceType("queen");
                         pieces.set(pieces.indexOf(selectedPiece),new Piece(selectedPiece.getFile(),selectedPiece.getRank(),selectedPiece.getPieceColor(),"queen"));
                     }
                     if (getSquare(selectedPiece) > 0 && getSquare(selectedPiece) < 9 && selectedPiece.getPieceType() == "black pawn") {
                         blackMaterial += 8;
                         selectedPiece.promote(false);
+                        selectedPiece.setPieceType("queen");
                         pieces.set(pieces.indexOf(selectedPiece),new Piece(selectedPiece.getFile(),selectedPiece.getRank(),selectedPiece.getPieceColor(),"queen"));
                     }
                     selectedPiece.setMoved(true);
                     numMoves++;
                 }
             }
+            checkEnd();
         }
     }
 
@@ -536,14 +540,15 @@ public class PvpChessActivity extends AppCompatActivity {
         pieceLayout.addView(v);
         ConstraintSet constraintSet = new ConstraintSet();
         constraintSet.clone(pieceLayout);
-        constraintSet.connect(v.getId(),ConstraintSet.START,square.getId(),ConstraintSet.START);
-        constraintSet.connect(v.getId(),ConstraintSet.END,square.getId(),ConstraintSet.END);
-        constraintSet.connect(v.getId(),ConstraintSet.TOP,square.getId(),ConstraintSet.TOP);
-        constraintSet.connect(v.getId(),ConstraintSet.BOTTOM,square.getId(),ConstraintSet.BOTTOM);
+        //constraintSet.connect(v.getId(),ConstraintSet.START,square.getId(),ConstraintSet.START);
+        //constraintSet.connect(v.getId(),ConstraintSet.END,square.getId(),ConstraintSet.END);
+        //constraintSet.connect(v.getId(),ConstraintSet.TOP,square.getId(),ConstraintSet.TOP);
+        //constraintSet.connect(v.getId(),ConstraintSet.BOTTOM,square.getId(),ConstraintSet.BOTTOM);
         constraintSet.setScaleX(v.getId(), (float) 0.15);
         constraintSet.setScaleY(v.getId(), (float) 0.15);
         p.setRank(i/8+1);
         p.setFile(i%8+1);
+        p.setPoint(getSquarebyView(square).getPoint());
         constraintSet.setVisibility(v.getId(),View.VISIBLE);
         constraintSet.setTranslationZ(v.getId(),1);
         constraintSet.applyTo(pieceLayout);
@@ -1014,10 +1019,14 @@ public class PvpChessActivity extends AppCompatActivity {
         private int rank;
         private int file;
         private View view;
+        private int x;
+        private int y;
         public Square(int f, int r, View v){
             rank = r;
             file = f;
             view = v;
+            x = (int)v.getTranslationX();
+            y = (int)v.getTranslationY();
         }
         public int getFile() {
             return file;
@@ -1030,12 +1039,15 @@ public class PvpChessActivity extends AppCompatActivity {
         public View getView() {
             return view;
         }
+        public Point getPoint(){
+            Point point = new Point();
+            point.set(x,y);
+            return point;
+        }
     }
     public static class Piece {
-        private int rank;
-        private int file;
-        private String pieceType;
-        private String pieceColor;
+        private int rank,file,x,y;
+        private String pieceType,pieceColor;
         private boolean moved;
         private ImageView pic;
         public Piece(){
@@ -1044,6 +1056,8 @@ public class PvpChessActivity extends AppCompatActivity {
             pieceColor = "";
             pieceType = "";
             moved = false;
+            x = 0;
+            y = 0;
         }
         public Piece(int f, int r, String c, String t){
             rank = r;
@@ -1051,6 +1065,8 @@ public class PvpChessActivity extends AppCompatActivity {
             pieceColor = c;
             pieceType = t;
             moved = true;
+            x = 0;
+            y = 0;
         }
         public Piece(int f, int r, String c, String t, ImageView i){
             rank = r;
@@ -1059,6 +1075,8 @@ public class PvpChessActivity extends AppCompatActivity {
             pieceType = t;
             moved = false;
             pic = i;
+            x = 0;
+            y = 0;
         }
         public int getRank(){
             return rank;
@@ -1095,6 +1113,17 @@ public class PvpChessActivity extends AppCompatActivity {
                 pic.setImageResource(R.drawable.whitequeen);
             else
                 pic.setImageResource(R.drawable.blackqueen);
+        }
+        public Point getPoint(){
+            Point point = new Point();
+            point.set(x,y);
+            return point;
+        }
+        public void setPoint(Point p){
+            int x1 = p.x;
+            int y1 = p.y;
+            x = x1;
+            y = y1;
         }
     }
 }
