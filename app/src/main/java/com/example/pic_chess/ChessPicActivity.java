@@ -2,14 +2,13 @@ package com.example.pic_chess;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.view.DragStartHelper;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.constraintlayout.widget.ConstraintSet;
 
 import android.app.AlertDialog;
 import android.content.ClipData;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -21,6 +20,7 @@ import android.util.Log;
 import android.view.DragEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -28,10 +28,9 @@ import android.widget.ToggleButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
+import java.util.Arrays;
 
-public class ChessPicActivity extends AppCompatActivity implements NewCanvasPromptFragment.OnInputSelected, ToolBarFragmentTest.OnClickSelected {
+public class ChessPicActivity extends AppCompatActivity implements NewCanvasPromptFragment.OnInputSelected {
     private ImageButton backButton, newCanvasButton, loadFileButton, saveFileButton, submitFileButton;
     private ToggleButton toolbarButton;
     private AlertDialog.Builder alertDialogue;
@@ -45,10 +44,11 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
 
     private float dX, dY;
 
-    private View canvas;
+    private ViewGroup canvasView, mainLayout;
     private Bitmap bitmap;
 
     private ConstraintLayout constraintLayout;
+    private ConstraintSet.Layout layout;
 
     private NewCanvasPromptFragment fragmentNCF;
     private ToolBarFragmentTest toolbarFragment;
@@ -89,7 +89,8 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
         kingPieceNum = findViewById(R.id.kingPieceNumber);
         queenPieceNum = findViewById(R.id.queenPieceNumber);
 
-        canvas = findViewById(R.id.canvasLayoutCP);
+        canvasView = findViewById(R.id.canvasLayoutCP);
+        mainLayout = findViewById(R.id.chessPicLayout);
 
         //Set fragments
         fragmentNCF = NewCanvasPromptFragment.newInstance();
@@ -128,7 +129,6 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
             }
         });
         createDraggableImage();
-
         createCanvas();
     }
 
@@ -144,28 +144,62 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
         }
     }
 
-    public void sendModeToChessPicActivity(int mode) {
-        switch(mode) {
-            case 0:
-                break;
-            case 1:
-                break;
-            case 2:
-                drawingView.setColor(Color.WHITE);
-                break;
-            case 3:
-                drawingView.resetCanvas();
-                break;
-            default:
-                break;
+    private View.OnDragListener dragListener = new View.OnDragListener() {
+        @Override
+        public boolean onDrag(View v, DragEvent event) {
+            ClipData clipData = event.getClipData();
+            View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder();
+            v.startDrag(clipData, shadowBuilder, event.getLocalState(), 2);
+            ViewGroup parent = (ViewGroup) v.getParent();
+            parent.removeViewInLayout(v);
+            mainLayout.addView(v);
+
+            Log.d("drag", "drag start");
+
+            switch (event.getAction()) {
+                case DragEvent.ACTION_DRAG_STARTED:
+
+                    dX = v.getX() - event.getX();
+                    dY = v.getY() - event.getY();
+                    v.startDrag(clipData, shadowBuilder, event.getLocalState(), 2);
+                    break;
+                case DragEvent.ACTION_DRAG_ENTERED:
+                    v.animate()
+                            .x(event.getX() + dX)
+                            .y(event.getY() + dY)
+                            .setDuration(0)
+                            .start();
+                            break;
+                case DragEvent.ACTION_DROP:
+                    event.getClipData();
+                    dX = v.getX() - event.getX();
+                    dY = v.getY() - event.getY();
+                    v.animate()
+                        .x(event.getX() + dX)
+                        .y(event.getY() + dY)
+                        .setDuration(0)
+                        .start();
+                    break;
+                case DragEvent.ACTION_DRAG_EXITED:
+                    dX = v.getX() - event.getX();
+                    dY = v.getY() - event.getY();
+                    break;
+
+                default:
+                    break;
+            }
+            return true;
         }
-    }
+    };
 
     private View.OnTouchListener touchListener = new View.OnTouchListener() {
         @Override
         public boolean onTouch(View v, MotionEvent event) {
             switch (event.getActionMasked()) {
                 case MotionEvent.ACTION_DOWN:
+                    ViewGroup parent = (ViewGroup) v.getParent();
+                    parent.removeViewInLayout(v);
+                    mainLayout.addView(v);
                     // capture the difference between view's top left corner and touch point
                     dX = v.getX() - event.getRawX();
                     dY = v.getY() - event.getRawY();
@@ -179,6 +213,7 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
                             .start();
                     break;
                 case MotionEvent.ACTION_UP:
+
                     break;
             }
             currentTool = (ImageView) v;
@@ -188,12 +223,9 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
 
     //user touches desired piece, allows them to click and drag this imageview to canvas
     private void createDraggableImage(){
-        bishopTool.setOnTouchListener(touchListener);
-        knightTool.setOnTouchListener(touchListener);
-        pawnTool.setOnTouchListener(touchListener);
-        rookTool.setOnTouchListener(touchListener);
-        kingTool.setOnTouchListener(touchListener);
-        queenTool.setOnTouchListener(touchListener);
+        for (ImageView imageView : Arrays.asList(bishopTool, knightTool, pawnTool, rookTool, kingTool, queenTool)) {
+            imageView.setOnTouchListener(touchListener);
+        }
 
         ///TODO: Get currently selected tool's number of pieces left to see if not zero
         ///switch statement
@@ -202,7 +234,7 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
 
     //creates a canvas for drawing
     private void createCanvas(){
-        canvas.draw(new Canvas());
+        canvasView.draw(new Canvas());
         Paint paint = new Paint();
     }
 
@@ -316,10 +348,6 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
 
         public void resetCanvas() {
             path.reset();
-        }
-
-        public void setColor(int color) {
-            paint.setColor(color);
         }
 
     }
