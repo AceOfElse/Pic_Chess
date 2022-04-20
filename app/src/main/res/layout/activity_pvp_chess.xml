@@ -1181,6 +1181,16 @@
                 tools:ignore="MissingConstraints"
                 tools:layout_editor_absoluteX="4dp"
                 tools:srcCompat="@drawable/whiterook" />
+            <ImageView
+                android:id="@+id/whiteRook2"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:onClick="pieceOnClick"
+                android:visibility="gone"
+                app:srcCompat="@drawable/whiterook"
+                tools:ignore="MissingConstraints"
+                tools:layout_editor_absoluteX="4dp"
+                tools:srcCompat="@drawable/whiterook" />
 
             <ImageView
                 android:id="@+id/whiteKnight"
@@ -1192,9 +1202,29 @@
                 tools:ignore="MissingConstraints"
                 tools:layout_editor_absoluteX="54dp"
                 tools:srcCompat="@drawable/whiteknight" />
+            <ImageView
+                android:id="@+id/whiteKnight2"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:onClick="pieceOnClick"
+                android:visibility="gone"
+                app:srcCompat="@drawable/whiteknight"
+                tools:ignore="MissingConstraints"
+                tools:layout_editor_absoluteX="54dp"
+                tools:srcCompat="@drawable/whiteknight" />
 
             <ImageView
                 android:id="@+id/whiteBishop"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:onClick="pieceOnClick"
+                android:visibility="gone"
+                app:srcCompat="@drawable/whitebishop"
+                tools:ignore="MissingConstraints"
+                tools:layout_editor_absoluteX="104dp"
+                tools:srcCompat="@drawable/whitebishop" />
+            <ImageView
+                android:id="@+id/whiteBishop2"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:onClick="pieceOnClick"
@@ -1239,9 +1269,177 @@
                 tools:layout_editor_absoluteX="4dp"
                 tools:layout_editor_absoluteY="50dp"
                 tools:srcCompat="@drawable/whitepawn" />
+            <ImageView
+                android:id="@+id/whitePawn2"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:onClick="pieceOnClick"
+                android:scaleType="fitXY"
+                android:visibility="gone"
+                app:srcCompat="@drawable/whitepawn"
+                tools:ignore="MissingConstraints"
+                tools:layout_editor_absoluteX="4dp"
+                tools:layout_editor_absoluteY="50dp"
+                tools:srcCompat="@drawable/whitepawn" />
+            <ImageView
+                android:id="@+id/whitePawn3"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:onClick="pieceOnClick"
+                android:scaleType="fitXY"
+                android:visibility="gone"
+                app:srcCompat="@drawable/whitepawn"
+                tools:ignore="MissingConstraints"
+                tools:layout_editor_absoluteX="4dp"
+                tools:layout_editor_absoluteY="50dp"
+                tools:srcCompat="@drawable/whitepawn" />
+            <ImageView
+                android:id="@+id/whitePawn4"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:onClick="pieceOnClick"
+                android:scaleType="fitXY"
+                android:visibility="gone"
+                app:srcCompat="@drawable/whitepawn"
+                tools:ignore="MissingConstraints"
+                tools:layout_editor_absoluteX="4dp"
+                tools:layout_editor_absoluteY="50dp"
+                tools:srcCompat="@drawable/whitepawn" />
+            <ImageView
+                android:id="@+id/whitePawn5"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:onClick="pieceOnClick"
+                android:scaleType="fitXY"
+                android:visibility="gone"
+                app:srcCompat="@drawable/whitepawn"
+                tools:ignore="MissingConstraints"
+                tools:layout_editor_absoluteX="4dp"
+                tools:layout_editor_absoluteY="50dp"
+                tools:srcCompat="@drawable/whitepawn" />
+            <ImageView
+                android:id="@+id/whitePawn6"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:onClick="pieceOnClick"
+                android:scaleType="fitXY"
+                android:visibility="gone"
+                app:srcCompat="@drawable/whitepawn"
+                tools:ignore="MissingConstraints"
+                tools:layout_editor_absoluteX="4dp"
+                tools:layout_editor_absoluteY="50dp"
+                tools:srcCompat="@drawable/whitepawn" />
+            <ImageView
+                android:id="@+id/whitePawn7"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:onClick="pieceOnClick"
+                android:scaleType="fitXY"
+                android:visibility="gone"
+                app:srcCompat="@drawable/whitepawn"
+                tools:ignore="MissingConstraints"
+                tools:layout_editor_absoluteX="4dp"
+                tools:layout_editor_absoluteY="50dp"
+                tools:srcCompat="@drawable/whitepawn" />
+            <ImageView
+                android:id="@+id/whitePawn8"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:onClick="pieceOnClick"
+                android:scaleType="fitXY"
+                android:visibility="gone"
+                app:srcCompat="@drawable/whitepawn"
+                tools:ignore="MissingConstraints"
+                tools:layout_editor_absoluteX="4dp"
+                tools:layout_editor_absoluteY="50dp"
+                tools:srcCompat="@drawable/whitepawn" />
 
             <ImageView
                 android:id="@+id/blackPawn"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:onClick="pieceOnClick"
+                android:scaleType="fitXY"
+                android:visibility="gone"
+                app:srcCompat="@drawable/blackpawn"
+                tools:ignore="MissingConstraints"
+                tools:layout_editor_absoluteX="4dp"
+                tools:layout_editor_absoluteY="301dp"
+                tools:srcCompat="@drawable/blackpawn" />
+            <ImageView
+                android:id="@+id/blackPawn2"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:onClick="pieceOnClick"
+                android:scaleType="fitXY"
+                android:visibility="gone"
+                app:srcCompat="@drawable/blackpawn"
+                tools:ignore="MissingConstraints"
+                tools:layout_editor_absoluteX="4dp"
+                tools:layout_editor_absoluteY="301dp"
+                tools:srcCompat="@drawable/blackpawn" />
+            <ImageView
+                android:id="@+id/blackPawn3"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:onClick="pieceOnClick"
+                android:scaleType="fitXY"
+                android:visibility="gone"
+                app:srcCompat="@drawable/blackpawn"
+                tools:ignore="MissingConstraints"
+                tools:layout_editor_absoluteX="4dp"
+                tools:layout_editor_absoluteY="301dp"
+                tools:srcCompat="@drawable/blackpawn" />
+            <ImageView
+                android:id="@+id/blackPawn4"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:onClick="pieceOnClick"
+                android:scaleType="fitXY"
+                android:visibility="gone"
+                app:srcCompat="@drawable/blackpawn"
+                tools:ignore="MissingConstraints"
+                tools:layout_editor_absoluteX="4dp"
+                tools:layout_editor_absoluteY="301dp"
+                tools:srcCompat="@drawable/blackpawn" />
+            <ImageView
+                android:id="@+id/blackPawn5"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:onClick="pieceOnClick"
+                android:scaleType="fitXY"
+                android:visibility="gone"
+                app:srcCompat="@drawable/blackpawn"
+                tools:ignore="MissingConstraints"
+                tools:layout_editor_absoluteX="4dp"
+                tools:layout_editor_absoluteY="301dp"
+                tools:srcCompat="@drawable/blackpawn" />
+            <ImageView
+                android:id="@+id/blackPawn6"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:onClick="pieceOnClick"
+                android:scaleType="fitXY"
+                android:visibility="gone"
+                app:srcCompat="@drawable/blackpawn"
+                tools:ignore="MissingConstraints"
+                tools:layout_editor_absoluteX="4dp"
+                tools:layout_editor_absoluteY="301dp"
+                tools:srcCompat="@drawable/blackpawn" />
+            <ImageView
+                android:id="@+id/blackPawn7"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:onClick="pieceOnClick"
+                android:scaleType="fitXY"
+                android:visibility="gone"
+                app:srcCompat="@drawable/blackpawn"
+                tools:ignore="MissingConstraints"
+                tools:layout_editor_absoluteX="4dp"
+                tools:layout_editor_absoluteY="301dp"
+                tools:srcCompat="@drawable/blackpawn" />
+            <ImageView
+                android:id="@+id/blackPawn8"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:onClick="pieceOnClick"
@@ -1264,6 +1462,17 @@
                 tools:layout_editor_absoluteX="5dp"
                 tools:layout_editor_absoluteY="351dp"
                 tools:srcCompat="@drawable/blackrook" />
+            <ImageView
+                android:id="@+id/blackRook2"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:onClick="pieceOnClick"
+                android:visibility="gone"
+                app:srcCompat="@drawable/blackrook"
+                tools:ignore="MissingConstraints"
+                tools:layout_editor_absoluteX="5dp"
+                tools:layout_editor_absoluteY="351dp"
+                tools:srcCompat="@drawable/blackrook" />
 
             <ImageView
                 android:id="@+id/blackKnight"
@@ -1276,9 +1485,31 @@
                 tools:layout_editor_absoluteX="55dp"
                 tools:layout_editor_absoluteY="351dp"
                 tools:srcCompat="@drawable/blackknight" />
+            <ImageView
+                android:id="@+id/blackKnight2"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:onClick="pieceOnClick"
+                android:visibility="gone"
+                app:srcCompat="@drawable/blackknight"
+                tools:ignore="MissingConstraints"
+                tools:layout_editor_absoluteX="55dp"
+                tools:layout_editor_absoluteY="351dp"
+                tools:srcCompat="@drawable/blackknight" />
 
             <ImageView
                 android:id="@+id/blackBishop"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:onClick="pieceOnClick"
+                android:visibility="gone"
+                app:srcCompat="@drawable/blackbishop"
+                tools:ignore="MissingConstraints"
+                tools:layout_editor_absoluteX="105dp"
+                tools:layout_editor_absoluteY="351dp"
+                tools:srcCompat="@drawable/blackbishop" />
+            <ImageView
+                android:id="@+id/blackBishop2"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:onClick="pieceOnClick"
