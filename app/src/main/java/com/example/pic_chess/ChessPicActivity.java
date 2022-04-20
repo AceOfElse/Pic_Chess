@@ -94,6 +94,11 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
         //Set fragments
         fragmentNCF = NewCanvasPromptFragment.newInstance();
         toolbarFragment = ToolBarFragmentTest.newInstance();
+        transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.toolbarFragmentContainer, toolbarFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+        transaction.hide(toolbarFragment);
 
 
         //Set button listeners
@@ -110,30 +115,18 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
                 fragmentNCF.show(getSupportFragmentManager(), "Create New File");
             }
         });
-        loadFileButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                transaction = getSupportFragmentManager().beginTransaction();
-                transaction.add(R.id.toolbarFragmentContainer, toolbarFragment);
-                transaction.addToBackStack(null);
-                transaction.commit();
-            }
-        });
         toolbarButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton toggleButton, boolean isChecked) {
+                transaction = getSupportFragmentManager().beginTransaction();
                 if (isChecked) {
-                    transaction = getSupportFragmentManager().beginTransaction();
-                    transaction.add(R.id.toolbarFragmentContainer, toolbarFragment);
-                    transaction.addToBackStack(null);
-                    transaction.commit();
+                    transaction.show(toolbarFragment);
                 } else {
-                    transaction.remove(toolbarFragment);
-                    transaction.commit();
+                    transaction.hide(toolbarFragment);
                 }
+                transaction.commit();
             }
         });
-
         createDraggableImage();
 
         createCanvas();
