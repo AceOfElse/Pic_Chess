@@ -28,7 +28,8 @@
         android:layout_marginStart="188dp"
         android:layout_marginTop="24dp"
         android:layout_marginBottom="93dp"
-        android:contentDescription="@string/empty_string_text" />
+        android:contentDescription="@string/empty_string_text"
+        android:textSize="6sp" />
 
     <ToggleButton
         android:id="@+id/eraserButton"
@@ -53,7 +54,7 @@
         android:layout_marginBottom="93dp"
         android:contentDescription="@string/empty_string_text" />
 
-    <ToggleButton
+    <Button
         android:id="@+id/clearButton"
         android:layout_width="50dp"
         android:layout_height="50dp"
@@ -63,6 +64,19 @@
         android:layout_marginTop="22dp"
         android:layout_marginEnd="346dp"
         android:layout_marginBottom="93dp"
-        android:contentDescription="@string/empty_string_text" />
+        android:contentDescription="@string/empty_string_text"
+        android:foreground="@drawable/draw_chess_image"
+        android:textSize="14sp" />
+
+    <FrameLayout
+        android:id="@+id/colorFragmentContainer"
+        android:layout_width="188dp"
+        android:layout_height="178dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="78dp">
+
+    </FrameLayout>
 
 </RelativeLayout>

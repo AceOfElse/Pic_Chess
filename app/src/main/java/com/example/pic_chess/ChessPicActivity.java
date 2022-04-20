@@ -31,7 +31,7 @@ import android.widget.TextView;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-public class ChessPicActivity extends AppCompatActivity implements NewCanvasPromptFragment.OnInputSelected {
+public class ChessPicActivity extends AppCompatActivity implements NewCanvasPromptFragment.OnInputSelected, ToolBarFragmentTest.OnClickSelected {
     private ImageButton backButton, newCanvasButton, loadFileButton, saveFileButton, submitFileButton;
     private ToggleButton toolbarButton;
     private AlertDialog.Builder alertDialogue;
@@ -141,6 +141,23 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
         if (state) {
             //Test fragment data passing
             Toast.makeText(this, "Created new file '" + nameFile + "'.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void sendModeToChessPicActivity(int mode) {
+        switch(mode) {
+            case 0:
+                break;
+            case 1:
+                break;
+            case 2:
+                drawingView.setColor(Color.WHITE);
+                break;
+            case 3:
+                drawingView.resetCanvas();
+                break;
+            default:
+                break;
         }
     }
 
@@ -299,6 +316,10 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
 
         public void resetCanvas() {
             path.reset();
+        }
+
+        public void setColor(int color) {
+            paint.setColor(color);
         }
 
     }

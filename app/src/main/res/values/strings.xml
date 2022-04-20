@@ -18,4 +18,8 @@
     <string name="mode_text">GAME MODES</string>
     <string name="drawing_description_text">Start drawing... a</string>
     <string name="time_mode_text">TIME MODES</string>
+    <string name="grab_button_text">GRAB</string>
+    <string name="color_button_text">COLOR</string>
+    <string name="eraser_button_text">ERASER</string>
+    <string name="clear_button_text">CLEAR</string>
 </resources>
