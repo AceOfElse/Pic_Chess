@@ -138,13 +138,16 @@ public class PvpChessActivity extends AppCompatActivity {
         }
         int f = 0;
         int r = 1;
+        int index = 0;
         for (View v: boardImages){
             f++;
             if (f>8){
                 f = 1;
                 r++;
             }
-            boardSquares.add(new Square(f,r,v));
+            boardSquares.add(new Square(f,r,(ImageView)v));
+            Log.d("board",v.getId() + " moved to " + v.getX());
+            index++;
         }
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -200,6 +203,7 @@ public class PvpChessActivity extends AppCompatActivity {
                 if (!gameInProgress){
                     gameMenu.showAtLocation(boardLayout, Gravity.CENTER,300,80);
                     gameMenu.update(50,50,300,80);
+                    generatePositionfromFEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
                     prompted = !prompted;
                 } else {
                     resignMenu.showAtLocation(boardLayout, Gravity.CENTER,300,80);
@@ -225,7 +229,6 @@ public class PvpChessActivity extends AppCompatActivity {
                 }
             }
         });
-        generatePositionfromFEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
     }
 
     public void returnHome() {
@@ -608,6 +611,7 @@ public class PvpChessActivity extends AppCompatActivity {
     private void setSquare (Piece p, Integer i){
         ImageView v = p.getPic();
         ImageView square = getSquarebyInt(i);
+        Square s = getSquarebyView(square);
         ConstraintSet constraintSet = new ConstraintSet();
         constraintSet.clone(pieceLayout);
         //constraintSet.connect(v.getId(),ConstraintSet.START,square.getId(),ConstraintSet.START);
@@ -616,7 +620,12 @@ public class PvpChessActivity extends AppCompatActivity {
         //constraintSet.connect(v.getId(),ConstraintSet.BOTTOM,square.getId(),ConstraintSet.BOTTOM);
         p.setRank(i/8+1);
         p.setFile(i%8+1);
-        p.setPoint(getSquarebyView(square).getPoint());
+        p.setPoint(s.getPoint());
+        v.setX(p.x);
+        v.setY(p.y);
+        Log.d("chess1",p.x+" "+p.y);
+        Log.d("chess4",s.getPoint().toString());
+        Log.d("chess3",p.getPoint().toString());
         constraintSet.setVisibility(v.getId(),View.VISIBLE);
         constraintSet.setTranslationZ(v.getId(),1);
         constraintSet.applyTo(pieceLayout);
@@ -1074,15 +1083,16 @@ public class PvpChessActivity extends AppCompatActivity {
     public static class Square {
         private int rank;
         private int file;
-        private View view;
+        private ImageView view;
         private int x;
         private int y;
-        public Square(int f, int r, View v){
+        public Square(int f, int r, ImageView v){
             rank = r;
             file = f;
             view = v;
-            x = (int)view.getTranslationX();
-            y = (int)view.getTranslationY();
+            x = (int) v.getX();
+            y = (int) v.getY();
+            Log.d("board2",x+" "+y);
         }
         public int getFile() {
             return file;
@@ -1131,8 +1141,8 @@ public class PvpChessActivity extends AppCompatActivity {
             pieceType = t;
             moved = false;
             pic = i;
-            x = 0;
-            y = 0;
+            x = (int) pic.getX();
+            y = (int) pic.getY();
         }
         public int getRank(){
             return rank;
@@ -1176,10 +1186,8 @@ public class PvpChessActivity extends AppCompatActivity {
             return point;
         }
         public void setPoint(Point p){
-            int x1 = p.x;
-            int y1 = p.y;
-            x = x1;
-            y = y1;
+            x = p.x;
+            y = p.y;
         }
     }
 }
