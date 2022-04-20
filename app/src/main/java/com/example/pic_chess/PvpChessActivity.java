@@ -4,6 +4,7 @@ import static com.example.pic_chess.R.drawable;
 import static com.example.pic_chess.R.id;
 import static com.example.pic_chess.R.layout;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
@@ -37,9 +38,14 @@ public class PvpChessActivity extends AppCompatActivity {
     private Piece selectedPiece;
     private ArrayList<ImageView> pieceImages = new ArrayList<ImageView>();
     private ArrayList<ImageView> captured = new ArrayList<ImageView>();
+    private ArrayList<String> positions = new ArrayList<String>();
     private ImageView selectedView;
     private int whiteMaterial = 0;
     private int blackMaterial = 0;
+    private int movesSinceLastPawnMove = 0;
+    private int whiteTime = 0;
+    private int blackTime = 0;
+    private int increment = 0;
     private int numMoves = 0;
     private boolean gameInProgress = false;
     private boolean prompted = false;
@@ -409,6 +415,65 @@ public class PvpChessActivity extends AppCompatActivity {
                 square -= 16;
             }
         }
+        setTimerText(15,0);
+        tickDown();
+    }
+    public void setTimerText(int min, int sec){
+        String s = min + ":" + sec;
+        timerText1.setText(s);
+        timerText2.setText(s);
+    }
+    @SuppressLint("ResourceType")
+    public void tickDown() {
+        String s = "";
+        String min;
+        String sec;
+        while (gameInProgress) {
+            try {
+                wait(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            if (getTurn() == "white") {
+                whiteTime--;
+                s = (String) getText(id.timerText1);
+                min = s.substring(0,s.indexOf(':'));
+                sec = s.substring(s.indexOf(':'),s.length());
+                if (sec != "0"){
+                    int seconds = Integer.parseInt(sec);
+                    seconds--;
+                    s = min + ":" + seconds;
+                    timerText1.setText(s);
+                } else {
+                    int minutes = Integer.parseInt(min);
+                    minutes--;
+                    s = minutes + ":59";
+                    timerText1.setText(s);
+                }
+            }else {
+                blackTime--;
+                s = (String) getText(id.timerText2);
+                min = s.substring(0,s.indexOf(':'));
+                sec = s.substring(s.indexOf(':'),s.length());
+                if (sec != "0"){
+                    int seconds = Integer.parseInt(sec);
+                    seconds--;
+                    s = min + ":" + seconds;
+                    timerText2.setText(s);
+                } else {
+                    int minutes = Integer.parseInt(min);
+                    minutes--;
+                    s = minutes + ":59";
+                    timerText2.setText(s);
+                }
+            }
+        }
+    }
+    public void increment(){
+        if (getTurn() == "white")
+            whiteTime += increment;
+        else
+            blackTime += increment;
     }
     public int evaluate(){
         int whiteEval = whiteMaterial * 100;
@@ -529,6 +594,7 @@ public class PvpChessActivity extends AppCompatActivity {
                     p.setMoved(false);
                     setSquare(selectedPiece,m.getTargetSquare());
                     captured.add((ImageView) v);
+                    increment();
                     numMoves++;
                 }
             }
@@ -555,6 +621,20 @@ public class PvpChessActivity extends AppCompatActivity {
                 gameInProgress = false; //Stalemate
             }
         }
+        if (movesSinceLastPawnMove == 100){
+            gameInProgress = false; //Draw by 50 Move Rule
+        }
+        for (int c1 = 0; c1 < positions.size(); c1++){
+            for (int c2 = c1++; c2 < positions.size()-1;c2++){
+                for (int c3 = c2++;c3 < positions.size()-2;c3++){
+                    if (positions.get(c3).equals(positions.get(c2)) && positions.get(c2).equals(positions.get(c1))){
+                        gameInProgress = false; //Draw by 3 fold repetition
+                    }
+                }
+            }
+        }
+        //Insufficient Material on Both Sides
+        //Time Out vs Insufficient Material
     }
 
     public void squareOnClick(View v){
@@ -591,7 +671,13 @@ public class PvpChessActivity extends AppCompatActivity {
                         selectedPiece.setPieceType("queen");
                         pieces.set(pieces.indexOf(selectedPiece),new Piece(selectedPiece.getFile(),selectedPiece.getRank(),selectedPiece.getPieceColor(),"queen"));
                     }
+                    if (selectedPiece.getPieceType() == "white pawn" || selectedPiece.getPieceType() == "blackPawn"){
+                        movesSinceLastPawnMove = 0;
+                    } else {
+                        movesSinceLastPawnMove++;
+                    }
                     selectedPiece.setMoved(true);
+                    increment();
                     numMoves++;
                 }
             }
