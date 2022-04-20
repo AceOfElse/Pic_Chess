@@ -6,10 +6,14 @@ import androidx.fragment.app.FragmentTransaction;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
+import java.io.ByteArrayOutputStream;
 
 public class HomeActivity extends AppCompatActivity implements SecondMenuChessFragment.OnClickSelection, SecondMenuChessPicFragment.OnClickSelection, ThirdMenuTimeFragment.OnClickSelection {
     private TextView titleText;
@@ -19,6 +23,8 @@ public class HomeActivity extends AppCompatActivity implements SecondMenuChessFr
     private SecondMenuChessPicFragment secondMenuChessPicFragment;
     private ThirdMenuTimeFragment thirdMenuTimeFragment;
     private FragmentTransaction transaction;
+    private Bundle bundleForThirdMenu;
+    private ByteArrayOutputStream byteStreamFirst, byteStreamSecond;
     private int firstMode, secondMode, thirdMode;
 
     //Tags for fragment
@@ -39,24 +45,32 @@ public class HomeActivity extends AppCompatActivity implements SecondMenuChessFr
         settingButton = findViewById(R.id.settingButton);
 
         //Set fragments
-        secondMenuChessFragment = SecondMenuChessFragment.newInstance();
         secondMenuChessPicFragment = SecondMenuChessPicFragment.newInstance();
+        secondMenuChessFragment = SecondMenuChessFragment.newInstance();
         thirdMenuTimeFragment = ThirdMenuTimeFragment.newInstance();
+
+        //Set tools to transfer data from activity to fragment
+        bundleForThirdMenu = new Bundle();
+        byteStreamFirst = new ByteArrayOutputStream();
+        byteStreamSecond = new ByteArrayOutputStream();
 
         //Set button listeners
         chessPreviewButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //transaction = getSupportFragmentManager().beginTransaction();
-                //transaction.replace(R.id.secondMenuFragmentContainer, secondMenuFragmentOne);
-                //transaction.commit();
-                secondMenuChessFragment.show(getSupportFragmentManager(), "Open second menu Chess");
+                transaction = getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.secondMenuFragmentContainer, secondMenuChessFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
             }
         });
         drawPreviewButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                secondMenuChessPicFragment.show(getSupportFragmentManager(), "Open second menu ChessPic");
+                transaction = getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.secondMenuFragmentContainer, secondMenuChessPicFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
             }
         });
     }
@@ -66,19 +80,23 @@ public class HomeActivity extends AppCompatActivity implements SecondMenuChessFr
         switch(mode) {
             case 0:
                 firstMode = 0;
-                thirdMenuTimeFragment.show(getSupportFragmentManager(), "Open third menu Time");
+                transferDataToThirdFragment(BitmapFactory.decodeResource(getResources(), R.drawable.chess_preview_image),
+                        BitmapFactory.decodeResource(getResources(), R.drawable.pvp_preview_image), "CHE", "PVP");
                 break;
             case 1:
                 firstMode = 1;
-                thirdMenuTimeFragment.show(getSupportFragmentManager(), "Open third menu Time");
+                transferDataToThirdFragment(BitmapFactory.decodeResource(getResources(), R.drawable.chess_preview_image),
+                        BitmapFactory.decodeResource(getResources(), R.drawable.pvb_preview_image),"CHE", "PVR");
                 break;
             case 2:
                 firstMode = 2;
-                thirdMenuTimeFragment.show(getSupportFragmentManager(), "Open third menu Time");
+                transferDataToThirdFragment(BitmapFactory.decodeResource(getResources(), R.drawable.chess_preview_image),
+                        BitmapFactory.decodeResource(getResources(), R.drawable.online_player_image), "CHE", "ONL");
                 break;
             case 3:
                 firstMode = 3;
-                thirdMenuTimeFragment.show(getSupportFragmentManager(), "Open third menu Time");
+                transferDataToThirdFragment(BitmapFactory.decodeResource(getResources(), R.drawable.chess_preview_image),
+                        BitmapFactory.decodeResource(getResources(), R.drawable.custom_game_image), "CHE", "CUS");
                 break;
             default:
                 break;
@@ -89,11 +107,13 @@ public class HomeActivity extends AppCompatActivity implements SecondMenuChessFr
         switch(mode) {
             case 0:
                 firstMode = 4;
-                thirdMenuTimeFragment.show(getSupportFragmentManager(), "Open third menu Time");
+                transferDataToThirdFragment(BitmapFactory.decodeResource(getResources(), R.drawable.chesspic_preview_image),
+                        BitmapFactory.decodeResource(getResources(), R.drawable.drawing_image), "PIC", "DRW");
                 break;
             case 1:
                 firstMode = 5;
-                thirdMenuTimeFragment.show(getSupportFragmentManager(), "Open third menu Time");
+                transferDataToThirdFragment(BitmapFactory.decodeResource(getResources(), R.drawable.chesspic_preview_image),
+                        BitmapFactory.decodeResource(getResources(), R.drawable.guessing_image),"PIC", "GUE");
                 break;
             default:
                 break;
@@ -101,78 +121,26 @@ public class HomeActivity extends AppCompatActivity implements SecondMenuChessFr
     }
 
     public void sendModeToActivityFromThirdTime(int mode) {
-        switch(mode) {
+        //Take all fragments away from stack
+        getSupportFragmentManager().popBackStack();
+        getSupportFragmentManager().popBackStack();
+        getSupportFragmentManager().popBackStack();
+
+        switch (firstMode) {
             case 0:
-                switch (firstMode) {
-                    case 0:
-                        secondMenuChessFragment.getDialog().dismiss();
-                        thirdMenuTimeFragment.getDialog().dismiss();
-                        openPvp(true);
-                        break;
-                    case 1:
-                        secondMenuChessFragment.getDialog().dismiss();
-                        thirdMenuTimeFragment.getDialog().dismiss();
-                        break;
-                    case 2:
-                        secondMenuChessFragment.getDialog().dismiss();
-                        thirdMenuTimeFragment.getDialog().dismiss();
-                        break;
-                    case 3:
-                        secondMenuChessFragment.getDialog().dismiss();
-                        thirdMenuTimeFragment.getDialog().dismiss();
-                        break;
-                    case 4:
-                        secondMenuChessPicFragment.getDialog().dismiss();
-                        thirdMenuTimeFragment.getDialog().dismiss();
-                        openChessPic(true);
-                        break;
-                    case 5:
-                        secondMenuChessPicFragment.getDialog().dismiss();
-                        thirdMenuTimeFragment.getDialog().dismiss();
-                        openChessPicReceive(true);
-                        break;
-                    default:
-                        secondMenuChessFragment.getDialog().dismiss();
-                        secondMenuChessPicFragment.getDialog().dismiss();
-                        thirdMenuTimeFragment.getDialog().dismiss();
-                        break;
-                }
+                openPvp(mode == 0);
                 break;
             case 1:
-                switch (firstMode) {
-                    case 0:
-                        secondMenuChessFragment.getDialog().dismiss();
-                        thirdMenuTimeFragment.getDialog().dismiss();
-                        openPvp(false);
-                        break;
-                    case 1:
-                        secondMenuChessFragment.getDialog().dismiss();
-                        thirdMenuTimeFragment.getDialog().dismiss();
-                        break;
-                    case 2:
-                        secondMenuChessFragment.getDialog().dismiss();
-                        thirdMenuTimeFragment.getDialog().dismiss();
-                        break;
-                    case 3:
-                        secondMenuChessFragment.getDialog().dismiss();
-                        thirdMenuTimeFragment.getDialog().dismiss();
-                        break;
-                    case 4:
-                        secondMenuChessPicFragment.getDialog().dismiss();
-                        thirdMenuTimeFragment.getDialog().dismiss();
-                        openChessPic(false);
-                        break;
-                    case 5:
-                        secondMenuChessPicFragment.getDialog().dismiss();
-                        thirdMenuTimeFragment.getDialog().dismiss();
-                        openChessPicReceive(false);
-                        break;
-                    default:
-                        secondMenuChessFragment.getDialog().dismiss();
-                        secondMenuChessPicFragment.getDialog().dismiss();
-                        thirdMenuTimeFragment.getDialog().dismiss();
-                        break;
-                }
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            case 4:
+                openChessPic(mode == 0);
+                break;
+            case 5:
+                openChessPicReceive(mode == 0);
                 break;
             default:
                 break;
@@ -218,6 +186,23 @@ public class HomeActivity extends AppCompatActivity implements SecondMenuChessFr
         });
         alertDialogue.create();
         alertDialogue.show();
+    }
+
+    //Helper method to establish transaction
+    private void transferDataToThirdFragment(Bitmap imageBitmapFirst, Bitmap imageBitmapSecond, String tag1, String tag2) {
+        imageBitmapFirst.compress(Bitmap.CompressFormat.PNG, 100, byteStreamFirst);
+        byte[] byteCodeFirst = byteStreamFirst.toByteArray();
+        imageBitmapSecond.compress(Bitmap.CompressFormat.PNG, 100, byteStreamSecond);
+        byte[] byteCodeSecond = byteStreamSecond.toByteArray();
+        bundleForThirdMenu.putByteArray(tag1, byteCodeFirst);
+        bundleForThirdMenu.putByteArray(tag2, byteCodeSecond);
+        bundleForThirdMenu.putString("First Image", tag1);
+        bundleForThirdMenu.putString("Second Image", tag2);
+        thirdMenuTimeFragment.setArguments(bundleForThirdMenu);
+        transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.thirdMenuFragmentContainer, thirdMenuTimeFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 
     private void openPvp(boolean isTimed) {

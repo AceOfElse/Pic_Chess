@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,7 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 
 
-public class SecondMenuChessPicFragment extends DialogFragment {
+public class SecondMenuChessPicFragment extends Fragment {
     //Interface for transferring data between fragment an activity
     public interface OnClickSelection {
         void sendModeToThirdFromSecondChessPic(int mode);
@@ -41,7 +42,7 @@ public class SecondMenuChessPicFragment extends DialogFragment {
         super.onCreate(savedInstanceState);
 
         //Set the dialogue theme to be full screen. Need to modify the theme.xml file
-        setStyle(DialogFragment.STYLE_NORMAL, R.style.FullScreenDialogueTheme);
+        //setStyle(DialogFragment.STYLE_NORMAL, R.style.FullScreenDialogueTheme);
     }
 
     @Override
