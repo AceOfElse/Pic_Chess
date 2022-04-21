@@ -342,6 +342,8 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
             paint.setColor(Color.BLACK);
             paint.setStyle(Paint.Style.STROKE);
             paint.setStrokeJoin(Paint.Join.ROUND);
+            pathList.add(path);
+            colorList.add(currentBrush);
 
             parameters = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         }
@@ -367,8 +369,6 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
                 case MotionEvent.ACTION_MOVE:
                     //Connect the point every frame
                     path.lineTo(touchX, touchY);
-                    pathList.add(path);
-                    colorList.add(currentBrush);
                     invalidate();
                     return true;
                 default:
@@ -389,12 +389,16 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
             paint.setColor(Color.WHITE);
             paint.setStrokeWidth(10f);
             currentColor(paint.getColor());
+            pathList.add(path);
+            colorList.add(currentBrush);
         }
 
         public void setStandardColor() {
             paint.setColor(Color.BLACK);
             paint.setStrokeWidth(10f);
             currentColor(paint.getColor());
+            pathList.add(path);
+            colorList.add(currentBrush);
         }
 
         public void currentColor(int color) {
