@@ -14,6 +14,8 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -28,25 +30,25 @@ import android.widget.ToggleButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
-public class ChessPicActivity extends AppCompatActivity implements NewCanvasPromptFragment.OnInputSelected {
+public class ChessPicActivity extends AppCompatActivity implements NewCanvasPromptFragment.OnInputSelected, ToolBarFragmentTest.OnClickSelected{
     private ImageButton backButton, newCanvasButton, loadFileButton, saveFileButton, submitFileButton;
     private ToggleButton toolbarButton;
     private AlertDialog.Builder alertDialogue;
+
     private DrawingView drawingView;
+    private static Path path = new Path();
+    private static Paint paint = new Paint();
 
     private ImageView bishopTool, knightTool, pawnTool, rookTool, kingTool, queenTool, currentTool;
-
     private TextView bishopPieceNum, knightPieceNum, pawnPieceNum, rookPieceNum, kingPieceNum, queenPieceNum;
-
     private int bishopsLeft, knightsLeft, pawnsLeft, rooksLeft, kingsLeft, queensLeft;
-
     private float dX, dY;
 
     private ViewGroup canvasView, mainLayout;
     private Bitmap bitmap;
-
     private ConstraintLayout constraintLayout;
     private ConstraintSet.Layout layout;
 
@@ -140,7 +142,30 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
     public void sendNewCanvasState(boolean state) {
         if (state) {
             //Test fragment data passing
+            drawingView.resetCanvas();
+            drawingView.invalidate();
             Toast.makeText(this, "Created new file '" + nameFile + "'.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void sendModeOfToolBar(int mode) {
+        switch (mode) {
+            case 0:
+                break;
+            case 1:
+                break;
+            case 2:
+                drawingView.setEraser();
+                break;
+            case 3:
+                drawingView.setStandardColor();
+                break;
+            case 4:
+                drawingView.resetCanvas();
+                drawingView.invalidate();
+                break;
+            default:
+                break;
         }
     }
 
@@ -303,23 +328,30 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
     ///Start Creating Canvas Properties\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
     //Making custom drawing view
     public static class DrawingView extends View {
-        private static Paint paint = new Paint();
-        private static Path path = new Path();
-        //private static Canvas canvas = new Canvas();
+        private static ArrayList<Path> pathList = new ArrayList<>();
+        private static ArrayList<Integer> colorList = new ArrayList<>();
+        private ViewGroup.LayoutParams parameters;
+        private static int currentBrush = Color.BLACK;
 
         public DrawingView(Context context, AttributeSet attributes) {
             super(context, attributes);
 
             //Set line attributes
             paint.setAntiAlias(true);
-            paint.setStrokeWidth(5f);
+            paint.setStrokeWidth(10f);
             paint.setColor(Color.BLACK);
             paint.setStyle(Paint.Style.STROKE);
             paint.setStrokeJoin(Paint.Join.ROUND);
+
+            parameters = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         }
 
         protected void onDraw(Canvas canvas) {
-            canvas.drawPath(path, paint);
+            for (int i = 0; i < pathList.size(); i++) {
+                paint.setColor(colorList.get(i));
+                canvas.drawPath(pathList.get(i), paint);
+                invalidate();
+            }
         }
 
         public boolean onTouchEvent(MotionEvent event) {
@@ -330,22 +362,44 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
                 case MotionEvent.ACTION_DOWN:
                     //Point to the touch coordinate
                     path.moveTo(touchX, touchY);
+                    invalidate();
                     return true;
                 case MotionEvent.ACTION_MOVE:
                     //Connect the point every frame
                     path.lineTo(touchX, touchY);
-                    break;
+                    pathList.add(path);
+                    colorList.add(currentBrush);
+                    invalidate();
+                    return true;
                 default:
                     return false;
             }
-
-            //Repaint by calling onDraw()
-            invalidate();
-            return true;
         }
 
         public void resetCanvas() {
             path.reset();
+        }
+
+        public void setColorForLine(int color) {
+            paint.setColor(color);
+            currentColor(paint.getColor());
+        }
+
+        public void setEraser() {
+            paint.setColor(Color.WHITE);
+            paint.setStrokeWidth(10f);
+            currentColor(paint.getColor());
+        }
+
+        public void setStandardColor() {
+            paint.setColor(Color.BLACK);
+            paint.setStrokeWidth(10f);
+            currentColor(paint.getColor());
+        }
+
+        public void currentColor(int color) {
+            currentBrush = color;
+            path = new Path();
         }
 
     }

@@ -73,7 +73,7 @@ public class PvpChessActivity extends AppCompatActivity {
         resignButton = findViewById(id.resignButton);
         timerText1 = findViewById(id.timerText1);
         timerText2 = findViewById(id.timerText2);
-        boardLayout = (ConstraintLayout) findViewById(id.boardLayout);
+        //boardLayout = (ConstraintLayout) findViewById(id.boardLayout);
 
         //Add board image views to array list (From boardA1 -> board H8, bottom to top, left to right)
         {

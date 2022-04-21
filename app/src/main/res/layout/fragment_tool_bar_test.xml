@@ -25,11 +25,18 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="188dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginStart="23dp"
+        android:layout_marginTop="25dp"
         android:layout_marginBottom="93dp"
-        android:contentDescription="@string/empty_string_text"
-        android:textSize="6sp" />
+        android:adjustViewBounds="true"
+        android:background="@color/white"
+        android:checked="false"
+        android:foreground="@drawable/grab_icon"
+        android:gravity="center"
+        android:scaleType="fitCenter"
+        android:textOff=""
+        android:textOn=""
+        android:textSize="0sp" />
 
     <ToggleButton
         android:id="@+id/eraserButton"
@@ -37,10 +44,18 @@
         android:layout_height="50dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginStart="191dp"
+        android:layout_marginTop="23dp"
         android:layout_marginBottom="93dp"
-        android:contentDescription="@string/empty_string_text" />
+        android:adjustViewBounds="true"
+        android:background="@color/white"
+        android:checked="false"
+        android:foreground="@drawable/eraser_image"
+        android:gravity="center"
+        android:scaleType="fitCenter"
+        android:textOff=""
+        android:textOn=""
+        android:textSize="0sp" />
 
     <ToggleButton
         android:id="@+id/colorButton"
@@ -52,9 +67,17 @@
         android:layout_marginTop="24dp"
         android:layout_marginEnd="346dp"
         android:layout_marginBottom="93dp"
-        android:contentDescription="@string/empty_string_text" />
+        android:adjustViewBounds="true"
+        android:background="@color/white"
+        android:checked="false"
+        android:foreground="@drawable/color_image"
+        android:gravity="center"
+        android:scaleType="fitCenter"
+        android:textOff=""
+        android:textOn=""
+        android:textSize="0sp" />
 
-    <Button
+    <ImageButton
         android:id="@+id/clearButton"
         android:layout_width="50dp"
         android:layout_height="50dp"
@@ -64,9 +87,11 @@
         android:layout_marginTop="22dp"
         android:layout_marginEnd="346dp"
         android:layout_marginBottom="93dp"
+        android:adjustViewBounds="true"
+        android:background="@color/white"
         android:contentDescription="@string/empty_string_text"
-        android:foreground="@drawable/draw_chess_image"
-        android:textSize="14sp" />
+        android:scaleType="fitCenter"
+        android:src="@drawable/clear_image" />
 
     <FrameLayout
         android:id="@+id/colorFragmentContainer"
