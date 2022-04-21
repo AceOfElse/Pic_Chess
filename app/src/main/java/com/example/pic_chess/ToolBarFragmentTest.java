@@ -6,24 +6,29 @@ import android.os.Bundle;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ImageSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ToggleButton;
 
 public class ToolBarFragmentTest extends Fragment {
     //Interface for transferring data to activity
     public interface OnClickSelected {
-        void sendModeToChessPicActivity(int mode);
+        void sendModeOfToolBar(int mode);
     }
 
     private ToggleButton mGrabButton, mColorButton, mEraseButton;
-    private Button mClearButton;
+    private ImageButton mClearButton;
     private ImageView mColorImage;
+    private ImageSpan imageSpan;
     private OnClickSelected mOnClickedSelected;
 
     //Tag for fragment
@@ -64,14 +69,16 @@ public class ToolBarFragmentTest extends Fragment {
                 if (isChecked) {
                     mGrabButton.setChecked(false);
                     mColorButton.setChecked(false);
-                    mOnClickedSelected.sendModeToChessPicActivity(2);
+                    mOnClickedSelected.sendModeOfToolBar(2);
+                } else {
+                    mOnClickedSelected.sendModeOfToolBar(3);
                 }
             }
         });
         mClearButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mOnClickedSelected.sendModeToChessPicActivity(3);
+                mOnClickedSelected.sendModeOfToolBar(4);
             }
         });
 

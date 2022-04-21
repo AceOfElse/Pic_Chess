@@ -78,10 +78,9 @@ public class NewCanvasPromptFragment extends DialogFragment {
                 if (!inputName.equals("")) {
                     mOnInputSelected.sendInput(inputName);
                     mOnInputSelected.sendNewCanvasState(true);
-                    getDialog().dismiss();
+                    dismiss();
                 } else
                     Toast.makeText(getContext(), "No name has been detected.", Toast.LENGTH_SHORT).show();
-
             }
         });
         return view;
