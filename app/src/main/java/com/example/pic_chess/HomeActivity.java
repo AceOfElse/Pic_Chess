@@ -188,7 +188,7 @@ public class HomeActivity extends AppCompatActivity implements SecondMenuChessFr
         alertDialogue.show();
     }
 
-    //Helper method to establish transaction
+    //Helper method to establish transaction by encoding images
     private void transferDataToThirdFragment(Bitmap imageBitmapFirst, Bitmap imageBitmapSecond, String tag1, String tag2) {
         imageBitmapFirst.compress(Bitmap.CompressFormat.PNG, 100, byteStreamFirst);
         byte[] byteCodeFirst = byteStreamFirst.toByteArray();

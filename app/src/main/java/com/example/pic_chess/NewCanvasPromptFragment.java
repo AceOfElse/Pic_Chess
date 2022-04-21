@@ -67,7 +67,7 @@ public class NewCanvasPromptFragment extends DialogFragment {
         mActionCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getDialog().dismiss();
+                dismiss();
             }
         });
 

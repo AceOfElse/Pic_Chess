@@ -158,7 +158,6 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
 
             switch (event.getAction()) {
                 case DragEvent.ACTION_DRAG_STARTED:
-
                     dX = v.getX() - event.getX();
                     dY = v.getY() - event.getY();
                     v.startDrag(clipData, shadowBuilder, event.getLocalState(), 2);
@@ -184,7 +183,6 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
                     dX = v.getX() - event.getX();
                     dY = v.getY() - event.getY();
                     break;
-
                 default:
                     break;
             }
