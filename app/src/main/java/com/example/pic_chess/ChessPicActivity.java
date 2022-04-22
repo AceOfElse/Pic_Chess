@@ -44,7 +44,8 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
 
     private ImageView bishopTool, knightTool, pawnTool, rookTool, kingTool, queenTool, currentTool;
     private TextView bishopPieceNum, knightPieceNum, pawnPieceNum, rookPieceNum, kingPieceNum, queenPieceNum;
-    private int bishopsLeft, knightsLeft, pawnsLeft, rooksLeft, kingsLeft, queensLeft;
+    private int bishopsLeft = 4, knightsLeft = 4, pawnsLeft = 4, rooksLeft = 4, kingsLeft = 4, queensLeft = 4;
+
     private float dX, dY;
 
     private ViewGroup canvasView, mainLayout;
@@ -173,7 +174,7 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
         @Override
         public boolean onDrag(View v, DragEvent event) {
             ClipData clipData = event.getClipData();
-            View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder();
+            View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(v);
             v.startDrag(clipData, shadowBuilder, event.getLocalState(), 2);
             ViewGroup parent = (ViewGroup) v.getParent();
             parent.removeViewInLayout(v);
@@ -211,7 +212,7 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
                 default:
                     break;
             }
-            return true;
+            return false;
         }
     };
 
@@ -220,15 +221,18 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
         public boolean onTouch(View v, MotionEvent event) {
             switch (event.getActionMasked()) {
                 case MotionEvent.ACTION_DOWN:
+                    //removes view from the current layout and adds it to the main one
                     ViewGroup parent = (ViewGroup) v.getParent();
                     parent.removeViewInLayout(v);
                     mainLayout.addView(v);
+                    //set currentTool to whatever view the user touches
+                    currentTool = (ImageView) v;
                     // capture the difference between view's top left corner and touch point
                     dX = v.getX() - event.getRawX();
                     dY = v.getY() - event.getRawY();
                     break;
                 case MotionEvent.ACTION_MOVE:
-                    //  a different approach would be to change the view's LayoutParams.
+                    // animates the dragging
                     v.animate()
                             .x(event.getRawX() + dX)
                             .y(event.getRawY() + dY)
@@ -236,10 +240,10 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
                             .start();
                     break;
                 case MotionEvent.ACTION_UP:
-
+                    //TODO get and save position of the piece when it is dropped on the canvas to draw from
+                    //TODO decrement number of chosen piece left
                     break;
             }
-            currentTool = (ImageView) v;
             return true;
         }
     };
@@ -249,10 +253,28 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
         for (ImageView imageView : Arrays.asList(bishopTool, knightTool, pawnTool, rookTool, kingTool, queenTool)) {
             imageView.setOnTouchListener(touchListener);
         }
+        for (ImageView imageView : Arrays.asList(bishopTool, knightTool, pawnTool, rookTool, kingTool, queenTool)) {
+            imageView.setOnDragListener(dragListener);
+        }
+    }
 
-        ///TODO: Get currently selected tool's number of pieces left to see if not zero
-        ///switch statement
-
+    //TODO: Get currently selected tool's number of pieces left to see if not zero
+    private boolean piecesLeftChecker() {
+        switch (currentTool.getId()) {
+            case R.id.pieceBishopCP:
+                break;
+            case R.id.piecePawnCP:
+                break;
+            case R.id.pieceRookCP:
+                break;
+            case R.id.pieceKnightCP:
+                break;
+            case R.id.pieceKingCP:
+                break;
+            case R.id.pieceQueenCP:
+                break;
+        }
+        return true;
     }
 
     //creates a canvas for drawing
