@@ -54,7 +54,7 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
 
     private ImageView bishopTool, knightTool, pawnTool, rookTool, kingTool, queenTool, currentTool;
     private TextView bishopPieceNum, knightPieceNum, pawnPieceNum, rookPieceNum, kingPieceNum, queenPieceNum, timerText;
-    private int bishopsLeft = 4, knightsLeft = 4, pawnsLeft = 4, rooksLeft = 4, kingsLeft = 4, queensLeft = 4;
+    private int bishopsLeft = 0, knightsLeft = 4, pawnsLeft = 4, rooksLeft = 4, kingsLeft = 4, queensLeft = 4;
 
     private float dX, dY;
 
@@ -337,15 +337,18 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
         public boolean onTouch(View v, MotionEvent event) {
             switch (event.getActionMasked()) {
                 case MotionEvent.ACTION_DOWN:
-                    //drag listener setup
-                    ClipData clipData = ClipData.newPlainText("", "");
-                    View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(v);
-                    v.startDrag(clipData, shadowBuilder, v, 0);
                     //set currentTool to whatever view the user touches
                     currentTool = (ImageView) v;
-                    // capture the difference between view's top left corner and touch point
-                    dX = v.getX() - event.getRawX();
-                    dY = v.getY() - event.getRawY();
+                    // check pieces left
+                    if (piecesLeftChecker()) {
+                        //drag listener setup
+                        ClipData clipData = ClipData.newPlainText("", "");
+                        View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(v);
+                        v.startDrag(clipData, shadowBuilder, v, 0);
+                        // capture the difference between view's top left corner and touch point
+                        dX = v.getX() - event.getRawX();
+                        dY = v.getY() - event.getRawY();
+                    }
                     break;
             }
             return true;
@@ -363,23 +366,18 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
                     owner.removeView(view);
                     ConstraintLayout container = (ConstraintLayout) v;
                     container.addView(view);
+                    break;
+                case DragEvent.ACTION_DRAG_ENDED:
                     dX = v.getX() - event.getX();
                     dY = v.getY() - event.getY();
                     Log.d("drag", String.valueOf(dX));
-                    break;
-                case DragEvent.ACTION_DRAG_EXITED:
-                    dX = v.getX() - event.getX();
-                    dY = v.getY() - event.getY();
-                    Log.d("drag", String.valueOf(dX));
-                    break;
-                default:
                     break;
             }
             return false;
         }
     };
 
-    //user touches desired piece, allows them to click and drag this imageview to canvas
+    // user touches desired piece, allows them to click and drag this imageview to canvas
     private void createDraggableImage(){
         for (ImageView imageView : Arrays.asList(bishopTool, knightTool, pawnTool, rookTool, kingTool, queenTool)) {
             imageView.setOnTouchListener(touchListener);
@@ -389,8 +387,16 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
         }
     }
 
-    //TODO: Get currently selected tool's number of pieces left to see if not zero
+    // Get currently selected tool's number of pieces left to see if not zero
     private boolean piecesLeftChecker() {
+        //TODO figure out how to fix setting values of text from crashing app
+        //Set values
+//        bishopPieceNum.setText(bishopsLeft);
+//        knightPieceNum.setText(knightsLeft);
+//        pawnPieceNum.setText(pawnsLeft);
+//        rookPieceNum.setText(rooksLeft);
+//        kingPieceNum.setText(kingsLeft);
+//        queenPieceNum.setText(queensLeft);
         switch (currentTool.getId()) {
             case R.id.pieceBishopCP:
                 return bishopsLeft > 0;
