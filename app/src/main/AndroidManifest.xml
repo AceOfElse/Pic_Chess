@@ -11,7 +11,8 @@
         android:theme="@style/Theme.Pic_Chess">
         <activity
             android:name=".ChessPicReceiveActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity
             android:name=".ChessPicActivity"
             android:exported="false"

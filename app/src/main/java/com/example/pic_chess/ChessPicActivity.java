@@ -9,6 +9,7 @@ import android.app.AlertDialog;
 import android.content.ClipData;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -17,6 +18,7 @@ import android.graphics.Path;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.DragEvent;
@@ -32,6 +34,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Locale;
 
 public class ChessPicActivity extends AppCompatActivity implements NewCanvasPromptFragment.OnInputSelected, ToolBarFragmentTest.OnClickSelected, ColorFragment.OnClickSelected {
     private ImageButton backButton, newCanvasButton, loadFileButton, saveFileButton, submitFileButton;
@@ -42,8 +45,13 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
     private static Path path = new Path();
     private static Paint paint = new Paint();
 
+    private CountDownTimer countDownTimer;
+    private static final long START_TIME_IN_MILLISECOND = 601000;
+    private boolean isTimerRunning;
+    private long timeLeftInMilliSecond = START_TIME_IN_MILLISECOND;
+
     private ImageView bishopTool, knightTool, pawnTool, rookTool, kingTool, queenTool, currentTool;
-    private TextView bishopPieceNum, knightPieceNum, pawnPieceNum, rookPieceNum, kingPieceNum, queenPieceNum;
+    private TextView bishopPieceNum, knightPieceNum, pawnPieceNum, rookPieceNum, kingPieceNum, queenPieceNum, timerText;
     private int bishopsLeft = 4, knightsLeft = 4, pawnsLeft = 4, rooksLeft = 4, kingsLeft = 4, queensLeft = 4;
 
     private float dX, dY;
@@ -63,10 +71,16 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
     private static final String TAG = "NewCanvasPromptFragment";
     private static final String TAG2 = "ToolbarFragment";
 
+//////Start Creation of Activity and Relevant Connections\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chess_pic);
+
+        //Receive intent from home activity
+        Intent chessPic  = getIntent();
+        boolean isTimed = chessPic.getBooleanExtra("TIME", false);
+
         //Set up alert dialogue
         alertDialogue = new AlertDialog.Builder(ChessPicActivity.this);
 
@@ -78,6 +92,7 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
         submitFileButton = findViewById(R.id.submitFileCP);
         toolbarButton = findViewById(R.id.toolbarButtonCP);
         drawingView = findViewById(R.id.drawingViewCP);
+        timerText = findViewById(R.id.timerTextCP);
 
         bishopTool = findViewById(R.id.pieceBishopCP);
         knightTool = findViewById(R.id.pieceKnightCP);
@@ -118,6 +133,7 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                pauseTimer();
                 onClickShowAlert(view);
             }
         });
@@ -125,6 +141,7 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
         newCanvasButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                pauseTimer();
                 newCanvasPromptFragment.show(getSupportFragmentManager(), "Create New File");
             }
         });
@@ -141,6 +158,17 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
                 transaction.commit();
             }
         });
+
+        //Set time textview
+        if (isTimed) {
+            timerText.setVisibility(View.VISIBLE);
+            startTimer();
+        } else {
+            timerText.setVisibility(View.INVISIBLE);
+        }
+        updateCountDownText();
+
+        //Others
         createDraggableImage();
         createCanvas();
     }
@@ -157,7 +185,10 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
             drawingView.setStandardColor();
             toolbarFragment.setImageColor(Color.BLACK);
             drawingView.invalidate();
+            resetTimer();
             Toast.makeText(this, "Created new file '" + nameFile + "'.", Toast.LENGTH_SHORT).show();
+        } else {
+            startTimer();
         }
     }
 
@@ -236,6 +267,71 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
         }
     }
 
+    //Set activity life cycles
+    protected void onStart() {
+        super.onStart();
+    }
+
+    protected void onRestart() {
+        super.onRestart();
+    }
+
+    protected void onPause() {
+        super.onPause();
+    }
+
+    protected void onResume() {
+        super.onResume();
+    }
+
+    protected void onStop() {
+        super.onStop();
+    }
+
+    //Dealing with app's back button
+    private void onClickShowAlert(View view) {
+        alertDialogue.setMessage(R.string.prompt_back_text);
+        alertDialogue.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+                finish();
+            }
+        });
+        alertDialogue.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+                startTimer();
+            }
+        });
+        alertDialogue.create();
+        alertDialogue.show();
+    }
+
+    //Dealing with Android's back button
+    public void onBackPressed() {
+        alertDialogue.setMessage(R.string.prompt_back_text);
+        alertDialogue.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+                finish();
+            }
+        });
+        alertDialogue.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+                startTimer();
+            }
+        });
+        alertDialogue.create();
+        alertDialogue.show();
+    }
+//////End Creation of Activity and Relevant Connections\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+//////Start Handling Drag Pieces Into the Canvas\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
     private View.OnDragListener dragListener = new View.OnDragListener() {
         @Override
         public boolean onDrag(View v, DragEvent event) {
@@ -349,71 +445,9 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
         Paint paint = new Paint();
     }
 
-    //Open and close toolBar fragment
+//////End Handling Drag Pieces into Canvas\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
-
-    //Set activity life cycles
-    protected void onStart() {
-        super.onStart();
-    }
-
-    protected void onRestart() {
-        super.onRestart();
-    }
-
-    protected void onPause() {
-        super.onPause();
-    }
-
-    protected void onResume() {
-        super.onResume();
-    }
-
-    protected void onStop() {
-        super.onStop();
-    }
-
-    //Dealing with app's back button
-    private void onClickShowAlert(View view) {
-        alertDialogue.setMessage(R.string.prompt_back_text);
-        alertDialogue.setPositiveButton("YES", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.dismiss();
-                finish();
-            }
-        });
-        alertDialogue.setNegativeButton("NO", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.dismiss();
-            }
-        });
-        alertDialogue.create();
-        alertDialogue.show();
-    }
-
-    //Dealing with Android's back button
-    public void onBackPressed() {
-        alertDialogue.setMessage(R.string.prompt_back_text);
-        alertDialogue.setPositiveButton("YES", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.dismiss();
-                finish();
-            }
-        });
-        alertDialogue.setNegativeButton("NO", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.dismiss();
-            }
-        });
-        alertDialogue.create();
-        alertDialogue.show();
-    }
-
-    ///Start Creating Canvas Properties\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+//////Start Creating Canvas Properties\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
     //Making custom drawing view
     public static class DrawingView extends View {
         private static ArrayList<Path> pathList = new ArrayList<>();
@@ -509,5 +543,42 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
             path = new Path();
         }
     }
-///End Creating Canvas Properties\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+//////End Creating Canvas Properties\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+//////Start Handling Timer\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+    private void startTimer() {
+        countDownTimer = new CountDownTimer(timeLeftInMilliSecond, 1000) {
+            @Override
+            public void onTick(long milliSecondsUntilFinished) {
+                timeLeftInMilliSecond = milliSecondsUntilFinished;
+                updateCountDownText();
+            }
+
+            @Override
+            public void onFinish() {
+                isTimerRunning = false;
+            }
+        }.start();
+        isTimerRunning = true;
+    }
+
+    private void pauseTimer() {
+        countDownTimer.cancel();
+        isTimerRunning = false;
+    }
+
+    private void resetTimer() {
+        timeLeftInMilliSecond = START_TIME_IN_MILLISECOND;
+        updateCountDownText();
+        isTimerRunning = false;
+        startTimer();
+    }
+
+    private void updateCountDownText() {
+        int minutes = (int) (timeLeftInMilliSecond / 1000) / 60;
+        int seconds = (int) (timeLeftInMilliSecond / 1000) % 60;
+        String timeLeftFormatted = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds);
+        timerText.setText("TIME\n" + timeLeftFormatted);
+    }
+//////End Handling Timer\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 }

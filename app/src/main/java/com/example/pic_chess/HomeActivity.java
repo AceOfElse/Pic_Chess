@@ -170,22 +170,27 @@ public class HomeActivity extends AppCompatActivity implements SecondMenuChessFr
     }
 
     public void onBackPressed() {
-        alertDialogue.setMessage(R.string.prompt_quit_text);
-        alertDialogue.setPositiveButton("YES", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.dismiss();
-                finishAffinity();
-            }
-        });
-        alertDialogue.setNegativeButton("NO", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.dismiss();
-            }
-        });
-        alertDialogue.create();
-        alertDialogue.show();
+        //Check if the fragment is currently on screen. If there is no fragment, perform alert; otherwise, pop the current stack and go back to previous one.
+        if (getSupportFragmentManager().getBackStackEntryCount() == 0) {
+            alertDialogue.setMessage(R.string.prompt_quit_text);
+            alertDialogue.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.dismiss();
+                    finishAffinity();
+                }
+            });
+            alertDialogue.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.dismiss();
+                }
+            });
+            alertDialogue.create();
+            alertDialogue.show();
+        } else {
+            getSupportFragmentManager().popBackStack();
+        }
     }
 
     //Helper method to establish transaction by encoding images

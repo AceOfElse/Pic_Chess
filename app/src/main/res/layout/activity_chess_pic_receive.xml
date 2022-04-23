@@ -13,7 +13,6 @@
         android:id="@+id/timerTextCR"
         android:layout_width="72dp"
         android:layout_height="50dp"
-        android:text="@string/timer_text"
         android:textAlignment="center"
         android:textAllCaps="true"
         android:textColor="@color/white"
@@ -45,7 +44,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/back_image"
-        tools:ignore="SpeakableTextPresentCheck" />
+        tools:ignore="SpeakableTextPresentCheck"
+        tools:srcCompat="@drawable/back_image" />
 
     <ImageButton
         android:id="@+id/submitFileCR"
@@ -65,7 +65,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/upload_image"
-        tools:ignore="SpeakableTextPresentCheck,ImageContrastCheck" />
+        tools:ignore="SpeakableTextPresentCheck,ImageContrastCheck"
+        tools:srcCompat="@drawable/upload_image" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/canvasReceiverLayout"
@@ -84,7 +85,7 @@
     <EditText
         android:id="@+id/descriptionTextField"
         android:layout_width="411dp"
-        android:layout_height="136dp"
+        android:layout_height="96dp"
         android:layout_marginBottom="10dp"
         android:autofillHints=""
         android:ems="10"
@@ -98,6 +99,6 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/canvasReceiverLayout"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.481" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
