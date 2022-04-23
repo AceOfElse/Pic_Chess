@@ -18,7 +18,7 @@ import android.widget.ToggleButton;
 
 public class ColorFragment extends Fragment {
     public interface OnClickSelected {
-        void sendColorToToolbar(int color, int r, int g, int b);
+        void sendColorToActivity(int color, int r, int g, int b);
     }
 
     private ToggleButton blackButton, redButton, blueButton, greenButton, yellowButton, purpleButton;
@@ -63,53 +63,105 @@ public class ColorFragment extends Fragment {
         gTextField = view.findViewById(R.id.gTextField);
         bTextField = view.findViewById(R.id.bTextField);
 
+        //Set color image for all color options
+        blackButton.setBackgroundColor(Color.BLACK);
+        redButton.setBackgroundColor(Color.RED);
+        blueButton.setBackgroundColor(Color.BLUE);
+        greenButton.setBackgroundColor(Color.GREEN);
+        yellowButton.setBackgroundColor(Color.YELLOW);
+        purpleButton.setBackgroundColor(Color.parseColor("purple"));
+
         //Set listeners
         blackButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                if (isChecked)
-                    mOnClickSelected.sendColorToToolbar(0, 0, 0, 0);
+                if (isChecked) {
+                    redButton.setChecked(false);
+                    blueButton.setChecked(false);
+                    greenButton.setChecked(false);
+                    yellowButton.setChecked(false);
+                    purpleButton.setChecked(false);
+                    mOnClickSelected.sendColorToActivity(0, 0, 0, 0);
+                }
             }
         });
         redButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                if (isChecked)
-                    mOnClickSelected.sendColorToToolbar(1, 0, 0, 0);
+                if (isChecked) {
+                    blackButton.setChecked(false);
+                    blueButton.setChecked(false);
+                    greenButton.setChecked(false);
+                    yellowButton.setChecked(false);
+                    purpleButton.setChecked(false);
+                    mOnClickSelected.sendColorToActivity(1, 0, 0, 0);
+                }
+
             }
         });
         blueButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                if (isChecked)
-                    mOnClickSelected.sendColorToToolbar(2, 0, 0, 0);
+                if (isChecked) {
+                    blackButton.setChecked(false);
+                    redButton.setChecked(false);
+                    greenButton.setChecked(false);
+                    yellowButton.setChecked(false);
+                    purpleButton.setChecked(false);
+                    mOnClickSelected.sendColorToActivity(2, 0, 0, 0);
+                }
+
             }
         });
         greenButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                if (isChecked)
-                    mOnClickSelected.sendColorToToolbar(3, 0, 0, 0);
+                if (isChecked) {
+                    blackButton.setChecked(false);
+                    redButton.setChecked(false);
+                    blueButton.setChecked(false);
+                    yellowButton.setChecked(false);
+                    purpleButton.setChecked(false);
+                    mOnClickSelected.sendColorToActivity(3, 0, 0, 0);
+                }
             }
         });
         yellowButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                if (isChecked)
-                    mOnClickSelected.sendColorToToolbar(4, 0, 0, 0);
+                if (isChecked) {
+                    blackButton.setChecked(false);
+                    redButton.setChecked(false);
+                    blueButton.setChecked(false);
+                    greenButton.setChecked(false);
+                    purpleButton.setChecked(false);
+                    mOnClickSelected.sendColorToActivity(4, 0, 0, 0);
+                }
             }
         });
         purpleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                if (isChecked)
-                    mOnClickSelected.sendColorToToolbar(5, 0, 0, 0);
+                if (isChecked) {
+                    blackButton.setChecked(false);
+                    redButton.setChecked(false);
+                    blueButton.setChecked(false);
+                    greenButton.setChecked(false);
+                    yellowButton.setChecked(false);
+                    mOnClickSelected.sendColorToActivity(5, 0, 0, 0);
+                }
             }
         });
         applyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mOnClickSelected.sendColorToToolbar(6, Integer.parseInt(rTextField.getText().toString()), Integer.parseInt(gTextField.getText().toString()), Integer.parseInt(bTextField.getText().toString()));
+                blackButton.setChecked(false);
+                redButton.setChecked(false);
+                blueButton.setChecked(false);
+                greenButton.setChecked(false);
+                yellowButton.setChecked(false);
+                purpleButton.setChecked(false);
+                mOnClickSelected.sendColorToActivity(6, Integer.parseInt(rTextField.getText().toString()), Integer.parseInt(gTextField.getText().toString()), Integer.parseInt(bTextField.getText().toString()));
             }
         });
 
@@ -119,7 +171,7 @@ public class ColorFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         try {
-            mOnClickSelected = (ColorFragment.OnClickSelected) context;
+            mOnClickSelected = (ColorFragment.OnClickSelected) getActivity();
         } catch (ClassCastException e) {
             Log.e(TAG, "onAttach: ClassCastException : " + e.getMessage());
         }

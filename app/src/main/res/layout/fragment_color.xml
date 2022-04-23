@@ -16,8 +16,9 @@
         android:layout_marginStart="259dp"
         android:layout_marginTop="7dp"
         android:layout_marginBottom="93dp"
-        android:background="@color/purple_500"
-        android:contentDescription="@string/empty_string_text" />
+        android:contentDescription="@string/empty_string_text"
+        android:textOn=""
+        android:textOff=""/>
 
     <ToggleButton
         android:id="@+id/yellowColorButton"
@@ -28,8 +29,9 @@
         android:layout_marginStart="209dp"
         android:layout_marginTop="7dp"
         android:layout_marginBottom="93dp"
-        android:background="@color/teal_700"
-        android:contentDescription="@string/empty_string_text" />
+        android:contentDescription="@string/empty_string_text"
+        android:textOn=""
+        android:textOff=""/>
 
     <ToggleButton
         android:id="@+id/greenColorButton"
@@ -40,8 +42,9 @@
         android:layout_marginStart="159dp"
         android:layout_marginTop="7dp"
         android:layout_marginBottom="93dp"
-        android:background="@color/teal_200"
-        android:contentDescription="@string/empty_string_text" />
+        android:contentDescription="@string/empty_string_text"
+        android:textOn=""
+        android:textOff=""/>
 
     <ToggleButton
         android:id="@+id/blackColorButton"
@@ -52,8 +55,9 @@
         android:layout_marginStart="7dp"
         android:layout_marginTop="7dp"
         android:layout_marginBottom="93dp"
-        android:background="@color/black"
-        android:contentDescription="@string/empty_string_text" />
+        android:contentDescription="@string/empty_string_text"
+        android:textOn=""
+        android:textOff=""/>
 
     <ToggleButton
         android:id="@+id/redColorButton"
@@ -64,8 +68,9 @@
         android:layout_marginStart="57dp"
         android:layout_marginTop="7dp"
         android:layout_marginBottom="93dp"
-        android:background="@color/purple_200"
-        android:contentDescription="@string/empty_string_text" />
+        android:contentDescription="@string/empty_string_text"
+        android:textOn=""
+        android:textOff=""/>
 
     <ToggleButton
         android:id="@+id/blueColorButton"
@@ -76,8 +81,9 @@
         android:layout_marginStart="108dp"
         android:layout_marginTop="7dp"
         android:layout_marginBottom="93dp"
-        android:background="@color/purple_700"
-        android:contentDescription="@string/empty_string_text" />
+        android:contentDescription="@string/empty_string_text"
+        android:textOn=""
+        android:textOff=""/>
 
     <EditText
         android:id="@+id/rTextField"

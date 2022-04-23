@@ -33,7 +33,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class ChessPicActivity extends AppCompatActivity implements NewCanvasPromptFragment.OnInputSelected, ToolBarFragmentTest.OnClickSelected{
+public class ChessPicActivity extends AppCompatActivity implements NewCanvasPromptFragment.OnInputSelected, ToolBarFragmentTest.OnClickSelected, ColorFragment.OnClickSelected {
     private ImageButton backButton, newCanvasButton, loadFileButton, saveFileButton, submitFileButton;
     private ToggleButton toolbarButton;
     private AlertDialog.Builder alertDialogue;
@@ -53,8 +53,9 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
     private ConstraintLayout constraintLayout;
     private ConstraintSet.Layout layout;
 
-    private NewCanvasPromptFragment fragmentNCF;
+    private NewCanvasPromptFragment newCanvasPromptFragment;
     private ToolBarFragmentTest toolbarFragment;
+    private ColorFragment colorFragment;
     private FragmentTransaction transaction;
     private String nameFile;
 
@@ -96,13 +97,21 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
         mainLayout = findViewById(R.id.chessPicLayout);
 
         //Set fragments
-        fragmentNCF = NewCanvasPromptFragment.newInstance();
+        newCanvasPromptFragment = NewCanvasPromptFragment.newInstance();
         toolbarFragment = ToolBarFragmentTest.newInstance();
+        colorFragment = ColorFragment.newInstance();
+
         transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.toolbarFragmentContainer, toolbarFragment);
         transaction.addToBackStack(null);
         transaction.commit();
         transaction.hide(toolbarFragment);
+
+        transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.colorFragmentContainer, colorFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+        transaction.hide(colorFragment);
 
 
         //Set button listeners
@@ -116,7 +125,7 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
         newCanvasButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                fragmentNCF.show(getSupportFragmentManager(), "Create New File");
+                newCanvasPromptFragment.show(getSupportFragmentManager(), "Create New File");
             }
         });
         toolbarButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -127,6 +136,7 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
                     transaction.show(toolbarFragment);
                 } else {
                     transaction.hide(toolbarFragment);
+                    transaction.hide(colorFragment);
                 }
                 transaction.commit();
             }
@@ -144,6 +154,8 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
         if (state) {
             //Test fragment data passing
             drawingView.resetCanvas();
+            drawingView.setStandardColor();
+            toolbarFragment.setImageColor(Color.BLACK);
             drawingView.invalidate();
             Toast.makeText(this, "Created new file '" + nameFile + "'.", Toast.LENGTH_SHORT).show();
         }
@@ -154,15 +166,20 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
             case 0:
                 break;
             case 1:
+                transaction = getSupportFragmentManager().beginTransaction();
+                transaction.show(colorFragment);
+                transaction.commit();
                 break;
             case 2:
                 drawingView.setEraser();
                 break;
             case 3:
-                drawingView.setStandardColor();
+                drawingView.setPreviousColor();
                 break;
             case 4:
                 drawingView.resetCanvas();
+                drawingView.setStandardColor();
+                toolbarFragment.setImageColor(Color.BLACK);
                 drawingView.invalidate();
                 break;
             default:
@@ -170,33 +187,39 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
         }
     }
 
-    public void sendColorToChessPic(int color) {
+    public void sendColorToActivity(int color, int r, int g, int b) {
         switch (color) {
             case 0:
                 drawingView.setColorForLine(Color.BLACK);
+                toolbarFragment.setImageColor(Color.BLACK);
                 break;
             case 1:
                 drawingView.setColorForLine(Color.RED);
+                toolbarFragment.setImageColor(Color.RED);
                 break;
             case 2:
                 drawingView.setColorForLine(Color.BLUE);
+                toolbarFragment.setImageColor(Color.BLUE);
                 break;
             case 3:
                 drawingView.setColorForLine(Color.GREEN);
+                toolbarFragment.setImageColor(Color.GREEN);
                 break;
             case 4:
                 drawingView.setColorForLine(Color.YELLOW);
+                toolbarFragment.setImageColor(Color.YELLOW);
                 break;
             case 5:
                 drawingView.setColorForLine(Color.parseColor("purple"));
+                toolbarFragment.setImageColor(Color.parseColor("purple"));
+                break;
+            case 6:
+                drawingView.setColorForLine(Color.rgb(r, g, b));
+                toolbarFragment.setImageColor(Color.rgb(r, g, b));
                 break;
             default:
                 break;
         }
-    }
-
-    public void sendColorRGBToChessPic(int r, int g, int b) {
-        drawingView.setColorForLine(Color.rgb(r, g, b));
     }
 
     private View.OnDragListener dragListener = new View.OnDragListener() {
@@ -432,7 +455,17 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
         }
 
         public void resetCanvas() {
-            path.reset();
+            for (int i = 0; i < pathList.size(); i++) {
+                pathList.get(i).reset();
+            }
+            pathList.clear();
+            colorList.clear();
+            strokeWidthList.clear();
+        }
+
+        public void setStandardColor() {
+            paint.setColor(Color.BLACK);
+            currentColor(paint.getColor(), 10f);
         }
 
         public void setColorForLine(int color) {
@@ -445,8 +478,8 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
             currentColor(paint.getColor(), 40f);
         }
 
-        public void setStandardColor() {
-            paint.setColor(Color.BLACK);
+        public void setPreviousColor() {
+            paint.setColor(currentBrush);
             currentColor(paint.getColor(), 10f);
         }
 

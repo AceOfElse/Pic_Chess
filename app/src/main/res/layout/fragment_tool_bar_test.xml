@@ -16,7 +16,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="141dp"
         android:layout_marginTop="27dp"
-        tools:src="@color/black" />
+        android:background="@color/black" />
 
     <ToggleButton
         android:id="@+id/grabButton"
@@ -92,16 +92,5 @@
         android:contentDescription="@string/empty_string_text"
         android:scaleType="fitCenter"
         android:src="@drawable/clear_image" />
-
-    <FrameLayout
-        android:id="@+id/colorFragmentContainer"
-        android:layout_width="307dp"
-        android:layout_height="59dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="78dp">
-
-    </FrameLayout>
 
 </RelativeLayout>
