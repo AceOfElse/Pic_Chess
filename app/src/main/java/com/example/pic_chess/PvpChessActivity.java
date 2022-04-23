@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -332,7 +333,7 @@ public class PvpChessActivity extends AppCompatActivity {
                     iv = findViewById(R.id.blackPawn7);
                 else
                     iv = findViewById(R.id.blackPawn8);
-                pieces.add(new Piece(square % 8 + 1, square / 8 + 1, "black", "black pawn", iv));
+                pieces.add(new Piece((square - 1) % 8 + 1, (square - 1) / 8 + 1, "black", "black pawn", iv));
                 setSquare(pieces.get(index), square);
                 Log.d("chess2", pieces.get(index).getPieceType() + " moved to " + square);
                 index++;
@@ -355,7 +356,7 @@ public class PvpChessActivity extends AppCompatActivity {
                     iv = findViewById(R.id.whitePawn7);
                 else
                     iv = findViewById(R.id.whitePawn8);
-                pieces.add(new Piece(square % 8 + 1, square / 8 + 1, "white", "white pawn", iv));
+                pieces.add(new Piece((square - 1) % 8 + 1, (square - 1) / 8 + 1, "white", "white pawn", iv));
                 setSquare(pieces.get(index), square);
                 Log.d("chess2", pieces.get(index).getPieceType() + " moved to " + square);
                 index++;
@@ -382,7 +383,7 @@ public class PvpChessActivity extends AppCompatActivity {
                     iv = findViewById(id.blackRook);
                 else
                     iv = findViewById(id.blackRook2);
-                pieces.add(new Piece(square % 8 + 1, square / 8 + 1, "black", "rook", iv));
+                pieces.add(new Piece((square - 1) % 8 + 1, (square - 1) / 8 + 1, "black", "rook", iv));
                 setSquare(pieces.get(index), square);
                 Log.d("chess2", pieces.get(index).getPieceType() + " moved to " + square);
                 index++;
@@ -393,7 +394,7 @@ public class PvpChessActivity extends AppCompatActivity {
                     iv = findViewById(id.whiteRook);
                 else
                     iv = findViewById(id.whiteRook2);
-                pieces.add(new Piece(square % 8 + 1, square / 8 + 1, "white", "rook", iv));
+                pieces.add(new Piece((square - 1) % 8 + 1, (square - 1) / 8 + 1, "white", "rook", iv));
                 setSquare(pieces.get(index), square);
                 Log.d("chess2", pieces.get(index).getPieceType() + " moved to " + square);
                 index++;
@@ -404,7 +405,7 @@ public class PvpChessActivity extends AppCompatActivity {
                     iv = findViewById(id.blackKnight);
                 else
                     iv = findViewById(id.blackKnight2);
-                pieces.add(new Piece(square % 8 + 1, square / 8 + 1, "black", "knight", iv));
+                pieces.add(new Piece((square - 1) % 8 + 1, (square - 1) / 8 + 1, "black", "knight", iv));
                 setSquare(pieces.get(index), square);
                 Log.d("chess2", pieces.get(index).getPieceType() + " moved to " + square);
                 index++;
@@ -415,7 +416,7 @@ public class PvpChessActivity extends AppCompatActivity {
                     iv = findViewById(id.whiteKnight);
                 else
                     iv = findViewById(id.whiteKnight2);
-                pieces.add(new Piece(square % 8 + 1, square / 8 + 1, "white", "knight", iv));
+                pieces.add(new Piece((square - 1) % 8 + 1, (square - 1) / 8 + 1, "white", "knight", iv));
                 setSquare(pieces.get(index), square);
                 Log.d("chess2", pieces.get(index).getPieceType() + " moved to " + square);
                 index++;
@@ -426,7 +427,7 @@ public class PvpChessActivity extends AppCompatActivity {
                     iv = findViewById(id.blackBishop);
                 else
                     iv = findViewById(id.blackBishop2);
-                pieces.add(new Piece(square % 8 + 1, square / 8 + 1, "black", "bishop", iv));
+                pieces.add(new Piece((square - 1) % 8 + 1, (square - 1) / 8 + 1, "black", "bishop", iv));
                 setSquare(pieces.get(index), square);
                 Log.d("chess2", pieces.get(index).getPieceType() + " moved to " + square);
                 index++;
@@ -437,7 +438,7 @@ public class PvpChessActivity extends AppCompatActivity {
                     iv = findViewById(id.whiteBishop);
                 else
                     iv = findViewById(id.whiteBishop2);
-                pieces.add(new Piece(square % 8 + 1, square / 8 + 1, "white", "bishop", iv));
+                pieces.add(new Piece((square - 1) % 8 + 1, (square - 1) / 8 + 1, "white", "bishop", iv));
                 setSquare(pieces.get(index), square);
                 Log.d("chess2", pieces.get(index).getPieceType() + " moved to " + square);
                 index++;
@@ -445,28 +446,28 @@ public class PvpChessActivity extends AppCompatActivity {
                 whiteBishop++;
             } else if (s.charAt(x) == 'k') {
                 iv = findViewById(id.blackKing);
-                pieces.add(new Piece(square % 8 + 1, square / 8 + 1, "black", "king", iv));
+                pieces.add(new Piece((square - 1) % 8 + 1, (square - 1) / 8 + 1, "black", "king", iv));
                 setSquare(pieces.get(index), square);
                 Log.d("chess2", pieces.get(index).getPieceType() + " moved to " + square);
                 index++;
                 square++;
             } else if (s.charAt(x) == 'K') {
                 iv = findViewById(id.whiteKing);
-                pieces.add(new Piece(square % 8 + 1, square / 8 + 1, "white", "king", iv));
+                pieces.add(new Piece((square - 1) % 8 + 1, (square - 1) / 8 + 1, "white", "king", iv));
                 setSquare(pieces.get(index), square);
                 Log.d("chess2", pieces.get(index).getPieceType() + " moved to " + square);
                 index++;
                 square++;
             } else if (s.charAt(x) == 'q') {
                 iv = findViewById(id.blackQueen);
-                pieces.add(new Piece(square % 8 + 1, square / 8 + 1, "black", "queen", iv));
+                pieces.add(new Piece((square - 1) % 8 + 1, (square - 1) / 8 + 1, "black", "queen", iv));
                 setSquare(pieces.get(index), square);
                 Log.d("chess2", pieces.get(index).getPieceType() + " moved to " + square);
                 index++;
                 square++;
             } else if (s.charAt(x) == 'Q') {
                 iv = findViewById(id.whiteQueen);
-                pieces.add(new Piece(square % 8 + 1, square / 8 + 1, "white", "queen", iv));
+                pieces.add(new Piece((square - 1) % 8 + 1, (square - 1) / 8 + 1, "white", "queen", iv));
                 setSquare(pieces.get(index), square);
                 Log.d("chess2", pieces.get(index).getPieceType() + " moved to " + square);
                 index++;
@@ -477,6 +478,51 @@ public class PvpChessActivity extends AppCompatActivity {
         }
         setTimerText(15,0);
         tickDown();
+    }
+    public String getFENfromPosition(){
+        String FEN = "";
+        int square = 57;
+        int openSpace = 0;
+        for(int r = 8; r > 0; r--) {
+            for (int f = 0; f < 8; f++) {
+                if (getPiecebySquare(square).getPieceType() == "rook") {
+                    if (getPiecebySquare(square).getPieceColor() == "white")
+                        FEN += "R";
+                    else
+                        FEN += "r";
+                } else if (getPiecebySquare(square).getPieceType() == "bishop") {
+                    if (getPiecebySquare(square).getPieceColor() == "white")
+                        FEN += "B";
+                    else
+                        FEN += "b";
+                } else if (getPiecebySquare(square).getPieceType() == "knight") {
+                    if (getPiecebySquare(square).getPieceColor() == "white")
+                        FEN += "N";
+                    else
+                        FEN += "n";
+                } else if (getPiecebySquare(square).getPieceType() == "king") {
+                    if (getPiecebySquare(square).getPieceColor() == "white")
+                        FEN += "K";
+                    else
+                        FEN += "k";
+                } else if (getPiecebySquare(square).getPieceType() == "queen") {
+                    if (getPiecebySquare(square).getPieceColor() == "white")
+                        FEN += "Q";
+                    else
+                        FEN += "q";
+                } else if (getPiecebySquare(square).getPieceType() == "white pawn") {
+                    FEN += "P";
+                } else if (getPiecebySquare(square).getPieceType() == "black pawn") {
+                    FEN += "p";
+                } else if (getPiecebySquare(square) == null) {
+                    openSpace++;
+                }
+                square++;
+            }
+            FEN += "/";
+            square -= 16;
+        }
+        return FEN;
     }
     public void setTimerText(int min, int sec){
         String s = min + ":" + sec;
@@ -656,6 +702,7 @@ public class PvpChessActivity extends AppCompatActivity {
                     captured.add((ImageView) v);
                     increment();
                     numMoves++;
+                    positions.add(getFENfromPosition());
                 }
             }
             checkEnd();
@@ -738,6 +785,7 @@ public class PvpChessActivity extends AppCompatActivity {
                     }
                     selectedPiece.setMoved(true);
                     increment();
+                    positions.add(getFENfromPosition());
                     numMoves++;
                 }
             }
@@ -758,15 +806,20 @@ public class PvpChessActivity extends AppCompatActivity {
         ImageView v = p.getPic();
         ImageView square = getSquarebyInt(i);
         Square s = getSquarebyView(square);
-        Log.d("chess1",s.toString());
+        assert s != null;
+        ((ViewGroup)v.getParent()).removeView(v);
+        s.getLayout().addView(v);
         ConstraintSet constraintSet = new ConstraintSet();
         constraintSet.clone(s.getLayout());
         constraintSet.connect(v.getId(),ConstraintSet.START,square.getId(),ConstraintSet.START);
         constraintSet.connect(v.getId(),ConstraintSet.END,square.getId(),ConstraintSet.END);
         constraintSet.connect(v.getId(),ConstraintSet.TOP,square.getId(),ConstraintSet.TOP);
         constraintSet.connect(v.getId(),ConstraintSet.BOTTOM,square.getId(),ConstraintSet.BOTTOM);
-        p.setRank(i/8+1);
-        p.setFile(i%8+1);
+        p.setRank((i-1)/8+1);
+        p.setFile((i-1)%8+1);
+        Log.d("chess1",s.toString());
+        Log.d("chess1","Rank"+p.getRank());
+        Log.d("chess1","File"+p.getFile());
         constraintSet.setVisibility(v.getId(),View.VISIBLE);
         constraintSet.setTranslationZ(v.getId(),1);
         constraintSet.applyTo(s.getLayout());
@@ -1073,136 +1126,134 @@ public class PvpChessActivity extends AppCompatActivity {
     }
     private ImageView getSquarebyInt(int i){
         ImageView s = new ImageView(this);
-        switch(i) {
-            case 1:
-                s = findViewById(id.boardA1);
-            case 2:
-                s = findViewById(id.boardB1);
-            case 3:
-                s = findViewById(id.boardC1);
-            case 4:
-                s = findViewById(id.boardD1);
-            case 5:
-                s = findViewById(id.boardE1);
-            case 6:
-                s = findViewById(id.boardF1);
-            case 7:
-                s = findViewById(id.boardG1);
-            case 8:
-                s = findViewById(id.boardH1);
-            case 9:
-                s = findViewById(id.boardA2);
-            case 10:
-                s = findViewById(id.boardB2);
-            case 11:
-                s = findViewById(id.boardC2);
-            case 12:
-                s = findViewById(id.boardD2);
-            case 13:
-                s = findViewById(id.boardE2);
-            case 14:
-                s = findViewById(id.boardF2);
-            case 15:
-                s = findViewById(id.boardG2);
-            case 16:
-                s = findViewById(id.boardH2);
-            case 17:
-                s = findViewById(id.boardA3);
-            case 18:
-                s = findViewById(id.boardB3);
-            case 19:
-                s = findViewById(id.boardC3);
-            case 20:
-                s = findViewById(id.boardD3);
-            case 21:
-                s = findViewById(id.boardE3);
-            case 22:
-                s = findViewById(id.boardF3);
-            case 23:
-                s = findViewById(id.boardG3);
-            case 24:
-                s = findViewById(id.boardH3);
-            case 25:
-                s = findViewById(id.boardA4);
-            case 26:
-                s = findViewById(id.boardB4);
-            case 27:
-                s = findViewById(id.boardC4);
-            case 28:
-                s = findViewById(id.boardD4);
-            case 29:
-                s = findViewById(id.boardE4);
-            case 30:
-                s = findViewById(id.boardF4);
-            case 31:
-                s = findViewById(id.boardG4);
-            case 32:
-                s = findViewById(id.boardH4);
-            case 33:
-                s = findViewById(id.boardA5);
-            case 34:
-                s = findViewById(id.boardB5);
-            case 35:
-                s = findViewById(id.boardC5);
-            case 36:
-                s = findViewById(id.boardD5);
-            case 37:
-                s = findViewById(id.boardE5);
-            case 38:
-                s = findViewById(id.boardF5);
-            case 39:
-                s = findViewById(id.boardG5);
-            case 40:
-                s = findViewById(id.boardH5);
-            case 41:
-                s = findViewById(id.boardA6);
-            case 42:
-                s = findViewById(id.boardB6);
-            case 43:
-                s = findViewById(id.boardC6);
-            case 44:
-                s = findViewById(id.boardD6);
-            case 45:
-                s = findViewById(id.boardE6);
-            case 46:
-                s = findViewById(id.boardF6);
-            case 47:
-                s = findViewById(id.boardG6);
-            case 48:
-                s = findViewById(id.boardH6);
-            case 49:
-                s = findViewById(id.boardA7);
-            case 50:
-                s = findViewById(id.boardB7);
-            case 51:
-                s = findViewById(id.boardC7);
-            case 52:
-                s = findViewById(id.boardD7);
-            case 53:
-                s = findViewById(id.boardE7);
-            case 54:
-                s = findViewById(id.boardF7);
-            case 55:
-                s = findViewById(id.boardG7);
-            case 56:
-                s = findViewById(id.boardH7);
-            case 57:
-                s = findViewById(id.boardA8);
-            case 58:
-                s = findViewById(id.boardB8);
-            case 59:
-                s = findViewById(id.boardC8);
-            case 60:
-                s = findViewById(id.boardD8);
-            case 61:
-                s = findViewById(id.boardE8);
-            case 62:
-                s = findViewById(id.boardF8);
-            case 63:
-                s = findViewById(id.boardG8);
-            case 64:
-                s = findViewById(id.boardH8);
-        }
+        if (i == 1)
+            s = findViewById(id.boardA1);
+        else if (i == 2)
+            s = findViewById(id.boardB1);
+        else if (i == 3)
+            s = findViewById(id.boardC1);
+        else if (i == 4)
+            s = findViewById(id.boardD1);
+        else if (i == 5)
+            s = findViewById(id.boardE1);
+        else if (i == 6)
+            s = findViewById(id.boardF1);
+        else if (i == 7)
+            s = findViewById(id.boardG1);
+        else if (i == 8)
+            s = findViewById(id.boardH1);
+        else if (i == 9)
+            s = findViewById(id.boardA2);
+        else if (i == 10)
+            s = findViewById(id.boardB2);
+        else if (i == 11)
+            s = findViewById(id.boardC2);
+        else if (i == 12)
+            s = findViewById(id.boardD2);
+        else if (i == 13)
+            s = findViewById(id.boardE2);
+        else if (i == 14)
+            s = findViewById(id.boardF2);
+        else if (i == 15)
+            s = findViewById(id.boardG2);
+        else if (i == 16)
+            s = findViewById(id.boardH2);
+        else if (i == 17)
+            s = findViewById(id.boardA3);
+        else if (i == 18)
+            s = findViewById(id.boardB3);
+        else if (i == 19)
+            s = findViewById(id.boardC3);
+        else if (i == 20)
+            s = findViewById(id.boardD3);
+        else if (i == 21)
+            s = findViewById(id.boardE3);
+        else if (i == 22)
+            s = findViewById(id.boardF3);
+        else if (i == 23)
+            s = findViewById(id.boardG3);
+        else if (i == 24)
+            s = findViewById(id.boardH3);
+        else if (i == 25)
+            s = findViewById(id.boardA4);
+        else if (i == 26)
+            s = findViewById(id.boardB4);
+        else if (i == 27)
+            s = findViewById(id.boardC4);
+        else if (i == 28)
+            s = findViewById(id.boardD4);
+        else if (i == 29)
+            s = findViewById(id.boardE4);
+        else if (i == 30)
+            s = findViewById(id.boardF4);
+        else if (i == 31)
+            s = findViewById(id.boardG4);
+        else if (i == 32)
+            s = findViewById(id.boardH4);
+        else if (i == 33)
+            s = findViewById(id.boardA5);
+        else if (i == 34)
+            s = findViewById(id.boardB5);
+        else if (i == 35)
+            s = findViewById(id.boardC5);
+        else if (i == 36)
+            s = findViewById(id.boardD5);
+        else if (i == 37)
+            s = findViewById(id.boardE5);
+        else if (i == 38)
+            s = findViewById(id.boardF5);
+        else if (i == 39)
+            s = findViewById(id.boardG5);
+        else if (i == 40)
+            s = findViewById(id.boardH5);
+        else if (i == 41)
+            s = findViewById(id.boardA6);
+        else if (i == 42)
+            s = findViewById(id.boardB6);
+        else if (i == 43)
+            s = findViewById(id.boardC6);
+        else if (i == 44)
+            s = findViewById(id.boardD6);
+        else if (i == 45)
+            s = findViewById(id.boardE6);
+        else if (i == 46)
+            s = findViewById(id.boardF6);
+        else if (i == 47)
+            s = findViewById(id.boardG6);
+        else if (i == 48)
+            s = findViewById(id.boardH6);
+        else if (i == 49)
+            s = findViewById(id.boardA7);
+        else if (i == 50)
+            s = findViewById(id.boardB7);
+        else if (i == 51)
+            s = findViewById(id.boardC7);
+        else if (i == 52)
+            s = findViewById(id.boardD7);
+        else if (i == 53)
+            s = findViewById(id.boardE7);
+        else if (i == 54)
+            s = findViewById(id.boardF7);
+        else if (i == 55)
+            s = findViewById(id.boardG7);
+        else if (i == 56)
+            s = findViewById(id.boardH7);
+        else if (i == 57)
+            s = findViewById(id.boardA8);
+        else if (i == 58)
+            s = findViewById(id.boardB8);
+        else if (i == 59)
+            s = findViewById(id.boardC8);
+        else if (i == 60)
+            s = findViewById(id.boardD8);
+        else if (i == 61)
+            s = findViewById(id.boardE8);
+        else if (i == 62)
+            s = findViewById(id.boardF8);
+        else if (i == 63)
+            s = findViewById(id.boardG8);
+        else if (i == 64)
+            s = findViewById(id.boardH8);
         return s;
     }
 
