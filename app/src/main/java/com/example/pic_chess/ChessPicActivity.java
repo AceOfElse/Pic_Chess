@@ -2,6 +2,7 @@ package com.example.pic_chess;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.constraintlayout.widget.ConstraintSet;
 
@@ -17,6 +18,7 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.AttributeSet;
@@ -57,9 +59,6 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
     private float dX, dY;
 
     private ViewGroup canvasView, mainLayout;
-    private Bitmap bitmap;
-    private ConstraintLayout constraintLayout;
-    private ConstraintSet.Layout layout;
 
     private NewCanvasPromptFragment newCanvasPromptFragment;
     private ToolBarFragmentTest toolbarFragment;
@@ -332,81 +331,51 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
 //////End Creation of Activity and Relevant Connections\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
 //////Start Handling Drag Pieces Into the Canvas\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-    private View.OnDragListener dragListener = new View.OnDragListener() {
-        @Override
-        public boolean onDrag(View v, DragEvent event) {
-            ClipData clipData = event.getClipData();
-            View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(v);
-            v.startDrag(clipData, shadowBuilder, event.getLocalState(), 2);
-            ViewGroup parent = (ViewGroup) v.getParent();
-            parent.removeViewInLayout(v);
-            mainLayout.addView(v);
-
-            Log.d("drag", "drag start");
-
-            switch (event.getAction()) {
-                case DragEvent.ACTION_DRAG_STARTED:
-                    dX = v.getX() - event.getX();
-                    dY = v.getY() - event.getY();
-                    v.startDrag(clipData, shadowBuilder, event.getLocalState(), 2);
-                    break;
-                case DragEvent.ACTION_DRAG_ENTERED:
-                    v.animate()
-                            .x(event.getX() + dX)
-                            .y(event.getY() + dY)
-                            .setDuration(0)
-                            .start();
-                            break;
-                case DragEvent.ACTION_DROP:
-                    event.getClipData();
-                    dX = v.getX() - event.getX();
-                    dY = v.getY() - event.getY();
-                    v.animate()
-                        .x(event.getX() + dX)
-                        .y(event.getY() + dY)
-                        .setDuration(0)
-                        .start();
-                    break;
-                case DragEvent.ACTION_DRAG_EXITED:
-                    dX = v.getX() - event.getX();
-                    dY = v.getY() - event.getY();
-                    break;
-                default:
-                    break;
-            }
-            return false;
-        }
-    };
 
     private View.OnTouchListener touchListener = new View.OnTouchListener() {
         @Override
         public boolean onTouch(View v, MotionEvent event) {
             switch (event.getActionMasked()) {
                 case MotionEvent.ACTION_DOWN:
-                    //removes view from the current layout and adds it to the main one
-                    ViewGroup parent = (ViewGroup) v.getParent();
-                    parent.removeViewInLayout(v);
-                    mainLayout.addView(v);
+                    //drag listener setup
+                    ClipData clipData = ClipData.newPlainText("", "");
+                    View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(v);
+                    v.startDrag(clipData, shadowBuilder, v, 0);
                     //set currentTool to whatever view the user touches
                     currentTool = (ImageView) v;
                     // capture the difference between view's top left corner and touch point
                     dX = v.getX() - event.getRawX();
                     dY = v.getY() - event.getRawY();
                     break;
-                case MotionEvent.ACTION_MOVE:
-                    // animates the dragging
-                    v.animate()
-                            .x(event.getRawX() + dX)
-                            .y(event.getRawY() + dY)
-                            .setDuration(0)
-                            .start();
-                    break;
-                case MotionEvent.ACTION_UP:
-                    //TODO get and save position of the piece when it is dropped on the canvas to draw from
-                    //TODO decrement number of chosen piece left
-                    break;
             }
             return true;
+        }
+    };
+
+    private View.OnDragListener dragListener = new View.OnDragListener() {
+        @Override
+        public boolean onDrag(View v, DragEvent event) {
+            switch (event.getAction()) {
+                case DragEvent.ACTION_DROP:
+                    // Dropped, reassign View to ViewGroup
+                    View view = (View) event.getLocalState();
+                    ViewGroup owner = (ViewGroup) view.getParent();
+                    owner.removeView(view);
+                    ConstraintLayout container = (ConstraintLayout) v;
+                    container.addView(view);
+                    dX = v.getX() - event.getX();
+                    dY = v.getY() - event.getY();
+                    Log.d("drag", String.valueOf(dX));
+                    break;
+                case DragEvent.ACTION_DRAG_EXITED:
+                    dX = v.getX() - event.getX();
+                    dY = v.getY() - event.getY();
+                    Log.d("drag", String.valueOf(dX));
+                    break;
+                default:
+                    break;
+            }
+            return false;
         }
     };
 
@@ -424,17 +393,17 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
     private boolean piecesLeftChecker() {
         switch (currentTool.getId()) {
             case R.id.pieceBishopCP:
-                break;
+                return bishopsLeft > 0;
             case R.id.piecePawnCP:
-                break;
+                return pawnsLeft > 0;
             case R.id.pieceRookCP:
-                break;
+                return rooksLeft > 0;
             case R.id.pieceKnightCP:
-                break;
+                return knightsLeft > 0;
             case R.id.pieceKingCP:
-                break;
+                return kingsLeft > 0;
             case R.id.pieceQueenCP:
-                break;
+                return queensLeft > 0;
         }
         return true;
     }
