@@ -74,9 +74,10 @@ public class ToolBarFragmentTest extends Fragment {
                     mGrabButton.setChecked(false);
                     mEraseButton.setChecked(false);
                     mColorButton.setBackgroundColor(Color.GRAY);
-                    mOnClickedSelected.sendModeOfToolBar(1);
+                    mOnClickedSelected.sendModeOfToolBar(2);
                 } else {
                     mColorButton.setBackgroundColor(Color.WHITE);
+                    mOnClickedSelected.sendModeOfToolBar(3);
                 }
             }
         });
@@ -88,9 +89,9 @@ public class ToolBarFragmentTest extends Fragment {
                     mGrabButton.setChecked(false);
                     mColorButton.setChecked(false);
                     mEraseButton.setBackgroundColor(Color.GRAY);
-                    mOnClickedSelected.sendModeOfToolBar(2);
+                    mOnClickedSelected.sendModeOfToolBar(4);
                 } else {
-                    mOnClickedSelected.sendModeOfToolBar(3);
+                    mOnClickedSelected.sendModeOfToolBar(5);
                     mEraseButton.setBackgroundColor(Color.WHITE);
                 }
             }
@@ -103,7 +104,7 @@ public class ToolBarFragmentTest extends Fragment {
                 mEraseButton.setChecked(false);
                 mColorButton.setBackgroundColor(Color.WHITE);
                 mEraseButton.setBackgroundColor(Color.WHITE);
-                mOnClickedSelected.sendModeOfToolBar(4);
+                mOnClickedSelected.sendModeOfToolBar(6);
             }
         });
 

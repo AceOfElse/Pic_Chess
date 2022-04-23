@@ -163,20 +163,34 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
 
     public void sendModeOfToolBar(int mode) {
         switch (mode) {
+            //Open grab
             case 0:
                 break;
+            //Close grab
             case 1:
+                break;
+            //Open color fragment
+            case 2:
                 transaction = getSupportFragmentManager().beginTransaction();
                 transaction.show(colorFragment);
                 transaction.commit();
                 break;
-            case 2:
+            //Close color fragment
+            case 3:
+                transaction = getSupportFragmentManager().beginTransaction();
+                transaction.hide(colorFragment);
+                transaction.commit();
+                break;
+            //Open eraser
+            case 4:
                 drawingView.setEraser();
                 break;
-            case 3:
+            //Close eraser
+            case 5:
                 drawingView.setPreviousColor();
                 break;
-            case 4:
+            //Click clear button
+            case 6:
                 drawingView.resetCanvas();
                 drawingView.setStandardColor();
                 toolbarFragment.setImageColor(Color.BLACK);
@@ -479,6 +493,12 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
         }
 
         public void setPreviousColor() {
+            for (int i = colorList.size() - 1; i >= 0; i--) {
+                if (!colorList.get(i).equals(Color.WHITE)) {
+                    currentBrush = colorList.get(i);
+                    break;
+                }
+            }
             paint.setColor(currentBrush);
             currentColor(paint.getColor(), 10f);
         }
