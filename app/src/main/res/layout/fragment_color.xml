@@ -4,7 +4,7 @@
     android:id="@+id/colorLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/material_dynamic_neutral40"
+    android:background="@color/white"
     tools:context=".ColorFragment">
 
     <ToggleButton
@@ -13,9 +13,10 @@
         android:layout_height="50dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="109dp"
-        android:layout_marginTop="58dp"
+        android:layout_marginStart="259dp"
+        android:layout_marginTop="7dp"
         android:layout_marginBottom="93dp"
+        android:background="@color/purple_500"
         android:contentDescription="@string/empty_string_text" />
 
     <ToggleButton
@@ -24,9 +25,10 @@
         android:layout_height="50dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="57dp"
-        android:layout_marginTop="59dp"
+        android:layout_marginStart="209dp"
+        android:layout_marginTop="7dp"
         android:layout_marginBottom="93dp"
+        android:background="@color/teal_700"
         android:contentDescription="@string/empty_string_text" />
 
     <ToggleButton
@@ -35,9 +37,10 @@
         android:layout_height="50dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="6dp"
-        android:layout_marginTop="58dp"
+        android:layout_marginStart="159dp"
+        android:layout_marginTop="7dp"
         android:layout_marginBottom="93dp"
+        android:background="@color/teal_200"
         android:contentDescription="@string/empty_string_text" />
 
     <ToggleButton
@@ -49,6 +52,7 @@
         android:layout_marginStart="7dp"
         android:layout_marginTop="7dp"
         android:layout_marginBottom="93dp"
+        android:background="@color/black"
         android:contentDescription="@string/empty_string_text" />
 
     <ToggleButton
@@ -57,9 +61,10 @@
         android:layout_height="50dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="58dp"
+        android:layout_marginStart="57dp"
         android:layout_marginTop="7dp"
         android:layout_marginBottom="93dp"
+        android:background="@color/purple_200"
         android:contentDescription="@string/empty_string_text" />
 
     <ToggleButton
@@ -68,41 +73,42 @@
         android:layout_height="50dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="109dp"
+        android:layout_marginStart="108dp"
         android:layout_marginTop="7dp"
         android:layout_marginBottom="93dp"
+        android:background="@color/purple_700"
         android:contentDescription="@string/empty_string_text" />
 
     <EditText
         android:id="@+id/rTextField"
-        android:layout_width="28dp"
-        android:layout_height="31dp"
+        android:layout_width="18dp"
+        android:layout_height="26dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="108dp"
+        android:layout_marginStart="59dp"
+        android:layout_marginTop="59dp"
         android:ems="10"
         android:inputType="number" />
 
     <EditText
         android:id="@+id/gTextField"
-        android:layout_width="28dp"
-        android:layout_height="29dp"
+        android:layout_width="19dp"
+        android:layout_height="26dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="80dp"
-        android:layout_marginTop="109dp"
+        android:layout_marginStart="99dp"
+        android:layout_marginTop="61dp"
         android:ems="10"
         android:inputType="number" />
 
     <EditText
         android:id="@+id/bTextField"
-        android:layout_width="28dp"
-        android:layout_height="29dp"
+        android:layout_width="18dp"
+        android:layout_height="24dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="132dp"
-        android:layout_marginTop="109dp"
+        android:layout_marginStart="143dp"
+        android:layout_marginTop="62dp"
         android:ems="10"
         android:inputType="number" />
 
@@ -112,8 +118,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="7dp"
-        android:layout_marginTop="113dp"
+        android:layout_marginStart="39dp"
+        android:layout_marginTop="62dp"
         android:text="R"
         android:textSize="16sp" />
 
@@ -123,8 +129,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="112dp"
+        android:layout_marginStart="78dp"
+        android:layout_marginTop="62dp"
         android:text="G"
         android:textSize="16sp" />
 
@@ -134,8 +140,17 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="111dp"
-        android:layout_marginTop="112dp"
+        android:layout_marginStart="121dp"
+        android:layout_marginTop="63dp"
         android:text="B"
         android:textSize="16sp" />
+
+    <ImageButton
+        android:id="@+id/applyButton"
+        android:layout_width="74dp"
+        android:layout_height="31dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="166dp"
+        android:layout_marginTop="61dp" />
 </RelativeLayout>

@@ -170,6 +170,35 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
         }
     }
 
+    public void sendColorToChessPic(int color) {
+        switch (color) {
+            case 0:
+                drawingView.setColorForLine(Color.BLACK);
+                break;
+            case 1:
+                drawingView.setColorForLine(Color.RED);
+                break;
+            case 2:
+                drawingView.setColorForLine(Color.BLUE);
+                break;
+            case 3:
+                drawingView.setColorForLine(Color.GREEN);
+                break;
+            case 4:
+                drawingView.setColorForLine(Color.YELLOW);
+                break;
+            case 5:
+                drawingView.setColorForLine(Color.parseColor("purple"));
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void sendColorRGBToChessPic(int r, int g, int b) {
+        drawingView.setColorForLine(Color.rgb(r, g, b));
+    }
+
     private View.OnDragListener dragListener = new View.OnDragListener() {
         @Override
         public boolean onDrag(View v, DragEvent event) {
