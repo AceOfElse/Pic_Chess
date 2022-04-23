@@ -6,7 +6,6 @@ import static com.example.pic_chess.R.layout;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.Point;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -29,7 +28,8 @@ public class PvpChessActivity extends AppCompatActivity {
     private LinearLayout popupLayout, gameLayout;
     private Button yesButton, noButton, closeButton;
     private TextView timerText1, timerText2, resignText;
-    private ConstraintLayout boardLayout, pieceLayout, mainLayout;
+    private ConstraintLayout mainLayout;
+    private ArrayList<ConstraintLayout> boardLayout = new ArrayList<ConstraintLayout>();
     private PopupWindow resignMenu, gameMenu;
     private ArrayList<ImageView> boardImages = new ArrayList<ImageView>();
     private ArrayList<Square> boardSquares = new ArrayList<Square>();
@@ -54,8 +54,7 @@ public class PvpChessActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(layout.activity_pvp_chess);
-        mainLayout = (ConstraintLayout) findViewById(id.pvpChessLayout);
-        pieceLayout = (ConstraintLayout) findViewById(id.pieceLayout);
+        mainLayout = findViewById(id.pvpChessLayout);
         gameLayout = new LinearLayout(this);
         popupLayout = new LinearLayout(this);
         resignMenu = new PopupWindow(this);
@@ -73,8 +72,70 @@ public class PvpChessActivity extends AppCompatActivity {
         resignButton = findViewById(id.resignButton);
         timerText1 = findViewById(id.timerText1);
         timerText2 = findViewById(id.timerText2);
-        //boardLayout = (ConstraintLayout) findViewById(id.boardLayout);
-
+        boardLayout.add(findViewById(id.layoutA1));
+        boardLayout.add(findViewById(id.layoutB1));
+        boardLayout.add(findViewById(id.layoutC1));
+        boardLayout.add(findViewById(id.layoutD1));
+        boardLayout.add(findViewById(id.layoutE1));
+        boardLayout.add(findViewById(id.layoutF1));
+        boardLayout.add(findViewById(id.layoutG1));
+        boardLayout.add(findViewById(id.layoutH1));
+        boardLayout.add(findViewById(id.layoutA2));
+        boardLayout.add(findViewById(id.layoutB2));
+        boardLayout.add(findViewById(id.layoutC2));
+        boardLayout.add(findViewById(id.layoutD2));
+        boardLayout.add(findViewById(id.layoutE2));
+        boardLayout.add(findViewById(id.layoutF2));
+        boardLayout.add(findViewById(id.layoutG2));
+        boardLayout.add(findViewById(id.layoutH2));
+        boardLayout.add(findViewById(id.layoutA3));
+        boardLayout.add(findViewById(id.layoutB3));
+        boardLayout.add(findViewById(id.layoutC3));
+        boardLayout.add(findViewById(id.layoutD3));
+        boardLayout.add(findViewById(id.layoutE3));
+        boardLayout.add(findViewById(id.layoutF3));
+        boardLayout.add(findViewById(id.layoutG3));
+        boardLayout.add(findViewById(id.layoutH3));
+        boardLayout.add(findViewById(id.layoutA4));
+        boardLayout.add(findViewById(id.layoutB4));
+        boardLayout.add(findViewById(id.layoutC4));
+        boardLayout.add(findViewById(id.layoutD4));
+        boardLayout.add(findViewById(id.layoutE4));
+        boardLayout.add(findViewById(id.layoutF4));
+        boardLayout.add(findViewById(id.layoutG4));
+        boardLayout.add(findViewById(id.layoutH4));
+        boardLayout.add(findViewById(id.layoutA5));
+        boardLayout.add(findViewById(id.layoutB5));
+        boardLayout.add(findViewById(id.layoutC5));
+        boardLayout.add(findViewById(id.layoutD5));
+        boardLayout.add(findViewById(id.layoutE5));
+        boardLayout.add(findViewById(id.layoutF5));
+        boardLayout.add(findViewById(id.layoutG5));
+        boardLayout.add(findViewById(id.layoutH5));
+        boardLayout.add(findViewById(id.layoutA6));
+        boardLayout.add(findViewById(id.layoutB6));
+        boardLayout.add(findViewById(id.layoutC6));
+        boardLayout.add(findViewById(id.layoutD6));
+        boardLayout.add(findViewById(id.layoutE6));
+        boardLayout.add(findViewById(id.layoutF6));
+        boardLayout.add(findViewById(id.layoutG6));
+        boardLayout.add(findViewById(id.layoutH6));
+        boardLayout.add(findViewById(id.layoutA7));
+        boardLayout.add(findViewById(id.layoutB7));
+        boardLayout.add(findViewById(id.layoutC7));
+        boardLayout.add(findViewById(id.layoutD7));
+        boardLayout.add(findViewById(id.layoutE7));
+        boardLayout.add(findViewById(id.layoutF7));
+        boardLayout.add(findViewById(id.layoutG7));
+        boardLayout.add(findViewById(id.layoutH7));
+        boardLayout.add(findViewById(id.layoutA8));
+        boardLayout.add(findViewById(id.layoutB8));
+        boardLayout.add(findViewById(id.layoutC8));
+        boardLayout.add(findViewById(id.layoutD8));
+        boardLayout.add(findViewById(id.layoutE8));
+        boardLayout.add(findViewById(id.layoutF8));
+        boardLayout.add(findViewById(id.layoutG8));
+        boardLayout.add(findViewById(id.layoutH8));
         //Add board image views to array list (From boardA1 -> board H8, bottom to top, left to right)
         {
             boardImages.add(findViewById(id.boardA1));
@@ -145,14 +206,13 @@ public class PvpChessActivity extends AppCompatActivity {
         int f = 0;
         int r = 1;
         int index = 0;
-        for (View v: boardImages){
+        for (ImageView v: boardImages){
             f++;
             if (f>8){
                 f = 1;
                 r++;
             }
-            boardSquares.add(new Square(f,r,(ImageView)v));
-            Log.d("board",v.getId() + " moved to " + v.getX());
+            boardSquares.add(new Square(f,r, v,boardLayout.get(index)));
             index++;
         }
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
@@ -196,7 +256,7 @@ public class PvpChessActivity extends AppCompatActivity {
                 if (!gameInProgress)
                     returnHome();
                 else {
-                    resignMenu.showAtLocation(boardLayout, Gravity.CENTER,300,80);
+                    resignMenu.showAtLocation(gameLayout, Gravity.CENTER,300,80);
                     resignMenu.update(50,50,300,80);
                     prompted = !prompted;
                     //Are you sure
@@ -207,12 +267,11 @@ public class PvpChessActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (!gameInProgress){
-                    gameMenu.showAtLocation(boardLayout, Gravity.CENTER,300,80);
+                    gameMenu.showAtLocation(gameLayout, Gravity.CENTER,300,80);
                     gameMenu.update(50,50,300,80);
-                    generatePositionfromFEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
                     prompted = !prompted;
                 } else {
-                    resignMenu.showAtLocation(boardLayout, Gravity.CENTER,300,80);
+                    resignMenu.showAtLocation(gameLayout, Gravity.CENTER,300,80);
                     resignMenu.update(50,50,300,80);
                     prompted = !prompted;
                 }
@@ -229,12 +288,13 @@ public class PvpChessActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (gameInProgress){
-                    resignMenu.showAtLocation(boardLayout, Gravity.CENTER,300,80);
+                    resignMenu.showAtLocation(gameLayout, Gravity.CENTER,300,80);
                     resignMenu.update(50,50,300,80);
                     prompted = !prompted;
                 }
             }
         });
+        generatePositionfromFEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
     }
 
     public void returnHome() {
@@ -698,23 +758,18 @@ public class PvpChessActivity extends AppCompatActivity {
         ImageView v = p.getPic();
         ImageView square = getSquarebyInt(i);
         Square s = getSquarebyView(square);
+        Log.d("chess1",s.toString());
         ConstraintSet constraintSet = new ConstraintSet();
-        constraintSet.clone(pieceLayout);
-        //constraintSet.connect(v.getId(),ConstraintSet.START,square.getId(),ConstraintSet.START);
-        //constraintSet.connect(v.getId(),ConstraintSet.END,square.getId(),ConstraintSet.END);
-        //constraintSet.connect(v.getId(),ConstraintSet.TOP,square.getId(),ConstraintSet.TOP);
-        //constraintSet.connect(v.getId(),ConstraintSet.BOTTOM,square.getId(),ConstraintSet.BOTTOM);
+        constraintSet.clone(s.getLayout());
+        constraintSet.connect(v.getId(),ConstraintSet.START,square.getId(),ConstraintSet.START);
+        constraintSet.connect(v.getId(),ConstraintSet.END,square.getId(),ConstraintSet.END);
+        constraintSet.connect(v.getId(),ConstraintSet.TOP,square.getId(),ConstraintSet.TOP);
+        constraintSet.connect(v.getId(),ConstraintSet.BOTTOM,square.getId(),ConstraintSet.BOTTOM);
         p.setRank(i/8+1);
         p.setFile(i%8+1);
-        p.setPoint(s.getPoint());
-        v.setX(p.x);
-        v.setY(p.y);
-        Log.d("chess1",p.x+" "+p.y);
-        Log.d("chess4",s.getPoint().toString());
-        Log.d("chess3",p.getPoint().toString());
         constraintSet.setVisibility(v.getId(),View.VISIBLE);
         constraintSet.setTranslationZ(v.getId(),1);
-        constraintSet.applyTo(pieceLayout);
+        constraintSet.applyTo(s.getLayout());
     }
     private int getSquare(Piece p){
         int rank = p.getRank();
@@ -1167,18 +1222,14 @@ public class PvpChessActivity extends AppCompatActivity {
 
     }
     public static class Square {
-        private int rank;
-        private int file;
+        private int rank, file;
         private ImageView view;
-        private int x;
-        private int y;
-        public Square(int f, int r, ImageView v){
+        private ConstraintLayout layout;
+        public Square(int f, int r, ImageView v, ConstraintLayout l){
             rank = r;
             file = f;
             view = v;
-            x = (int) v.getX();
-            y = (int) v.getY();
-            Log.d("board2",x+" "+y);
+            layout = l;
         }
         public int getFile() {
             return file;
@@ -1191,14 +1242,12 @@ public class PvpChessActivity extends AppCompatActivity {
         public View getView() {
             return view;
         }
-        public Point getPoint(){
-            Point point = new Point();
-            point.set(x,y);
-            return point;
+        public ConstraintLayout getLayout(){
+            return layout;
         }
     }
     public static class Piece {
-        private int rank,file,x,y;
+        private int rank,file;
         private String pieceType,pieceColor;
         private boolean moved;
         private ImageView pic;
@@ -1208,8 +1257,6 @@ public class PvpChessActivity extends AppCompatActivity {
             pieceColor = "";
             pieceType = "";
             moved = false;
-            x = 0;
-            y = 0;
         }
         public Piece(int f, int r, String c, String t){
             rank = r;
@@ -1217,8 +1264,6 @@ public class PvpChessActivity extends AppCompatActivity {
             pieceColor = c;
             pieceType = t;
             moved = true;
-            x = 0;
-            y = 0;
         }
         public Piece(int f, int r, String c, String t, ImageView i){
             rank = r;
@@ -1227,8 +1272,6 @@ public class PvpChessActivity extends AppCompatActivity {
             pieceType = t;
             moved = false;
             pic = i;
-            x = (int) pic.getX();
-            y = (int) pic.getY();
         }
         public int getRank(){
             return rank;
@@ -1265,15 +1308,6 @@ public class PvpChessActivity extends AppCompatActivity {
                 pic.setImageResource(R.drawable.whitequeen);
             else
                 pic.setImageResource(R.drawable.blackqueen);
-        }
-        public Point getPoint(){
-            Point point = new Point();
-            point.set(x,y);
-            return point;
-        }
-        public void setPoint(Point p){
-            x = p.x;
-            y = p.y;
         }
     }
 }

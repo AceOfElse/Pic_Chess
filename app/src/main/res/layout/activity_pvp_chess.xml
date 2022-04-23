@@ -870,7 +870,7 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginTop="180dp"
-        app:layout_constraintEnd_toStartOf="@+id/layouD8"
+        app:layout_constraintEnd_toStartOf="@+id/layoutD8"
         app:layout_constraintStart_toEndOf="@+id/layoutB8"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -889,7 +889,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/layouD8"
+        android:id="@+id/layoutD8"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginTop="180dp"
@@ -915,7 +915,7 @@
         android:layout_height="50dp"
         android:layout_marginTop="180dp"
         app:layout_constraintEnd_toStartOf="@+id/layoutF8"
-        app:layout_constraintStart_toEndOf="@+id/layouD8"
+        app:layout_constraintStart_toEndOf="@+id/layoutD8"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
@@ -1124,7 +1124,7 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         app:layout_constraintStart_toEndOf="@+id/layoutF6"
-        app:layout_constraintTop_toBottomOf="@+id/layouG7">
+        app:layout_constraintTop_toBottomOf="@+id/layoutG7">
 
         <ImageView
             android:id="@+id/boardG6"
@@ -1145,7 +1145,7 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         app:layout_constraintStart_toEndOf="@+id/layoutG6"
-        app:layout_constraintTop_toBottomOf="@+id/layouH7">
+        app:layout_constraintTop_toBottomOf="@+id/layoutH7">
 
         <ImageView
             android:id="@+id/boardH6"
@@ -1224,7 +1224,7 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         app:layout_constraintStart_toEndOf="@+id/layoutC7"
-        app:layout_constraintTop_toBottomOf="@+id/layouD8">
+        app:layout_constraintTop_toBottomOf="@+id/layoutD8">
 
         <ImageView
             android:id="@+id/boardD7"
@@ -1281,7 +1281,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/layouG7"
+        android:id="@+id/layoutG7"
         android:layout_width="50dp"
         android:layout_height="50dp"
         app:layout_constraintStart_toEndOf="@+id/layoutF7"
@@ -1300,10 +1300,10 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/layouH7"
+        android:id="@+id/layoutH7"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        app:layout_constraintStart_toEndOf="@+id/layouG7"
+        app:layout_constraintStart_toEndOf="@+id/layoutG7"
         app:layout_constraintTop_toBottomOf="@+id/layoutH8">
 
         <ImageView
@@ -1325,6 +1325,8 @@
         android:layout_width="409dp"
         android:layout_height="409dp"
         android:visibility="gone"
+        app:layout_constraintStart_toEndOf="@+id/layoutG7"
+        app:layout_constraintTop_toBottomOf="@+id/layoutH8"
         tools:layout_editor_absoluteX="1dp"
         tools:layout_editor_absoluteY="194dp">
 
