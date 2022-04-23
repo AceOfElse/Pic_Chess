@@ -330,20 +330,20 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
     public static class DrawingView extends View {
         private static ArrayList<Path> pathList = new ArrayList<>();
         private static ArrayList<Integer> colorList = new ArrayList<>();
+        private static ArrayList<Float> strokeWidthList = new ArrayList<>();
         private ViewGroup.LayoutParams parameters;
         private static int currentBrush = Color.BLACK;
+        private static float currentStrokeWidth = 10f;
 
         public DrawingView(Context context, AttributeSet attributes) {
             super(context, attributes);
 
             //Set line attributes
             paint.setAntiAlias(true);
-            paint.setStrokeWidth(10f);
+            paint.setStrokeWidth(currentStrokeWidth);
             paint.setColor(Color.BLACK);
             paint.setStyle(Paint.Style.STROKE);
             paint.setStrokeJoin(Paint.Join.ROUND);
-            pathList.add(path);
-            colorList.add(currentBrush);
 
             parameters = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         }
@@ -351,6 +351,7 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
         protected void onDraw(Canvas canvas) {
             for (int i = 0; i < pathList.size(); i++) {
                 paint.setColor(colorList.get(i));
+                paint.setStrokeWidth(strokeWidthList.get(i));
                 canvas.drawPath(pathList.get(i), paint);
                 invalidate();
             }
@@ -369,6 +370,9 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
                 case MotionEvent.ACTION_MOVE:
                     //Connect the point every frame
                     path.lineTo(touchX, touchY);
+                    pathList.add(path);
+                    colorList.add(currentBrush);
+                    strokeWidthList.add(currentStrokeWidth);
                     invalidate();
                     return true;
                 default:
@@ -382,30 +386,24 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
 
         public void setColorForLine(int color) {
             paint.setColor(color);
-            currentColor(paint.getColor());
+            currentColor(paint.getColor(), 10f);
         }
 
         public void setEraser() {
             paint.setColor(Color.WHITE);
-            paint.setStrokeWidth(10f);
-            currentColor(paint.getColor());
-            pathList.add(path);
-            colorList.add(currentBrush);
+            currentColor(paint.getColor(), 40f);
         }
 
         public void setStandardColor() {
             paint.setColor(Color.BLACK);
-            paint.setStrokeWidth(10f);
-            currentColor(paint.getColor());
-            pathList.add(path);
-            colorList.add(currentBrush);
+            currentColor(paint.getColor(), 10f);
         }
 
-        public void currentColor(int color) {
+        public void currentColor(int color, float strokeWidth) {
             currentBrush = color;
+            currentStrokeWidth = strokeWidth;
             path = new Path();
         }
-
     }
 ///End Creating Canvas Properties\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 }
