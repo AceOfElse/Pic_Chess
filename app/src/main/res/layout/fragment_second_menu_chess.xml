@@ -5,18 +5,17 @@
     android:id="@+id/secondMenuLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:alpha="0.9"
     android:background="@color/black"
     tools:context=".SecondMenuChessFragment">
 
     <TextView
         android:id="@+id/secondMenuTitleText"
-        android:layout_width="212dp"
+        android:layout_width="237dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="191dp"
-        android:layout_marginTop="9dp"
+        android:layout_marginStart="165dp"
+        android:layout_marginTop="11dp"
         android:text="@string/mode_text"
         android:textAlignment="center"
         android:textAllCaps="true"

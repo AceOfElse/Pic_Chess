@@ -4,7 +4,8 @@
     <string name="newgame_text">NEW</string>
     <string name="end_text">DRAW</string>
     <string name="resign_text">RESIGN</string>
-    <string name="timer_text">TIME:</string>
+    <string name="timer_on_text">^ TIMER SETTINGS</string>
+    <string name="timer_off_text">> TIMER SETTINGS</string>
     <string name="empty_string_text"></string>
     <string name="hint_text_field">Hint...</string>
     <string name="toolbar_togglebutton_text">TOOL</string>
@@ -22,4 +23,12 @@
     <string name="color_button_text">COLOR</string>
     <string name="eraser_button_text">ERASER</string>
     <string name="clear_button_text">CLEAR</string>
+    <string name="setting_title_text">SETTINGS</string>
+    <string name="volume_text">Volume</string>
+    <string name="sfx_text">SFX</string>
+    <string name="timer_pvp_setting_text">PvP</string>
+    <string name="timer_pvr_setting_text">PvAI</string>
+    <string name="timer_chess_pic_setting_text">Chess Pictionary</string>
+    <string name="timer_guess_setting_text">Guessing</string>
+    <string name="apply_setting_button_text">APPLY</string>
 </resources>

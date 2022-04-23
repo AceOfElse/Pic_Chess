@@ -10,9 +10,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Pic_Chess">
         <activity
+            android:name=".SettingActivity"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
             android:name=".ChessPicReceiveActivity"
             android:exported="false"
-            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".ChessPicActivity"
             android:exported="false"

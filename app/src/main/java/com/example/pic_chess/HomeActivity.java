@@ -25,11 +25,11 @@ public class HomeActivity extends AppCompatActivity implements SecondMenuChessFr
     private FragmentTransaction transaction;
     private Bundle bundleForThirdMenu;
     private ByteArrayOutputStream byteStreamFirst, byteStreamSecond;
-    private int firstMode, secondMode, thirdMode;
+    private int firstMode;
 
     //Tags for fragment
-    private static final String TAG1 = "SecondMenuFragmentOne";
-    private static final String TAG2 = "SecondMenuFragmentTwo";
+    private static final String TAG1 = "SecondMenuChessFragment";
+    private static final String TAG2 = "SecondMenuChessPicFragment";
     private static final String TAG3 = "ThirdMenuTimeFragment";
 
     @Override
@@ -71,6 +71,12 @@ public class HomeActivity extends AppCompatActivity implements SecondMenuChessFr
                 transaction.replace(R.id.secondMenuFragmentContainer, secondMenuChessPicFragment);
                 transaction.addToBackStack(null);
                 transaction.commit();
+            }
+        });
+        settingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openSetting();
             }
         });
     }
@@ -230,6 +236,13 @@ public class HomeActivity extends AppCompatActivity implements SecondMenuChessFr
         Intent chessPicReceiveIntent = new Intent(HomeActivity.this, ChessPicReceiveActivity.class);
         chessPicReceiveIntent.putExtra("TIME", isTimed);
         startActivity(chessPicReceiveIntent);
+        onStop();
+        onRestart();
+    }
+
+    private void openSetting() {
+        Intent settingIntent = new Intent(HomeActivity.this, SettingActivity.class);
+        startActivity(settingIntent);
         onStop();
         onRestart();
     }
