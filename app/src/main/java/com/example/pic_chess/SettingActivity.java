@@ -5,6 +5,8 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Color;
 import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
@@ -14,11 +16,12 @@ import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.ToggleButton;
 
-public class SettingActivity extends AppCompatActivity {
+public class SettingActivity extends AppCompatActivity implements TimerSettingFragment.OnClickSelected {
     private SeekBar volumeBar, sfxBar;
     private ToggleButton timerButton;
     private ImageButton backButton;
     private Button applyButton;
+    private long[] timer;
 
     private TimerSettingFragment timerSettingFragment;
     private FragmentTransaction transaction;
@@ -31,13 +34,16 @@ public class SettingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
 
+        //Receive intent
+        Intent settingIntent = getIntent();
+        timer = settingIntent.getLongArrayExtra("Timer List");
+
         //Find views
         volumeBar = findViewById(R.id.volumeSeekBar);
         sfxBar = findViewById(R.id.sfxSeekBar);
         backButton = findViewById(R.id.backButtonSetting);
         timerButton = findViewById(R.id.timerSettingButton);
         applyButton = findViewById(R.id.applySettingButton);
-        applyButton.setActivated(false);
 
         //Set fragment
         timerSettingFragment = TimerSettingFragment.newInstance();
@@ -51,6 +57,9 @@ public class SettingActivity extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent homeIntent = new Intent(SettingActivity.this, HomeActivity.class);
+                homeIntent.putExtra("Timer List Back", timer);
+                setResult(19, homeIntent);
                 finish();
             }
         });
@@ -59,6 +68,7 @@ public class SettingActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 transaction = getSupportFragmentManager().beginTransaction();
                 if (isChecked) {
+                    timerSettingFragment.updateTimerText(timer);
                     transaction.show(timerSettingFragment);
                 } else {
                     transaction.hide(timerSettingFragment);
@@ -69,9 +79,14 @@ public class SettingActivity extends AppCompatActivity {
         applyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                applyButton.setActivated(false);
+                timerSettingFragment.setTimer();
             }
         });
+    }
+
+    //Implement interface
+    public void sendAllTimerToActivity(long[] timerList) {
+        timer = timerList;
     }
 
     //Set activity life cycles
@@ -97,6 +112,9 @@ public class SettingActivity extends AppCompatActivity {
 
     //Dealing with Android's back button
     public void onBackPressed() {
+        Intent homeIntent = new Intent(SettingActivity.this, HomeActivity.class);
+        homeIntent.putExtra("Timer List Back", timer);
+        setResult(19, homeIntent);
         finish();
     }
 }

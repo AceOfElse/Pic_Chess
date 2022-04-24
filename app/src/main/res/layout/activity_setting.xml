@@ -121,7 +121,7 @@
     <ToggleButton
         android:id="@+id/timerSettingButton"
         android:layout_width="374dp"
-        android:layout_height="44dp"
+        android:layout_height="48dp"
         android:layout_marginTop="202dp"
         android:layout_marginBottom="478dp"
         android:background="@color/black"
@@ -153,7 +153,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.fragment.app.FragmentContainerView
+    <FrameLayout
         android:id="@+id/timerSettingFragmentContainer"
         android:name="com.example.pic_chess.TimerSettingFragment"
         android:layout_width="411dp"

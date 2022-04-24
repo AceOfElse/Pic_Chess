@@ -48,9 +48,9 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
     private static Paint paint = new Paint();
 
     private CountDownTimer countDownTimer;
-    private static final long START_TIME_IN_MILLISECOND = 601000;
+    private static long startTime;
     private boolean isTimerRunning;
-    private long timeLeftInMilliSecond = START_TIME_IN_MILLISECOND;
+    private long timeLeftInMilliSecond;
 
     private ImageView bishopTool, knightTool, pawnTool, rookTool, kingTool, queenTool, currentTool;
     private TextView bishopPieceNum, knightPieceNum, pawnPieceNum, rookPieceNum, kingPieceNum, queenPieceNum, timerText;
@@ -79,6 +79,8 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
         //Receive intent from home activity
         Intent chessPic  = getIntent();
         boolean isTimed = chessPic.getBooleanExtra("TIME", false);
+        startTime = chessPic.getLongExtra("TIMER", 601000);
+        timeLeftInMilliSecond = startTime;
 
         //Set up alert dialogue
         alertDialogue = new AlertDialog.Builder(ChessPicActivity.this);
@@ -543,7 +545,7 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
     }
 
     private void resetTimer() {
-        timeLeftInMilliSecond = START_TIME_IN_MILLISECOND;
+        timeLeftInMilliSecond = startTime;
         updateCountDownText();
         isTimerRunning = false;
         startTimer();

@@ -13,11 +13,12 @@ import android.widget.EditText;
 
 public class TimerSettingFragment extends Fragment {
     public interface OnClickSelected {
-        void sendTimerToActivity(int timeInMilliseconds);
+        void sendAllTimerToActivity(long[] timerList);
     }
 
     private EditText mChessPvpTimerField, mChessPvrTimerField, mChessPicTimerField, mGuessingTimerField;
     private OnClickSelected mOnClickSelected;
+    private long[] timer = new long[4];
 
     private static final String TAG = "Timer Setting Fragment";
 
@@ -43,10 +44,15 @@ public class TimerSettingFragment extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_timer_setting, container, false);
 
         //Find views
-        mChessPicTimerField = view.findViewById(R.id.chessPvpTimerField);
+        mChessPvpTimerField = view.findViewById(R.id.chessPvpTimerField);
         mChessPvrTimerField = view.findViewById(R.id.chessPvrTimerField);
         mChessPicTimerField = view.findViewById(R.id.chessPicTimerField);
         mGuessingTimerField = view.findViewById(R.id.guessingTimerField);
+
+        //mChessPicTimerField.setText();
+        //mChessPvrTimerField.setText();
+        //mChessPvpTimerField.setText();
+        //mGuessingTimerField.setText();
 
         return view;
     }
@@ -58,5 +64,31 @@ public class TimerSettingFragment extends Fragment {
         } catch (ClassCastException e) {
             Log.e(TAG, "onAttach: ClassCastException : " + e.getMessage());
         }
+    }
+
+    public void setTimer() {
+        timer[0] = convertToTimeValue(mChessPvpTimerField.getText().toString());
+        timer[1] = convertToTimeValue(mChessPvrTimerField.getText().toString());
+        timer[2] = convertToTimeValue(mChessPicTimerField.getText().toString());
+        timer[3] = convertToTimeValue(mGuessingTimerField.getText().toString());
+        mOnClickSelected.sendAllTimerToActivity(timer);
+    }
+
+    public void updateTimerText(long[] timerList) {
+        for (int i = 0; i < timerList.length; i++) {
+            timer[i] = timerList[i];
+        }
+        mChessPvpTimerField.setText(String.valueOf(convertToTimeMinute(timer[0])));
+        mChessPvrTimerField.setText(String.valueOf(convertToTimeMinute(timer[1])));
+        mChessPicTimerField.setText(String.valueOf(convertToTimeMinute(timer[2])));
+        mGuessingTimerField.setText(String.valueOf(convertToTimeMinute(timer[3])));
+    }
+
+    private long convertToTimeValue(String time) {
+        return Long.parseLong(time) * 60 * 1000;
+    }
+
+    private int convertToTimeMinute(long time) {
+        return (int)((time / 1000) / 60);
     }
 }

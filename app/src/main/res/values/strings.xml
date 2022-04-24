@@ -31,4 +31,5 @@
     <string name="timer_chess_pic_setting_text">Chess Pictionary</string>
     <string name="timer_guess_setting_text">Guessing</string>
     <string name="apply_setting_button_text">APPLY</string>
+    <string name="minute_text">min.</string>
 </resources>

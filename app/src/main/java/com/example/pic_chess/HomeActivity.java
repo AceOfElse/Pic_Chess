@@ -1,5 +1,10 @@
 package com.example.pic_chess;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContract;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -8,7 +13,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Paint;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -26,6 +33,21 @@ public class HomeActivity extends AppCompatActivity implements SecondMenuChessFr
     private Bundle bundleForThirdMenu;
     private ByteArrayOutputStream byteStreamFirst, byteStreamSecond;
     private int firstMode;
+    //default timer is 10 minutes
+    private long[] timer = {601000, 601000, 601000, 601000};
+
+    //Set tools to transfer data from activity to activity
+    private ActivityResultLauncher<Intent> resultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+        @Override
+        public void onActivityResult(ActivityResult result) {
+            if (result.getResultCode() == 19) {
+                Intent settingIntent = result.getData();
+                if (settingIntent != null) {
+                    timer = settingIntent.getLongArrayExtra("Timer List Back");
+                }
+            }
+        }
+    });
 
     //Tags for fragment
     private static final String TAG1 = "SecondMenuChessFragment";
@@ -219,6 +241,7 @@ public class HomeActivity extends AppCompatActivity implements SecondMenuChessFr
     private void openPvp(boolean isTimed) {
         Intent pvpIntent = new Intent(HomeActivity.this, PvpChessActivity.class);
         pvpIntent.putExtra("TIME", isTimed);
+        pvpIntent.putExtra("TIMER", timer[0]);
         startActivity(pvpIntent);
         onStop();
         onRestart();
@@ -227,6 +250,7 @@ public class HomeActivity extends AppCompatActivity implements SecondMenuChessFr
     private void openChessPic(boolean isTimed) {
         Intent chessPicIntent = new Intent(HomeActivity.this, ChessPicActivity.class);
         chessPicIntent.putExtra("TIME", isTimed);
+        chessPicIntent.putExtra("TIMER", timer[2]);
         startActivity(chessPicIntent);
         onStop();
         onRestart();
@@ -235,6 +259,7 @@ public class HomeActivity extends AppCompatActivity implements SecondMenuChessFr
     private void openChessPicReceive(boolean isTimed) {
         Intent chessPicReceiveIntent = new Intent(HomeActivity.this, ChessPicReceiveActivity.class);
         chessPicReceiveIntent.putExtra("TIME", isTimed);
+        chessPicReceiveIntent.putExtra("TIMER", timer[3]);
         startActivity(chessPicReceiveIntent);
         onStop();
         onRestart();
@@ -242,8 +267,9 @@ public class HomeActivity extends AppCompatActivity implements SecondMenuChessFr
 
     private void openSetting() {
         Intent settingIntent = new Intent(HomeActivity.this, SettingActivity.class);
-        startActivity(settingIntent);
-        onStop();
-        onRestart();
+        settingIntent.putExtra("Timer List", timer);
+        resultLauncher.launch(settingIntent);
+        //onStop();
+        //onRestart();
     }
 }
