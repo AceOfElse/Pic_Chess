@@ -67,10 +67,10 @@ public class TimerSettingFragment extends Fragment {
     }
 
     public void setTimer() {
-        timer[0] = convertToTimeValue(mChessPvpTimerField.getText().toString());
-        timer[1] = convertToTimeValue(mChessPvrTimerField.getText().toString());
-        timer[2] = convertToTimeValue(mChessPicTimerField.getText().toString());
-        timer[3] = convertToTimeValue(mGuessingTimerField.getText().toString());
+        timer[0] = convertToTimeMilliSecond(mChessPvpTimerField.getText().toString());
+        timer[1] = convertToTimeMilliSecond(mChessPvrTimerField.getText().toString());
+        timer[2] = convertToTimeMilliSecond(mChessPicTimerField.getText().toString());
+        timer[3] = convertToTimeMilliSecond(mGuessingTimerField.getText().toString());
         mOnClickSelected.sendAllTimerToActivity(timer);
     }
 
@@ -84,11 +84,12 @@ public class TimerSettingFragment extends Fragment {
         mGuessingTimerField.setText(String.valueOf(convertToTimeMinute(timer[3])));
     }
 
-    private long convertToTimeValue(String time) {
-        return Long.parseLong(time) * 60 * 1000;
+    private long convertToTimeMilliSecond(String time) {
+        return Long.parseLong(time) * 60 * 1000 + 1000;
     }
 
+
     private int convertToTimeMinute(long time) {
-        return (int)((time / 1000) / 60);
+        return (int)(((time - 1000) / 1000 / 60));
     }
 }
