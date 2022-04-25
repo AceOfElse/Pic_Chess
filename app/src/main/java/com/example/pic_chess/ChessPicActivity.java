@@ -2,23 +2,17 @@ package com.example.pic_chess;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.constraintlayout.widget.ConstraintSet;
 
 import android.app.AlertDialog;
 import android.content.ClipData;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffXfermode;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.AttributeSet;
@@ -54,7 +48,7 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
 
     private ImageView bishopTool, knightTool, pawnTool, rookTool, kingTool, queenTool, currentTool;
     private TextView bishopPieceNum, knightPieceNum, pawnPieceNum, rookPieceNum, kingPieceNum, queenPieceNum, timerText;
-    private int bishopsLeft = 0, knightsLeft = 4, pawnsLeft = 4, rooksLeft = 4, kingsLeft = 4, queensLeft = 4;
+    private int bishopsLeft = 4, knightsLeft = 4, pawnsLeft = 4, rooksLeft = 4, kingsLeft = 4, queensLeft = 4;
 
     private float dX, dY;
 
@@ -172,6 +166,16 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
         //Others
         createDraggableImage();
         createCanvas();
+        setTextviewLeftValues();
+    }
+
+    private void setTextviewLeftValues() {
+        bishopPieceNum.setText(String.valueOf(bishopsLeft));
+        knightPieceNum.setText(String.valueOf(knightsLeft));
+        pawnPieceNum.setText(String.valueOf(pawnsLeft));
+        rookPieceNum.setText(String.valueOf(rooksLeft));
+        kingPieceNum.setText(String.valueOf(kingsLeft));
+        queenPieceNum.setText(String.valueOf(queensLeft));
     }
 
     //Implement methods from interface
@@ -391,26 +395,61 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
 
     // Get currently selected tool's number of pieces left to see if not zero
     private boolean piecesLeftChecker() {
-        //Set values
-//        bishopPieceNum.setText(bishopsLeft);
-//        knightPieceNum.setText(knightsLeft);
-//        pawnPieceNum.setText(pawnsLeft);
-//        rookPieceNum.setText(rooksLeft);
-//        kingPieceNum.setText(kingsLeft);
-//        queenPieceNum.setText(queensLeft);
         switch (currentTool.getId()) {
             case R.id.pieceBishopCP:
-                return bishopsLeft > 0;
+                if (bishopsLeft > 0) {
+                    bishopsLeft--;
+                    bishopPieceNum.setText(String.valueOf(bishopsLeft));
+                    return true;
+                }
+                else {
+                    return false;
+                }
             case R.id.piecePawnCP:
-                return pawnsLeft > 0;
+                if (pawnsLeft > 0) {
+                    pawnsLeft--;
+                    pawnPieceNum.setText(String.valueOf(pawnsLeft));
+                    return true;
+                }
+                else {
+                    return false;
+                }
             case R.id.pieceRookCP:
-                return rooksLeft > 0;
+                if (rooksLeft > 0) {
+                    rooksLeft--;
+                    rookPieceNum.setText(String.valueOf(rooksLeft));
+                    return true;
+                }
+                else {
+                    return false;
+                }
             case R.id.pieceKnightCP:
-                return knightsLeft > 0;
+                if (knightsLeft > 0) {
+                    knightsLeft--;
+                    knightPieceNum.setText(String.valueOf(knightsLeft));
+                    return true;
+                }
+                else {
+                    return false;
+                }
             case R.id.pieceKingCP:
-                return kingsLeft > 0;
+                if (kingsLeft > 0) {
+                    kingsLeft--;
+                    kingPieceNum.setText(String.valueOf(kingsLeft));
+                    return true;
+                }
+                else {
+                    return false;
+                }
             case R.id.pieceQueenCP:
-                return queensLeft > 0;
+                if (queensLeft > 0) {
+                    queensLeft--;
+                    queenPieceNum.setText(String.valueOf(queensLeft));
+                    return true;
+                }
+                else {
+                    return false;
+                }
         }
         return true;
     }
