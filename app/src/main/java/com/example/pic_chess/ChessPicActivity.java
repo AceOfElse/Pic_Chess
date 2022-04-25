@@ -208,12 +208,14 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
             //Open color fragment
             case 2:
                 transaction = getSupportFragmentManager().beginTransaction();
+                transaction.setCustomAnimations(R.anim.slide_up, R.anim.slide_down);
                 transaction.show(colorFragment);
                 transaction.commit();
                 break;
             //Close color fragment
             case 3:
                 transaction = getSupportFragmentManager().beginTransaction();
+                transaction.setCustomAnimations(R.anim.slide_up, R.anim.slide_down);
                 transaction.hide(colorFragment);
                 transaction.commit();
                 break;

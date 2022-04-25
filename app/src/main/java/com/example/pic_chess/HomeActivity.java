@@ -14,6 +14,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Paint;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -26,10 +27,12 @@ public class HomeActivity extends AppCompatActivity implements SecondMenuChessFr
     private TextView titleText;
     private ImageButton settingButton, chessPreviewButton, drawPreviewButton;
     private AlertDialog.Builder alertDialogue;
+
     private SecondMenuChessFragment secondMenuChessFragment;
     private SecondMenuChessPicFragment secondMenuChessPicFragment;
     private ThirdMenuTimeFragment thirdMenuTimeFragment;
     private FragmentTransaction transaction;
+
     private Bundle bundleForThirdMenu;
     private ByteArrayOutputStream byteStreamFirst, byteStreamSecond;
     private int firstMode;
@@ -81,6 +84,7 @@ public class HomeActivity extends AppCompatActivity implements SecondMenuChessFr
             @Override
             public void onClick(View view) {
                 transaction = getSupportFragmentManager().beginTransaction();
+                transaction.setCustomAnimations(R.anim.slide_in, R.anim.fade_out, R.anim.fade_in, R.anim.slide_out);
                 transaction.replace(R.id.secondMenuFragmentContainer, secondMenuChessFragment);
                 transaction.addToBackStack(null);
                 transaction.commit();
@@ -90,6 +94,7 @@ public class HomeActivity extends AppCompatActivity implements SecondMenuChessFr
             @Override
             public void onClick(View view) {
                 transaction = getSupportFragmentManager().beginTransaction();
+                transaction.setCustomAnimations(R.anim.slide_in, R.anim.fade_out, R.anim.fade_in, R.anim.slide_out);
                 transaction.replace(R.id.secondMenuFragmentContainer, secondMenuChessPicFragment);
                 transaction.addToBackStack(null);
                 transaction.commit();
@@ -233,6 +238,7 @@ public class HomeActivity extends AppCompatActivity implements SecondMenuChessFr
         bundleForThirdMenu.putString("Second Image", tag2);
         thirdMenuTimeFragment.setArguments(bundleForThirdMenu);
         transaction = getSupportFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(R.anim.slide_in, R.anim.fade_out, R.anim.fade_in, R.anim.slide_out);
         transaction.replace(R.id.thirdMenuFragmentContainer, thirdMenuTimeFragment);
         transaction.addToBackStack(null);
         transaction.commit();

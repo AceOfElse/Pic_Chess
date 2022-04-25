@@ -48,6 +48,7 @@ public class SettingActivity extends AppCompatActivity implements TimerSettingFr
         //Set fragment
         timerSettingFragment = TimerSettingFragment.newInstance();
         transaction = getSupportFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(R.anim.slide_down, R.anim.slide_up);
         transaction.replace(R.id.timerSettingFragmentContainer, timerSettingFragment);
         transaction.addToBackStack(null);
         transaction.commit();
