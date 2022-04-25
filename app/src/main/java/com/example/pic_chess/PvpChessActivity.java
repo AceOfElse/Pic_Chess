@@ -651,6 +651,9 @@ public class PvpChessActivity extends AppCompatActivity {
             timerText1.setText(s);
         }
     }
+    //The following evaluate, search, searchAllCaptures, orderMoves, forceKingtoCornerEndgameEval methods
+    //These methods were written differently but heavily inspired by Sebastian Lague's code
+    //So credit where credit is due
     public int evaluate(){
         int whiteEval = whiteMaterial * 100;
         int blackEval = blackMaterial * 100;
