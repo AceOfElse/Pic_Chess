@@ -49,7 +49,7 @@ public class PvpChessActivity extends AppCompatActivity {
     private int blackTime = 0;
     private int increment = 0;
     private int numMoves = 0;
-    private long timeStart = 0;
+    private int time = 900;
     private boolean gameInProgress = false;
     private boolean prompted = false;
     private CountDownTimer whiteTimer, blackTimer;
@@ -224,7 +224,7 @@ public class PvpChessActivity extends AppCompatActivity {
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT);
         popupLayout.setOrientation(LinearLayout.VERTICAL);
-        gameLayout.setOrientation(LinearLayout.HORIZONTAL);
+        gameLayout.setOrientation(LinearLayout.VERTICAL);
         resignText.setText("Are you sure you want to resign?");
         popupLayout.addView(resignText, params);
         resignMenu.setContentView(popupLayout);
@@ -261,31 +261,8 @@ public class PvpChessActivity extends AppCompatActivity {
             @Override
             public void onClick (View view){
                 gameInProgress = true;
-                setTimerText(15,0);
-                whiteTime = 900;
-                blackTime = 900;
-                blackTimer = new CountDownTimer(900000,1000) {
-                    @Override
-                    public void onTick(long l) {
-                        tickDown();
-                    }
-
-                    @Override
-                    public void onFinish() {
-                        checkEnd();
-                    }
-                };
-                whiteTimer = new CountDownTimer(900000,1000) {
-                    @Override
-                    public void onTick(long l) {
-                        tickDown();
-                    }
-
-                    @Override
-                    public void onFinish() {
-                        checkEnd();
-                    }
-                };
+                time = 900;
+                timerSetup();
                 prompted = false;
                 gameMenu.dismiss();
             }
@@ -336,7 +313,33 @@ public class PvpChessActivity extends AppCompatActivity {
         });
         generatePositionfromFEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
     }
+    public void timerSetup(){
+        setTimerText(time/60,time%60);
+        whiteTime = time;
+        blackTime = time;
+        blackTimer = new CountDownTimer(time*1000,1000) {
+            @Override
+            public void onTick(long l) {
+                tickDown();
+            }
 
+            @Override
+            public void onFinish() {
+                checkEnd();
+            }
+        };
+        whiteTimer = new CountDownTimer(900000,1000) {
+            @Override
+            public void onTick(long l) {
+                tickDown();
+            }
+
+            @Override
+            public void onFinish() {
+                checkEnd();
+            }
+        };
+    }
     public void returnHome() {
         Intent homeIntent = new Intent(PvpChessActivity.this, HomeActivity.class);
         startActivity(homeIntent);
@@ -986,42 +989,42 @@ public class PvpChessActivity extends AppCompatActivity {
         boolean placeholder = false;
         int currentSquare = getSquare(p);
         if (piece.equals("bishop")) {
-            for (int upRight = currentSquare+9; upRight < 64; upRight += 9) {
-                if (!openSquare(upRight) && !getPiecebySquare(upRight).getPieceColor().equals(turn) && !capturesOnly && upRight % 8 != 0) {
+            for (int upRight = currentSquare+9; upRight < 64 || upRight % 8 == 1; upRight += 9) {
+                if (!openSquare(upRight) && !getPiecebySquare(upRight).getPieceColor().equals(turn) && !capturesOnly) {
                     moves.add(new Move(currentSquare, upRight));
                     break;
-                } else if (!openSquare(upRight) && upRight % 8 != 0) {
+                } else if (!openSquare(upRight)) {
                     break;
-                } else if (!capturesOnly && upRight % 8 != 0) {
+                } else if (!capturesOnly) {
                     moves.add(new Move(currentSquare, upRight));
                 }
             }
-            for (int upLeft = currentSquare+7; upLeft < 58; upLeft += 7) {
-                if (!openSquare(upLeft) && !getPiecebySquare(upLeft).getPieceColor().equals(turn) && !capturesOnly && upLeft % 8 != 1) {
+            for (int upLeft = currentSquare+7; upLeft < 58 || upLeft % 8 == 0; upLeft += 7) {
+                if (!openSquare(upLeft) && !getPiecebySquare(upLeft).getPieceColor().equals(turn) && !capturesOnly) {
                     moves.add(new Move(currentSquare, upLeft));
                     break;
-                } else if (!openSquare(upLeft) && upLeft % 8 != 1) {
+                } else if (!openSquare(upLeft)) {
                     break;
-                } else if (!capturesOnly && upLeft % 8 != 1){
+                } else if (!capturesOnly){
                     moves.add(new Move(currentSquare, upLeft));
                 }
             }
-            for (int downRight = currentSquare-7; downRight > 7; downRight -= 7){
-                if (!openSquare(downRight) && !getPiecebySquare(downRight).getPieceColor().equals(turn) && !capturesOnly && downRight % 8 != 0) {
+            for (int downRight = currentSquare-7; downRight > 7 || downRight % 8 == 1; downRight -= 7){
+                if (!openSquare(downRight) && !getPiecebySquare(downRight).getPieceColor().equals(turn) && !capturesOnly) {
                     moves.add(new Move(currentSquare, downRight));
                     break;
-                } else if (!openSquare(downRight) && downRight % 8 != 0) {
+                } else if (!openSquare(downRight)) {
                     break;
-                } else if (!capturesOnly && downRight % 8 != 0)
+                } else if (!capturesOnly)
                     moves.add(new Move(currentSquare, downRight));
             }
-            for (int downLeft = currentSquare-9; downLeft > 0; downLeft -= 9) {
-                if (!openSquare(downLeft) && !getPiecebySquare(downLeft).getPieceColor().equals(turn) && !capturesOnly && downLeft % 8 != 1) {
+            for (int downLeft = currentSquare-9; downLeft > 0 || downLeft % 8 == 0; downLeft -= 9) {
+                if (!openSquare(downLeft) && !getPiecebySquare(downLeft).getPieceColor().equals(turn) && !capturesOnly) {
                     moves.add(new Move(currentSquare, downLeft));
                     break;
-                } else if (!openSquare(downLeft) && downLeft % 8 != 1) {
+                } else if (!openSquare(downLeft)) {
                     break;
-                } else if (!capturesOnly && downLeft % 8 != 1)
+                } else if (!capturesOnly)
                     moves.add(new Move(currentSquare, downLeft));
             }
         } else if (piece.equals("king")){
@@ -1150,37 +1153,44 @@ public class PvpChessActivity extends AppCompatActivity {
                     break;
                 } else if (!capturesOnly)
                     moves.add(new Move (currentSquare,currentSquare-x));
-            for (int upRight = currentSquare+9; upRight < 64; upRight += 9)
-                if (!openSquare(upRight) && !turn.equals(getPiecebySquare(upRight).getPieceColor()) && !capturesOnly && upRight % 8 != 0){
+            for (int upRight = currentSquare+9; upRight < 64 || upRight % 8 == 1; upRight += 9) {
+                if (!openSquare(upRight) && !getPiecebySquare(upRight).getPieceColor().equals(turn) && !capturesOnly) {
                     moves.add(new Move(currentSquare, upRight));
                     break;
-                } else if (!openSquare(upRight) && upRight % 8 != 0) {
+                } else if (!openSquare(upRight)) {
                     break;
-                } else if (!capturesOnly && upRight % 8 != 0)
-                    moves.add(new Move(currentSquare,upRight));
-            for (int upLeft = currentSquare+7; upLeft < 58; upLeft += 7)
-                if (!openSquare(upLeft) && !turn.equals(getPiecebySquare(upLeft).getPieceColor()) && !capturesOnly && upLeft % 8 != 1){
+                } else if (!capturesOnly) {
+                    moves.add(new Move(currentSquare, upRight));
+                }
+            }
+            for (int upLeft = currentSquare+7; upLeft < 58 || upLeft % 8 == 0; upLeft += 7) {
+                if (!openSquare(upLeft) && !getPiecebySquare(upLeft).getPieceColor().equals(turn) && !capturesOnly) {
                     moves.add(new Move(currentSquare, upLeft));
-                } else if (!openSquare(upLeft) && upLeft % 8 != 1) {
                     break;
-                } else if (!capturesOnly && upLeft % 8 != 1)
-                    moves.add(new Move(currentSquare,upLeft));
-            for (int downRight = currentSquare-7; downRight > 7; downRight -= 7)
-                if (!openSquare(downRight) && !turn.equals(getPiecebySquare(downRight).getPieceColor()) && !capturesOnly && downRight % 8 != 0){
+                } else if (!openSquare(upLeft)) {
+                    break;
+                } else if (!capturesOnly){
+                    moves.add(new Move(currentSquare, upLeft));
+                }
+            }
+            for (int downRight = currentSquare-7; downRight > 7 || downRight % 8 == 1; downRight -= 7){
+                if (!openSquare(downRight) && !getPiecebySquare(downRight).getPieceColor().equals(turn) && !capturesOnly) {
                     moves.add(new Move(currentSquare, downRight));
                     break;
-                } else if (!openSquare(downRight) && downRight % 8 != 0) {
+                } else if (!openSquare(downRight)) {
                     break;
-                } else if (!capturesOnly && downRight % 8 != 0)
-                    moves.add(new Move(currentSquare,downRight));
-            for (int downLeft = currentSquare-9; downLeft > 0; downLeft -= 9)
-                if (!openSquare(downLeft) && !turn.equals(getPiecebySquare(downLeft).getPieceColor()) && !capturesOnly && downLeft % 8 != 1){
+                } else if (!capturesOnly)
+                    moves.add(new Move(currentSquare, downRight));
+            }
+            for (int downLeft = currentSquare-9; downLeft > 0 || downLeft % 8 == 0; downLeft -= 9) {
+                if (!openSquare(downLeft) && !getPiecebySquare(downLeft).getPieceColor().equals(turn) && !capturesOnly) {
                     moves.add(new Move(currentSquare, downLeft));
                     break;
-                } else if (!openSquare(downLeft) && downLeft % 8 != 1) {
+                } else if (!openSquare(downLeft)) {
                     break;
-                } else if (!capturesOnly && downLeft % 8 != 1)
-                    moves.add(new Move(currentSquare,downLeft));
+                } else if (!capturesOnly)
+                    moves.add(new Move(currentSquare, downLeft));
+            }
         } else if (piece.equals("rook")){
             for (int y = currentSquare + 8; y < 64; y += 8)
                 if (!openSquare(y) && !turn.equals(getPiecebySquare(y).getPieceColor()) && !capturesOnly){
