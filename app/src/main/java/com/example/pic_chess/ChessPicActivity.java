@@ -391,7 +391,6 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
 
     // Get currently selected tool's number of pieces left to see if not zero
     private boolean piecesLeftChecker() {
-        //TODO figure out how to fix setting values of text from crashing app
         //Set values
 //        bishopPieceNum.setText(bishopsLeft);
 //        knightPieceNum.setText(knightsLeft);

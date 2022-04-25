@@ -269,7 +269,7 @@ public class HomeActivity extends AppCompatActivity implements SecondMenuChessFr
         Intent settingIntent = new Intent(HomeActivity.this, SettingActivity.class);
         settingIntent.putExtra("Timer List", timer);
         resultLauncher.launch(settingIntent);
-        //onStop();
-        //onRestart();
+        onStop();
+        onRestart();
     }
 }
