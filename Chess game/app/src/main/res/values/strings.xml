@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">Pic_Chess</string>
+    <string name="back_text">BACK</string>
+    <string name="newgame_text">NEW</string>
+    <string name="end_text">DRAW</string>
+    <string name="resign_text">RESIGN</string>
+    <string name="timer_text">TIME:</string>
+    <string name="empty_string_text"></string>
+    <string name="hint_text_field">Hint...</string>
+    <string name="toolbar_togglebutton_text">TOOL</string>
+    <string name="answer_field_textfield">Your descriptions...</string>
+    <string name="prompt_back_text">Are you sure want to return?</string>
+    <string name="prompt_quit_text">Are you sure want to quit?</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="new_canvas_prompt_file_name">Enter File Name</string>
+    <string name="create_button_text">Create</string>
+    <string name="cancel_button_text">Cancel</string>
+    <string name="mode_text">GAME MODES</string>
+    <string name="drawing_description_text">Start drawing... a</string>
+    <string name="time_mode_text">TIME MODES</string>
+</resources>
