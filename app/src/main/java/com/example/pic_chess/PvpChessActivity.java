@@ -672,12 +672,18 @@ public class PvpChessActivity extends AppCompatActivity {
         if (depth == 0)
             return searchAllCaptures(alpha,beta);
         ArrayList<Move> moves = new ArrayList<Move>();
+        int myKing=-1;
+        for (Piece p: pieces){
+            if (p.getPieceColor().equals(getTurn()) && p.getPieceType().equals("king")){
+                myKing = getSquare(p);
+            }
+        }
         for (Piece p: pieces) {
             if (p.getPieceColor().equals(getTurn())){
                 moves = getLegalMoves(p,false);
             }
             if (moves.size() == 0) {
-                if (playerInCheck(getTurn()))
+                if (playerInCheck(getTurn(),myKing))
                     return Integer.MIN_VALUE;
                 return 0;
             }
@@ -989,8 +995,10 @@ public class PvpChessActivity extends AppCompatActivity {
         boolean placeholder = false;
         int currentSquare = getSquare(p);
         if (piece.equals("bishop")) {
-            for (int upRight = currentSquare+9; upRight < 64 || upRight % 8 == 1; upRight += 9) {
-                if (!openSquare(upRight) && !getPiecebySquare(upRight).getPieceColor().equals(turn) && !capturesOnly) {
+            for (int upRight = currentSquare+9; upRight < 64; upRight += 9) {
+                if (upRight % 8 == 1){
+                    break;
+                } else if (!openSquare(upRight) && !getPiecebySquare(upRight).getPieceColor().equals(turn) && !capturesOnly) {
                     moves.add(new Move(currentSquare, upRight));
                     break;
                 } else if (!openSquare(upRight)) {
@@ -1000,7 +1008,9 @@ public class PvpChessActivity extends AppCompatActivity {
                 }
             }
             for (int upLeft = currentSquare+7; upLeft < 58 || upLeft % 8 == 0; upLeft += 7) {
-                if (!openSquare(upLeft) && !getPiecebySquare(upLeft).getPieceColor().equals(turn) && !capturesOnly) {
+                if (upLeft % 8 == 0){
+                    break;
+                } else if (!openSquare(upLeft) && !getPiecebySquare(upLeft).getPieceColor().equals(turn) && !capturesOnly) {
                     moves.add(new Move(currentSquare, upLeft));
                     break;
                 } else if (!openSquare(upLeft)) {
@@ -1010,7 +1020,9 @@ public class PvpChessActivity extends AppCompatActivity {
                 }
             }
             for (int downRight = currentSquare-7; downRight > 7 || downRight % 8 == 1; downRight -= 7){
-                if (!openSquare(downRight) && !getPiecebySquare(downRight).getPieceColor().equals(turn) && !capturesOnly) {
+                if (downRight % 8 == 1){
+                    break;
+                } else if (!openSquare(downRight) && !getPiecebySquare(downRight).getPieceColor().equals(turn) && !capturesOnly) {
                     moves.add(new Move(currentSquare, downRight));
                     break;
                 } else if (!openSquare(downRight)) {
@@ -1019,7 +1031,9 @@ public class PvpChessActivity extends AppCompatActivity {
                     moves.add(new Move(currentSquare, downRight));
             }
             for (int downLeft = currentSquare-9; downLeft > 0 || downLeft % 8 == 0; downLeft -= 9) {
-                if (!openSquare(downLeft) && !getPiecebySquare(downLeft).getPieceColor().equals(turn) && !capturesOnly) {
+                if (downLeft % 8 == 0){
+                    break;
+                } else if (!openSquare(downLeft) && !getPiecebySquare(downLeft).getPieceColor().equals(turn) && !capturesOnly) {
                     moves.add(new Move(currentSquare, downLeft));
                     break;
                 } else if (!openSquare(downLeft)) {
@@ -1041,28 +1055,28 @@ public class PvpChessActivity extends AppCompatActivity {
             if (p.checkFirstMove() && openSquare(62) && openSquare(63) && pieces.get(32).checkFirstMove() && notAttacked(62) && notAttacked(63) && notAttacked(61) && p.getPieceColor().equals("black")){
                 moves.add(new Move(currentSquare,63));
             }// short castle
-            if (notAttacked(currentSquare-1) && currentSquare % 8 != 1 && getPiecebySquare(currentSquare-1) != null && !getPiecebySquare(currentSquare - 1).getPieceColor().equals(turn)){
+            if (notAttacked(currentSquare-1) && currentSquare % 8 != 1 && ((getPiecebySquare(currentSquare-1) != null && !getPiecebySquare(currentSquare -1).getPieceColor().equals(turn)) || getPiecebySquare(currentSquare-1) == null)){
                 moves.add(new Move(currentSquare,currentSquare-1));
             }
-            if (notAttacked(currentSquare+1) && currentSquare % 8 != 0 && getPiecebySquare(currentSquare+1) != null && !getPiecebySquare(currentSquare + 1).getPieceColor().equals(turn)){
+            if (notAttacked(currentSquare+1) && currentSquare % 8 != 0 && ((getPiecebySquare(currentSquare+1) != null && !getPiecebySquare(currentSquare + 1).getPieceColor().equals(turn)) || getPiecebySquare(currentSquare+1) == null)){
                 moves.add(new Move(currentSquare,currentSquare+1));
             }
-            if (notAttacked(currentSquare+8) && currentSquare < 57 && getPiecebySquare(currentSquare+8) != null && !getPiecebySquare(currentSquare + 8).getPieceColor().equals(turn)){
+            if (notAttacked(currentSquare+8) && currentSquare < 57 && ((getPiecebySquare(currentSquare+8) != null && !getPiecebySquare(currentSquare + 8).getPieceColor().equals(turn)) || getPiecebySquare(currentSquare+8) == null)){
                 moves.add(new Move(currentSquare,currentSquare+8));
             }
-            if (notAttacked(currentSquare-8) && currentSquare > 8 && getPiecebySquare(currentSquare-8) != null && !getPiecebySquare(currentSquare - 8).getPieceColor().equals(turn)){
+            if (notAttacked(currentSquare-8) && currentSquare > 8 && ((getPiecebySquare(currentSquare-8) != null && !getPiecebySquare(currentSquare -8).getPieceColor().equals(turn)) || getPiecebySquare(currentSquare-8) == null)){
                 moves.add(new Move(currentSquare,currentSquare-8));
             }
-            if (notAttacked(currentSquare-9) && currentSquare > 9 && currentSquare % 8 != 1 && getPiecebySquare(currentSquare-9) != null && !getPiecebySquare(currentSquare - 9).getPieceColor().equals(turn)){
+            if (notAttacked(currentSquare-9) && currentSquare > 9 && currentSquare % 8 != 1 && ((getPiecebySquare(currentSquare-9) != null && !getPiecebySquare(currentSquare - 9).getPieceColor().equals(turn)) || getPiecebySquare(currentSquare-9) == null)){
                 moves.add(new Move (currentSquare,currentSquare-9));
             }
-            if (notAttacked(currentSquare+9) && currentSquare < 56 && currentSquare % 8 != 0 && getPiecebySquare(currentSquare+9) != null && !getPiecebySquare(currentSquare + 9).getPieceColor().equals(turn)){
+            if (notAttacked(currentSquare+9) && currentSquare < 56 && currentSquare % 8 != 0 && ((getPiecebySquare(currentSquare+9) != null && !getPiecebySquare(currentSquare + 9).getPieceColor().equals(turn)) || getPiecebySquare(currentSquare+9) == null)){
                 moves.add(new Move(currentSquare,currentSquare+9));
             }
-            if (notAttacked(currentSquare-7) && currentSquare > 9 && currentSquare % 8 != 0 && getPiecebySquare(currentSquare-7) != null && !getPiecebySquare(currentSquare - 7).getPieceColor().equals(turn)){
+            if (notAttacked(currentSquare-7) && currentSquare > 8 && currentSquare % 8 != 0 && ((getPiecebySquare(currentSquare-7) != null && !getPiecebySquare(currentSquare - 7).getPieceColor().equals(turn)) || getPiecebySquare(currentSquare-7) == null)){
                 moves.add(new Move(currentSquare,currentSquare-7));
             }
-            if (notAttacked(currentSquare+7) && currentSquare < 56 && currentSquare % 8 != 1 && getPiecebySquare(currentSquare+7) != null && !getPiecebySquare(currentSquare + 7).getPieceColor().equals(turn)){
+            if (notAttacked(currentSquare+7) && currentSquare < 56 && currentSquare % 8 != 1 && ((getPiecebySquare(currentSquare+7) != null && !getPiecebySquare(currentSquare + 7).getPieceColor().equals(turn)) || getPiecebySquare(currentSquare+7) == null)){
                 moves.add(new Move(currentSquare,currentSquare+7));
             }
         } else if (piece.equals("knight")) {
@@ -1121,40 +1135,50 @@ public class PvpChessActivity extends AppCompatActivity {
             if (!openSquare(currentSquare-9) && currentSquare % 8 != 1 && !getPiecebySquare(currentSquare - 9).getPieceColor().equals(turn))
                 moves.add(new Move (currentSquare,currentSquare-9));
         } else if (piece.equals("queen")) {
-            for (int y = currentSquare+8; y < 64; y += 8)
+            for (int y = currentSquare+8; y < 65; y += 8)
                 if (!openSquare(y) && !turn.equals(getPiecebySquare(y).getPieceColor()) && !capturesOnly) {
                     moves.add(new Move(currentSquare, y));
                     break;
                 } else if (!openSquare(y)) {
                     break;
-                } else if (!capturesOnly)
+                } else if (!capturesOnly) {
                     moves.add(new Move(currentSquare, y));
-            for (int y = currentSquare-8; y > 1; y -= 8)
+                }
+            for (int y = currentSquare-8; y > 0; y -= 8)
                 if (!openSquare(y) && !turn.equals(getPiecebySquare(y).getPieceColor()) && !capturesOnly){
                     moves.add(new Move(currentSquare, y));
                     break;
                 } else if (!openSquare(y)) {
                     break;
-                } else if (!capturesOnly)
+                } else if (!capturesOnly) {
                     moves.add(new Move(currentSquare, y));
-            for (int x = currentSquare % 8; x < 9; x++)
-                if (!openSquare(currentSquare + x) && !turn.equals(getPiecebySquare(currentSquare + x).getPieceColor()) && !capturesOnly) {
-                    moves.add(new Move(currentSquare, currentSquare + x));
+                }
+            for (int x = currentSquare + 1; x < 65; x++)
+                if (x % 8 == 1){
                     break;
-                } else if (!openSquare(currentSquare)) {
+                } else if (!openSquare(x) && !turn.equals(getPiecebySquare(x).getPieceColor()) && !capturesOnly) {
+                    moves.add(new Move(currentSquare, x));
                     break;
-                } else if (!capturesOnly)
-                    moves.add(new Move(currentSquare, currentSquare + x));
-            for (int x = currentSquare % 8; x > 0; x--)
-                if (!openSquare(currentSquare - x) && !turn.equals(getPiecebySquare(currentSquare - x).getPieceColor()) && !capturesOnly){
-                    moves.add(new Move (currentSquare,currentSquare-x));
+                } else if (!openSquare(x)) {
                     break;
-                }else if (!openSquare(currentSquare-x)) {
+                } else if (!capturesOnly) {
+                    moves.add(new Move(currentSquare, x));
+                }
+            for (int x = currentSquare - 1; x > 0; x--)
+                if (x % 8 == 0){
                     break;
-                } else if (!capturesOnly)
-                    moves.add(new Move (currentSquare,currentSquare-x));
-            for (int upRight = currentSquare+9; upRight < 64 || upRight % 8 == 1; upRight += 9) {
-                if (!openSquare(upRight) && !getPiecebySquare(upRight).getPieceColor().equals(turn) && !capturesOnly) {
+                } else if (!openSquare(x) && !turn.equals(getPiecebySquare(x).getPieceColor()) && !capturesOnly){
+                    moves.add(new Move (currentSquare,x));
+                    break;
+                }else if (!openSquare(x)) {
+                    break;
+                } else if (!capturesOnly) {
+                    moves.add(new Move(currentSquare, x));
+                }
+            for (int upRight = currentSquare+9; upRight < 64; upRight += 9) {
+                if (upRight % 8 == 1){
+                    break;
+                } else if (!openSquare(upRight) && !getPiecebySquare(upRight).getPieceColor().equals(turn) && !capturesOnly) {
                     moves.add(new Move(currentSquare, upRight));
                     break;
                 } else if (!openSquare(upRight)) {
@@ -1164,7 +1188,9 @@ public class PvpChessActivity extends AppCompatActivity {
                 }
             }
             for (int upLeft = currentSquare+7; upLeft < 58 || upLeft % 8 == 0; upLeft += 7) {
-                if (!openSquare(upLeft) && !getPiecebySquare(upLeft).getPieceColor().equals(turn) && !capturesOnly) {
+                if (upLeft % 8 == 0){
+                    break;
+                } else if (!openSquare(upLeft) && !getPiecebySquare(upLeft).getPieceColor().equals(turn) && !capturesOnly) {
                     moves.add(new Move(currentSquare, upLeft));
                     break;
                 } else if (!openSquare(upLeft)) {
@@ -1174,7 +1200,9 @@ public class PvpChessActivity extends AppCompatActivity {
                 }
             }
             for (int downRight = currentSquare-7; downRight > 7 || downRight % 8 == 1; downRight -= 7){
-                if (!openSquare(downRight) && !getPiecebySquare(downRight).getPieceColor().equals(turn) && !capturesOnly) {
+                if (downRight % 8 == 1){
+                    break;
+                } else if (!openSquare(downRight) && !getPiecebySquare(downRight).getPieceColor().equals(turn) && !capturesOnly) {
                     moves.add(new Move(currentSquare, downRight));
                     break;
                 } else if (!openSquare(downRight)) {
@@ -1183,7 +1211,9 @@ public class PvpChessActivity extends AppCompatActivity {
                     moves.add(new Move(currentSquare, downRight));
             }
             for (int downLeft = currentSquare-9; downLeft > 0 || downLeft % 8 == 0; downLeft -= 9) {
-                if (!openSquare(downLeft) && !getPiecebySquare(downLeft).getPieceColor().equals(turn) && !capturesOnly) {
+                if (downLeft % 8 == 0){
+                    break;
+                } else if (!openSquare(downLeft) && !getPiecebySquare(downLeft).getPieceColor().equals(turn) && !capturesOnly) {
                     moves.add(new Move(currentSquare, downLeft));
                     break;
                 } else if (!openSquare(downLeft)) {
@@ -1192,38 +1222,46 @@ public class PvpChessActivity extends AppCompatActivity {
                     moves.add(new Move(currentSquare, downLeft));
             }
         } else if (piece.equals("rook")){
-            for (int y = currentSquare + 8; y < 64; y += 8)
+            for (int y = currentSquare+8; y < 65; y += 8)
+                if (!openSquare(y) && !turn.equals(getPiecebySquare(y).getPieceColor()) && !capturesOnly) {
+                    moves.add(new Move(currentSquare, y));
+                    break;
+                } else if (!openSquare(y)) {
+                    break;
+                } else if (!capturesOnly) {
+                    moves.add(new Move(currentSquare, y));
+                }
+            for (int y = currentSquare-8; y > 0; y -= 8)
                 if (!openSquare(y) && !turn.equals(getPiecebySquare(y).getPieceColor()) && !capturesOnly){
                     moves.add(new Move(currentSquare, y));
                     break;
                 } else if (!openSquare(y)) {
                     break;
-                } else if (!capturesOnly)
-                    moves.add(new Move(currentSquare,y));
-            for (int y = currentSquare - 8; y > 1; y -= 8)
-                if (!openSquare(y) && !turn.equals(getPiecebySquare(y).getPieceColor()) && !capturesOnly){
+                } else if (!capturesOnly) {
                     moves.add(new Move(currentSquare, y));
+                }
+            for (int x = currentSquare + 1; x < 65; x++)
+                if (x % 8 == 1){
                     break;
-                } else if (!openSquare(y)) {
+                } else if (!openSquare(x) && !turn.equals(getPiecebySquare(x).getPieceColor()) && !capturesOnly) {
+                    moves.add(new Move(currentSquare, currentSquare + x));
                     break;
-                } else if (!capturesOnly)
-                    moves.add(new Move(currentSquare,y));
-            for (int x = currentSquare%8; x < 9; x++)
-                if (!openSquare(currentSquare+x) && !turn.equals(getPiecebySquare(currentSquare + x).getPieceColor()) && !capturesOnly){
-                    moves.add(new Move(currentSquare,currentSquare+x));
+                } else if (!openSquare(x)) {
                     break;
-                } else if (!openSquare(currentSquare+x)) {
+                } else if (!capturesOnly) {
+                    moves.add(new Move(currentSquare, x));
+                }
+            for (int x = currentSquare - 1; x > 0; x--)
+                if (x % 8 == 0){
                     break;
-                } else if (!capturesOnly)
-                    moves.add(new Move(currentSquare,currentSquare+x));
-            for (int x = currentSquare%8; x > 0; x--)
-                if (!openSquare(currentSquare-x) && !turn.equals(getPiecebySquare(currentSquare - x).getPieceColor()) && !capturesOnly){
-                    moves.add(new Move(currentSquare,currentSquare-x));
+                } else if (!openSquare(x) && !turn.equals(getPiecebySquare(x).getPieceColor()) && !capturesOnly){
+                    moves.add(new Move (currentSquare,x));
                     break;
-                } else if (!openSquare(currentSquare-x)) {
+                }else if (!openSquare(x)) {
                     break;
-                } else if (!capturesOnly)
-                    moves.add(new Move(currentSquare,currentSquare-x));
+                } else if (!capturesOnly) {
+                    moves.add(new Move(currentSquare, x));
+                }
         }
         return moves;
     }
@@ -1242,7 +1280,7 @@ public class PvpChessActivity extends AppCompatActivity {
         for (Move moveToVerify:moves){
             makeMove(moveToVerify,p);
             Log.d("chess6","move made " + moveToVerify.getCurrentSquare() + " to " + moveToVerify.getTargetSquare());
-            if (playerInCheck(otherTurn)){
+            if (playerInCheck(otherTurn, myKingSquare)){
                 movesToDelete.add(moves.indexOf(moveToVerify));
             }
             unmakeMove(moveToVerify,p);
@@ -1273,10 +1311,11 @@ public class PvpChessActivity extends AppCompatActivity {
                 }
             }
         }
+        Log.d("notattacked",square + " is not attacked");
         return true;
     }
     private boolean notAttacked(int square, String otherTurn) {
-        ArrayList <Move> pieceMoves = new ArrayList <Move>();
+        ArrayList <Move> pieceMoves;
         for (Piece p: pieces){
             if (!p.getPieceColor().equals(otherTurn) && !p.getPieceType().equals("king")) {
                 pieceMoves = getMoves(p,true, p.getPieceColor());
@@ -1286,12 +1325,11 @@ public class PvpChessActivity extends AppCompatActivity {
                 }
             }
         }
+        Log.d("notattacked",square + " is not attacked");
         return true;
     }
-    private boolean playerInCheck(String otherTurn){
-        if (getTurn().equals("white"))
-            return !notAttacked(getSquare(pieces.get(4)),otherTurn);
-        return !notAttacked(getSquare(pieces.get(28)),otherTurn);
+    private boolean playerInCheck(String otherTurn, int myKing){
+        return !notAttacked(myKing,otherTurn);
     }
     private String getTurn(){
         if(numMoves%2==0)
