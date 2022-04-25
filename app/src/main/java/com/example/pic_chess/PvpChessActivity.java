@@ -30,7 +30,7 @@ public class PvpChessActivity extends AppCompatActivity {
     private LinearLayout popupLayout, gameLayout;
     private Button yesButton, noButton, closeButton, min15button;
     private TextView timerText1, timerText2, resignText;
-    private ConstraintLayout mainLayout;
+    private ConstraintLayout mainLayout, deadLayout;
     private ArrayList<ConstraintLayout> boardLayout = new ArrayList<ConstraintLayout>();
     private PopupWindow resignMenu, gameMenu;
     private ArrayList<ImageView> boardImages = new ArrayList<ImageView>();
@@ -59,6 +59,7 @@ public class PvpChessActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(layout.activity_pvp_chess);
         mainLayout = findViewById(id.pvpChessLayout);
+        deadLayout = findViewById(id.deadPieceLayout);
         gameLayout = new LinearLayout(this);
         popupLayout = new LinearLayout(this);
         resignMenu = new PopupWindow(this);
@@ -790,6 +791,7 @@ public class PvpChessActivity extends AppCompatActivity {
                         setSquare(selectedPiece, m.getTargetSquare());
                         p.setMoved(true);
                         getSquarebyView(getSquarebyInt(m.getTargetSquare())).getLayout().removeView(v);
+                        deadLayout.addView(v);
                         captured.add((ImageView) v);
                         selectedPiece = null;
                         selectedView = null;

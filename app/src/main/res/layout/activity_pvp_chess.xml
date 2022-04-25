@@ -8,7 +8,14 @@
     android:alpha="0.9"
     android:background="@color/black"
     tools:context=".PvpChessActivity">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/deadPieceLayout"
+        android:visibility="gone"
+        android:layout_height="500000dp"
+        android:layout_width="500000dp"
+        tools:ignore="MissingConstraints">
 
+    </androidx.constraintlayout.widget.ConstraintLayout>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutB2"
         android:layout_width="50dp"
