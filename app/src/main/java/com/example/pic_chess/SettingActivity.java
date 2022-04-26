@@ -1,13 +1,9 @@
 package com.example.pic_chess;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
-import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -48,7 +44,6 @@ public class SettingActivity extends AppCompatActivity implements TimerSettingFr
         //Set fragment
         timerSettingFragment = TimerSettingFragment.newInstance();
         transaction = getSupportFragmentManager().beginTransaction();
-        transaction.setCustomAnimations(R.anim.slide_down, R.anim.slide_up);
         transaction.replace(R.id.timerSettingFragmentContainer, timerSettingFragment);
         transaction.addToBackStack(null);
         transaction.commit();
@@ -68,6 +63,7 @@ public class SettingActivity extends AppCompatActivity implements TimerSettingFr
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 transaction = getSupportFragmentManager().beginTransaction();
+                transaction.setCustomAnimations(R.anim.slide_down_top, R.anim.slide_up_top);
                 if (isChecked) {
                     timerSettingFragment.updateTimerText(timer);
                     transaction.show(timerSettingFragment);

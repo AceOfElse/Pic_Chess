@@ -49,11 +49,6 @@ public class TimerSettingFragment extends Fragment {
         mChessPicTimerField = view.findViewById(R.id.chessPicTimerField);
         mGuessingTimerField = view.findViewById(R.id.guessingTimerField);
 
-        //mChessPicTimerField.setText();
-        //mChessPvrTimerField.setText();
-        //mChessPvpTimerField.setText();
-        //mGuessingTimerField.setText();
-
         return view;
     }
 

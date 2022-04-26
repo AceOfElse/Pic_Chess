@@ -144,6 +144,7 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
             @Override
             public void onCheckedChanged(CompoundButton toggleButton, boolean isChecked) {
                 transaction = getSupportFragmentManager().beginTransaction();
+                transaction.setCustomAnimations(R.anim.slide_down_top, R.anim.slide_up_top);
                 if (isChecked) {
                     transaction.show(toolbarFragment);
                 } else {
@@ -208,14 +209,14 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
             //Open color fragment
             case 2:
                 transaction = getSupportFragmentManager().beginTransaction();
-                transaction.setCustomAnimations(R.anim.slide_up, R.anim.slide_down);
+                transaction.setCustomAnimations(R.anim.slide_up_bottom, R.anim.slide_down_bottom);
                 transaction.show(colorFragment);
                 transaction.commit();
                 break;
             //Close color fragment
             case 3:
                 transaction = getSupportFragmentManager().beginTransaction();
-                transaction.setCustomAnimations(R.anim.slide_up, R.anim.slide_down);
+                transaction.setCustomAnimations(R.anim.slide_up_bottom, R.anim.slide_down_bottom);
                 transaction.hide(colorFragment);
                 transaction.commit();
                 break;
