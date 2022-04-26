@@ -303,7 +303,7 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 dialogInterface.dismiss();
-                finish();
+                goBackViaLoadingActivity();
             }
         });
         alertDialogue.setNegativeButton("NO", new DialogInterface.OnClickListener() {
@@ -324,7 +324,7 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 dialogInterface.dismiss();
-                finish();
+                goBackViaLoadingActivity();
             }
         });
         alertDialogue.setNegativeButton("NO", new DialogInterface.OnClickListener() {
@@ -336,6 +336,14 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
         });
         alertDialogue.create();
         alertDialogue.show();
+    }
+
+    //Loading animation goes up when returning back to Home Activity.
+    private void goBackViaLoadingActivity() {
+        Intent loadingIntent = new Intent(ChessPicActivity.this, LoadingActivity.class);
+        loadingIntent.putExtra("Class Code", 0);
+        startActivity(loadingIntent);
+        finish();
     }
 //////End Creation of Activity and Relevant Connections\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 

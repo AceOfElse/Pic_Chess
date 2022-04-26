@@ -14,16 +14,21 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Paint;
+import android.media.AudioAttributes;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.SoundEffectConstants;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.io.ByteArrayOutputStream;
+import java.io.Serializable;
 
-public class HomeActivity extends AppCompatActivity implements SecondMenuChessFragment.OnClickSelection, SecondMenuChessPicFragment.OnClickSelection, ThirdMenuTimeFragment.OnClickSelection {
+public class HomeActivity extends AppCompatActivity implements Serializable, SecondMenuChessFragment.OnClickSelection, SecondMenuChessPicFragment.OnClickSelection, ThirdMenuTimeFragment.OnClickSelection {
     private TextView titleText;
     private ImageButton settingButton, chessPreviewButton, drawPreviewButton;
     private AlertDialog.Builder alertDialogue;
@@ -36,6 +41,7 @@ public class HomeActivity extends AppCompatActivity implements SecondMenuChessFr
     private Bundle bundleForThirdMenu;
     private ByteArrayOutputStream byteStreamFirst, byteStreamSecond;
     private int firstMode;
+
     //default timer is 10 minutes
     private long[] timer = {601000, 601000, 601000, 601000};
 
@@ -57,6 +63,7 @@ public class HomeActivity extends AppCompatActivity implements SecondMenuChessFr
     private static final String TAG2 = "SecondMenuChessPicFragment";
     private static final String TAG3 = "ThirdMenuTimeFragment";
 
+//////Start Creation of Activity and Relevant Connections\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,6 +85,7 @@ public class HomeActivity extends AppCompatActivity implements SecondMenuChessFr
         bundleForThirdMenu = new Bundle();
         byteStreamFirst = new ByteArrayOutputStream();
         byteStreamSecond = new ByteArrayOutputStream();
+
 
         //Set button listeners
         chessPreviewButton.setOnClickListener(new View.OnClickListener() {
@@ -106,6 +114,7 @@ public class HomeActivity extends AppCompatActivity implements SecondMenuChessFr
                 openSetting();
             }
         });
+
     }
 
     //Implements method from interfaces
@@ -158,7 +167,6 @@ public class HomeActivity extends AppCompatActivity implements SecondMenuChessFr
         getSupportFragmentManager().popBackStack();
         getSupportFragmentManager().popBackStack();
         getSupportFragmentManager().popBackStack();
-
         switch (firstMode) {
             case 0:
                 openPvp(mode == 0);
@@ -185,21 +193,20 @@ public class HomeActivity extends AppCompatActivity implements SecondMenuChessFr
     protected void onStart() {
         super.onStart();
     }
-
     protected void onRestart() {
         super.onRestart();
     }
-
     protected void onPause() {
         super.onPause();
     }
-
     protected void onResume() {
         super.onResume();
     }
-
     protected void onStop() {
         super.onStop();
+    }
+    protected void onDestroy() {
+        super.onDestroy();
     }
 
     public void onBackPressed() {
@@ -225,7 +232,9 @@ public class HomeActivity extends AppCompatActivity implements SecondMenuChessFr
             getSupportFragmentManager().popBackStack();
         }
     }
+//////End Creation of Activity and Relevant Connections\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
+//////Start Helper Methods within Home Activity\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
     //Helper method to establish transaction by encoding images
     private void transferDataToThirdFragment(Bitmap imageBitmapFirst, Bitmap imageBitmapSecond, String tag1, String tag2) {
         imageBitmapFirst.compress(Bitmap.CompressFormat.PNG, 100, byteStreamFirst);
@@ -245,27 +254,30 @@ public class HomeActivity extends AppCompatActivity implements SecondMenuChessFr
     }
 
     private void openPvp(boolean isTimed) {
-        Intent pvpIntent = new Intent(HomeActivity.this, PvpChessActivity.class);
+        Intent pvpIntent = new Intent(HomeActivity.this, LoadingActivity.class);
         pvpIntent.putExtra("TIME", isTimed);
         pvpIntent.putExtra("TIMER", timer[0]);
+        pvpIntent.putExtra("Class Code", 1);
         startActivity(pvpIntent);
         onStop();
         onRestart();
     }
 
     private void openChessPic(boolean isTimed) {
-        Intent chessPicIntent = new Intent(HomeActivity.this, ChessPicActivity.class);
+        Intent chessPicIntent = new Intent(HomeActivity.this, LoadingActivity.class);
         chessPicIntent.putExtra("TIME", isTimed);
         chessPicIntent.putExtra("TIMER", timer[2]);
+        chessPicIntent.putExtra("Class Code", 5);
         startActivity(chessPicIntent);
         onStop();
         onRestart();
     }
 
     private void openChessPicReceive(boolean isTimed) {
-        Intent chessPicReceiveIntent = new Intent(HomeActivity.this, ChessPicReceiveActivity.class);
+        Intent chessPicReceiveIntent = new Intent(HomeActivity.this, LoadingActivity.class);
         chessPicReceiveIntent.putExtra("TIME", isTimed);
         chessPicReceiveIntent.putExtra("TIMER", timer[3]);
+        chessPicReceiveIntent.putExtra("Class Code", 6);
         startActivity(chessPicReceiveIntent);
         onStop();
         onRestart();
@@ -278,4 +290,5 @@ public class HomeActivity extends AppCompatActivity implements SecondMenuChessFr
         onStop();
         onRestart();
     }
+//////End Helper Methods within Home Activity\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 }

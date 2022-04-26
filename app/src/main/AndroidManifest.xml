@@ -13,21 +13,29 @@
         <activity
             android:name=".SettingActivity"
             android:exported="false"
+            android:noHistory="true"
+            android:launchMode="singleTask"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".ChessPicReceiveActivity"
             android:exported="false"
+            android:noHistory="true"
+            android:launchMode="singleTask"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".ChessPicActivity"
             android:exported="false"
+            android:noHistory="true"
+            android:launchMode="singleTask"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".PvpChessActivity"
             android:exported="false"
+            android:noHistory="true"
+            android:launchMode="singleTask"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:screenOrientation="portrait"/>
         <activity
@@ -36,8 +44,10 @@
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".MainActivity"
+            android:name=".LoadingActivity"
             android:exported="true"
+            android:noHistory="true"
+            android:launchMode="singleTask"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:screenOrientation="portrait">
             <intent-filter>

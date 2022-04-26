@@ -4,6 +4,7 @@ import static com.example.pic_chess.R.drawable;
 import static com.example.pic_chess.R.id;
 import static com.example.pic_chess.R.layout;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -340,10 +341,6 @@ public class PvpChessActivity extends AppCompatActivity {
                 checkEnd();
             }
         };
-    }
-    public void returnHome() {
-        Intent homeIntent = new Intent(PvpChessActivity.this, HomeActivity.class);
-        startActivity(homeIntent);
     }
 
     private void generatePositionfromFEN(String s) {
@@ -1604,4 +1601,22 @@ public class PvpChessActivity extends AppCompatActivity {
                 pic.setImageResource(R.drawable.blackqueen);
         }
     }
+
+//////Start Handling Button\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+    public void returnHome() {
+        goBackViaLoadingActivity();
+    }
+
+    public void onBackPressed() {
+        goBackViaLoadingActivity();
+    }
+
+    //Loading animation goes up when returning back to Home Activity.
+    private void goBackViaLoadingActivity() {
+        Intent loadingIntent = new Intent(PvpChessActivity.this, LoadingActivity.class);
+        loadingIntent.putExtra("Class Code", 0);
+        startActivity(loadingIntent);
+        finish();
+    }
+//////End Handling Button\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 }
