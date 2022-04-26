@@ -28,7 +28,7 @@ import android.widget.TextView;
 import java.io.ByteArrayOutputStream;
 import java.io.Serializable;
 
-public class HomeActivity extends AppCompatActivity implements Serializable, SecondMenuChessFragment.OnClickSelection, SecondMenuChessPicFragment.OnClickSelection, ThirdMenuTimeFragment.OnClickSelection {
+public class HomeActivity extends AppCompatActivity implements SecondMenuChessFragment.OnClickSelection, SecondMenuChessPicFragment.OnClickSelection, ThirdMenuTimeFragment.OnClickSelection {
     private TextView titleText;
     private ImageButton settingButton, chessPreviewButton, drawPreviewButton;
     private AlertDialog.Builder alertDialogue;

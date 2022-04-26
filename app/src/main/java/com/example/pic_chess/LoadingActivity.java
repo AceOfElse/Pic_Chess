@@ -55,6 +55,7 @@ public class LoadingActivity extends AppCompatActivity {
                 break;
             case 6:
                 activityClass = ChessPicReceiveActivity.class;
+                break;
             default:
                 activityClass = HomeActivity.class;
                 break;
