@@ -6,15 +6,11 @@ import static com.example.pic_chess.R.layout;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.PopupWindow;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -22,14 +18,11 @@ import androidx.constraintlayout.widget.ConstraintSet;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Objects;
 
 public class AIvAIChessActivity extends AppCompatActivity {
-    private LinearLayout gameLayout;
-    private TextView timerText1;
-    private TextView timerText2;
     private ConstraintLayout deadLayout;
     private final ArrayList<ConstraintLayout> boardLayout = new ArrayList<>();
-    private PopupWindow resignMenu, gameMenu;
     private final ArrayList<ImageView> boardImages = new ArrayList<>();
     private final ArrayList<Square> boardSquares = new ArrayList<>();
     private final ArrayList<Piece> pieces = new ArrayList<>();
@@ -40,33 +33,18 @@ public class AIvAIChessActivity extends AppCompatActivity {
     private int movesSinceLastPawnMove = 0;
     private int numMoves = 0;
     private boolean gameInProgress = false;
-    private boolean prompted = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(layout.activity_timed_pvp_chess);
-        ConstraintLayout mainLayout = findViewById(id.untimedPvpChessLayout);
         deadLayout = findViewById(id.deadPieceLayout);
-        gameLayout = new LinearLayout(this);
-        LinearLayout popupLayout = new LinearLayout(this);
-        resignMenu = new PopupWindow(this);
-        gameMenu = new PopupWindow(this);
-        TextView resignText = new TextView(this);
-        Button yesButton = new Button(this);
-        yesButton.setText("YES");
-        Button noButton = new Button(this);
-        noButton.setText("NO");
         Button min15button = new Button(this);
         min15button.setText("15min");
         Button closeButton = new Button(this);
         closeButton.setText("CLOSE");
         ImageButton backButton = findViewById(id.backButton);
         ImageButton newGameButton = findViewById(id.newGameButton);
-        ImageButton endButton = findViewById(id.endButton);
-        ImageButton resignButton = findViewById(id.resignButton);
-        timerText1 = findViewById(id.timerText1);
-        timerText2 = findViewById(id.timerText2);
         boardLayout.add(findViewById(id.layoutA1));
         boardLayout.add(findViewById(id.layoutB1));
         boardLayout.add(findViewById(id.layoutC1));
@@ -216,12 +194,6 @@ public class AIvAIChessActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (!gameInProgress)
                     returnHome();
-                else {
-                    resignMenu.showAtLocation(gameLayout, Gravity.CENTER,300,80);
-                    resignMenu.update(50,50,300,300);
-                    prompted = !prompted;
-                    //Are you sure
-                }
             }
         });
         newGameButton.setOnClickListener(new View.OnClickListener() {
@@ -247,6 +219,8 @@ public class AIvAIChessActivity extends AppCompatActivity {
                 } else if (whiteMove == 0) {
                     //Stalemate
                     gameInProgress = false;
+                } else {
+                    makeMove(whiteMove);
                 }
             } else {
                 blackMove = search(10,10,10);
@@ -256,14 +230,93 @@ public class AIvAIChessActivity extends AppCompatActivity {
                 } else if (blackMove == 0) {
                     //Stalemate
                     gameInProgress = false;
+                } else {
+                    makeMove(blackMove);
                 }
             }
+            numMoves++;
             checkEnd();
         }
     }
-    private void capture(){
-
+    private void makeMove(int move){
+        for (Piece p: pieces) {
+            ArrayList<Move> moves = getMoves(p,false,getTurn());
+            for (Move m : moves) {
+                if (m.getTargetSquare() == move){
+                    int targetSquare = m.getTargetSquare();
+                    if (getPiecebySquare(m.getTargetSquare()) == null) {
+                        setSquare(p, targetSquare);
+                        Square s = getSquarebyView(p.getPic());
+                        if (getSquare(p) == 3 && p.checkFirstMove() && p.getPieceType().equals("king")) {
+                            setSquare(pieces.get(24), 4);
+                            pieces.get(24).setMoved(true);
+                        }
+                        if (getSquare(p) == 7 && p.checkFirstMove() && p.getPieceType().equals("king")) {
+                            setSquare(pieces.get(31), 6);
+                            pieces.get(31).setMoved(true);
+                        }
+                        if (getSquare(p) == 59 && p.checkFirstMove() && p.getPieceType().equals("king")) {
+                            setSquare(pieces.get(0), 60);
+                            pieces.get(0).setMoved(true);
+                        }
+                        if (getSquare(p) == 63 && p.checkFirstMove() && p.getPieceType().equals("king")) {
+                            setSquare(pieces.get(7), 62);
+                            pieces.get(7).setMoved(true);
+                        }
+                        if (getSquare(p) > 56 && getSquare(p) < 65 && p.getPieceType().equals("white pawn")) {
+                            whiteMaterial += 8;
+                            p.promote(true);
+                            pieces.set(pieces.indexOf(p), new Piece(p.getFile(), p.getRank(), p.getPieceColor(), "queen"));
+                        }
+                        if (getSquare(p) > 0 && getSquare(p) < 9 && p.getPieceType().equals("black pawn")) {
+                            blackMaterial += 8;
+                            p.promote(false);
+                            pieces.set(pieces.indexOf(p), new Piece(p.getFile(), p.getRank(), p.getPieceColor(), "queen"));
+                        }
+                        if (p.getPieceType().equals("white pawn") || p.getPieceType().equals("blackPawn")) {
+                            movesSinceLastPawnMove = 0;
+                        } else {
+                            movesSinceLastPawnMove++;
+                        }
+                        if (p.getPieceType().equals("white pawn") && getPiecebySquare(getSquare(s) - 8) != null && getPiecebySquare(getSquare(s) - 8).getMovedTwo()) {
+                            Piece p2 = getPiecebySquare(getSquare(s) - 8);
+                            capture(p2, m);
+                        }
+                        if (p.getPieceType().equals("black pawn") && getPiecebySquare(getSquare(s) + 8) != null && getPiecebySquare(getSquare(s) + 8).getMovedTwo()) {
+                            Piece p2 = getPiecebySquare(getSquare(s) + 8);
+                            capture(p2, m);
+                        }
+                        if (p.getPieceType().equals("white pawn") && !p.getMoved() && getPiecebySquare(getSquare(p) - 16) == null && getPiecebySquare(getSquare(p) - 8) == null) {
+                            p.setMovedTwo(true);
+                        }
+                        if (p.getPieceType().equals("black pawn") && !p.getMoved() && getPiecebySquare(getSquare(p) + 16) == null && getPiecebySquare(getSquare(p) + 8) == null) {
+                            p.setMovedTwo(true);
+                        }
+                    } else {
+                        Piece p2 = getPiecebySquare(m.getTargetSquare());
+                        if (getTurn().equals("white"))
+                            blackMaterial -= getMaterialValue(p);
+                        else
+                            whiteMaterial -= getMaterialValue(p);
+                        setSquare(p, m.getTargetSquare());
+                        capture(p2,m);
+                    }
+                    p.setMoved(true);
+                    positions.add(getFENfromPosition());
+                }
+            }
+        }
     }
+
+    private void capture(Piece p2, Move m) {
+        p2.setFile(69);
+        p2.setRank(69);
+        ImageView view = p2.getPic();
+        Objects.requireNonNull(getSquarebyView(getSquarebyInt(m.getTargetSquare() + 8))).getLayout().removeView(view);
+        deadLayout.addView(view);
+        captured.add(view);
+    }
+
     private void generatePositionfromFEN(String s) {
         int square = 57;
         int index = 0;

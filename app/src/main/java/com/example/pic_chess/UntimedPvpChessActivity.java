@@ -623,13 +623,13 @@ public class UntimedPvpChessActivity extends AppCompatActivity {
                 allLegalMoves.add(getLegalMoves(p,false));
         }
         if (getTurn().equals("white")) {
-            if (allLegalMoves.get(0) == null && !notAttacked(getSquare(pieces.get(4)))) {
+            if (allLegalMoves.get(0) == null && !notAttacked(getSquare(pieces.get(29)))) {
                 gameInProgress = false; //Checkmate
             } else if (allLegalMoves.get(0) == null) {
                 gameInProgress = false; //Stalemate
             }
         } else {
-            if (allLegalMoves.get(0) == null && !notAttacked(getSquare(pieces.get(29)))) {
+            if (allLegalMoves.get(0) == null && !notAttacked(getSquare(pieces.get(4)))) {
                 gameInProgress = false; //Checkmate
             } else if (allLegalMoves.get(0) == null) {
                 gameInProgress = false; //Stalemate
