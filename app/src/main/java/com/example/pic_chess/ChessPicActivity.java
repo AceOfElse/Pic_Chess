@@ -1,20 +1,27 @@
 package com.example.pic_chess;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.ClipData;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Environment;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.DragEvent;
@@ -28,6 +35,10 @@ import android.widget.ToggleButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Locale;
@@ -60,18 +71,20 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
     private FragmentTransaction transaction;
     private String nameFile;
 
+    private Bitmap savingBitmap = Bitmap.createBitmap(300, 200, Bitmap.Config.ARGB_8888);
+    private static final int REQUEST_CODE = 100;
     //Tags for fragment
     private static final String TAG = "NewCanvasPromptFragment";
     private static final String TAG2 = "ToolbarFragment";
 
-//////Start Creation of Activity and Relevant Connections\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+    //////Start Creation of Activity and Relevant Connections\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chess_pic);
 
         //Receive intent from home activity
-        Intent chessPic  = getIntent();
+        Intent chessPic = getIntent();
         boolean isTimed = chessPic.getBooleanExtra("TIME", false);
         startTime = chessPic.getLongExtra("TIMER", 601000);
         timeLeftInMilliSecond = startTime;
@@ -166,8 +179,15 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
 
         //Others
         createDraggableImage();
-        createCanvas();
+        createCanvas(savingBitmap);
         setTextviewLeftValues();
+
+        saveFileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                askPermission();
+            }
+        });
     }
 
     private void setTextviewLeftValues() {
@@ -395,7 +415,7 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
     };
 
     // user touches desired piece, allows them to click and drag this imageview to canvas
-    private void createDraggableImage(){
+    private void createDraggableImage() {
         for (ImageView imageView : Arrays.asList(bishopTool, knightTool, pawnTool, rookTool, kingTool, queenTool)) {
             imageView.setOnTouchListener(touchListener);
         }
@@ -412,8 +432,7 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
                     bishopsLeft--;
                     bishopPieceNum.setText(String.valueOf(bishopsLeft));
                     return true;
-                }
-                else {
+                } else {
                     return false;
                 }
             case R.id.piecePawnCP:
@@ -421,8 +440,7 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
                     pawnsLeft--;
                     pawnPieceNum.setText(String.valueOf(pawnsLeft));
                     return true;
-                }
-                else {
+                } else {
                     return false;
                 }
             case R.id.pieceRookCP:
@@ -430,8 +448,7 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
                     rooksLeft--;
                     rookPieceNum.setText(String.valueOf(rooksLeft));
                     return true;
-                }
-                else {
+                } else {
                     return false;
                 }
             case R.id.pieceKnightCP:
@@ -439,8 +456,7 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
                     knightsLeft--;
                     knightPieceNum.setText(String.valueOf(knightsLeft));
                     return true;
-                }
-                else {
+                } else {
                     return false;
                 }
             case R.id.pieceKingCP:
@@ -448,8 +464,7 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
                     kingsLeft--;
                     kingPieceNum.setText(String.valueOf(kingsLeft));
                     return true;
-                }
-                else {
+                } else {
                     return false;
                 }
             case R.id.pieceQueenCP:
@@ -457,8 +472,7 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
                     queensLeft--;
                     queenPieceNum.setText(String.valueOf(queensLeft));
                     return true;
-                }
-                else {
+                } else {
                     return false;
                 }
         }
@@ -466,14 +480,14 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
     }
 
     //creates a canvas for drawing
-    private void createCanvas(){
-        canvasView.draw(new Canvas());
+    private void createCanvas(Bitmap bitmap) {
+        canvasView.draw(new Canvas(bitmap));
         Paint paint = new Paint();
     }
 
 //////End Handling Drag Pieces into Canvas\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
-//////Start Creating Canvas Properties\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+    //////Start Creating Canvas Properties\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
     //Making custom drawing view
     public static class DrawingView extends View {
         private static ArrayList<Path> pathList = new ArrayList<>();
@@ -482,6 +496,7 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
         private ViewGroup.LayoutParams parameters;
         private static int currentBrush = Color.BLACK;
         private static float currentStrokeWidth = 10f;
+        private Bitmap savingBitmap = Bitmap.createBitmap(300, 200, Bitmap.Config.ARGB_8888);
 
         public DrawingView(Context context, AttributeSet attributes) {
             super(context, attributes);
@@ -500,6 +515,7 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
             for (int i = 0; i < pathList.size(); i++) {
                 paint.setColor(colorList.get(i));
                 paint.setStrokeWidth(strokeWidthList.get(i));
+                canvas.drawBitmap(savingBitmap, 0, 0, paint);
                 canvas.drawPath(pathList.get(i), paint);
                 invalidate();
             }
@@ -571,7 +587,7 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
     }
 //////End Creating Canvas Properties\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
-//////Start Handling Timer\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+    //////Start Handling Timer\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
     private void startTimer() {
         countDownTimer = new CountDownTimer(timeLeftInMilliSecond, 1000) {
             @Override
@@ -606,5 +622,54 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
         String timeLeftFormatted = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds);
         timerText.setText("TIME\n" + timeLeftFormatted);
     }
-//////End Handling Timer\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+    //////End Handling Timer\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+/////Start of Handling Saving Image\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+    private void askPermission() {
+        ActivityCompat.requestPermissions(ChessPicActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CODE);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                saveImage();
+            } else {
+                Toast.makeText(ChessPicActivity.this, "Please provide required permissions", Toast.LENGTH_SHORT).show();
+            }
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+
+    }
+
+    private void saveImage() {
+        drawingView.setDrawingCacheEnabled(true);
+        Bitmap bitmap = drawingView.getDrawingCache();
+        FileOutputStream outStream = null;
+        File sdCard = Environment.getExternalStorageDirectory();
+        File dir = new File(sdCard.getAbsolutePath() + "/Pictures");
+        dir.mkdirs();
+        String fileName = "drawin.jpg";
+        File outFile = new File(dir, fileName);
+        try {
+            outStream = new FileOutputStream(outFile);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        if (outStream == null) {
+            Toast.makeText(ChessPicActivity.this, "Ourstream is null", Toast.LENGTH_LONG).show();
+        } else {
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outStream);
+        }
+        try {
+            outStream.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            outStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
