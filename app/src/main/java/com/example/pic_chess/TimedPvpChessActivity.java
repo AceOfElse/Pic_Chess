@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Objects;
 
-public class PvpChessActivity extends AppCompatActivity {
+public class TimedPvpChessActivity extends AppCompatActivity {
     private LinearLayout gameLayout;
     private TextView timerText1;
     private TextView timerText2;
@@ -56,8 +56,8 @@ public class PvpChessActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(layout.activity_pvp_chess);
-        ConstraintLayout mainLayout = findViewById(id.pvpChessLayout);
+        setContentView(layout.activity_timed_pvp_chess);
+        ConstraintLayout mainLayout = findViewById(id.timedPvpChessLayout);
         deadLayout = findViewById(id.deadPieceLayout);
         gameLayout = new LinearLayout(this);
         LinearLayout popupLayout = new LinearLayout(this);
@@ -648,106 +648,7 @@ public class PvpChessActivity extends AppCompatActivity {
             timerText1.setText(s);
         }
     }
-    //The following evaluate, search, searchAllCaptures, orderMoves, forceKingtoCornerEndgameEval methods
-    //These methods were written differently but heavily inspired by Sebastian Lague's code
-    //So credit where credit is due
-    public int evaluate(){
-        int whiteEval = whiteMaterial * 100;
-        int blackEval = blackMaterial * 100;
-        int evaluation = whiteEval - blackEval;
-        int perspective;
-        if (getTurn().equals("white"))
-            perspective = 1;
-        else
-            perspective = -1;
-        return evaluation * perspective;
-    }
-    public int search (int depth, int alpha, int beta){
-        if (depth == 0)
-            return searchAllCaptures(alpha,beta);
-        ArrayList<Move> moves = new ArrayList<>();
-        int myKing=-1;
-        for (Piece p: pieces){
-            if (p.getPieceColor().equals(getTurn()) && p.getPieceType().equals("king")){
-                myKing = getSquare(p);
-            }
-        }
-        for (Piece p: pieces) {
-            if (p.getPieceColor().equals(getTurn())){
-                moves = getLegalMoves(p,false);
-            }
-            if (moves.size() == 0) {
-                if (playerInCheck(getTurn(),myKing))
-                    return Integer.MIN_VALUE;
-                return 0;
-            }
 
-            for (Move m: moves){
-                makeMove(m,p);
-                int eval = -search(depth-1, -beta, -alpha);
-                unmakeMove(m,p);
-                if (eval >= beta){
-                    //Move was too good, opponent will avoid this pos
-                    return beta;
-                }
-                alpha = Math.max(alpha, eval);
-
-            }
-        }
-        return alpha;
-    }
-    public int searchAllCaptures(int alpha, int beta){
-        int eval = evaluate();
-        if (eval >= beta)
-            return beta;
-        alpha = Math.max(alpha,eval);
-
-        ArrayList<Move> captureMoves;
-        for(Piece p: pieces) {
-            captureMoves = getLegalMoves(p,true);
-            orderMoves(captureMoves,p);
-            for(Move m: captureMoves){
-                makeMove(m,p);
-                eval = -searchAllCaptures(-beta,-alpha);
-                unmakeMove(m,p);
-                if (eval >= beta)
-                    return beta;
-                alpha = Math.max(alpha,eval);
-            }
-        }
-        return alpha;
-    }
-    public void orderMoves (ArrayList<Move> moves,Piece p){
-        for (Move m: moves){
-            int moveScoreGuess = 0;
-            int movePieceType = getMaterialValue(p);
-            int capturePieceType = getMaterialValue(p);
-            if (capturePieceType != 1) {
-                moveScoreGuess += 10 * capturePieceType - movePieceType;
-            }
-            if (!notAttacked(m.getTargetSquare())){
-                moveScoreGuess -= movePieceType;
-            }
-            if (p.getPieceType().equals("white") && p.getRank() == 7){
-                moveScoreGuess += 80;
-            }
-            moveScoreGuess += forceKingtoCornerEndgameEval((float)numMoves/50);
-        }
-    }
-    public int forceKingtoCornerEndgameEval (float endgameWeight){
-        int opponentKingRank = pieces.get(4).getRank();
-        int opponentKingFile = pieces.get(4).getFile();
-        int opponentKingDstToCenterFile = Math.max(3-opponentKingFile,opponentKingFile-4);
-        int opponentKingDstToCenterRank = Math.max(3-opponentKingRank,opponentKingRank-4);
-        int eval = opponentKingDstToCenterFile + opponentKingDstToCenterRank;
-        int friendlyKingRank = pieces.get(4).getRank();
-        int friendlyKingFile = pieces.get(4).getFile();
-        int fileDst = Math.abs(friendlyKingFile-opponentKingFile);
-        int rankDst = Math.abs(friendlyKingRank-opponentKingRank);
-        int dstBetweenKings = fileDst + rankDst;
-        eval += 14-dstBetweenKings;
-        return (int)(eval * 10 * endgameWeight);
-    }
     public void makeMove(Move move,Piece p){
         int i = move.getTargetSquare();
         p.setRank((i-1)/8+1);
@@ -960,14 +861,15 @@ public class PvpChessActivity extends AppCompatActivity {
     public void resetBoardSquares(){
         int x = 0;
         for(ImageView i: boardImages){
-            if (x%2 == 0 && Objects.requireNonNull(getSquarebyView(i)).getRank() % 2 == 1)
+            if (x%2 == 0 && Objects.requireNonNull(getSquarebyView(i)).getRank() % 2 == 1) {
                 i.setImageResource(drawable.darksquare);
-            else if (x%2 == 1 && Objects.requireNonNull(getSquarebyView(i)).getRank()%2 == 1)
+            } else if (x%2 == 1 && Objects.requireNonNull(getSquarebyView(i)).getRank()%2 == 1) {
                 i.setImageResource(drawable.lightsquare);
-            else if (x%2 == 0 && Objects.requireNonNull(getSquarebyView(i)).getRank()%2 == 0)
+            } else if (x%2 == 0 && Objects.requireNonNull(getSquarebyView(i)).getRank()%2 == 0) {
                 i.setImageResource(drawable.lightsquare);
-            else
+            } else {
                 i.setImageResource(drawable.darksquare);
+            }
             x++;
         }
     }
@@ -1671,7 +1573,7 @@ public class PvpChessActivity extends AppCompatActivity {
 
     //Loading animation goes up when returning back to Home Activity.
     private void goBackViaLoadingActivity() {
-        Intent loadingIntent = new Intent(PvpChessActivity.this, LoadingActivity.class);
+        Intent loadingIntent = new Intent(TimedPvpChessActivity.this, LoadingActivity.class);
         loadingIntent.putExtra("Class Code", 0);
         startActivity(loadingIntent);
         finish();

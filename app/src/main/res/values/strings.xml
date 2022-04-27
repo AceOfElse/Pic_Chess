@@ -33,4 +33,6 @@
     <string name="apply_setting_button_text">APPLY</string>
     <string name="minute_text">min.</string>
     <string name="loading_text">Loading...</string>
+    <string name="chess_text">CHESS</string>
+    <string name="chesspic_text">CHESS-PIC</string>
 </resources>

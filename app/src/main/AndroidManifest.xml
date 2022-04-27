@@ -33,7 +33,28 @@
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".PvpChessActivity"
+            android:name=".TimedPvpChessActivity"
+            android:exported="false"
+            android:noHistory="true"
+            android:launchMode="singleTask"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".UntimedPvpChessActivity"
+            android:exported="false"
+            android:noHistory="true"
+            android:launchMode="singleTask"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".PvAIChessActivity"
+            android:exported="false"
+            android:noHistory="true"
+            android:launchMode="singleTask"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".AIvAIChessActivity"
             android:exported="false"
             android:noHistory="true"
             android:launchMode="singleTask"
