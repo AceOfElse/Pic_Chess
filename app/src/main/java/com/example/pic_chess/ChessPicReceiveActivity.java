@@ -5,11 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.Locale;
@@ -19,6 +22,7 @@ public class ChessPicReceiveActivity extends AppCompatActivity {
     private TextView timerText;
     private EditText descriptionTextField;
     private AlertDialog.Builder alertDialogue;
+    private ImageView receivedImage;
 
     private CountDownTimer countDownTimer;
     private static final long START_TIME_IN_MILLISECOND = 601000;
@@ -41,6 +45,7 @@ public class ChessPicReceiveActivity extends AppCompatActivity {
         submitButton = findViewById(R.id.submitFileCR);
         timerText = findViewById(R.id.timerTextCR);
         descriptionTextField = findViewById(R.id.descriptionTextField);
+        receivedImage = findViewById(R.id.receivedImg);
 
         //Set up alert dialogue
         alertDialogue = new AlertDialog.Builder(ChessPicReceiveActivity.this);
@@ -61,6 +66,14 @@ public class ChessPicReceiveActivity extends AppCompatActivity {
             timerText.setVisibility(View.INVISIBLE);
         }
         updateCountDownText();
+        receiveImage();
+    }
+    //Gets image from pictures folder and sets it as the image view
+    private void receiveImage() {
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inSampleSize = 1;
+        final Bitmap b = BitmapFactory.decodeFile("/storage/emulated/0/Pictures/drawing.jpg", options);
+        receivedImage.setImageBitmap(b);
     }
 
     //Set activity life cycles
