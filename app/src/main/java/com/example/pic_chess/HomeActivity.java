@@ -127,13 +127,11 @@ public class HomeActivity extends AppCompatActivity implements SecondMenuChessFr
                 break;
             case 1:
                 firstMode = 1;
-                transferDataToThirdFragment(BitmapFactory.decodeResource(getResources(), R.drawable.chess_preview_image),
-                        BitmapFactory.decodeResource(getResources(), R.drawable.pvb_preview_image),"CHE", "PVR");
+                sendModeToActivityFromThirdTime(1);
                 break;
             case 2:
                 firstMode = 2;
-                transferDataToThirdFragment(BitmapFactory.decodeResource(getResources(), R.drawable.chess_preview_image),
-                        BitmapFactory.decodeResource(getResources(), R.drawable.online_player_image), "CHE", "ONL");
+                sendModeToActivityFromThirdTime(1);
                 break;
             case 3:
                 firstMode = 3;
@@ -164,16 +162,21 @@ public class HomeActivity extends AppCompatActivity implements SecondMenuChessFr
 
     public void sendModeToActivityFromThirdTime(int mode) {
         //Take all fragments away from stack
-        getSupportFragmentManager().popBackStack();
-        getSupportFragmentManager().popBackStack();
-        getSupportFragmentManager().popBackStack();
+        for (int i = 0; i < getSupportFragmentManager().getBackStackEntryCount(); i++) {
+            getSupportFragmentManager().popBackStack();
+        }
         switch (firstMode) {
             case 0:
-                openPvp(mode == 0);
+                if (mode == 0)
+                    openPvpTimed(true);
+                else
+                    openPvpUntimed(false);
                 break;
             case 1:
+                openPvAI(mode == 0);
                 break;
             case 2:
+                openAIvAI(mode == 0);
                 break;
             case 3:
                 break;
@@ -253,7 +256,7 @@ public class HomeActivity extends AppCompatActivity implements SecondMenuChessFr
         transaction.commit();
     }
 
-    private void openPvp(boolean isTimed) {
+    private void openPvpTimed(boolean isTimed) {
         Intent pvpIntent = new Intent(HomeActivity.this, LoadingActivity.class);
         pvpIntent.putExtra("TIME", isTimed);
         pvpIntent.putExtra("TIMER", timer[0]);
@@ -263,11 +266,41 @@ public class HomeActivity extends AppCompatActivity implements SecondMenuChessFr
         onRestart();
     }
 
+    private void openPvpUntimed(boolean isTimed) {
+        Intent pvpIntent = new Intent(HomeActivity.this, LoadingActivity.class);
+        pvpIntent.putExtra("TIME", isTimed);
+        pvpIntent.putExtra("TIMER", timer[0]);
+        pvpIntent.putExtra("Class Code", 2);
+        startActivity(pvpIntent);
+        onStop();
+        onRestart();
+    }
+
+    private void openPvAI(boolean isTimed) {
+        Intent pvpIntent = new Intent(HomeActivity.this, LoadingActivity.class);
+        pvpIntent.putExtra("TIME", isTimed);
+        pvpIntent.putExtra("TIMER", timer[0]);
+        pvpIntent.putExtra("Class Code", 3);
+        startActivity(pvpIntent);
+        onStop();
+        onRestart();
+    }
+
+    private void openAIvAI(boolean isTimed) {
+        Intent pvpIntent = new Intent(HomeActivity.this, LoadingActivity.class);
+        pvpIntent.putExtra("TIME", isTimed);
+        pvpIntent.putExtra("TIMER", timer[0]);
+        pvpIntent.putExtra("Class Code", 4);
+        startActivity(pvpIntent);
+        onStop();
+        onRestart();
+    }
+
     private void openChessPic(boolean isTimed) {
         Intent chessPicIntent = new Intent(HomeActivity.this, LoadingActivity.class);
         chessPicIntent.putExtra("TIME", isTimed);
         chessPicIntent.putExtra("TIMER", timer[2]);
-        chessPicIntent.putExtra("Class Code", 5);
+        chessPicIntent.putExtra("Class Code", 6);
         startActivity(chessPicIntent);
         onStop();
         onRestart();
@@ -277,7 +310,7 @@ public class HomeActivity extends AppCompatActivity implements SecondMenuChessFr
         Intent chessPicReceiveIntent = new Intent(HomeActivity.this, LoadingActivity.class);
         chessPicReceiveIntent.putExtra("TIME", isTimed);
         chessPicReceiveIntent.putExtra("TIMER", timer[3]);
-        chessPicReceiveIntent.putExtra("Class Code", 6);
+        chessPicReceiveIntent.putExtra("Class Code", 7);
         startActivity(chessPicReceiveIntent);
         onStop();
         onRestart();

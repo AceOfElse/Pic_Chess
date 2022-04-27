@@ -9,7 +9,7 @@ import android.widget.ProgressBar;
 
 public class LoadingActivity extends AppCompatActivity {
     private ProgressBar loadingBar;
-    private int classCode = 0, timer;
+    private int classCode, timer;
     private boolean isTimed;
     private Class activityClass;
 
@@ -42,18 +42,23 @@ public class LoadingActivity extends AppCompatActivity {
                 activityClass = HomeActivity.class;
                 break;
             case 1:
-                activityClass = PvpChessActivity.class;
+                activityClass = TimedPvpChessActivity.class;
                 break;
             case 2:
+                activityClass = UntimedPvpChessActivity.class;
                 break;
             case 3:
+                activityClass = PvAIChessActivity.class;
                 break;
             case 4:
+                activityClass = AIvAIChessActivity.class;
                 break;
             case 5:
-                activityClass = ChessPicActivity.class;
                 break;
             case 6:
+                activityClass = ChessPicActivity.class;
+                break;
+            case 7:
                 activityClass = ChessPicReceiveActivity.class;
                 break;
             default:
