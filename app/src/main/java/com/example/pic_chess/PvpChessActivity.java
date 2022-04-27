@@ -319,7 +319,7 @@ public class PvpChessActivity extends AppCompatActivity {
         setTimerText(time/60,time%60);
         whiteTime = time;
         blackTime = time;
-        blackTimer = new CountDownTimer(time*1000,1000) {
+        blackTimer = new CountDownTimer(time*1000,900) {
             @Override
             public void onTick(long l) {
                 tickDown();
@@ -330,7 +330,7 @@ public class PvpChessActivity extends AppCompatActivity {
                 checkEnd();
             }
         };
-        whiteTimer = new CountDownTimer(900000,1000) {
+        whiteTimer = new CountDownTimer(900000,900) {
             @Override
             public void onTick(long l) {
                 tickDown();
@@ -767,7 +767,7 @@ public class PvpChessActivity extends AppCompatActivity {
     public void pieceOnClick(View v){
         if (gameInProgress) {
             Piece p = getPiecebyView(v);
-            if (getTurn() == p.getPieceColor()) {
+            if (getTurn().equals(p.getPieceColor())) {
                 selectedMoves = getLegalMoves(p, false);
                 if (selectedPiece != p && selectedPiece != null) {
                     resetBoardSquares();
@@ -787,6 +787,8 @@ public class PvpChessActivity extends AppCompatActivity {
                             whiteMaterial -= getMaterialValue(p);
                         setSquare(selectedPiece, m.getTargetSquare());
                         p.setMoved(true);
+                        p.setRank(69);
+                        p.setFile(69);
                         getSquarebyView(getSquarebyInt(m.getTargetSquare())).getLayout().removeView(v);
                         deadLayout.addView(v);
                         captured.add((ImageView) v);
@@ -848,15 +850,15 @@ public class PvpChessActivity extends AppCompatActivity {
                 }
             }
         }
-        if (whiteTime == 0 && blackMaterial > 3){
+        if (whiteTime <= 0 && blackMaterial > 3){
             gameInProgress = false; //Black wins by timeout
             Log.d("end","Black wins by timeout");
-        } else if (whiteTime == 0 && blackMaterial == 3)
+        } else if (whiteTime <= 0 && blackMaterial == 3)
             gameInProgress = false; //Draw by Timeout vs Insufficient Material
-        if (blackTime == 0 && whiteMaterial > 3){
+        if (blackTime <= 0 && whiteMaterial > 3){
             gameInProgress = false; //White wins by timeout
             Log.d("end","White wins by timeout");
-        } else if (blackTime == 0 && whiteMaterial == 3)
+        } else if (blackTime <= 0 && whiteMaterial == 3)
             gameInProgress = false; // Draw by Timeout vs Insufficient Material
         if (whiteMaterial <= 3 && blackMaterial <= 3) {
             gameInProgress = false; //Draw by Insufficient Material
@@ -874,32 +876,67 @@ public class PvpChessActivity extends AppCompatActivity {
             Square s = getSquarebyView(v);
             for (Move m: selectedMoves) {
                 if (m.getTargetSquare() == getSquare(s)) {
+                    for(Piece p: pieces){
+                        if (p.getMovedTwo()){
+                            p.setMovesSinceMovedTwo(p.getMovesSinceMovedTwo()+1);
+                        }
+                    }
                     resetBoardSquares();
                     setSquare(selectedPiece, m.getTargetSquare());
-                    if (getSquare(selectedPiece) == 3 && getSquare(s) == 5 && selectedPiece.checkFirstMove())
-                        setSquare(pieces.get(1), 4);
-                    if (getSquare(selectedPiece) == 7 && getSquare(s) == 5 && selectedPiece.checkFirstMove())
-                        setSquare(pieces.get(8), 6);
-                    if (getSquare(selectedPiece) == 59 && getSquare(s) == 61 && selectedPiece.checkFirstMove())
-                        setSquare(pieces.get(25), 60);
-                    if (getSquare(selectedPiece) == 63 && getSquare(s) == 61 && selectedPiece.checkFirstMove())
-                        setSquare(pieces.get(32), 62);
+                    if (getSquare(selectedPiece) == 3 && selectedPiece.checkFirstMove() && selectedPiece.getPieceType().equals("king")) {
+                        setSquare(pieces.get(24), 4);
+                        pieces.get(24).setMoved(true);
+                    }
+                    if (getSquare(selectedPiece) == 7 && selectedPiece.checkFirstMove() && selectedPiece.getPieceType().equals("king")) {
+                        setSquare(pieces.get(31), 6);
+                        pieces.get(31).setMoved(true);
+                    }
+                    if (getSquare(selectedPiece) == 59 && selectedPiece.checkFirstMove() && selectedPiece.getPieceType().equals("king")) {
+                        setSquare(pieces.get(0), 60);
+                        pieces.get(0).setMoved(true);
+                    }
+                    if (getSquare(selectedPiece) == 63 && selectedPiece.checkFirstMove() && selectedPiece.getPieceType().equals("king")) {
+                        setSquare(pieces.get(7), 62);
+                        pieces.get(7).setMoved(true);
+                    }
                     if (getSquare(selectedPiece) > 56 && getSquare(selectedPiece) < 65 && selectedPiece.getPieceType().equals("white pawn")) {
                         whiteMaterial += 8;
                         selectedPiece.promote(true);
-                        selectedPiece.setPieceType("queen");
                         pieces.set(pieces.indexOf(selectedPiece), new Piece(selectedPiece.getFile(), selectedPiece.getRank(), selectedPiece.getPieceColor(), "queen"));
                     }
                     if (getSquare(selectedPiece) > 0 && getSquare(selectedPiece) < 9 && selectedPiece.getPieceType().equals("black pawn")) {
                         blackMaterial += 8;
                         selectedPiece.promote(false);
-                        selectedPiece.setPieceType("queen");
                         pieces.set(pieces.indexOf(selectedPiece), new Piece(selectedPiece.getFile(), selectedPiece.getRank(), selectedPiece.getPieceColor(), "queen"));
                     }
                     if (selectedPiece.getPieceType().equals("white pawn") || selectedPiece.getPieceType().equals("blackPawn")) {
                         movesSinceLastPawnMove = 0;
                     } else {
                         movesSinceLastPawnMove++;
+                    }
+                    if (selectedPiece.getPieceType().equals("white pawn") && getPiecebySquare(getSquare(s)-8) != null && getPiecebySquare(getSquare(s)-8).getMovedTwo()){
+                        Piece p = getPiecebySquare(getSquare(s)-8);
+                        p.setFile(69);
+                        p.setRank(69);
+                        ImageView view = p.getPic();
+                        getSquarebyView(getSquarebyInt(m.getTargetSquare()-8)).getLayout().removeView(view);
+                        deadLayout.addView(view);
+                        captured.add(view);
+                    }
+                    if (selectedPiece.getPieceType().equals("black pawn") && getPiecebySquare(getSquare(s)+8) != null && getPiecebySquare(getSquare(s)+8).getMovedTwo()){
+                        Piece p = getPiecebySquare(getSquare(s)+8);
+                        p.setFile(69);
+                        p.setRank(69);
+                        ImageView view = p.getPic();
+                        getSquarebyView(getSquarebyInt(m.getTargetSquare()+8)).getLayout().removeView(view);
+                        deadLayout.addView(view);
+                        captured.add(view);
+                    }
+                    if (selectedPiece.getPieceType().equals("white pawn") && !selectedPiece.getMoved() && getPiecebySquare(getSquare(selectedPiece)-16) == null && getPiecebySquare(getSquare(selectedPiece)-8) == null){
+                        selectedPiece.setMovedTwo(true);
+                    }
+                    if (selectedPiece.getPieceType().equals("black pawn") && !selectedPiece.getMoved() && getPiecebySquare(getSquare(selectedPiece)+16) == null && getPiecebySquare(getSquare(selectedPiece)+8) == null){
+                        selectedPiece.setMovedTwo(true);
                     }
                     selectedPiece.setMoved(true);
                     positions.add(getFENfromPosition());
@@ -1041,17 +1078,17 @@ public class PvpChessActivity extends AppCompatActivity {
                     moves.add(new Move(currentSquare, downLeft));
             }
         } else if (piece.equals("king")){
-            if(p.checkFirstMove() && openSquare(2) && openSquare(3) && openSquare(4) && pieces.get(1).checkFirstMove() && notAttacked(5) && notAttacked(4) && notAttacked(3) && notAttacked(2) && p.getPieceColor().equals("white")){
-                moves.add(new Move(currentSquare,2));
+            if(p.checkFirstMove() && openSquare(2) && openSquare(3) && openSquare(4) && pieces.get(24).checkFirstMove() && notAttacked(5) && notAttacked(4) && notAttacked(3) && notAttacked(2) && p.getPieceColor().equals("white")){
+                moves.add(new Move(currentSquare,3));
             } // long castle
-            if (p.checkFirstMove() && openSquare(6) && openSquare(7) && pieces.get(8).checkFirstMove() && notAttacked(6) && notAttacked(7) && notAttacked(5) && p.getPieceColor().equals("white")){
+            if (p.checkFirstMove() && openSquare(6) && openSquare(7) && pieces.get(31).checkFirstMove() && notAttacked(6) && notAttacked(7) && notAttacked(5) && p.getPieceColor().equals("white")){
                 moves.add(new Move(currentSquare,7));
             }// short castle
-            if(p.checkFirstMove() && openSquare(58) && openSquare(59) && openSquare(60) && pieces.get(25).checkFirstMove() && notAttacked(61) && notAttacked(60) && notAttacked(59) &&
+            if(p.checkFirstMove() && openSquare(58) && openSquare(59) && openSquare(60) && pieces.get(0).checkFirstMove() && notAttacked(61) && notAttacked(60) && notAttacked(59) &&
                     notAttacked(58) && p.getPieceColor().equals("black")){
                 moves.add(new Move(currentSquare,59));
             } // long castle
-            if (p.checkFirstMove() && openSquare(62) && openSquare(63) && pieces.get(32).checkFirstMove() && notAttacked(62) && notAttacked(63) && notAttacked(61) && p.getPieceColor().equals("black")){
+            if (p.checkFirstMove() && openSquare(62) && openSquare(63) && pieces.get(7).checkFirstMove() && notAttacked(62) && notAttacked(63) && notAttacked(61) && p.getPieceColor().equals("black")){
                 moves.add(new Move(currentSquare,63));
             }// short castle
             if (notAttacked(currentSquare-1) && currentSquare % 8 != 1 && ((getPiecebySquare(currentSquare-1) != null && !getPiecebySquare(currentSquare -1).getPieceColor().equals(turn)) || getPiecebySquare(currentSquare-1) == null)){
@@ -1080,38 +1117,38 @@ public class PvpChessActivity extends AppCompatActivity {
             }
         } else if (piece.equals("knight")) {
             if (currentSquare % 8 != 0){
-                if (currentSquare-15>=1 && (openSquare(currentSquare-15) || (!openSquare(currentSquare-15) && getPiecebySquare(currentSquare-15).getPieceColor() != turn)))
+                if (currentSquare-15>=1 && (openSquare(currentSquare-15) || (!openSquare(currentSquare-15) && !getPiecebySquare(currentSquare - 15).getPieceColor().equals(turn))))
                     moves.add(new Move(currentSquare,currentSquare - 15));
-                if (currentSquare+17<=64 && (openSquare(currentSquare+17) || (!openSquare(currentSquare+17) && getPiecebySquare(currentSquare+17).getPieceColor() != turn)))
+                if (currentSquare+17<=64 && (openSquare(currentSquare+17) || (!openSquare(currentSquare+17) && !getPiecebySquare(currentSquare + 17).getPieceColor().equals(turn))))
                     moves.add(new Move(currentSquare,currentSquare+17));
             }
             if (currentSquare % 8 != 1) {
-                if (currentSquare-17>=1 && (openSquare(currentSquare-17) || (!openSquare(currentSquare-17) && getPiecebySquare(currentSquare-17).getPieceColor() != turn)))
+                if (currentSquare-17>=1 && (openSquare(currentSquare-17) || (!openSquare(currentSquare-17) && !getPiecebySquare(currentSquare - 17).getPieceColor().equals(turn))))
                     moves.add(new Move(currentSquare,currentSquare - 17));
-                if (currentSquare+15 <= 64 && (openSquare(currentSquare+15) || (!openSquare(currentSquare+15) && getPiecebySquare(currentSquare+15).getPieceColor() != turn)))
+                if (currentSquare+15 <= 64 && (openSquare(currentSquare+15) || (!openSquare(currentSquare+15) && !getPiecebySquare(currentSquare + 15).getPieceColor().equals(turn))))
                     moves.add(new Move(currentSquare,currentSquare+15));
             }
             if (currentSquare % 8 != 7 && currentSquare % 8 != 0) {
-                if (currentSquare - 6 >= 1 && (openSquare(currentSquare-6) || (!openSquare(currentSquare-6) && getPiecebySquare(currentSquare-6).getPieceColor() != turn)))
+                if (currentSquare - 6 >= 1 && (openSquare(currentSquare-6) || (!openSquare(currentSquare-6) && !getPiecebySquare(currentSquare - 6).getPieceColor().equals(turn))))
                     moves.add(new Move (currentSquare,currentSquare - 6));
-                if (currentSquare + 10 <= 64 && (openSquare(currentSquare+10) || (!openSquare(currentSquare+10) && getPiecebySquare(currentSquare+10).getPieceColor() != turn)))
+                if (currentSquare + 10 <= 64 && (openSquare(currentSquare+10) || (!openSquare(currentSquare+10) && !getPiecebySquare(currentSquare + 10).getPieceColor().equals(turn))))
                     moves.add(new Move (currentSquare,currentSquare+10));
             }
             if (currentSquare % 8 != 1 && currentSquare % 8 != 2) {
-                if (currentSquare - 10 >= 1 && (openSquare(currentSquare-10) || (!openSquare(currentSquare-10) && getPiecebySquare(currentSquare-10).getPieceColor() != turn)))
+                if (currentSquare - 10 >= 1 && (openSquare(currentSquare-10) || (!openSquare(currentSquare-10) && !getPiecebySquare(currentSquare - 10).getPieceColor().equals(turn))))
                     moves.add(new Move(currentSquare,currentSquare - 10));
-                if (currentSquare + 6 <= 64 && (openSquare(currentSquare+6) || (!openSquare(currentSquare+6) && getPiecebySquare(currentSquare+6).getPieceColor() != turn)))
+                if (currentSquare + 6 <= 64 && (openSquare(currentSquare+6) || (!openSquare(currentSquare+6) && !getPiecebySquare(currentSquare + 6).getPieceColor().equals(turn))))
                     moves.add(new Move(currentSquare,currentSquare + 6));
             }
         } else if (piece.equals("white pawn")) {
             if (openSquare(currentSquare+8) && !capturesOnly)
                 moves.add(new Move(currentSquare,currentSquare + 8));
             if (p.checkFirstMove() && openSquare(currentSquare+16) && !capturesOnly && openSquare(currentSquare+8))
-                moves.add(new Move(currentSquare,currentSquare + 16));
-            if (!openSquare(currentSquare-1) && openSquare(currentSquare+7) && currentSquare < 41 && currentSquare > 33 && placeholder)
+                moves.add(new Move(currentSquare, currentSquare + 16));
+            if (!openSquare(currentSquare-1) && openSquare(currentSquare+7) && currentSquare < 41 && currentSquare > 33 && movedTwoBySquare(currentSquare-1))
                 moves.add(new Move(currentSquare,currentSquare+7));
             //en passant left
-            if (placeholder)
+            if (!openSquare(currentSquare+1) && openSquare(currentSquare+9) && currentSquare < 40 && currentSquare > 32 && movedTwoBySquare(currentSquare+1))
                 moves.add(new Move(currentSquare,currentSquare+9));
             //en passant right
             if (!openSquare(currentSquare+7) && currentSquare % 8 != 1 && !getPiecebySquare(currentSquare + 7).getPieceColor().equals(turn))
@@ -1123,10 +1160,10 @@ public class PvpChessActivity extends AppCompatActivity {
                 moves.add(new Move(currentSquare,currentSquare - 8));
             if (p.checkFirstMove() && openSquare(currentSquare-16) && !capturesOnly && openSquare(currentSquare-8))
                 moves.add(new Move (currentSquare,currentSquare - 16));
-            if (placeholder)
+            if (!openSquare(currentSquare+1) && openSquare(currentSquare-7) && currentSquare < 32 && currentSquare > 24 && movedTwoBySquare(currentSquare+1))
                 moves.add(new Move(currentSquare,currentSquare-7));
             //en passant right
-            if (placeholder)
+            if (!openSquare(currentSquare-1) && openSquare(currentSquare-9) && currentSquare < 32 && currentSquare > 24 && movedTwoBySquare(currentSquare-1))
                 moves.add(new Move(currentSquare,currentSquare-9));
             //en passant left
             if (!openSquare(currentSquare-7) && currentSquare % 8 != 0 && !getPiecebySquare(currentSquare - 7).getPieceColor().equals(turn))
@@ -1264,6 +1301,13 @@ public class PvpChessActivity extends AppCompatActivity {
         }
         return moves;
     }
+
+    private boolean movedTwoBySquare(int square) {
+        Piece p = getPiecebySquare(square);
+        boolean b = p.getMovedTwo();
+        return b;
+    }
+
     private ArrayList<Move> getLegalMoves (Piece p, boolean capturesOnly){
         ArrayList<Move> moves = getMoves(p,capturesOnly,getTurn());
         int myKingSquare=0;
@@ -1541,6 +1585,8 @@ public class PvpChessActivity extends AppCompatActivity {
         private int rank,file;
         private String pieceType,pieceColor;
         private boolean moved;
+        private boolean movedTwo;
+        private int movesSinceMovedTwo;
         private ImageView pic;
         public Piece(){
             rank = 0;
@@ -1548,6 +1594,8 @@ public class PvpChessActivity extends AppCompatActivity {
             pieceColor = "";
             pieceType = "";
             moved = false;
+            movedTwo = false;
+            movesSinceMovedTwo = -1;
         }
         public Piece(int f, int r, String c, String t){
             rank = r;
@@ -1555,6 +1603,8 @@ public class PvpChessActivity extends AppCompatActivity {
             pieceColor = c;
             pieceType = t;
             moved = true;
+            movedTwo = false;
+            movesSinceMovedTwo = -1;
         }
         public Piece(int f, int r, String c, String t, ImageView i){
             rank = r;
@@ -1562,7 +1612,9 @@ public class PvpChessActivity extends AppCompatActivity {
             pieceColor = c;
             pieceType = t;
             moved = false;
+            movedTwo = false;
             pic = i;
+            movesSinceMovedTwo = -1;
         }
         public int getRank(){
             return rank;
@@ -1591,14 +1643,33 @@ public class PvpChessActivity extends AppCompatActivity {
         public ImageView getPic() {
             return pic;
         }
-        public void setPieceType(String s){
-            pieceType = s;
+        public boolean getMovedTwo(){
+            return movedTwo;
+        }
+        public void setMovedTwo(boolean twoMoved){
+            movedTwo = twoMoved;
+            this.setMovesSinceMovedTwo(0);
+        }
+        public void setMovesSinceMovedTwo (int moves){
+            movesSinceMovedTwo = moves;
+            if (movesSinceMovedTwo == 2){
+                this.setMovesSinceMovedTwo(-1);
+                this.setMovedTwo(false);
+            }
         }
         public void promote(boolean white){
             if (white)
                 pic.setImageResource(R.drawable.whitequeen);
             else
                 pic.setImageResource(R.drawable.blackqueen);
+        }
+
+        public boolean getMoved() {
+            return moved;
+        }
+
+        public int getMovesSinceMovedTwo() {
+            return movesSinceMovedTwo;
         }
     }
 
