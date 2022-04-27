@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Objects;
 
-public class PvpChessActivity extends AppCompatActivity {
+public class TimedPvpChessActivity extends AppCompatActivity {
     private LinearLayout gameLayout;
     private TextView timerText1;
     private TextView timerText2;
@@ -56,8 +56,8 @@ public class PvpChessActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(layout.activity_pvp_chess);
-        ConstraintLayout mainLayout = findViewById(id.pvpChessLayout);
+        setContentView(layout.activity_timed_pvp_chess);
+        ConstraintLayout mainLayout = findViewById(id.timedPvpChessLayout);
         deadLayout = findViewById(id.deadPieceLayout);
         gameLayout = new LinearLayout(this);
         LinearLayout popupLayout = new LinearLayout(this);
@@ -960,14 +960,15 @@ public class PvpChessActivity extends AppCompatActivity {
     public void resetBoardSquares(){
         int x = 0;
         for(ImageView i: boardImages){
-            if (x%2 == 0 && Objects.requireNonNull(getSquarebyView(i)).getRank() % 2 == 1)
+            if (x%2 == 0 && Objects.requireNonNull(getSquarebyView(i)).getRank() % 2 == 1) {
                 i.setImageResource(drawable.darksquare);
-            else if (x%2 == 1 && Objects.requireNonNull(getSquarebyView(i)).getRank()%2 == 1)
+            } else if (x%2 == 1 && Objects.requireNonNull(getSquarebyView(i)).getRank()%2 == 1) {
                 i.setImageResource(drawable.lightsquare);
-            else if (x%2 == 0 && Objects.requireNonNull(getSquarebyView(i)).getRank()%2 == 0)
+            } else if (x%2 == 0 && Objects.requireNonNull(getSquarebyView(i)).getRank()%2 == 0) {
                 i.setImageResource(drawable.lightsquare);
-            else
+            } else {
                 i.setImageResource(drawable.darksquare);
+            }
             x++;
         }
     }
@@ -1671,7 +1672,7 @@ public class PvpChessActivity extends AppCompatActivity {
 
     //Loading animation goes up when returning back to Home Activity.
     private void goBackViaLoadingActivity() {
-        Intent loadingIntent = new Intent(PvpChessActivity.this, LoadingActivity.class);
+        Intent loadingIntent = new Intent(TimedPvpChessActivity.this, LoadingActivity.class);
         loadingIntent.putExtra("Class Code", 0);
         startActivity(loadingIntent);
         finish();

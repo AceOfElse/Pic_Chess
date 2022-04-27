@@ -1,0 +1,1926 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/timedPvpChessLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:alpha="0.9"
+    android:background="@color/black"
+    tools:context=".TimedPvpChessActivity">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/deadPieceLayout"
+        android:visibility="gone"
+        android:layout_height="500000dp"
+        android:layout_width="500000dp"
+        tools:ignore="MissingConstraints">
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutB2"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintEnd_toStartOf="@+id/layoutC2"
+        app:layout_constraintStart_toEndOf="@+id/layoutA2"
+        app:layout_constraintTop_toBottomOf="@+id/layoutB3">
+
+        <ImageView
+            android:id="@+id/boardB2"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="squareOnClick"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/darksquare" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutA3"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/layoutB3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layoutA4">
+
+        <ImageView
+            android:id="@+id/boardA3"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="squareOnClick"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/darksquare" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutD2"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintEnd_toStartOf="@+id/layoutE2"
+        app:layout_constraintStart_toEndOf="@+id/layoutC2"
+        app:layout_constraintTop_toBottomOf="@+id/layoutD3">
+
+        <ImageView
+            android:id="@+id/boardD2"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="squareOnClick"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/darksquare" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutC2"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintEnd_toStartOf="@+id/layoutD2"
+        app:layout_constraintStart_toEndOf="@+id/layoutB2"
+        app:layout_constraintTop_toBottomOf="@+id/layoutC3">
+
+        <ImageView
+            android:id="@+id/boardC2"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="squareOnClick"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/lightsquare"
+            tools:srcCompat="@drawable/lightsquare" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutE2"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintEnd_toStartOf="@+id/layoutF2"
+        app:layout_constraintStart_toEndOf="@+id/layoutD2"
+        app:layout_constraintTop_toBottomOf="@+id/layoutE3">
+
+        <ImageView
+            android:id="@+id/boardE2"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="squareOnClick"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/lightsquare"
+            tools:srcCompat="@drawable/lightsquare" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutH3"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/layoutG3"
+        app:layout_constraintTop_toBottomOf="@+id/layoutH4">
+
+        <ImageView
+            android:id="@+id/boardH3"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="squareOnClick"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/lightsquare"
+            tools:srcCompat="@drawable/lightsquare" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutH1"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/layoutG1"
+        app:layout_constraintTop_toBottomOf="@+id/layoutH2">
+
+        <ImageView
+            android:id="@+id/boardH1"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="squareOnClick"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/lightsquare"
+            tools:ignore="ImageContrastCheck"
+            tools:srcCompat="@drawable/lightsquare" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutE1"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintEnd_toStartOf="@+id/layoutF1"
+        app:layout_constraintStart_toEndOf="@+id/layoutD1"
+        app:layout_constraintTop_toBottomOf="@+id/layoutE2">
+
+        <ImageView
+            android:id="@+id/boardE1"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="squareOnClick"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/darksquare" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutB1"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintEnd_toStartOf="@+id/layoutC1"
+        app:layout_constraintStart_toEndOf="@+id/layoutA1"
+        app:layout_constraintTop_toBottomOf="@+id/layoutB2">
+
+        <ImageView
+            android:id="@+id/boardB1"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="squareOnClick"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/lightsquare"
+            tools:srcCompat="@drawable/lightsquare" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutG1"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintEnd_toStartOf="@+id/layoutH1"
+        app:layout_constraintStart_toEndOf="@+id/layoutF1"
+        app:layout_constraintTop_toBottomOf="@+id/layoutG2">
+
+        <ImageView
+            android:id="@+id/boardG1"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="squareOnClick"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/darksquare"
+            tools:ignore="ContentDescription" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutG2"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintEnd_toStartOf="@+id/layoutH2"
+        app:layout_constraintStart_toEndOf="@+id/layoutF2"
+        app:layout_constraintTop_toBottomOf="@+id/layoutG3">
+
+        <ImageView
+            android:id="@+id/boardG2"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="squareOnClick"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/lightsquare"
+            tools:srcCompat="@drawable/lightsquare" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutA2"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/layoutB2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layoutA3">
+
+        <ImageView
+            android:id="@+id/boardA2"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="squareOnClick"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/lightsquare"
+            tools:srcCompat="@drawable/lightsquare" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutH2"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/layoutG2"
+        app:layout_constraintTop_toBottomOf="@+id/layoutH3">
+
+        <ImageView
+            android:id="@+id/boardH2"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="squareOnClick"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/darksquare"
+            tools:ignore="ImageContrastCheck" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutG3"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintEnd_toStartOf="@+id/layoutH3"
+        app:layout_constraintStart_toEndOf="@+id/layoutF3"
+        app:layout_constraintTop_toBottomOf="@+id/layoutG4">
+
+        <ImageView
+            android:id="@+id/boardG3"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="squareOnClick"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/darksquare" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutB3"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintEnd_toStartOf="@+id/layoutC3"
+        app:layout_constraintStart_toEndOf="@+id/layoutA3"
+        app:layout_constraintTop_toBottomOf="@+id/layoutB4">
+
+        <ImageView
+            android:id="@+id/boardB3"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="squareOnClick"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/lightsquare"
+            tools:srcCompat="@drawable/lightsquare" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutD3"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintEnd_toStartOf="@+id/layoutE3"
+        app:layout_constraintStart_toEndOf="@+id/layoutC3"
+        app:layout_constraintTop_toBottomOf="@+id/layoutD4">
+
+        <ImageView
+            android:id="@+id/boardD3"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="squareOnClick"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/lightsquare"
+            tools:srcCompat="@drawable/lightsquare" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutA1"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/layoutB1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layoutA2">
+
+        <ImageView
+            android:id="@+id/boardA1"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="squareOnClick"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/darksquare"
+            tools:ignore="ContentDescription" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutC1"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintEnd_toStartOf="@+id/layoutD1"
+        app:layout_constraintStart_toEndOf="@+id/layoutB1"
+        app:layout_constraintTop_toBottomOf="@+id/layoutC2">
+
+        <ImageView
+            android:id="@+id/boardC1"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="squareOnClick"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/darksquare" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutD1"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintEnd_toStartOf="@+id/layoutE1"
+        app:layout_constraintStart_toEndOf="@+id/layoutC1"
+        app:layout_constraintTop_toBottomOf="@+id/layoutD2">
+
+        <ImageView
+            android:id="@+id/boardD1"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="squareOnClick"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/lightsquare"
+            tools:srcCompat="@drawable/lightsquare" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutF3"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintEnd_toStartOf="@+id/layoutG3"
+        app:layout_constraintStart_toEndOf="@+id/layoutE3"
+        app:layout_constraintTop_toBottomOf="@+id/layoutF4">
+
+        <ImageView
+            android:id="@+id/boardF3"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="squareOnClick"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/lightsquare"
+            tools:srcCompat="@drawable/lightsquare" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutC3"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintEnd_toStartOf="@+id/layoutD3"
+        app:layout_constraintStart_toEndOf="@+id/layoutB3"
+        app:layout_constraintTop_toBottomOf="@+id/layoutC4">
+
+        <ImageView
+            android:id="@+id/boardC3"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="squareOnClick"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/darksquare" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutF1"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintEnd_toStartOf="@+id/layoutG1"
+        app:layout_constraintStart_toEndOf="@+id/layoutE1"
+        app:layout_constraintTop_toBottomOf="@+id/layoutF2">
+
+        <ImageView
+            android:id="@+id/boardF1"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="squareOnClick"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/lightsquare"
+            tools:srcCompat="@drawable/lightsquare" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutE3"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintEnd_toStartOf="@+id/layoutF3"
+        app:layout_constraintStart_toEndOf="@+id/layoutD3"
+        app:layout_constraintTop_toBottomOf="@+id/layoutE4">
+
+        <ImageView
+            android:id="@+id/boardE3"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="squareOnClick"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/darksquare" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutF2"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintEnd_toStartOf="@+id/layoutG2"
+        app:layout_constraintStart_toEndOf="@+id/layoutE2"
+        app:layout_constraintTop_toBottomOf="@+id/layoutF3">
+
+        <ImageView
+            android:id="@+id/boardF2"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="squareOnClick"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/darksquare" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutA4"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/layoutB4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layoutA5">
+
+        <ImageView
+            android:id="@+id/boardA4"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="squareOnClick"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/lightsquare"
+            tools:srcCompat="@drawable/lightsquare" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutD4"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintEnd_toStartOf="@+id/layoutE4"
+        app:layout_constraintStart_toEndOf="@+id/layoutC4"
+        app:layout_constraintTop_toBottomOf="@+id/layoutD5">
+
+        <ImageView
+            android:id="@+id/boardD4"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="squareOnClick"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/darksquare" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutE4"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintEnd_toStartOf="@+id/layoutF4"
+        app:layout_constraintStart_toEndOf="@+id/layoutD4"
+        app:layout_constraintTop_toBottomOf="@+id/layoutE5">
+
+        <ImageView
+            android:id="@+id/boardE4"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="squareOnClick"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/lightsquare"
+            tools:srcCompat="@drawable/lightsquare" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutF4"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintEnd_toStartOf="@+id/layoutG4"
+        app:layout_constraintStart_toEndOf="@+id/layoutE4"
+        app:layout_constraintTop_toBottomOf="@+id/layoutF5">
+
+        <ImageView
+            android:id="@+id/boardF4"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="squareOnClick"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/darksquare" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutG4"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintEnd_toStartOf="@+id/layoutH4"
+        app:layout_constraintStart_toEndOf="@+id/layoutF4"
+        app:layout_constraintTop_toBottomOf="@+id/layoutG5">
+
+        <ImageView
+            android:id="@+id/boardG4"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="squareOnClick"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/lightsquare"
+            tools:srcCompat="@drawable/lightsquare" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutH4"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/layoutG4"
+        app:layout_constraintTop_toBottomOf="@+id/layoutH5">
+
+        <ImageView
+            android:id="@+id/boardH4"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="squareOnClick"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/darksquare" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutB4"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintEnd_toStartOf="@+id/layoutC4"
+        app:layout_constraintStart_toEndOf="@+id/layoutA4"
+        app:layout_constraintTop_toBottomOf="@+id/layoutB5">
+
+        <ImageView
+            android:id="@+id/boardB4"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="squareOnClick"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/darksquare" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutC4"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintEnd_toStartOf="@+id/layoutD4"
+        app:layout_constraintStart_toEndOf="@+id/layoutB4"
+        app:layout_constraintTop_toBottomOf="@+id/layoutC5">
+
+        <ImageView
+            android:id="@+id/boardC4"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="squareOnClick"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/lightsquare"
+            tools:srcCompat="@drawable/lightsquare" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutA5"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/layoutB5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layoutA6">
+
+        <ImageView
+            android:id="@+id/boardA5"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="squareOnClick"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/darksquare" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutC5"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintEnd_toStartOf="@+id/layoutD5"
+        app:layout_constraintStart_toEndOf="@+id/layoutB5"
+        app:layout_constraintTop_toBottomOf="@+id/layoutC6">
+
+        <ImageView
+            android:id="@+id/boardC5"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="squareOnClick"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/darksquare" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutD5"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintEnd_toStartOf="@+id/layoutE5"
+        app:layout_constraintStart_toEndOf="@+id/layoutC5"
+        app:layout_constraintTop_toBottomOf="@+id/layoutD6">
+
+        <ImageView
+            android:id="@+id/boardD5"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="squareOnClick"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/lightsquare"
+            tools:srcCompat="@drawable/lightsquare" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutE5"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintEnd_toStartOf="@+id/layoutF5"
+        app:layout_constraintStart_toEndOf="@+id/layoutD5"
+        app:layout_constraintTop_toBottomOf="@+id/layoutE6">
+
+        <ImageView
+            android:id="@+id/boardE5"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="squareOnClick"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/darksquare" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutF5"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintEnd_toStartOf="@+id/layoutG5"
+        app:layout_constraintStart_toEndOf="@+id/layoutE5"
+        app:layout_constraintTop_toBottomOf="@+id/layoutF6">
+
+        <ImageView
+            android:id="@+id/boardF5"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="squareOnClick"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/lightsquare"
+            tools:srcCompat="@drawable/lightsquare" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutG5"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintEnd_toStartOf="@+id/layoutH5"
+        app:layout_constraintStart_toEndOf="@+id/layoutF5"
+        app:layout_constraintTop_toBottomOf="@+id/layoutG6">
+
+        <ImageView
+            android:id="@+id/boardG5"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="squareOnClick"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/darksquare" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutH5"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/layoutG5"
+        app:layout_constraintTop_toBottomOf="@+id/layoutH6">
+
+        <ImageView
+            android:id="@+id/boardH5"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="squareOnClick"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/lightsquare"
+            tools:srcCompat="@drawable/lightsquare" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutB5"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintEnd_toStartOf="@+id/layoutC5"
+        app:layout_constraintStart_toEndOf="@+id/layoutA5"
+        app:layout_constraintTop_toBottomOf="@+id/layoutB6">
+
+        <ImageView
+            android:id="@+id/boardB5"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="squareOnClick"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/lightsquare"
+            tools:srcCompat="@drawable/lightsquare" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutA8"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="180dp"
+        app:layout_constraintEnd_toStartOf="@+id/layoutB8"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/boardA8"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="squareOnClick"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/lightsquare"
+            tools:srcCompat="@drawable/lightsquare" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutB8"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="180dp"
+        app:layout_constraintEnd_toStartOf="@+id/layoutC8"
+        app:layout_constraintStart_toEndOf="@+id/layoutA8"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/boardB8"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="squareOnClick"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/darksquare" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutC8"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="180dp"
+        app:layout_constraintEnd_toStartOf="@+id/layoutD8"
+        app:layout_constraintStart_toEndOf="@+id/layoutB8"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/boardC8"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="squareOnClick"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/lightsquare"
+            tools:srcCompat="@drawable/lightsquare" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutD8"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="180dp"
+        app:layout_constraintEnd_toStartOf="@+id/layoutE8"
+        app:layout_constraintStart_toEndOf="@+id/layoutC8"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/boardD8"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="squareOnClick"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/darksquare" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutE8"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="180dp"
+        app:layout_constraintEnd_toStartOf="@+id/layoutF8"
+        app:layout_constraintStart_toEndOf="@+id/layoutD8"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/boardE8"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="squareOnClick"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/lightsquare"
+            tools:srcCompat="@drawable/lightsquare" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutF8"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="180dp"
+        app:layout_constraintEnd_toStartOf="@+id/layoutG8"
+        app:layout_constraintStart_toEndOf="@+id/layoutE8"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/boardF8"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="squareOnClick"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/darksquare" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutG8"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="180dp"
+        app:layout_constraintEnd_toStartOf="@+id/layoutH8"
+        app:layout_constraintStart_toEndOf="@+id/layoutF8"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/boardG8"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="squareOnClick"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/lightsquare"
+            tools:srcCompat="@drawable/lightsquare" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutH8"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="180dp"
+        android:layout_marginEnd="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/layoutG8"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/boardH8"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="squareOnClick"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/darksquare" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutA6"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/layoutB6"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layoutA7">
+
+        <ImageView
+            android:id="@+id/boardA6"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="squareOnClick"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/lightsquare"
+            tools:srcCompat="@drawable/lightsquare" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutB6"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintEnd_toStartOf="@+id/layoutC6"
+        app:layout_constraintStart_toEndOf="@+id/layoutA6"
+        app:layout_constraintTop_toBottomOf="@+id/layoutB7">
+
+        <ImageView
+            android:id="@+id/boardB6"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="squareOnClick"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/darksquare" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutC6"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintEnd_toStartOf="@+id/layoutD6"
+        app:layout_constraintStart_toEndOf="@+id/layoutB6"
+        app:layout_constraintTop_toBottomOf="@+id/layoutC7">
+
+        <ImageView
+            android:id="@+id/boardC6"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="squareOnClick"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/lightsquare"
+            tools:srcCompat="@drawable/lightsquare" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutD6"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintEnd_toStartOf="@+id/layoutE6"
+        app:layout_constraintStart_toEndOf="@+id/layoutC6"
+        app:layout_constraintTop_toBottomOf="@+id/layoutD7">
+
+        <ImageView
+            android:id="@+id/boardD6"
+            android:layout_width="50dp"
+            android:layout_height="0dp"
+            android:onClick="squareOnClick"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/darksquare" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutE6"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintEnd_toStartOf="@+id/layoutF6"
+        app:layout_constraintStart_toEndOf="@+id/layoutD6"
+        app:layout_constraintTop_toBottomOf="@+id/layoutE7">
+
+        <ImageView
+            android:id="@+id/boardE6"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="squareOnClick"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/lightsquare"
+            tools:srcCompat="@drawable/lightsquare" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutF6"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintEnd_toStartOf="@+id/layoutG6"
+        app:layout_constraintStart_toEndOf="@+id/layoutE6"
+        app:layout_constraintTop_toBottomOf="@+id/layoutF7">
+
+        <ImageView
+            android:id="@+id/boardF6"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="squareOnClick"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/darksquare" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutG6"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintEnd_toStartOf="@+id/layoutH6"
+        app:layout_constraintStart_toEndOf="@+id/layoutF6"
+        app:layout_constraintTop_toBottomOf="@+id/layoutG7">
+
+        <ImageView
+            android:id="@+id/boardG6"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="squareOnClick"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/lightsquare"
+            tools:srcCompat="@drawable/lightsquare" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutH6"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/layoutG6"
+        app:layout_constraintTop_toBottomOf="@+id/layoutH7">
+
+        <ImageView
+            android:id="@+id/boardH6"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="squareOnClick"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/darksquare" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutA7"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/layoutB7"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layoutA8">
+
+        <ImageView
+            android:id="@+id/boardA7"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="squareOnClick"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/darksquare" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutB7"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintEnd_toStartOf="@+id/layoutC7"
+        app:layout_constraintStart_toEndOf="@+id/layoutA7"
+        app:layout_constraintTop_toBottomOf="@+id/layoutB8">
+
+        <ImageView
+            android:id="@+id/boardB7"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="squareOnClick"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/lightsquare"
+            tools:srcCompat="@drawable/lightsquare" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutC7"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintEnd_toStartOf="@+id/layoutD7"
+        app:layout_constraintStart_toEndOf="@+id/layoutB7"
+        app:layout_constraintTop_toBottomOf="@+id/layoutC8">
+
+        <ImageView
+            android:id="@+id/boardC7"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="squareOnClick"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/darksquare" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutD7"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintEnd_toStartOf="@+id/layoutE7"
+        app:layout_constraintStart_toEndOf="@+id/layoutC7"
+        app:layout_constraintTop_toBottomOf="@+id/layoutD8">
+
+        <ImageView
+            android:id="@+id/boardD7"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="squareOnClick"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/lightsquare"
+            tools:srcCompat="@drawable/lightsquare" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutE7"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintEnd_toStartOf="@+id/layoutF7"
+        app:layout_constraintStart_toEndOf="@+id/layoutD7"
+        app:layout_constraintTop_toBottomOf="@+id/layoutE8">
+
+        <ImageView
+            android:id="@+id/boardE7"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="squareOnClick"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/darksquare" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutF7"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintEnd_toStartOf="@+id/layoutG7"
+        app:layout_constraintStart_toEndOf="@+id/layoutE7"
+        app:layout_constraintTop_toBottomOf="@+id/layoutF8">
+
+        <ImageView
+            android:id="@+id/boardF7"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="squareOnClick"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/lightsquare"
+            tools:srcCompat="@drawable/lightsquare" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutG7"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintEnd_toStartOf="@+id/layoutH7"
+        app:layout_constraintStart_toEndOf="@+id/layoutF7"
+        app:layout_constraintTop_toBottomOf="@+id/layoutG8">
+
+        <ImageView
+            android:id="@+id/boardG7"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="squareOnClick"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/darksquare" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutH7"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/layoutG7"
+        app:layout_constraintTop_toBottomOf="@+id/layoutH8">
+
+        <ImageView
+            android:id="@+id/boardH7"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="squareOnClick"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/lightsquare"
+            tools:srcCompat="@drawable/lightsquare" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/pieceLayout"
+        android:layout_width="409dp"
+        android:layout_height="409dp"
+        android:visibility="gone"
+        app:layout_constraintStart_toEndOf="@+id/layoutG7"
+        app:layout_constraintTop_toBottomOf="@+id/layoutH8"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="194dp">
+
+        <ImageView
+            android:id="@+id/whiteRook"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="pieceOnClick"
+            android:visibility="gone"
+            app:srcCompat="@drawable/whiterook"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="4dp"
+            tools:srcCompat="@drawable/whiterook" />
+
+        <ImageView
+            android:id="@+id/whiteRook2"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="pieceOnClick"
+            android:visibility="gone"
+            app:srcCompat="@drawable/whiterook"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="4dp"
+            tools:srcCompat="@drawable/whiterook" />
+
+        <ImageView
+            android:id="@+id/whiteKnight"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="pieceOnClick"
+            android:visibility="gone"
+            app:srcCompat="@drawable/whiteknight"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="54dp"
+            tools:srcCompat="@drawable/whiteknight" />
+
+        <ImageView
+            android:id="@+id/whiteKnight2"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="pieceOnClick"
+            android:visibility="gone"
+            app:srcCompat="@drawable/whiteknight"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="54dp"
+            tools:srcCompat="@drawable/whiteknight" />
+
+        <ImageView
+            android:id="@+id/whiteBishop"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="pieceOnClick"
+            android:visibility="gone"
+            app:srcCompat="@drawable/whitebishop"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="104dp"
+            tools:srcCompat="@drawable/whitebishop" />
+
+        <ImageView
+            android:id="@+id/whiteBishop2"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="pieceOnClick"
+            android:visibility="gone"
+            app:srcCompat="@drawable/whitebishop"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="104dp"
+            tools:srcCompat="@drawable/whitebishop" />
+
+        <ImageView
+            android:id="@+id/whiteQueen"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="pieceOnClick"
+            android:visibility="gone"
+            app:srcCompat="@drawable/whitequeen"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="154dp"
+            tools:layout_editor_absoluteY="0dp"
+            tools:srcCompat="@drawable/whitequeen" />
+
+        <ImageView
+            android:id="@+id/whiteKing"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="pieceOnClick"
+            android:visibility="gone"
+            app:srcCompat="@drawable/whiteking"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="205dp"
+            tools:srcCompat="@drawable/whiteking" />
+
+        <ImageView
+            android:id="@+id/whitePawn"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="pieceOnClick"
+            android:scaleType="fitXY"
+            android:visibility="gone"
+            app:srcCompat="@drawable/whitepawn"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="4dp"
+            tools:layout_editor_absoluteY="50dp"
+            tools:srcCompat="@drawable/whitepawn" />
+
+        <ImageView
+            android:id="@+id/whitePawn2"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="pieceOnClick"
+            android:scaleType="fitXY"
+            android:visibility="gone"
+            app:srcCompat="@drawable/whitepawn"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="4dp"
+            tools:layout_editor_absoluteY="50dp"
+            tools:srcCompat="@drawable/whitepawn" />
+
+        <ImageView
+            android:id="@+id/whitePawn3"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="pieceOnClick"
+            android:scaleType="fitXY"
+            android:visibility="gone"
+            app:srcCompat="@drawable/whitepawn"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="4dp"
+            tools:layout_editor_absoluteY="50dp"
+            tools:srcCompat="@drawable/whitepawn" />
+
+        <ImageView
+            android:id="@+id/whitePawn4"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="pieceOnClick"
+            android:scaleType="fitXY"
+            android:visibility="gone"
+            app:srcCompat="@drawable/whitepawn"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="4dp"
+            tools:layout_editor_absoluteY="50dp"
+            tools:srcCompat="@drawable/whitepawn" />
+
+        <ImageView
+            android:id="@+id/whitePawn5"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="pieceOnClick"
+            android:scaleType="fitXY"
+            android:visibility="gone"
+            app:srcCompat="@drawable/whitepawn"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="4dp"
+            tools:layout_editor_absoluteY="50dp"
+            tools:srcCompat="@drawable/whitepawn" />
+
+        <ImageView
+            android:id="@+id/whitePawn6"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="pieceOnClick"
+            android:scaleType="fitXY"
+            android:visibility="gone"
+            app:srcCompat="@drawable/whitepawn"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="4dp"
+            tools:layout_editor_absoluteY="50dp"
+            tools:srcCompat="@drawable/whitepawn" />
+
+        <ImageView
+            android:id="@+id/whitePawn7"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="pieceOnClick"
+            android:scaleType="fitXY"
+            android:visibility="gone"
+            app:srcCompat="@drawable/whitepawn"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="4dp"
+            tools:layout_editor_absoluteY="50dp"
+            tools:srcCompat="@drawable/whitepawn" />
+
+        <ImageView
+            android:id="@+id/whitePawn8"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="pieceOnClick"
+            android:scaleType="fitXY"
+            android:visibility="gone"
+            app:srcCompat="@drawable/whitepawn"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="4dp"
+            tools:layout_editor_absoluteY="50dp"
+            tools:srcCompat="@drawable/whitepawn" />
+
+        <ImageView
+            android:id="@+id/blackPawn"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="pieceOnClick"
+            android:scaleType="fitXY"
+            android:visibility="gone"
+            app:srcCompat="@drawable/blackpawn"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="4dp"
+            tools:layout_editor_absoluteY="301dp"
+            tools:srcCompat="@drawable/blackpawn" />
+
+        <ImageView
+            android:id="@+id/blackPawn2"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="pieceOnClick"
+            android:scaleType="fitXY"
+            android:visibility="gone"
+            app:srcCompat="@drawable/blackpawn"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="4dp"
+            tools:layout_editor_absoluteY="301dp"
+            tools:srcCompat="@drawable/blackpawn" />
+
+        <ImageView
+            android:id="@+id/blackPawn3"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="pieceOnClick"
+            android:scaleType="fitXY"
+            android:visibility="gone"
+            app:srcCompat="@drawable/blackpawn"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="4dp"
+            tools:layout_editor_absoluteY="301dp"
+            tools:srcCompat="@drawable/blackpawn" />
+
+        <ImageView
+            android:id="@+id/blackPawn4"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="pieceOnClick"
+            android:scaleType="fitXY"
+            android:visibility="gone"
+            app:srcCompat="@drawable/blackpawn"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="4dp"
+            tools:layout_editor_absoluteY="301dp"
+            tools:srcCompat="@drawable/blackpawn" />
+
+        <ImageView
+            android:id="@+id/blackPawn5"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="pieceOnClick"
+            android:scaleType="fitXY"
+            android:visibility="gone"
+            app:srcCompat="@drawable/blackpawn"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="4dp"
+            tools:layout_editor_absoluteY="301dp"
+            tools:srcCompat="@drawable/blackpawn" />
+
+        <ImageView
+            android:id="@+id/blackPawn6"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="pieceOnClick"
+            android:scaleType="fitXY"
+            android:visibility="gone"
+            app:srcCompat="@drawable/blackpawn"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="4dp"
+            tools:layout_editor_absoluteY="301dp"
+            tools:srcCompat="@drawable/blackpawn" />
+
+        <ImageView
+            android:id="@+id/blackPawn7"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="pieceOnClick"
+            android:scaleType="fitXY"
+            android:visibility="gone"
+            app:srcCompat="@drawable/blackpawn"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="4dp"
+            tools:layout_editor_absoluteY="301dp"
+            tools:srcCompat="@drawable/blackpawn" />
+
+        <ImageView
+            android:id="@+id/blackPawn8"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="pieceOnClick"
+            android:scaleType="fitXY"
+            android:visibility="gone"
+            app:srcCompat="@drawable/blackpawn"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="4dp"
+            tools:layout_editor_absoluteY="301dp"
+            tools:srcCompat="@drawable/blackpawn" />
+
+        <ImageView
+            android:id="@+id/blackRook"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="pieceOnClick"
+            android:visibility="gone"
+            app:srcCompat="@drawable/blackrook"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="5dp"
+            tools:layout_editor_absoluteY="351dp"
+            tools:srcCompat="@drawable/blackrook" />
+
+        <ImageView
+            android:id="@+id/blackRook2"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="pieceOnClick"
+            android:visibility="gone"
+            app:srcCompat="@drawable/blackrook"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="5dp"
+            tools:layout_editor_absoluteY="351dp"
+            tools:srcCompat="@drawable/blackrook" />
+
+        <ImageView
+            android:id="@+id/blackKnight"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="pieceOnClick"
+            android:visibility="gone"
+            app:srcCompat="@drawable/blackknight"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="55dp"
+            tools:layout_editor_absoluteY="351dp"
+            tools:srcCompat="@drawable/blackknight" />
+
+        <ImageView
+            android:id="@+id/blackKnight2"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="pieceOnClick"
+            android:visibility="gone"
+            app:srcCompat="@drawable/blackknight"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="55dp"
+            tools:layout_editor_absoluteY="351dp"
+            tools:srcCompat="@drawable/blackknight" />
+
+        <ImageView
+            android:id="@+id/blackBishop"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="pieceOnClick"
+            android:visibility="gone"
+            app:srcCompat="@drawable/blackbishop"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="105dp"
+            tools:layout_editor_absoluteY="351dp"
+            tools:srcCompat="@drawable/blackbishop" />
+
+        <ImageView
+            android:id="@+id/blackBishop2"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="pieceOnClick"
+            android:visibility="gone"
+            app:srcCompat="@drawable/blackbishop"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="105dp"
+            tools:layout_editor_absoluteY="351dp"
+            tools:srcCompat="@drawable/blackbishop" />
+
+        <ImageView
+            android:id="@+id/blackQueen"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="pieceOnClick"
+            android:visibility="gone"
+            app:srcCompat="@drawable/blackqueen"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="155dp"
+            tools:layout_editor_absoluteY="351dp"
+            tools:srcCompat="@drawable/blackqueen" />
+
+        <ImageView
+            android:id="@+id/blackKing"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="pieceOnClick"
+            android:visibility="gone"
+            app:srcCompat="@drawable/blackking"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="205dp"
+            tools:layout_editor_absoluteY="351dp"
+            tools:srcCompat="@drawable/blackking" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageButton
+        android:id="@+id/backButton"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/empty_string_text"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/newGameButton"
+        app:layout_constraintHorizontal_bias="0.134"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.023"
+        app:srcCompat="@drawable/back_image"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <ImageButton
+        android:id="@+id/newGameButton"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/empty_string_text"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/endButton"
+        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintStart_toEndOf="@+id/backButton"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.023"
+        app:srcCompat="@drawable/new_game_image"
+        tools:ignore="SpeakableTextPresentCheck"
+        tools:srcCompat="@drawable/new_game_image" />
+
+    <ImageButton
+        android:id="@+id/resignButton"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/empty_string_text"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.6"
+        app:layout_constraintStart_toEndOf="@+id/endButton"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.023"
+        app:srcCompat="@drawable/resign_image"
+        tools:ignore="SpeakableTextPresentCheck"
+        tools:srcCompat="@drawable/resign_image" />
+
+    <ImageButton
+        android:id="@+id/endButton"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="124dp"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/empty_string_text"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.023"
+        app:srcCompat="@drawable/draw_chess_image"
+        tools:ignore="SpeakableTextPresentCheck"
+        tools:srcCompat="@drawable/draw_chess_image" />
+
+    <TextView
+        android:id="@+id/player1NameText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="black"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.066"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/resignButton" />
+
+    <TextView
+        android:id="@+id/player2NameText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="64dp"
+        android:text="white"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.95"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/timerText1"
+        android:layout_width="59dp"
+        android:layout_height="33dp"
+        android:text="0:00"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.068"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.19" />
+
+    <TextView
+        android:id="@+id/timerText2"
+        android:layout_width="53dp"
+        android:layout_height="29dp"
+        android:text="0:00"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.955"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.868" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
