@@ -37,7 +37,7 @@ public class AIvAIChessActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(layout.activity_timed_pvp_chess);
+        setContentView(layout.activity_untimed_pvp_chess);
         deadLayout = findViewById(id.deadPieceLayout);
         Button min15button = new Button(this);
         min15button.setText("15min");

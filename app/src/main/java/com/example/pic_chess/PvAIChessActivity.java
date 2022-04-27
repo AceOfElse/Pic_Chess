@@ -26,9 +26,6 @@ import java.util.Collections;
 import java.util.Objects;
 
 public class PvAIChessActivity extends AppCompatActivity {
-    private LinearLayout gameLayout;
-    private TextView timerText1;
-    private TextView timerText2;
     private ConstraintLayout deadLayout;
     private final ArrayList<ConstraintLayout> boardLayout = new ArrayList<>();
     private PopupWindow resignMenu, gameMenu;
@@ -50,10 +47,9 @@ public class PvAIChessActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(layout.activity_timed_pvp_chess);
+        setContentView(layout.activity_untimed_pvp_chess);
         ConstraintLayout mainLayout = findViewById(id.untimedPvpChessLayout);
         deadLayout = findViewById(id.deadPieceLayout);
-        gameLayout = new LinearLayout(this);
         LinearLayout popupLayout = new LinearLayout(this);
         resignMenu = new PopupWindow(this);
         gameMenu = new PopupWindow(this);
@@ -62,16 +58,9 @@ public class PvAIChessActivity extends AppCompatActivity {
         yesButton.setText("YES");
         Button noButton = new Button(this);
         noButton.setText("NO");
-        Button min15button = new Button(this);
-        min15button.setText("15min");
-        Button closeButton = new Button(this);
-        closeButton.setText("CLOSE");
         ImageButton backButton = findViewById(id.backButton);
         ImageButton newGameButton = findViewById(id.newGameButton);
-        ImageButton endButton = findViewById(id.endButton);
         ImageButton resignButton = findViewById(id.resignButton);
-        timerText1 = findViewById(id.timerText1);
-        timerText2 = findViewById(id.timerText2);
         boardLayout.add(findViewById(id.layoutA1));
         boardLayout.add(findViewById(id.layoutB1));
         boardLayout.add(findViewById(id.layoutC1));
@@ -218,15 +207,11 @@ public class PvAIChessActivity extends AppCompatActivity {
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT);
         popupLayout.setOrientation(LinearLayout.VERTICAL);
-        gameLayout.setOrientation(LinearLayout.VERTICAL);
         resignText.setText("Are you sure you want to resign?");
         popupLayout.addView(resignText, params);
         resignMenu.setContentView(popupLayout);
-        gameMenu.setContentView(gameLayout);
         popupLayout.addView(yesButton, params);
         popupLayout.addView(noButton, params);
-        gameLayout.addView(closeButton,params);
-        gameLayout.addView(min15button,params);
         setContentView(mainLayout);
         //Set button listeners
         yesButton.setOnClickListener(new View.OnClickListener(){
@@ -244,28 +229,13 @@ public class PvAIChessActivity extends AppCompatActivity {
                 resignMenu.dismiss();
             }
         });
-        closeButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick (View view){
-                prompted = false;
-                gameMenu.dismiss();
-            }
-        });
-        min15button.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick (View view){
-                gameInProgress = true;
-                prompted = false;
-                gameMenu.dismiss();
-            }
-        });
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (!gameInProgress)
                     returnHome();
                 else {
-                    resignMenu.showAtLocation(gameLayout, Gravity.CENTER,300,80);
+                    resignMenu.showAtLocation(popupLayout, Gravity.CENTER,300,80);
                     resignMenu.update(50,50,300,300);
                     prompted = !prompted;
                     //Are you sure
@@ -276,10 +246,10 @@ public class PvAIChessActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (!gameInProgress){
-                    gameMenu.showAtLocation(gameLayout, Gravity.CENTER,300,80);
+                    gameMenu.showAtLocation(popupLayout, Gravity.CENTER,300,80);
                     gameMenu.update(50,50,300,300);
                 } else {
-                    resignMenu.showAtLocation(gameLayout, Gravity.CENTER,300,80);
+                    resignMenu.showAtLocation(popupLayout, Gravity.CENTER,300,80);
                     resignMenu.update(50,50,300,300);
                 }
                 prompted = !prompted;
@@ -290,7 +260,7 @@ public class PvAIChessActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (gameInProgress){
-                    resignMenu.showAtLocation(gameLayout, Gravity.CENTER,300,300);
+                    resignMenu.showAtLocation(popupLayout, Gravity.CENTER,300,300);
                     resignMenu.update(50,50,300,300);
                     prompted = !prompted;
                     gameInProgress = false;
