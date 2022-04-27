@@ -4,7 +4,6 @@ import static com.example.pic_chess.R.drawable;
 import static com.example.pic_chess.R.id;
 import static com.example.pic_chess.R.layout;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -25,30 +24,29 @@ import androidx.constraintlayout.widget.ConstraintSet;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Objects;
 
 public class PvpChessActivity extends AppCompatActivity {
-    private ImageButton backButton, newGameButton, endButton, resignButton;
-    private LinearLayout popupLayout, gameLayout;
-    private Button yesButton, noButton, closeButton, min15button;
-    private TextView timerText1, timerText2, resignText;
-    private ConstraintLayout mainLayout, deadLayout;
-    private ArrayList<ConstraintLayout> boardLayout = new ArrayList<ConstraintLayout>();
+    private LinearLayout gameLayout;
+    private TextView timerText1;
+    private TextView timerText2;
+    private ConstraintLayout deadLayout;
+    private final ArrayList<ConstraintLayout> boardLayout = new ArrayList<>();
     private PopupWindow resignMenu, gameMenu;
-    private ArrayList<ImageView> boardImages = new ArrayList<ImageView>();
-    private ArrayList<Square> boardSquares = new ArrayList<Square>();
-    private ArrayList<Piece> pieces = new ArrayList<Piece>();
-    private ArrayList<Move> selectedMoves = new ArrayList<Move>();
+    private final ArrayList<ImageView> boardImages = new ArrayList<>();
+    private final ArrayList<Square> boardSquares = new ArrayList<>();
+    private final ArrayList<Piece> pieces = new ArrayList<>();
+    private ArrayList<Move> selectedMoves = new ArrayList<>();
     private Piece selectedPiece;
-    private ArrayList<ImageView> pieceImages = new ArrayList<ImageView>();
-    private ArrayList<ImageView> captured = new ArrayList<ImageView>();
-    private ArrayList<String> positions = new ArrayList<String>();
+    private final ArrayList<ImageView> captured = new ArrayList<>();
+    private final ArrayList<String> positions = new ArrayList<>();
     private ImageView selectedView;
     private int whiteMaterial = 0;
     private int blackMaterial = 0;
     private int movesSinceLastPawnMove = 0;
     private int whiteTime = 0;
     private int blackTime = 0;
-    private int increment = 0;
+    private final int increment = 0;
     private int numMoves = 0;
     private int time = 900;
     private boolean gameInProgress = false;
@@ -59,25 +57,25 @@ public class PvpChessActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(layout.activity_pvp_chess);
-        mainLayout = findViewById(id.pvpChessLayout);
+        ConstraintLayout mainLayout = findViewById(id.pvpChessLayout);
         deadLayout = findViewById(id.deadPieceLayout);
         gameLayout = new LinearLayout(this);
-        popupLayout = new LinearLayout(this);
+        LinearLayout popupLayout = new LinearLayout(this);
         resignMenu = new PopupWindow(this);
         gameMenu = new PopupWindow(this);
-        resignText = new TextView(this);
-        yesButton = new Button(this);
+        TextView resignText = new TextView(this);
+        Button yesButton = new Button(this);
         yesButton.setText("YES");
-        noButton = new Button(this);
+        Button noButton = new Button(this);
         noButton.setText("NO");
-        min15button = new Button(this);
+        Button min15button = new Button(this);
         min15button.setText("15min");
-        closeButton = new Button(this);
+        Button closeButton = new Button(this);
         closeButton.setText("CLOSE");
-        backButton = findViewById(id.backButton);
-        newGameButton = findViewById(id.newGameButton);
-        endButton = findViewById(id.endButton);
-        resignButton = findViewById(id.resignButton);
+        ImageButton backButton = findViewById(id.backButton);
+        ImageButton newGameButton = findViewById(id.newGameButton);
+        ImageButton endButton = findViewById(id.endButton);
+        ImageButton resignButton = findViewById(id.resignButton);
         timerText1 = findViewById(id.timerText1);
         timerText2 = findViewById(id.timerText2);
         boardLayout.add(findViewById(id.layoutA1));
@@ -288,13 +286,11 @@ public class PvpChessActivity extends AppCompatActivity {
                 if (!gameInProgress){
                     gameMenu.showAtLocation(gameLayout, Gravity.CENTER,300,80);
                     gameMenu.update(50,50,300,300);
-                    prompted = !prompted;
                 } else {
                     resignMenu.showAtLocation(gameLayout, Gravity.CENTER,300,80);
                     resignMenu.update(50,50,300,300);
-                    prompted = !prompted;
                 }
-
+                prompted = !prompted;
             }
         });
         endButton.setOnClickListener(new View.OnClickListener() {
@@ -319,7 +315,7 @@ public class PvpChessActivity extends AppCompatActivity {
         setTimerText(time/60,time%60);
         whiteTime = time;
         blackTime = time;
-        blackTimer = new CountDownTimer(time*1000,900) {
+        blackTimer = new CountDownTimer(time* 1000L,900) {
             @Override
             public void onTick(long l) {
                 tickDown();
@@ -609,7 +605,7 @@ public class PvpChessActivity extends AppCompatActivity {
         timerText2.setText(s);
     }
     public void tickDown() {
-        String s = "";
+        String s;
         String min;
         String sec;
         int minutes;
@@ -669,7 +665,7 @@ public class PvpChessActivity extends AppCompatActivity {
     public int search (int depth, int alpha, int beta){
         if (depth == 0)
             return searchAllCaptures(alpha,beta);
-        ArrayList<Move> moves = new ArrayList<Move>();
+        ArrayList<Move> moves = new ArrayList<>();
         int myKing=-1;
         for (Piece p: pieces){
             if (p.getPieceColor().equals(getTurn()) && p.getPieceType().equals("king")){
@@ -706,7 +702,7 @@ public class PvpChessActivity extends AppCompatActivity {
             return beta;
         alpha = Math.max(alpha,eval);
 
-        ArrayList<Move> captureMoves = new ArrayList<Move>();
+        ArrayList<Move> captureMoves;
         for(Piece p: pieces) {
             captureMoves = getLegalMoves(p,true);
             orderMoves(captureMoves,p);
@@ -743,8 +739,7 @@ public class PvpChessActivity extends AppCompatActivity {
         int opponentKingFile = pieces.get(4).getFile();
         int opponentKingDstToCenterFile = Math.max(3-opponentKingFile,opponentKingFile-4);
         int opponentKingDstToCenterRank = Math.max(3-opponentKingRank,opponentKingRank-4);
-        int opponentKingDstFromCenter = opponentKingDstToCenterFile + opponentKingDstToCenterRank;
-        int eval = opponentKingDstFromCenter;
+        int eval = opponentKingDstToCenterFile + opponentKingDstToCenterRank;
         int friendlyKingRank = pieces.get(4).getRank();
         int friendlyKingFile = pieces.get(4).getFile();
         int fileDst = Math.abs(friendlyKingFile-opponentKingFile);
@@ -789,7 +784,7 @@ public class PvpChessActivity extends AppCompatActivity {
                         p.setMoved(true);
                         p.setRank(69);
                         p.setFile(69);
-                        getSquarebyView(getSquarebyInt(m.getTargetSquare())).getLayout().removeView(v);
+                        Objects.requireNonNull(getSquarebyView(getSquarebyInt(m.getTargetSquare()))).getLayout().removeView(v);
                         deadLayout.addView(v);
                         captured.add((ImageView) v);
                         selectedPiece = null;
@@ -875,6 +870,7 @@ public class PvpChessActivity extends AppCompatActivity {
         if (selectedView != null && selectedPiece != null && gameInProgress){
             Square s = getSquarebyView(v);
             for (Move m: selectedMoves) {
+                assert s != null;
                 if (m.getTargetSquare() == getSquare(s)) {
                     for(Piece p: pieces){
                         if (p.getMovedTwo()){
@@ -919,7 +915,7 @@ public class PvpChessActivity extends AppCompatActivity {
                         p.setFile(69);
                         p.setRank(69);
                         ImageView view = p.getPic();
-                        getSquarebyView(getSquarebyInt(m.getTargetSquare()-8)).getLayout().removeView(view);
+                        Objects.requireNonNull(getSquarebyView(getSquarebyInt(m.getTargetSquare() - 8))).getLayout().removeView(view);
                         deadLayout.addView(view);
                         captured.add(view);
                     }
@@ -928,7 +924,7 @@ public class PvpChessActivity extends AppCompatActivity {
                         p.setFile(69);
                         p.setRank(69);
                         ImageView view = p.getPic();
-                        getSquarebyView(getSquarebyInt(m.getTargetSquare()+8)).getLayout().removeView(view);
+                        Objects.requireNonNull(getSquarebyView(getSquarebyInt(m.getTargetSquare() + 8))).getLayout().removeView(view);
                         deadLayout.addView(view);
                         captured.add(view);
                     }
@@ -964,11 +960,11 @@ public class PvpChessActivity extends AppCompatActivity {
     public void resetBoardSquares(){
         int x = 0;
         for(ImageView i: boardImages){
-            if (x%2 == 0 && getSquarebyView(i).getRank() % 2 == 1)
+            if (x%2 == 0 && Objects.requireNonNull(getSquarebyView(i)).getRank() % 2 == 1)
                 i.setImageResource(drawable.darksquare);
-            else if (x%2 == 1 && getSquarebyView(i).getRank()%2 == 1)
+            else if (x%2 == 1 && Objects.requireNonNull(getSquarebyView(i)).getRank()%2 == 1)
                 i.setImageResource(drawable.lightsquare);
-            else if (x%2 == 0 && getSquarebyView(i).getRank()%2 == 0)
+            else if (x%2 == 0 && Objects.requireNonNull(getSquarebyView(i)).getRank()%2 == 0)
                 i.setImageResource(drawable.lightsquare);
             else
                 i.setImageResource(drawable.darksquare);
@@ -1026,9 +1022,8 @@ public class PvpChessActivity extends AppCompatActivity {
         return null;
     }
     public ArrayList<Move> getMoves(Piece p, boolean capturesOnly, String turn) {
-        ArrayList<Move> moves = new ArrayList<Move>();
+        ArrayList<Move> moves = new ArrayList<>();
         String piece = p.getPieceType();
-        boolean placeholder = false;
         int currentSquare = getSquare(p);
         if (piece.equals("bishop")) {
             for (int upRight = currentSquare+9; upRight < 64; upRight += 9) {
@@ -1304,8 +1299,7 @@ public class PvpChessActivity extends AppCompatActivity {
 
     private boolean movedTwoBySquare(int square) {
         Piece p = getPiecebySquare(square);
-        boolean b = p.getMovedTwo();
-        return b;
+        return p.getMovedTwo();
     }
 
     private ArrayList<Move> getLegalMoves (Piece p, boolean capturesOnly){
@@ -1319,7 +1313,7 @@ public class PvpChessActivity extends AppCompatActivity {
                 myKingSquare = getSquare(piece);
             }
         }
-        ArrayList <Integer> movesToDelete = new ArrayList<Integer>();
+        ArrayList <Integer> movesToDelete = new ArrayList<>();
         for (Move moveToVerify:moves){
             makeMove(moveToVerify,p);
             Log.d("chess6","move made " + moveToVerify.getCurrentSquare() + " to " + moveToVerify.getTargetSquare());
@@ -1344,7 +1338,7 @@ public class PvpChessActivity extends AppCompatActivity {
         return true;
     }
     private boolean notAttacked(int square) {
-        ArrayList <Move> pieceMoves = new ArrayList <Move>();
+        ArrayList <Move> pieceMoves;
         for (Piece p: pieces){
             if (!p.getPieceColor().equals(getTurn()) && !p.getPieceType().equals("king")) {
                 pieceMoves = getMoves(p,true, p.getPieceColor());
@@ -1542,8 +1536,8 @@ public class PvpChessActivity extends AppCompatActivity {
     }
 
     public static class Move {
-        private int currentSquare;
-        private int targetSquare;
+        private final int currentSquare;
+        private final int targetSquare;
         public Move(int current, int target){
             currentSquare = current;
             targetSquare = target;
@@ -1557,9 +1551,10 @@ public class PvpChessActivity extends AppCompatActivity {
 
     }
     public static class Square {
-        private int rank, file;
-        private ImageView view;
-        private ConstraintLayout layout;
+        private final int rank;
+        private final int file;
+        private final ImageView view;
+        private final ConstraintLayout layout;
         public Square(int f, int r, ImageView v, ConstraintLayout l){
             rank = r;
             file = f;
@@ -1583,20 +1578,12 @@ public class PvpChessActivity extends AppCompatActivity {
     }
     public static class Piece {
         private int rank,file;
-        private String pieceType,pieceColor;
+        private final String pieceType;
+        private final String pieceColor;
         private boolean moved;
         private boolean movedTwo;
         private int movesSinceMovedTwo;
         private ImageView pic;
-        public Piece(){
-            rank = 0;
-            file = 0;
-            pieceColor = "";
-            pieceType = "";
-            moved = false;
-            movedTwo = false;
-            movesSinceMovedTwo = -1;
-        }
         public Piece(int f, int r, String c, String t){
             rank = r;
             file = f;
