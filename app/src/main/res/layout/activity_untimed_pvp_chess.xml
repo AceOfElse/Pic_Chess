@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:alpha="0.9"
     android:background="@color/black"
-    tools:context=".TimedPvpChessActivity">
+    tools:context=".UntimedPvpChessActivity">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/deadPieceLayout"
         android:visibility="gone"
@@ -1887,40 +1887,4 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.95"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/timerText1"
-        android:layout_width="59dp"
-        android:layout_height="33dp"
-        android:text="0:00"
-        android:textAlignment="center"
-        android:textAllCaps="true"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.068"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.19" />
-
-    <TextView
-        android:id="@+id/timerText2"
-        android:layout_width="53dp"
-        android:layout_height="29dp"
-        android:text="0:00"
-        android:textAlignment="center"
-        android:textAllCaps="true"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.955"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.868" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
