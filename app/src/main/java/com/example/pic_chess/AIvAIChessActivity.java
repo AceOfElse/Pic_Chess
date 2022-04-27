@@ -232,22 +232,6 @@ public class AIvAIChessActivity extends AppCompatActivity {
                 }
             }
         });
-        endButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //prompt the other player for a draw
-            }
-        });
-        resignButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (gameInProgress){
-                    resignMenu.showAtLocation(gameLayout, Gravity.CENTER,300,300);
-                    resignMenu.update(50,50,300,300);
-                    prompted = !prompted;
-                }
-            }
-        });
         generatePositionfromFEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
     }
     private void startNewGame(){

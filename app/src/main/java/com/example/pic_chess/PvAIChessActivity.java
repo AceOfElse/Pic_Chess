@@ -285,12 +285,7 @@ public class PvAIChessActivity extends AppCompatActivity {
                 prompted = !prompted;
             }
         });
-        endButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //prompt the other player for a draw
-            }
-        });
+
         resignButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -298,6 +293,7 @@ public class PvAIChessActivity extends AppCompatActivity {
                     resignMenu.showAtLocation(gameLayout, Gravity.CENTER,300,300);
                     resignMenu.update(50,50,300,300);
                     prompted = !prompted;
+                    gameInProgress = false;
                 }
             }
         });
