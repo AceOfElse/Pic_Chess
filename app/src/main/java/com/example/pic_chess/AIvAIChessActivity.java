@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
@@ -37,12 +36,8 @@ public class AIvAIChessActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(layout.activity_untimed_pvp_chess);
+        setContentView(layout.activity_aivai_chess);
         deadLayout = findViewById(id.deadPieceLayout);
-        Button min15button = new Button(this);
-        min15button.setText("15min");
-        Button closeButton = new Button(this);
-        closeButton.setText("CLOSE");
         ImageButton backButton = findViewById(id.backButton);
         ImageButton newGameButton = findViewById(id.newGameButton);
         boardLayout.add(findViewById(id.layoutA1));

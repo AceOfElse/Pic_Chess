@@ -3,12 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/ajf61/AndroidStudioProjects/Pic_Chess/app/src/main/res/layout/activity_aivai_chess.xml" value="0.14635416666666667" />
         <entry key="..\:/Users/ajf61/AndroidStudioProjects/Pic_Chess/app/src/main/res/layout/activity_chess_pic.xml" value="0.1" />
         <entry key="..\:/Users/ajf61/AndroidStudioProjects/Pic_Chess/app/src/main/res/layout/activity_pvp_chess.xml" value="0.264" />
+        <entry key="..\:/Users/ajf61/AndroidStudioProjects/Pic_Chess/app/src/main/res/layout/activity_untimed_pvp_chess.xml" value="0.14635416666666667" />
         <entry key="..\:/Users/nguye/Desktop/AndroidStudioProjects/Pic_Chess/app/src/main/res/layout/activity_chess_pic.xml" value="0.3625" />
         <entry key="..\:/Users/nguye/Desktop/AndroidStudioProjects/Pic_Chess/app/src/main/res/layout/activity_chess_pic_receive.xml" value="0.3625" />
         <entry key="..\:/Users/nguye/Desktop/AndroidStudioProjects/Pic_Chess/app/src/main/res/layout/activity_home.xml" value="0.31567028985507245" />
-        <entry key="..\:/Users/nguye/Desktop/AndroidStudioProjects/Pic_Chess/app/src/main/res/layout/activity_loading.xml" value="0.33" />
         <entry key="..\:/Users/nguye/Desktop/AndroidStudioProjects/Pic_Chess/app/src/main/res/layout/activity_main.xml" value="0.31567028985507245" />
         <entry key="..\:/Users/nguye/Desktop/AndroidStudioProjects/Pic_Chess/app/src/main/res/layout/activity_pvp_chess.xml" value="0.5" />
         <entry key="..\:/Users/nguye/Desktop/AndroidStudioProjects/Pic_Chess/app/src/main/res/layout/activity_setting.xml" value="0.3625" />
@@ -19,16 +20,19 @@
         <entry key="..\:/Users/nguye/Desktop/AndroidStudioProjects/Pic_Chess/app/src/main/res/layout/fragment_timer_setting.xml" value="0.75" />
         <entry key="..\:/Users/nguye/Desktop/AndroidStudioProjects/Pic_Chess/app/src/main/res/layout/fragment_tool_bar_test.xml" value="0.3625" />
         <entry key="..\:/Users/nguye/Desktop/Pic_Chess/app/src/main/res/layout/activity_chess_pic.xml" value="0.22" />
-        <entry key="..\:/Users/nguye/Desktop/Pic_Chess/app/src/main/res/layout/activity_chess_pic_receive.xml" value="0.22" />
-        <entry key="..\:/Users/nguye/Desktop/Pic_Chess/app/src/main/res/layout/activity_home.xml" value="0.22" />
+        <entry key="..\:/Users/nguye/Desktop/Pic_Chess/app/src/main/res/layout/activity_chess_pic_receive.xml" value="0.1796875" />
+        <entry key="..\:/Users/nguye/Desktop/Pic_Chess/app/src/main/res/layout/activity_home.xml" value="0.1796875" />
         <entry key="..\:/Users/nguye/Desktop/Pic_Chess/app/src/main/res/layout/activity_main.xml" value="0.1796875" />
-        <entry key="..\:/Users/nguye/Desktop/Pic_Chess/app/src/main/res/layout/activity_pvp_chess.xml" value="0.1796875" />
+        <entry key="..\:/Users/nguye/Desktop/Pic_Chess/app/src/main/res/layout/activity_pvp_chess.xml" value="0.22" />
+        <entry key="..\:/Users/nguye/Desktop/Pic_Chess/app/src/main/res/layout/activity_setting.xml" value="0.1796875" />
         <entry key="..\:/Users/nguye/Desktop/Pic_Chess/app/src/main/res/layout/fragment_new_canvas_prompt.xml" value="0.1796875" />
         <entry key="..\:/Users/nguye/Desktop/Pic_Chess/app/src/main/res/layout/fragment_second_menu_chess_pic.xml" value="0.1796875" />
         <entry key="..\:/Users/nguye/Desktop/Pic_Chess/app/src/main/res/layout/fragment_second_menu_one.xml" value="0.1796875" />
         <entry key="..\:/Users/nguye/Desktop/Pic_Chess/app/src/main/res/layout/fragment_third_menu_t_ime.xml" value="0.1796875" />
+        <entry key="..\:/Users/nguye/Desktop/Pic_Chess/app/src/main/res/layout/fragment_timer_setting.xml" value="0.1796875" />
         <entry key="..\:/Users/nguye/Desktop/Pic_Chess/app/src/main/res/layout/fragment_tool_bar_test.xml" value="0.1796875" />
         <entry key="..\:/Users/nguye/Desktop/Pic_Chess/app/src/main/res/layout/fragment_toolbar.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/nguye/Desktop/Pic_Chess/app/src/main/res/layout/fragment_transition.xml" value="0.1796875" />
       </map>
     </option>
   </component>
