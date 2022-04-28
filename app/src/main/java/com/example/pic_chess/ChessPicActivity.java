@@ -1,15 +1,12 @@
 package com.example.pic_chess;
 
-import androidx.annotation.LongDef;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.ClipData;
 import android.content.Context;
@@ -17,13 +14,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Environment;
@@ -49,9 +43,11 @@ import java.util.Arrays;
 import java.util.Locale;
 
 public class ChessPicActivity extends AppCompatActivity implements NewCanvasPromptFragment.OnInputSelected, ToolBarFragmentTest.OnClickSelected, ColorFragment.OnClickSelected {
-    private ImageButton backButton, newCanvasButton, loadFileButton, saveFileButton, submitFileButton;
+    private ImageButton backButton, newCanvasButton, loadFileButton, submitFileButton;
+    private static ImageButton saveFileButton;
     private ToggleButton toolbarButton;
-    private AlertDialog.Builder alertDialogue;
+    private AlertDialog.Builder alertDialogueForBackButton, alertDialogueForNewCanvas;
+    private boolean returnState;
 
     private DrawingView drawingView;
     private static Path path = new Path();
@@ -76,6 +72,7 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
 
     private Bitmap savingBitmap = Bitmap.createBitmap(300, 200, Bitmap.Config.ARGB_8888);
     private static final int REQUEST_CODE = 100;
+    private static boolean isSaved;
 
     //Tags for fragment
     private static final String TAG = "NewCanvasPromptFragment";
@@ -94,7 +91,8 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
         timeLeftInMilliSecond = startTime;
 
         //Set up alert dialogue
-        alertDialogue = new AlertDialog.Builder(ChessPicActivity.this);
+        alertDialogueForBackButton = new AlertDialog.Builder(ChessPicActivity.this);
+        alertDialogueForNewCanvas = new AlertDialog.Builder(ChessPicActivity.this);
 
         // Find views
         backButton = findViewById(R.id.backButtonCP);
@@ -122,8 +120,10 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
         kingPieceNum = findViewById(R.id.kingPieceNumber);
         queenPieceNum = findViewById(R.id.queenPieceNumber);
 
-        //canvasView = findViewById(R.id.canvasLayoutCP);
-        //mainLayout = findViewById(R.id.chessPicLayout);
+        //Set initial state of save button
+        isSaved = true;
+        saveFileButton.setActivated(false);
+        returnState = false;
 
         //Set fragments
         newCanvasPromptFragment = NewCanvasPromptFragment.newInstance();
@@ -148,7 +148,7 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
             @Override
             public void onClick(View view) {
                 pauseTimer();
-                onClickShowAlert(view);
+                onClickShowAlertReturn();
             }
         });
 
@@ -156,7 +156,8 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
             @Override
             public void onClick(View view) {
                 pauseTimer();
-                newCanvasPromptFragment.show(getSupportFragmentManager(), "Create New File");
+                returnState = false;
+                onClickShowAlertOnSave();
             }
         });
         toolbarButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -173,6 +174,13 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
                 transaction.commit();
             }
         });
+        saveFileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                returnState = false;
+                askPermission();
+            }
+        });
 
         //Set time textview
         if (isTimed) {
@@ -187,12 +195,7 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
         createDraggableImage();
         setTextviewLeftValues();
 
-        saveFileButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                askPermission();
-            }
-        });
+
     }
 
     private void setTextviewLeftValues() {
@@ -321,46 +324,87 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
         super.onStop();
     }
 
-    //Dealing with app's back button
-    private void onClickShowAlert(View view) {
-        alertDialogue.setMessage(R.string.prompt_back_text);
-        alertDialogue.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+    //Return prompt
+    private void onClickShowAlertReturn() {
+        alertDialogueForBackButton.setMessage(R.string.prompt_back_text);
+        alertDialogueForBackButton.setPositiveButton("YES", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 dialogInterface.dismiss();
-                goBackViaLoadingActivity();
+                if (isSaved) {
+                    drawingView.resetCanvas();
+                    resetPieceCount();
+                    returnState = true;
+                    goBackViaLoadingActivity();
+                } else {
+                    drawingView.resetCanvas();
+                    resetPieceCount();
+                    returnState = true;
+                    onClickShowAlertOnSave();
+                }
             }
         });
-        alertDialogue.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+        alertDialogueForBackButton.setNegativeButton("NO", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 dialogInterface.dismiss();
                 startTimer();
             }
         });
-        alertDialogue.create();
-        alertDialogue.show();
+        alertDialogueForBackButton.create();
+        alertDialogueForBackButton.show();
     }
+
+    //Saving prompt
+    private void onClickShowAlertOnSave() {
+        alertDialogueForNewCanvas.setMessage(R.string.prompt_saving_text);
+        alertDialogueForNewCanvas.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+                setState(true);
+            }
+        });
+        alertDialogueForNewCanvas.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+                setState(false);
+            }
+        });
+        alertDialogueForNewCanvas.create();
+        alertDialogueForNewCanvas.show();
+
+    }
+
+    //Set state after alert
+    private void setState(boolean state) {
+        if (state) {
+            askPermission();
+            drawingView.resetCanvas();
+            resetPieceCount();
+        } else {
+            if (returnState) {
+                drawingView.resetCanvas();
+                resetPieceCount();
+                goBackViaLoadingActivity();
+            }
+        }
+    }
+
+    private boolean getReturn() {
+        return returnState;
+    }
+
+
 
     //Dealing with Android's back button
     public void onBackPressed() {
-        alertDialogue.setMessage(R.string.prompt_back_text);
-        alertDialogue.setPositiveButton("YES", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.dismiss();
-                goBackViaLoadingActivity();
-            }
-        });
-        alertDialogue.setNegativeButton("NO", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.dismiss();
-                startTimer();
-            }
-        });
-        alertDialogue.create();
-        alertDialogue.show();
+        if (isSaved) {
+            onClickShowAlertReturn();
+        } else {
+            onClickShowAlertOnSave();
+        }
     }
 
     //Loading animation goes up when returning back to Home Activity.
@@ -407,7 +451,10 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
                     return true;
                 //Only this case is important now, other cases may be implemented if needed.
                 case DragEvent.ACTION_DROP:
+                    brushView.setVisibility(View.VISIBLE);
                     getPieceFromCode(pieceCode);
+                    isSaved = false;
+                    saveFileButton.setActivated(true);
                     return true;
                 case DragEvent.ACTION_DRAG_EXITED:
                     return true;
@@ -474,7 +521,6 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
             imageView.setOnTouchListener(touchListener);
         }
         canvasLayout.setOnDragListener(dragListener);
-
     }
 
     //Check the piece if it is still available (not zero). If it is, assigns its piece code.
@@ -525,6 +571,21 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
         }
         return true;
     }
+
+    private void resetPieceCount() {
+        bishopsLeft = 4;
+        pawnsLeft = 4;
+        rooksLeft = 4;
+        knightsLeft = 4;
+        kingsLeft = 4;
+        queensLeft = 4;
+        bishopPieceNum.setText(String.valueOf(bishopsLeft));
+        pawnPieceNum.setText(String.valueOf(pawnsLeft));
+        rookPieceNum.setText(String.valueOf(rooksLeft));
+        knightPieceNum.setText(String.valueOf(knightsLeft));
+        kingPieceNum.setText(String.valueOf(kingsLeft));
+        queenPieceNum.setText(String.valueOf(queensLeft));
+    }
 //////End Handling Drag Pieces into Canvas\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
 //////Start Creating Canvas Properties\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
@@ -558,6 +619,8 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
                 paint.setStrokeWidth(strokeWidthList.get(i));
                 canvas.drawBitmap(savingBitmap, 0, 0, paint);
                 canvas.drawPath(pathList.get(i), paint);
+                isSaved = false;
+                saveFileButton.setActivated(true);
                 invalidate();
             }
         }
@@ -600,6 +663,7 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
             pathList.clear();
             colorList.clear();
             strokeWidthList.clear();
+            brushView.setImageDrawable(null);
         }
 
         public void setStrokeWidth(float width) {
@@ -706,6 +770,8 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
         dir.mkdirs();
         String fileName = "drawin.jpg";
         File outFile = new File(dir, fileName);
+        isSaved = true;
+        saveFileButton.setActivated(false);
         try {
             outStream = new FileOutputStream(outFile);
         } catch (FileNotFoundException e) {
@@ -725,6 +791,13 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
             outStream.close();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+
+        //Check if this is save and stay in activity or return back to home
+        if (getReturn()) {
+            drawingView.resetCanvas();
+            resetPieceCount();
+            goBackViaLoadingActivity();
         }
     }
 //////End Handling Saving Image\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
