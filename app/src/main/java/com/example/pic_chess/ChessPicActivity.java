@@ -1,12 +1,15 @@
 package com.example.pic_chess;
 
+import androidx.annotation.LongDef;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.ClipData;
 import android.content.Context;
@@ -14,11 +17,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Environment;
@@ -58,12 +63,10 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
     private long timeLeftInMilliSecond;
 
     private ImageView bishopTool, knightTool, pawnTool, rookTool, kingTool, queenTool, currentTool;
+    protected static ImageView brushView;
+    private ConstraintLayout canvasLayout;
     private TextView bishopPieceNum, knightPieceNum, pawnPieceNum, rookPieceNum, kingPieceNum, queenPieceNum, timerText;
-    private int bishopsLeft = 4, knightsLeft = 4, pawnsLeft = 4, rooksLeft = 4, kingsLeft = 4, queensLeft = 4;
-
-    private float dX, dY;
-
-    private ViewGroup canvasView, mainLayout;
+    private int bishopsLeft = 4, knightsLeft = 4, pawnsLeft = 4, rooksLeft = 4, kingsLeft = 4, queensLeft = 4, pieceCode;
 
     private NewCanvasPromptFragment newCanvasPromptFragment;
     private ToolBarFragmentTest toolbarFragment;
@@ -73,6 +76,7 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
 
     private Bitmap savingBitmap = Bitmap.createBitmap(300, 200, Bitmap.Config.ARGB_8888);
     private static final int REQUEST_CODE = 100;
+
     //Tags for fragment
     private static final String TAG = "NewCanvasPromptFragment";
     private static final String TAG2 = "ToolbarFragment";
@@ -101,6 +105,8 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
         toolbarButton = findViewById(R.id.toolbarButtonCP);
         drawingView = findViewById(R.id.drawingViewCP);
         timerText = findViewById(R.id.timerTextCP);
+        brushView = findViewById(R.id.brushView);
+        canvasLayout = findViewById(R.id.canvasLayoutCP);
 
         bishopTool = findViewById(R.id.pieceBishopCP);
         knightTool = findViewById(R.id.pieceKnightCP);
@@ -116,8 +122,8 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
         kingPieceNum = findViewById(R.id.kingPieceNumber);
         queenPieceNum = findViewById(R.id.queenPieceNumber);
 
-        canvasView = findViewById(R.id.canvasLayoutCP);
-        mainLayout = findViewById(R.id.chessPicLayout);
+        //canvasView = findViewById(R.id.canvasLayoutCP);
+        //mainLayout = findViewById(R.id.chessPicLayout);
 
         //Set fragments
         newCanvasPromptFragment = NewCanvasPromptFragment.newInstance();
@@ -179,7 +185,6 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
 
         //Others
         createDraggableImage();
-        createCanvas(savingBitmap);
         setTextviewLeftValues();
 
         saveFileButton.setOnClickListener(new View.OnClickListener() {
@@ -368,109 +373,151 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
 //////End Creation of Activity and Relevant Connections\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
 //////Start Handling Drag Pieces Into the Canvas\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-
+    //Create shadow while dragging image
     private View.OnTouchListener touchListener = new View.OnTouchListener() {
         @Override
-        public boolean onTouch(View v, MotionEvent event) {
-            switch (event.getActionMasked()) {
+        public boolean onTouch(View view, MotionEvent event) {
+            //set currentTool to whatever view the user touches
+            switch(event.getActionMasked()) {
                 case MotionEvent.ACTION_DOWN:
-                    //set currentTool to whatever view the user touches
-                    currentTool = (ImageView) v;
+                    currentTool = (ImageView) view;
                     // check pieces left
                     if (piecesLeftChecker()) {
                         //drag listener setup
                         ClipData clipData = ClipData.newPlainText("", "");
-                        View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(v);
-                        v.startDrag(clipData, shadowBuilder, v, 0);
-                        // capture the difference between view's top left corner and touch point
-                        dX = v.getX() - event.getRawX();
-                        dY = v.getY() - event.getRawY();
+                        View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(currentTool);
+                        view.startDrag(clipData, shadowBuilder, currentTool, 0);
+                        return true;
+                    } else {
+                        return false;
                     }
-                    break;
-            }
-            return true;
-        }
-    };
-
-    private View.OnDragListener dragListener = new View.OnDragListener() {
-        @Override
-        public boolean onDrag(View v, DragEvent event) {
-            switch (event.getAction()) {
-                case DragEvent.ACTION_DROP:
-                    // Dropped, reassign View to ViewGroup
-                    View view = (View) event.getLocalState();
-                    ViewGroup owner = (ViewGroup) view.getParent();
-                    owner.removeView(view);
-                    ConstraintLayout container = (ConstraintLayout) v;
-                    container.addView(view);
-                    break;
-                case DragEvent.ACTION_DRAG_ENDED:
-                    dX = v.getX() - event.getX();
-                    dY = v.getY() - event.getY();
-                    Log.d("drag", String.valueOf(dX));
-                    break;
             }
             return false;
         }
     };
+
+    //Drag listener for canvas
+    private View.OnDragListener dragListener = new View.OnDragListener() {
+        @Override
+        public boolean onDrag(View view, DragEvent event) {
+            switch (event.getAction()) {
+                case DragEvent.ACTION_DRAG_STARTED:
+                    return true;
+                case DragEvent.ACTION_DRAG_ENTERED:
+                    return true;
+                //Only this case is important now, other cases may be implemented if needed.
+                case DragEvent.ACTION_DROP:
+                    getPieceFromCode(pieceCode);
+                    return true;
+                case DragEvent.ACTION_DRAG_EXITED:
+                    return true;
+                case DragEvent.ACTION_DRAG_LOCATION:
+                    return true;
+                case DragEvent.ACTION_DRAG_ENDED:
+                    return true;
+                default:
+                    return false;
+            }
+        }
+    };
+
+    //Each piece after touch event is assigned with a code after checking availability.
+    //Using this method to retrieve image from drawable to match the code, assign appropriated stroke width,
+    //reduce the piece after successfully dropped the piece on canvas, and update the text view on piece count.
+    private void getPieceFromCode(int code) {
+        switch (code) {
+            case 0:
+                brushView.setImageResource(R.drawable.whitebishop);
+                drawingView.setStrokeWidth(10f);
+                bishopsLeft--;
+                bishopPieceNum.setText(String.valueOf(bishopsLeft));
+                break;
+            case 1:
+                brushView.setImageResource(R.drawable.whitepawn);
+                drawingView.setStrokeWidth(50f);
+                pawnsLeft--;
+                pawnPieceNum.setText(String.valueOf(pawnsLeft));
+                break;
+            case 2:
+                brushView.setImageResource(R.drawable.whiterook);
+                drawingView.setStrokeWidth(10f);
+                rooksLeft--;
+                rookPieceNum.setText(String.valueOf(rooksLeft));
+                break;
+            case 3:
+                brushView.setImageResource(R.drawable.whiteknight);
+                drawingView.setStrokeWidth(30f);
+                knightsLeft--;
+                knightPieceNum.setText(String.valueOf(knightsLeft));
+                break;
+            case 4:
+                brushView.setImageResource(R.drawable.whiteking);
+                drawingView.setStrokeWidth(40f);
+                kingsLeft--;
+                kingPieceNum.setText(String.valueOf(kingsLeft));
+                break;
+            case 5:
+                brushView.setImageResource(R.drawable.whitequeen);
+                drawingView.setStrokeWidth(5f);
+                queensLeft--;
+                queenPieceNum.setText(String.valueOf(queensLeft));
+                break;
+            default:
+                break;
+        }
+    }
+
 
     // user touches desired piece, allows them to click and drag this imageview to canvas
     private void createDraggableImage() {
         for (ImageView imageView : Arrays.asList(bishopTool, knightTool, pawnTool, rookTool, kingTool, queenTool)) {
             imageView.setOnTouchListener(touchListener);
         }
-        for (ImageView imageView : Arrays.asList(bishopTool, knightTool, pawnTool, rookTool, kingTool, queenTool)) {
-            imageView.setOnDragListener(dragListener);
-        }
+        canvasLayout.setOnDragListener(dragListener);
+
     }
 
-    // Get currently selected tool's number of pieces left to see if not zero
+    //Check the piece if it is still available (not zero). If it is, assigns its piece code.
     private boolean piecesLeftChecker() {
         switch (currentTool.getId()) {
             case R.id.pieceBishopCP:
                 if (bishopsLeft > 0) {
-                    bishopsLeft--;
-                    bishopPieceNum.setText(String.valueOf(bishopsLeft));
+                    pieceCode = 0;
                     return true;
                 } else {
                     return false;
                 }
             case R.id.piecePawnCP:
                 if (pawnsLeft > 0) {
-                    pawnsLeft--;
-                    pawnPieceNum.setText(String.valueOf(pawnsLeft));
+                    pieceCode = 1;
                     return true;
                 } else {
                     return false;
                 }
             case R.id.pieceRookCP:
                 if (rooksLeft > 0) {
-                    rooksLeft--;
-                    rookPieceNum.setText(String.valueOf(rooksLeft));
+                    pieceCode = 2;
                     return true;
                 } else {
                     return false;
                 }
             case R.id.pieceKnightCP:
                 if (knightsLeft > 0) {
-                    knightsLeft--;
-                    knightPieceNum.setText(String.valueOf(knightsLeft));
+                    pieceCode = 3;
                     return true;
                 } else {
                     return false;
                 }
             case R.id.pieceKingCP:
                 if (kingsLeft > 0) {
-                    kingsLeft--;
-                    kingPieceNum.setText(String.valueOf(kingsLeft));
+                    pieceCode = 4;
                     return true;
                 } else {
                     return false;
                 }
             case R.id.pieceQueenCP:
                 if (queensLeft > 0) {
-                    queensLeft--;
-                    queenPieceNum.setText(String.valueOf(queensLeft));
+                    pieceCode = 5;
                     return true;
                 } else {
                     return false;
@@ -478,16 +525,9 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
         }
         return true;
     }
-
-    //creates a canvas for drawing
-    private void createCanvas(Bitmap bitmap) {
-        canvasView.draw(new Canvas(bitmap));
-        Paint paint = new Paint();
-    }
-
 //////End Handling Drag Pieces into Canvas\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
-    //////Start Creating Canvas Properties\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+//////Start Creating Canvas Properties\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
     //Making custom drawing view
     public static class DrawingView extends View {
         private static ArrayList<Path> pathList = new ArrayList<>();
@@ -500,6 +540,7 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
 
         public DrawingView(Context context, AttributeSet attributes) {
             super(context, attributes);
+
 
             //Set line attributes
             paint.setAntiAlias(true);
@@ -527,11 +568,19 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
 
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
-                    //Point to the touch coordinate
-                    path.moveTo(touchX, touchY);
-                    invalidate();
-                    return true;
+                    //Check if the touch is within the bound of brush image view
+                    if (touchX > brushView.getX() && touchX < brushView.getX() + 100 && touchY > brushView.getY() && touchY < brushView.getY() + 200) {
+                        //Point to the touch coordinate
+                        path.moveTo(touchX, touchY);
+                        invalidate();
+                        return true;
+                    } else {
+                        return false;
+                    }
                 case MotionEvent.ACTION_MOVE:
+                    //Set translation for brush image view
+                    brushView.setX(touchX - 50);
+                    brushView.setY(touchY - 50);
                     //Connect the point every frame
                     path.lineTo(touchX, touchY);
                     pathList.add(path);
@@ -551,6 +600,10 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
             pathList.clear();
             colorList.clear();
             strokeWidthList.clear();
+        }
+
+        public void setStrokeWidth(float width) {
+            currentColor(currentBrush, width);
         }
 
         public void setStandardColor() {
@@ -587,7 +640,10 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
     }
 //////End Creating Canvas Properties\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
-    //////Start Handling Timer\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+//////Start Handling Game Logic\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+//////End Handling Game Logic\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+//////Start Handling Timer\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
     private void startTimer() {
         countDownTimer = new CountDownTimer(timeLeftInMilliSecond, 1000) {
             @Override
@@ -622,9 +678,9 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
         String timeLeftFormatted = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds);
         timerText.setText("TIME\n" + timeLeftFormatted);
     }
+//////End Handling Timer\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
-    //////End Handling Timer\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-/////Start of Handling Saving Image\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+//////Start Handling Saving Image\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
     private void askPermission() {
         ActivityCompat.requestPermissions(ChessPicActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CODE);
     }
@@ -639,7 +695,6 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
             }
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
-
     }
 
     private void saveImage() {
@@ -672,4 +727,5 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
             e.printStackTrace();
         }
     }
+//////End Handling Saving Image\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 }
