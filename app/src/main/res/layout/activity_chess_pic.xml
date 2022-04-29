@@ -209,15 +209,6 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <FrameLayout
-        android:id="@+id/newCanvasPromptFragmentContainer"
-        android:layout_width="321dp"
-        android:layout_height="149dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-
-    <FrameLayout
         android:id="@+id/toolbarFragmentContainer"
         android:layout_width="318dp"
         android:layout_height="159dp"

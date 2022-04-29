@@ -22,7 +22,6 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Environment;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.DragEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -64,7 +63,6 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
     private TextView bishopPieceNum, knightPieceNum, pawnPieceNum, rookPieceNum, kingPieceNum, queenPieceNum, timerText;
     private int bishopsLeft = 4, knightsLeft = 4, pawnsLeft = 4, rooksLeft = 4, kingsLeft = 4, queensLeft = 4, pieceCode;
 
-    private NewCanvasPromptFragment newCanvasPromptFragment;
     private ToolBarFragmentTest toolbarFragment;
     private ColorFragment colorFragment;
     private FragmentTransaction transaction;
@@ -75,7 +73,6 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
     private static boolean isSaved;
 
     //Tags for fragment
-    private static final String TAG = "NewCanvasPromptFragment";
     private static final String TAG2 = "ToolbarFragment";
 
     //////Start Creation of Activity and Relevant Connections\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
@@ -120,13 +117,13 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
         kingPieceNum = findViewById(R.id.kingPieceNumber);
         queenPieceNum = findViewById(R.id.queenPieceNumber);
 
-        //Set initial state of save button
+        //Set initial state of save button and brush view
+        brushView.setActivated(false);
         isSaved = true;
         saveFileButton.setActivated(false);
         returnState = false;
 
         //Set fragments
-        newCanvasPromptFragment = NewCanvasPromptFragment.newInstance();
         toolbarFragment = ToolBarFragmentTest.newInstance();
         colorFragment = ColorFragment.newInstance();
 
@@ -452,6 +449,7 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
                 //Only this case is important now, other cases may be implemented if needed.
                 case DragEvent.ACTION_DROP:
                     brushView.setVisibility(View.VISIBLE);
+                    brushView.setActivated(true);
                     getPieceFromCode(pieceCode);
                     isSaved = false;
                     saveFileButton.setActivated(true);

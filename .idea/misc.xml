@@ -13,7 +13,9 @@
         <entry key="..\:/Users/nguye/Desktop/AndroidStudioProjects/Pic_Chess/app/src/main/res/layout/activity_main.xml" value="0.31567028985507245" />
         <entry key="..\:/Users/nguye/Desktop/AndroidStudioProjects/Pic_Chess/app/src/main/res/layout/activity_pvp_chess.xml" value="0.5" />
         <entry key="..\:/Users/nguye/Desktop/AndroidStudioProjects/Pic_Chess/app/src/main/res/layout/activity_setting.xml" value="0.3625" />
+        <entry key="..\:/Users/nguye/Desktop/AndroidStudioProjects/Pic_Chess/app/src/main/res/layout/activity_timed_pvp_chess.xml" value="0.3625" />
         <entry key="..\:/Users/nguye/Desktop/AndroidStudioProjects/Pic_Chess/app/src/main/res/layout/fragment_color.xml" value="0.67" />
+        <entry key="..\:/Users/nguye/Desktop/AndroidStudioProjects/Pic_Chess/app/src/main/res/layout/fragment_new_game_with_time.xml" value="0.3625" />
         <entry key="..\:/Users/nguye/Desktop/AndroidStudioProjects/Pic_Chess/app/src/main/res/layout/fragment_second_menu_chess.xml" value="0.3625" />
         <entry key="..\:/Users/nguye/Desktop/AndroidStudioProjects/Pic_Chess/app/src/main/res/layout/fragment_second_menu_chess_pic.xml" value="0.3625" />
         <entry key="..\:/Users/nguye/Desktop/AndroidStudioProjects/Pic_Chess/app/src/main/res/layout/fragment_third_menu_time.xml" value="0.3625" />

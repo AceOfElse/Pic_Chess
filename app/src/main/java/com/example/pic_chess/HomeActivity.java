@@ -247,8 +247,6 @@ public class HomeActivity extends AppCompatActivity implements SecondMenuChessFr
 
     private void openPvpUntimed(boolean isTimed) {
         Intent pvpIntent = new Intent(HomeActivity.this, LoadingActivity.class);
-        pvpIntent.putExtra("TIME", isTimed);
-        pvpIntent.putExtra("TIMER", timer[0]);
         pvpIntent.putExtra("Class Code", 2);
         startActivity(pvpIntent);
         onStop();
@@ -258,7 +256,7 @@ public class HomeActivity extends AppCompatActivity implements SecondMenuChessFr
     private void openPvAI(boolean isTimed) {
         Intent pvpIntent = new Intent(HomeActivity.this, LoadingActivity.class);
         pvpIntent.putExtra("TIME", isTimed);
-        pvpIntent.putExtra("TIMER", timer[0]);
+        pvpIntent.putExtra("TIMER", timer[1]);
         pvpIntent.putExtra("Class Code", 3);
         startActivity(pvpIntent);
         onStop();
@@ -267,8 +265,6 @@ public class HomeActivity extends AppCompatActivity implements SecondMenuChessFr
 
     private void openAIvAI(boolean isTimed) {
         Intent pvpIntent = new Intent(HomeActivity.this, LoadingActivity.class);
-        pvpIntent.putExtra("TIME", isTimed);
-        pvpIntent.putExtra("TIMER", timer[0]);
         pvpIntent.putExtra("Class Code", 4);
         startActivity(pvpIntent);
         onStop();
