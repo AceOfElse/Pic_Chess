@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -1603,40 +1602,56 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
     //Implement methods from fragment
     public void sendTimeModeToPvpActivity(int mode) {
         switch(mode) {
-            //15 min.
+            //1 min.
             case 0:
+                gameInProgress = true;
+                time = 60;
+                timerSetup();
+                prompted = false;
+                hideTimeFragment();
+                break;
+            //3 min
+            case 1:
+                gameInProgress = true;
+                time = 180;
+                timerSetup();
+                prompted = false;
+                hideTimeFragment();
+                break;
+            //5 min
+            case 2:
+                gameInProgress = true;
+                time = 300;
+                timerSetup();
+                prompted = false;
+                hideTimeFragment();
+                break;
+            //10 min
+            case 3:
+                gameInProgress = true;
+                time = 600;
+                timerSetup();
+                prompted = false;
+                hideTimeFragment();
+                break;
+            //15 min
+            case 4:
                 gameInProgress = true;
                 time = 900;
                 timerSetup();
                 prompted = false;
                 hideTimeFragment();
                 break;
-            //? min
-            case 1:
+            //30 min
+            case 5:
                 gameInProgress = true;
-                time = 1000;
+                time = 1800;
                 timerSetup();
                 prompted = false;
                 hideTimeFragment();
                 break;
-            //? min
-            case 2:
-                gameInProgress = true;
-                time = 1100;
-                timerSetup();
-                prompted = false;
-                hideTimeFragment();
-                break;
-            //? min
-            case 3:
-                gameInProgress = true;
-                time = 1200;
-                timerSetup();
-                prompted = false;
-                hideTimeFragment();
-                break;
-            //Custom Time
-            case 4:
+                //Custom Time
+            case 6:
                 gameInProgress = true;
                 time = customTime;
                 timerSetup();
@@ -1644,7 +1659,7 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
                 hideTimeFragment();
                 break;
             //Close
-            case 5:
+            case 7:
                 hideTimeFragment();
                 break;
         }
@@ -1677,7 +1692,7 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
 
     //Show alert dialogue when hitting back, resign, or new game button while in the game
     private void onClickShowAlertResign() {
-        resignDialogue.setMessage(R.string.prompt_resign_text);
+        resignDialogue.setMessage("Do you wish to resign?");
         resignDialogue.setPositiveButton("YES", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {

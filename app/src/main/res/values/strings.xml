@@ -35,8 +35,4 @@
     <string name="loading_text">Loading...</string>
     <string name="chess_text">CHESS</string>
     <string name="chesspic_text">CHESS-PIC</string>
-    <string name="prompt_saving_text">Do you want to save your current canvas?</string>
-    <string name="prompt_resign_text">Are you sure to resign?</string>
-    <string name="close_button_text">CLOSE</string>
-    <string name="custom_time_button_text">CUSTOM</string>
 </resources>

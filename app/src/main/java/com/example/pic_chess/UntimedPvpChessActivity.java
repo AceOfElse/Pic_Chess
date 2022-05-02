@@ -1318,9 +1318,11 @@ public class UntimedPvpChessActivity extends AppCompatActivity {
     public static class Move {
         private final int currentSquare;
         private final int targetSquare;
+        private int evaluation;
         public Move(int current, int target){
             currentSquare = current;
             targetSquare = target;
+            evaluation = 0;
         }
         public int getCurrentSquare(){
             return currentSquare;
@@ -1328,6 +1330,7 @@ public class UntimedPvpChessActivity extends AppCompatActivity {
         public int getTargetSquare(){
             return targetSquare;
         }
+        public void setEvaluation(int eval){evaluation = eval;}
 
     }
     public static class Square {

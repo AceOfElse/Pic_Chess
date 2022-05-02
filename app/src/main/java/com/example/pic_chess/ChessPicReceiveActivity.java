@@ -9,13 +9,18 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.io.FileNotFoundException;
 import java.util.Locale;
+import java.util.Random;
 
 public class ChessPicReceiveActivity extends AppCompatActivity {
     private ImageButton backButton, submitButton;
@@ -29,6 +34,9 @@ public class ChessPicReceiveActivity extends AppCompatActivity {
     private boolean isTimerRunning;
     private long timeLeftInMilliSecond = START_TIME_IN_MILLISECOND;
     private boolean isTimed;
+    private Bitmap receiverBitmap;
+    private Random rg;
+    private int promptNum;
 
 //////Start Creation of Activity and Relevant Connections\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
     @Override
@@ -67,14 +75,70 @@ public class ChessPicReceiveActivity extends AppCompatActivity {
         }
         updateCountDownText();
         receiveImage();
+
     }
     //Gets image from pictures folder and sets it as the image view
     private void receiveImage() {
+        rg = new Random();
+        promptNum = rg.nextInt(5)+1;
+        Log.d("Value for promptNum", String.valueOf(promptNum));
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inSampleSize = 1;
-        final Bitmap b = BitmapFactory.decodeFile("/storage/emulated/0/Pictures/drawing.jpg", options);
-        receivedImage.setImageBitmap(b);
-    }
+        switch (promptNum){
+            case 1:
+                receiverBitmap = BitmapFactory.decodeFile("/storage/emulated/0/Pictures/ChessPic" + promptNum + ".png", options);
+                   if(receiverBitmap == null){
+                       Log .d("debug loading", "Bitmap is null");
+                       receiveImage();
+                    } else {
+                       receivedImage.setImageBitmap(receiverBitmap);
+                      // Toast.makeText(ChessPicReceiveActivity.this, "Image for prompt 1 loaded", Toast.LENGTH_LONG).show();
+                   }
+                break;
+            case 2:
+                receiverBitmap = BitmapFactory.decodeFile("/storage/emulated/0/Pictures/ChessPic" + promptNum + ".png", options);
+                if(receiverBitmap == null){
+                    Log .d("debug loading", "Bitmap is null");
+                    receiveImage();
+                } else {
+                    receivedImage.setImageBitmap(receiverBitmap);
+                    //Toast.makeText(ChessPicReceiveActivity.this, "Image for prompt 2 loaded", Toast.LENGTH_LONG).show();
+                }
+                break;
+            case 3:
+                    receiverBitmap = BitmapFactory.decodeFile("/storage/emulated/0/Pictures/ChessPic" + promptNum + ".png", options);
+                if(receiverBitmap == null){
+                    Log .d("debug loading", "Bitmap is null");
+                    receiveImage();
+                } else {
+                    receivedImage.setImageBitmap(receiverBitmap);
+                   // Toast.makeText(ChessPicReceiveActivity.this,"Image for prompt 3 loaded", Toast.LENGTH_LONG).show();
+               }
+                break;
+            case 4:
+                    receiverBitmap = BitmapFactory.decodeFile("/storage/emulated/0/Pictures/ChessPic" + promptNum + ".png", options);
+                if(receiverBitmap == null){
+                    Log .d("debug loading", "Bitmap is null");
+                    receiveImage();
+                } else {
+                    receivedImage.setImageBitmap(receiverBitmap);
+                  //  Toast.makeText(ChessPicReceiveActivity.this,"Image for prompt 4 loaded", Toast.LENGTH_LONG).show();
+                }
+                break;
+            case 5:
+                    receiverBitmap = BitmapFactory.decodeFile("/storage/emulated/0/Pictures/ChessPic" + promptNum + ".png", options);
+                if(receiverBitmap == null){
+                    Log .d("debug loading", "Bitmap is null");
+                    receiveImage();
+                } else {
+                    receivedImage.setImageBitmap(receiverBitmap);
+                    //Toast.makeText(ChessPicReceiveActivity.this,"Image for prompt 5 loaded", Toast.LENGTH_LONG).show();
+                }
+                break;
+        }
+        }
+
+
 
     //Set activity life cycles
     protected void onStart() {
@@ -184,4 +248,5 @@ public class ChessPicReceiveActivity extends AppCompatActivity {
         timerText.setText("TIME\n" + timeLeftFormatted);
     }
 //////End Handling Timer\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
 }
