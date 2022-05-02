@@ -30,9 +30,9 @@
         android:id="@+id/backButtonCR"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="48dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="345dp"
+        android:layout_marginEnd="313dp"
         android:layout_marginBottom="665dp"
         android:adjustViewBounds="true"
         android:contentDescription="@string/empty_string_text"
@@ -51,19 +51,17 @@
         android:id="@+id/submitFileCR"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginStart="346dp"
+        android:layout_marginStart="312dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="49dp"
         android:layout_marginBottom="665dp"
         android:adjustViewBounds="true"
         android:contentDescription="@string/empty_string_text"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/upload_image"
         tools:ignore="SpeakableTextPresentCheck,ImageContrastCheck"
         tools:srcCompat="@drawable/upload_image" />
@@ -90,7 +88,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

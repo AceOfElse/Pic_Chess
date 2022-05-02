@@ -35,6 +35,7 @@
     <string name="loading_text">Loading...</string>
     <string name="chess_text">CHESS</string>
     <string name="chesspic_text">CHESS-PIC</string>
+    <string name="prompt_saving_text">Do you want to save your current canvas?</string>
     <string name="Prompt1">Draw a Duck</string>
     <string name="Prompt2">Draw a House</string>
     <string name="Prompt3">Draw a Dog</string>

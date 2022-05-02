@@ -63,7 +63,7 @@ public class ChessPicReceiveActivity extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                onClickShowAlert(view);
             }
         });
         submitButton.setOnClickListener(new View.OnClickListener() {
@@ -84,6 +84,7 @@ public class ChessPicReceiveActivity extends AppCompatActivity {
         receiveImage();
 
     }
+
     //Checks the users input and sees if it matches the original prompt
     private void checkGuess() {
         int numChanged =0;

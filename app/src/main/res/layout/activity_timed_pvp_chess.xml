@@ -1887,8 +1887,10 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.95"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.955"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/timerText2"
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/timerText1"
@@ -1905,8 +1907,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.068"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.19" />
+        app:layout_constraintTop_toBottomOf="@+id/player1NameText"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/timerText2"
@@ -1922,8 +1924,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.955"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.868" />
+        app:layout_constraintTop_toBottomOf="@+id/layoutH1"
+        app:layout_constraintVertical_bias="0.254" />
 
     <FrameLayout
         android:id="@+id/newGameWithTimeFragmentContainer"
