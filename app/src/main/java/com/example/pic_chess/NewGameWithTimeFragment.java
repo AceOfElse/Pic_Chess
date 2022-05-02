@@ -2,14 +2,13 @@ package com.example.pic_chess;
 
 import android.content.Context;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
+import androidx.fragment.app.Fragment;
 
 public class NewGameWithTimeFragment extends Fragment {
     public interface OnClickSelected {
@@ -47,6 +46,8 @@ public class NewGameWithTimeFragment extends Fragment {
         mTime2Button = view.findViewById(R.id.timeButton2);
         mTime3Button = view.findViewById(R.id.timeButton3);
         mTime4Button = view.findViewById(R.id.timeButton4);
+        mTime5Button = view.findViewById(R.id.timeButton5);
+        mTime6Button = view.findViewById(R.id.timeButton6);
         mCustomButton = view.findViewById(R.id.customTimeButton);
         mCloseButton = view.findViewById(R.id.closeButton);
 
@@ -75,16 +76,24 @@ public class NewGameWithTimeFragment extends Fragment {
                 mOnClickedSelected.sendTimeModeToPvpActivity(3);
             }
         });
+        mTime5Button.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){mOnClickedSelected.sendTimeModeToPvpActivity(4); }
+        });
+        mTime6Button.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){mOnClickedSelected.sendTimeModeToPvpActivity(5); }
+        });
         mCustomButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mOnClickedSelected.sendTimeModeToPvpActivity(4);
+                mOnClickedSelected.sendTimeModeToPvpActivity(6);
             }
         });
         mCloseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mOnClickedSelected.sendTimeModeToPvpActivity(5);
+                mOnClickedSelected.sendTimeModeToPvpActivity(7);
             }
         });
         return view;

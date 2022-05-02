@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        android:text="15 min"
+        android:text="1 min"
         android:textColor="@color/black" />
 
     <Button
@@ -21,7 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        android:text="min"
+        android:text="3 min"
         android:textColor="@color/black" />
 
     <Button
@@ -29,7 +29,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        android:text="min"
+        android:text="5 min"
         android:textColor="@color/black" />
 
     <Button
@@ -37,7 +37,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        android:text="min"
+        android:text="10 min"
+        android:textColor="@color/black" />
+    <Button
+        android:id="@+id/timeButton5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:text="15 min"
+        android:textColor="@color/black" />
+    <Button
+        android:id="@+id/timeButton6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:text="30 min"
         android:textColor="@color/black" />
 
     <Button
