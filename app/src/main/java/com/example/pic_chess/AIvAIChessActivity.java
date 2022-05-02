@@ -207,7 +207,7 @@ public class AIvAIChessActivity extends AppCompatActivity {
         int blackMove;
         while (gameInProgress){
             if (getTurn() == "white"){
-                whiteMove = search(10,10,10);
+                whiteMove = search(10,Integer.MIN_VALUE,Integer.MAX_VALUE);
                 if (whiteMove == Integer.MIN_VALUE){
                     //Checkmate
                     gameInProgress = false;
@@ -215,10 +215,10 @@ public class AIvAIChessActivity extends AppCompatActivity {
                     //Stalemate
                     gameInProgress = false;
                 } else {
-                    makeMove(whiteMove);
+                    //makeMove(whiteMove);
                 }
             } else {
-                blackMove = search(10,10,10);
+                blackMove = search(3,Integer.MIN_VALUE,Integer.MAX_VALUE);
                 if (blackMove == Integer.MIN_VALUE){
                     //Checkmate
                     gameInProgress = false;
@@ -226,11 +226,13 @@ public class AIvAIChessActivity extends AppCompatActivity {
                     //Stalemate
                     gameInProgress = false;
                 } else {
-                    makeMove(blackMove);
+                    //makeMove(blackMove);
                 }
             }
-            numMoves++;
-            checkEnd();
+            Log.d("ai","done searching for move");
+            break;
+            //numMoves++;
+            //checkEnd();
         }
     }
     private void makeMove(int move){
@@ -600,23 +602,23 @@ public class AIvAIChessActivity extends AppCompatActivity {
         for (Piece p: pieces) {
             if (p.getPieceColor().equals(getTurn())){
                 moves = getLegalMoves(p,false);
-            }
-            if (moves.size() == 0) {
-                if (playerInCheck(getTurn(),myKing))
-                    return Integer.MIN_VALUE;
-                return 0;
-            }
-
-            for (Move m: moves){
-                makeMove(m,p);
-                int eval = -search(depth-1, -beta, -alpha);
-                unmakeMove(m,p);
-                if (eval >= beta){
-                    //Move was too good, opponent will avoid this pos
-                    return beta;
+                if (moves.size() == 0) {
+                    if (playerInCheck(getTurn(),myKing))
+                        return Integer.MIN_VALUE;
+                    return 0;
                 }
-                alpha = Math.max(alpha, eval);
-
+                for (Move m: moves){
+                    makeMove(m,p);
+                    numMoves++;
+                    int eval = -search(depth-1, -beta, -alpha);
+                    numMoves--;
+                    unmakeMove(m,p);
+                    if (eval >= beta){
+                        //Move was too good, opponent will avoid this pos
+                        return beta;
+                    }
+                    alpha = Math.max(alpha, eval);
+                }
             }
         }
         return alpha;
@@ -633,7 +635,9 @@ public class AIvAIChessActivity extends AppCompatActivity {
             orderMoves(captureMoves,p);
             for(Move m: captureMoves){
                 makeMove(m,p);
+                numMoves++;
                 eval = -searchAllCaptures(-beta,-alpha);
+                numMoves--;
                 unmakeMove(m,p);
                 if (eval >= beta)
                     return beta;
