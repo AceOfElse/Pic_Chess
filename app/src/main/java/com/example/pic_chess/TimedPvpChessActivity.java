@@ -1692,7 +1692,7 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
 
     //Show alert dialogue when hitting back, resign, or new game button while in the game
     private void onClickShowAlertResign() {
-        resignDialogue.setMessage(R.string.prompt_resign_text);
+        resignDialogue.setMessage("Do you wish to resign?");
         resignDialogue.setPositiveButton("YES", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
