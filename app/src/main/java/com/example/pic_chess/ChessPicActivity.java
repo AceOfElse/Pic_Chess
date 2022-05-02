@@ -22,6 +22,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Environment;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.DragEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -43,6 +44,7 @@ import java.util.Locale;
 
 public class ChessPicActivity extends AppCompatActivity implements NewCanvasPromptFragment.OnInputSelected, ToolBarFragmentTest.OnClickSelected, ColorFragment.OnClickSelected {
     private ImageButton backButton, newCanvasButton, loadFileButton, submitFileButton;
+    private static TextView pixelCountText;
     private static ImageButton saveFileButton;
     private ToggleButton toolbarButton;
     private AlertDialog.Builder alertDialogueForBackButton, alertDialogueForNewCanvas;
@@ -101,6 +103,7 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
         drawingView = findViewById(R.id.drawingViewCP);
         timerText = findViewById(R.id.timerTextCP);
         brushView = findViewById(R.id.brushView);
+        pixelCountText = findViewById(R.id.pixelCountText);
         canvasLayout = findViewById(R.id.canvasLayoutCP);
 
         bishopTool = findViewById(R.id.pieceBishopCP);
@@ -397,11 +400,33 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
 
     //Dealing with Android's back button
     public void onBackPressed() {
-        if (isSaved) {
-            onClickShowAlertReturn();
-        } else {
-            onClickShowAlertOnSave();
-        }
+        alertDialogueForBackButton.setMessage(R.string.prompt_back_text);
+        alertDialogueForBackButton.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+                if (isSaved) {
+                    drawingView.resetCanvas();
+                    resetPieceCount();
+                    returnState = true;
+                    goBackViaLoadingActivity();
+                } else {
+                    drawingView.resetCanvas();
+                    resetPieceCount();
+                    returnState = true;
+                    onClickShowAlertOnSave();
+                }
+            }
+        });
+        alertDialogueForBackButton.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+                startTimer();
+            }
+        });
+        alertDialogueForBackButton.create();
+        alertDialogueForBackButton.show();
     }
 
     //Loading animation goes up when returning back to Home Activity.
@@ -474,36 +499,42 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
             case 0:
                 brushView.setImageResource(R.drawable.whitebishop);
                 drawingView.setStrokeWidth(10f);
+                drawingView.setPixelCount(100);
                 bishopsLeft--;
                 bishopPieceNum.setText(String.valueOf(bishopsLeft));
                 break;
             case 1:
                 brushView.setImageResource(R.drawable.whitepawn);
                 drawingView.setStrokeWidth(50f);
+                drawingView.setPixelCount(50);
                 pawnsLeft--;
                 pawnPieceNum.setText(String.valueOf(pawnsLeft));
                 break;
             case 2:
                 brushView.setImageResource(R.drawable.whiterook);
                 drawingView.setStrokeWidth(10f);
+                drawingView.setPixelCount(100);
                 rooksLeft--;
                 rookPieceNum.setText(String.valueOf(rooksLeft));
                 break;
             case 3:
                 brushView.setImageResource(R.drawable.whiteknight);
                 drawingView.setStrokeWidth(30f);
+                drawingView.setPixelCount(80);
                 knightsLeft--;
                 knightPieceNum.setText(String.valueOf(knightsLeft));
                 break;
             case 4:
                 brushView.setImageResource(R.drawable.whiteking);
                 drawingView.setStrokeWidth(40f);
+                drawingView.setPixelCount(70);
                 kingsLeft--;
                 kingPieceNum.setText(String.valueOf(kingsLeft));
                 break;
             case 5:
                 brushView.setImageResource(R.drawable.whitequeen);
                 drawingView.setStrokeWidth(5f);
+                drawingView.setPixelCount(120);
                 queensLeft--;
                 queenPieceNum.setText(String.valueOf(queensLeft));
                 break;
@@ -593,6 +624,7 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
         private static ArrayList<Integer> colorList = new ArrayList<>();
         private static ArrayList<Float> strokeWidthList = new ArrayList<>();
         private ViewGroup.LayoutParams parameters;
+        private static int pixelCount = 0, moveCount = 0;
         private static int currentBrush = Color.BLACK;
         private static float currentStrokeWidth = 10f;
         private Bitmap savingBitmap = Bitmap.createBitmap(300, 200, Bitmap.Config.ARGB_8888);
@@ -630,7 +662,7 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
                     //Check if the touch is within the bound of brush image view
-                    if (touchX > brushView.getX() && touchX < brushView.getX() + 100 && touchY > brushView.getY() && touchY < brushView.getY() + 200) {
+                    if (touchX > brushView.getX() && touchX < brushView.getX() + 120 && touchY > brushView.getY() && touchY < brushView.getY() + 220) {
                         //Point to the touch coordinate
                         path.moveTo(touchX, touchY);
                         invalidate();
@@ -639,16 +671,24 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
                         return false;
                     }
                 case MotionEvent.ACTION_MOVE:
-                    //Set translation for brush image view
-                    brushView.setX(touchX - 50);
-                    brushView.setY(touchY - 50);
-                    //Connect the point every frame
-                    path.lineTo(touchX, touchY);
-                    pathList.add(path);
-                    colorList.add(currentBrush);
-                    strokeWidthList.add(currentStrokeWidth);
-                    invalidate();
-                    return true;
+                    if (moveCount < pixelCount) {
+                        //Set translation for brush image view
+                        brushView.setX(touchX - 50);
+                        brushView.setY(touchY - 50);
+                        pixelCountText.setX(touchX + 100);
+                        pixelCountText.setY(touchY);
+                        //Connect the point every frame
+                        path.lineTo(touchX, touchY);
+                        pathList.add(path);
+                        colorList.add(currentBrush);
+                        strokeWidthList.add(currentStrokeWidth);
+                        moveCount++;
+                        pixelCountText.setText(String.valueOf(pixelCount - moveCount));
+                        invalidate();
+                        return true;
+                    } else {
+                        return false;
+                    }
                 default:
                     return false;
             }
@@ -662,10 +702,19 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
             colorList.clear();
             strokeWidthList.clear();
             brushView.setImageDrawable(null);
+            pixelCountText.setText(null);
+            pixelCount = 0;
+            moveCount = 0;
         }
 
         public void setStrokeWidth(float width) {
             currentColor(currentBrush, width);
+        }
+
+        public void setPixelCount(int numPixel) {
+            pixelCount = numPixel;
+            moveCount = 0;
+            pixelCountText.setText(String.valueOf(pixelCount));
         }
 
         public void setStandardColor() {
@@ -703,6 +752,7 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
 //////End Creating Canvas Properties\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
 //////Start Handling Game Logic\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
 //////End Handling Game Logic\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
 //////Start Handling Timer\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\

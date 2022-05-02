@@ -206,6 +206,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <TextView
+            android:id="@+id/pixelCountText"
+            android:layout_width="37dp"
+            android:layout_height="19dp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/brushView"
+            app:layout_constraintStart_toEndOf="@+id/brushView"
+            app:layout_constraintTop_toTopOf="@+id/brushView"
+            app:layout_constraintVertical_bias="0.0" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <FrameLayout
