@@ -196,16 +196,17 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageView
+            android:id="@+id/brushView"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="88dp"
+            android:layout_marginTop="252dp"
+            android:visibility="invisible"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <FrameLayout
-        android:id="@+id/newCanvasPromptFragmentContainer"
-        android:layout_width="321dp"
-        android:layout_height="149dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <FrameLayout
         android:id="@+id/toolbarFragmentContainer"
@@ -233,143 +234,112 @@
 
     </FrameLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/piecePickerLayoutCP"
-        android:layout_width="411dp"
-        android:layout_height="100dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+    <ImageView
+        android:id="@+id/pieceRookCP"
+        android:layout_width="67dp"
+        android:layout_height="67dp"
+        android:layout_marginTop="28dp"
+        app:layout_constraintStart_toEndOf="@+id/piecePawnCP"
+        app:layout_constraintTop_toBottomOf="@+id/canvasLayoutCP"
+        app:srcCompat="@drawable/whiterook" />
+
+    <TextView
+        android:id="@+id/pawnPieceNumber"
+        android:layout_width="67dp"
+        android:layout_height="33dp"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        app:layout_constraintStart_toEndOf="@+id/knightPieceNumber"
+        app:layout_constraintTop_toBottomOf="@+id/piecePawnCP" />
+
+    <ImageView
+        android:id="@+id/pieceKnightCP"
+        android:layout_width="67dp"
+        android:layout_height="67dp"
+        android:layout_marginTop="28dp"
+        app:layout_constraintStart_toEndOf="@+id/pieceBishopCP"
+        app:layout_constraintTop_toBottomOf="@+id/canvasLayoutCP"
+        app:srcCompat="@drawable/whiteknight" />
+
+    <TextView
+        android:id="@+id/knightPieceNumber"
+        android:layout_width="67dp"
+        android:layout_height="33dp"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        app:layout_constraintStart_toEndOf="@+id/bishopPieceNumber"
+        app:layout_constraintTop_toBottomOf="@+id/pieceKnightCP" />
+
+    <ImageView
+        android:id="@+id/pieceBishopCP"
+        android:layout_width="67dp"
+        android:layout_height="67dp"
+        android:layout_marginTop="28dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/canvasLayoutCP">
+        app:layout_constraintTop_toBottomOf="@+id/canvasLayoutCP"
+        app:srcCompat="@drawable/whitebishop" />
 
-        <ImageView
-            android:id="@+id/pieceBishopCP"
-            android:layout_width="67dp"
-            android:layout_height="67dp"
-            android:layout_marginStart="4dp"
-            android:layout_marginBottom="33dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/pieceKnightCP"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/whitebishop" />
+    <TextView
+        android:id="@+id/bishopPieceNumber"
+        android:layout_width="67dp"
+        android:layout_height="33dp"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pieceBishopCP" />
 
-        <ImageView
-            android:id="@+id/piecePawnCP"
-            android:layout_width="67dp"
-            android:layout_height="67dp"
-            android:layout_marginBottom="33dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/pieceRookCP"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
-            app:srcCompat="@drawable/whitepawn" />
+    <ImageView
+        android:id="@+id/pieceKingCP"
+        android:layout_width="67dp"
+        android:layout_height="67dp"
+        android:layout_marginTop="28dp"
+        app:layout_constraintStart_toEndOf="@+id/pieceRookCP"
+        app:layout_constraintTop_toBottomOf="@+id/canvasLayoutCP"
+        app:srcCompat="@drawable/whiteking" />
 
-        <ImageView
-            android:id="@+id/pieceRookCP"
-            android:layout_width="67dp"
-            android:layout_height="67dp"
-            android:layout_marginBottom="33dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/pieceKingCP"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/whiterook" />
+    <ImageView
+        android:id="@+id/pieceQueenCP"
+        android:layout_width="67dp"
+        android:layout_height="67dp"
+        android:layout_marginTop="28dp"
+        app:layout_constraintStart_toEndOf="@+id/pieceKingCP"
+        app:layout_constraintTop_toBottomOf="@+id/canvasLayoutCP"
+        app:srcCompat="@drawable/whitequeen" />
 
-        <ImageView
-            android:id="@+id/pieceKingCP"
-            android:layout_width="67dp"
-            android:layout_height="67dp"
-            android:layout_marginBottom="33dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/pieceQueenCP"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/whiteking" />
+    <ImageView
+        android:id="@+id/piecePawnCP"
+        android:layout_width="67dp"
+        android:layout_height="67dp"
+        android:layout_marginTop="28dp"
+        app:layout_constraintStart_toEndOf="@+id/pieceKnightCP"
+        app:layout_constraintTop_toBottomOf="@+id/canvasLayoutCP"
+        app:srcCompat="@drawable/whitepawn" />
 
-        <ImageView
-            android:id="@+id/pieceQueenCP"
-            android:layout_width="67dp"
-            android:layout_height="67dp"
-            android:layout_marginEnd="4dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
-            app:srcCompat="@drawable/whitequeen" />
+    <TextView
+        android:id="@+id/queenPieceNumber"
+        android:layout_width="67dp"
+        android:layout_height="33dp"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        app:layout_constraintStart_toEndOf="@+id/kingPieceNumber"
+        app:layout_constraintTop_toBottomOf="@+id/pieceQueenCP" />
 
-        <ImageView
-            android:id="@+id/pieceKnightCP"
-            android:layout_width="67dp"
-            android:layout_height="67dp"
-            android:layout_marginBottom="33dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/piecePawnCP"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
-            app:srcCompat="@drawable/whiteknight" />
+    <TextView
+        android:id="@+id/kingPieceNumber"
+        android:layout_width="67dp"
+        android:layout_height="33dp"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        app:layout_constraintStart_toEndOf="@+id/rookPieceNumber"
+        app:layout_constraintTop_toBottomOf="@+id/pieceKingCP" />
 
-        <TextView
-            android:id="@+id/bishopPieceNumber"
-            android:layout_width="67dp"
-            android:layout_height="33dp"
-            android:layout_marginStart="4dp"
-            android:textAlignment="center"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/knightPieceNumber"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/pieceBishopCP" />
-
-        <TextView
-            android:id="@+id/knightPieceNumber"
-            android:layout_width="67dp"
-            android:layout_height="33dp"
-            android:textAlignment="center"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/pawnPieceNumber"
-            app:layout_constraintTop_toBottomOf="@+id/pieceKnightCP" />
-
-        <TextView
-            android:id="@+id/pawnPieceNumber"
-            android:layout_width="67dp"
-            android:layout_height="33dp"
-            android:textAlignment="center"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/rookPieceNumber"
-            app:layout_constraintTop_toBottomOf="@+id/piecePawnCP" />
-
-        <TextView
-            android:id="@+id/rookPieceNumber"
-            android:layout_width="67dp"
-            android:layout_height="33dp"
-            android:textAlignment="center"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/kingPieceNumber"
-            app:layout_constraintTop_toBottomOf="@+id/pieceRookCP" />
-
-        <TextView
-            android:id="@+id/kingPieceNumber"
-            android:layout_width="67dp"
-            android:layout_height="33dp"
-            android:textAlignment="center"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/queenPieceNumber"
-            app:layout_constraintTop_toBottomOf="@+id/pieceKingCP" />
-
-        <TextView
-            android:id="@+id/queenPieceNumber"
-            android:layout_width="67dp"
-            android:layout_height="33dp"
-            android:layout_marginEnd="4dp"
-            android:textAlignment="center"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/pieceQueenCP" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:id="@+id/rookPieceNumber"
+        android:layout_width="67dp"
+        android:layout_height="33dp"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        app:layout_constraintStart_toEndOf="@+id/pawnPieceNumber"
+        app:layout_constraintTop_toBottomOf="@+id/pieceRookCP" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/timeLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".NewGameWithTimeFragment">
+
+
+    <Button
+        android:id="@+id/timeButton1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:text="15 min"
+        android:textColor="@color/black" />
+
+    <Button
+        android:id="@+id/timeButton2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:text="min"
+        android:textColor="@color/black" />
+
+    <Button
+        android:id="@+id/timeButton3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:text="min"
+        android:textColor="@color/black" />
+
+    <Button
+        android:id="@+id/timeButton4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:text="min"
+        android:textColor="@color/black" />
+
+    <Button
+        android:id="@+id/customTimeButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:text="@string/custom_time_button_text"
+        android:textColor="@color/black" />
+
+    <Button
+        android:id="@+id/closeButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:text="@string/close_button_text"
+        android:textColor="@color/black" />
+</LinearLayout>

@@ -42,7 +42,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Locale;
-import java.util.Random;
 
 public class ChessPicActivity extends AppCompatActivity implements NewCanvasPromptFragment.OnInputSelected, ToolBarFragmentTest.OnClickSelected, ColorFragment.OnClickSelected {
     private ImageButton backButton, newCanvasButton, loadFileButton, saveFileButton, submitFileButton;
@@ -59,8 +58,8 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
     private long timeLeftInMilliSecond;
 
     private ImageView bishopTool, knightTool, pawnTool, rookTool, kingTool, queenTool, currentTool;
-    private TextView bishopPieceNum, knightPieceNum, pawnPieceNum, rookPieceNum, kingPieceNum, queenPieceNum, timerText,descriptionText;
-    private int bishopsLeft = 4, knightsLeft = 4, pawnsLeft = 4, rooksLeft = 4, kingsLeft = 4, queensLeft = 4, promptNum;
+    private TextView bishopPieceNum, knightPieceNum, pawnPieceNum, rookPieceNum, kingPieceNum, queenPieceNum, timerText;
+    private int bishopsLeft = 4, knightsLeft = 4, pawnsLeft = 4, rooksLeft = 4, kingsLeft = 4, queensLeft = 4;
 
     private float dX, dY;
 
@@ -72,7 +71,7 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
     private FragmentTransaction transaction;
     private String nameFile;
 
-    private Bitmap savingBitmap;
+    private Bitmap savingBitmap = Bitmap.createBitmap(300, 200, Bitmap.Config.ARGB_8888);
     private static final int REQUEST_CODE = 100;
     //Tags for fragment
     private static final String TAG = "NewCanvasPromptFragment";
@@ -102,7 +101,6 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
         toolbarButton = findViewById(R.id.toolbarButtonCP);
         drawingView = findViewById(R.id.drawingViewCP);
         timerText = findViewById(R.id.timerTextCP);
-        descriptionText = findViewById(R.id.descriptionText);
 
         bishopTool = findViewById(R.id.pieceBishopCP);
         knightTool = findViewById(R.id.pieceKnightCP);
@@ -138,8 +136,6 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
         transaction.commit();
         transaction.hide(colorFragment);
 
-        savingBitmap = Bitmap.createBitmap(300, 200, Bitmap.Config.ARGB_8888);
-
 
         //Set button listeners
         backButton.setOnClickListener(new View.OnClickListener() {
@@ -171,12 +167,7 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
                 transaction.commit();
             }
         });
-        saveFileButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                askPermission();
-            }
-        });
+
         //Set time textview
         if (isTimed) {
             timerText.setVisibility(View.VISIBLE);
@@ -190,30 +181,13 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
         createDraggableImage();
         createCanvas(savingBitmap);
         setTextviewLeftValues();
-        //This is needed here because prompt number will be used in the names of saved flies.
-        Random rg = new Random();// 5 is just a starter number, more prompts will be added later.
-        promptNum = rg.nextInt(5)+1;
-        generatePrompt();
-    }
 
-    private void generatePrompt() {
-        switch (promptNum){
-            case 1:
-                descriptionText.setText(R.string.Prompt1);
-                break;
-            case 2:
-                descriptionText.setText(R.string.Prompt2);
-                break;
-            case 3:
-                descriptionText.setText(R.string.Prompt3);
-                break;
-            case 4:
-                descriptionText.setText(R.string.Prompt4);
-                break;
-            case 5:
-                descriptionText.setText(R.string.Prompt5);
-                break;
-        }
+        saveFileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                askPermission();
+            }
+        });
     }
 
     private void setTextviewLeftValues() {
@@ -675,7 +649,7 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
         File sdCard = Environment.getExternalStorageDirectory();
         File dir = new File(sdCard.getAbsolutePath() + "/Pictures");
         dir.mkdirs();
-        String fileName = "ChessPic" +promptNum+ ".png";
+        String fileName = "drawin.jpg";
         File outFile = new File(dir, fileName);
         try {
             outStream = new FileOutputStream(outFile);
@@ -683,10 +657,9 @@ public class ChessPicActivity extends AppCompatActivity implements NewCanvasProm
             e.printStackTrace();
         }
         if (outStream == null) {
-            Toast.makeText(ChessPicActivity.this, "Outstream is null", Toast.LENGTH_LONG).show();
+            Toast.makeText(ChessPicActivity.this, "Ourstream is null", Toast.LENGTH_LONG).show();
         } else {
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, outStream);
-            Toast.makeText(ChessPicActivity.this,"Image Saved", Toast.LENGTH_LONG).show();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outStream);
         }
         try {
             outStream.flush();

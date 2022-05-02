@@ -36,7 +36,7 @@ public class LoadingActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
-    public void progressAnimation() {
+    private void progressAnimation() {
         switch (classCode) {
             case 0:
                 activityClass = HomeActivity.class;

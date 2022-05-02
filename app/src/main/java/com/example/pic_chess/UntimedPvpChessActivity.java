@@ -50,7 +50,7 @@ public class UntimedPvpChessActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(layout.activity_timed_pvp_chess);
+        setContentView(layout.activity_untimed_pvp_chess);
         ConstraintLayout mainLayout = findViewById(id.untimedPvpChessLayout);
         deadLayout = findViewById(id.deadPieceLayout);
         gameLayout = new LinearLayout(this);

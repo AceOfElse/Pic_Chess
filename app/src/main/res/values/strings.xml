@@ -33,12 +33,6 @@
     <string name="apply_setting_button_text">APPLY</string>
     <string name="minute_text">min.</string>
     <string name="loading_text">Loading...</string>
-    <string name="Prompt1">Draw a Duck</string>
-    <string name="Prompt2">Draw a Car</string>
-    <string name="Prompt3">Draw a Pizza</string>
-    <string name="Prompt4">Draw a Dog</string>
-    <string name="Prompt5">Draw a House</string>
-    <string name="Prompt6"></string>
-    <string name="chesspic_text">Chess Pic</string>
-    <string name="chess_text">Chess</string>
+    <string name="chess_text">CHESS</string>
+    <string name="chesspic_text">CHESS-PIC</string>
 </resources>

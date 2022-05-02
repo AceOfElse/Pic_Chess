@@ -8,14 +8,16 @@
     android:alpha="0.9"
     android:background="@color/black"
     tools:context=".TimedPvpChessActivity">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/deadPieceLayout"
-        android:visibility="gone"
-        android:layout_height="500000dp"
         android:layout_width="500000dp"
+        android:layout_height="500000dp"
+        android:visibility="gone"
         tools:ignore="MissingConstraints">
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutB2"
         android:layout_width="50dp"
@@ -1922,5 +1924,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.868" />
+
+    <FrameLayout
+        android:id="@+id/newGameWithTimeFragmentContainer"
+        android:layout_width="102dp"
+        android:layout_height="304dp"
+        android:layout_marginStart="114dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="198dp"
+        android:layout_marginBottom="341dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,6 +4,7 @@ import static com.example.pic_chess.R.drawable;
 import static com.example.pic_chess.R.id;
 import static com.example.pic_chess.R.layout;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -18,15 +19,17 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
+import androidx.fragment.app.FragmentTransaction;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Objects;
 
-public class TimedPvpChessActivity extends AppCompatActivity {
+public class TimedPvpChessActivity extends AppCompatActivity implements NewGameWithTimeFragment.OnClickSelected {
     private LinearLayout gameLayout;
     private TextView timerText1;
     private TextView timerText2;
@@ -49,9 +52,15 @@ public class TimedPvpChessActivity extends AppCompatActivity {
     private final int increment = 0;
     private int numMoves = 0;
     private int time = 900;
+    private int customTime;
     private boolean gameInProgress = false;
     private boolean prompted = false;
     private CountDownTimer whiteTimer, blackTimer;
+    private AlertDialog.Builder resignDialogue;
+
+    //Fragment stuffs
+    private FragmentTransaction transaction;
+    private NewGameWithTimeFragment newGameWithTimeFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +68,7 @@ public class TimedPvpChessActivity extends AppCompatActivity {
         setContentView(layout.activity_timed_pvp_chess);
         ConstraintLayout mainLayout = findViewById(id.timedPvpChessLayout);
         deadLayout = findViewById(id.deadPieceLayout);
+
         gameLayout = new LinearLayout(this);
         LinearLayout popupLayout = new LinearLayout(this);
         resignMenu = new PopupWindow(this);
@@ -78,70 +88,73 @@ public class TimedPvpChessActivity extends AppCompatActivity {
         ImageButton resignButton = findViewById(id.resignButton);
         timerText1 = findViewById(id.timerText1);
         timerText2 = findViewById(id.timerText2);
-        boardLayout.add(findViewById(id.layoutA1));
-        boardLayout.add(findViewById(id.layoutB1));
-        boardLayout.add(findViewById(id.layoutC1));
-        boardLayout.add(findViewById(id.layoutD1));
-        boardLayout.add(findViewById(id.layoutE1));
-        boardLayout.add(findViewById(id.layoutF1));
-        boardLayout.add(findViewById(id.layoutG1));
-        boardLayout.add(findViewById(id.layoutH1));
-        boardLayout.add(findViewById(id.layoutA2));
-        boardLayout.add(findViewById(id.layoutB2));
-        boardLayout.add(findViewById(id.layoutC2));
-        boardLayout.add(findViewById(id.layoutD2));
-        boardLayout.add(findViewById(id.layoutE2));
-        boardLayout.add(findViewById(id.layoutF2));
-        boardLayout.add(findViewById(id.layoutG2));
-        boardLayout.add(findViewById(id.layoutH2));
-        boardLayout.add(findViewById(id.layoutA3));
-        boardLayout.add(findViewById(id.layoutB3));
-        boardLayout.add(findViewById(id.layoutC3));
-        boardLayout.add(findViewById(id.layoutD3));
-        boardLayout.add(findViewById(id.layoutE3));
-        boardLayout.add(findViewById(id.layoutF3));
-        boardLayout.add(findViewById(id.layoutG3));
-        boardLayout.add(findViewById(id.layoutH3));
-        boardLayout.add(findViewById(id.layoutA4));
-        boardLayout.add(findViewById(id.layoutB4));
-        boardLayout.add(findViewById(id.layoutC4));
-        boardLayout.add(findViewById(id.layoutD4));
-        boardLayout.add(findViewById(id.layoutE4));
-        boardLayout.add(findViewById(id.layoutF4));
-        boardLayout.add(findViewById(id.layoutG4));
-        boardLayout.add(findViewById(id.layoutH4));
-        boardLayout.add(findViewById(id.layoutA5));
-        boardLayout.add(findViewById(id.layoutB5));
-        boardLayout.add(findViewById(id.layoutC5));
-        boardLayout.add(findViewById(id.layoutD5));
-        boardLayout.add(findViewById(id.layoutE5));
-        boardLayout.add(findViewById(id.layoutF5));
-        boardLayout.add(findViewById(id.layoutG5));
-        boardLayout.add(findViewById(id.layoutH5));
-        boardLayout.add(findViewById(id.layoutA6));
-        boardLayout.add(findViewById(id.layoutB6));
-        boardLayout.add(findViewById(id.layoutC6));
-        boardLayout.add(findViewById(id.layoutD6));
-        boardLayout.add(findViewById(id.layoutE6));
-        boardLayout.add(findViewById(id.layoutF6));
-        boardLayout.add(findViewById(id.layoutG6));
-        boardLayout.add(findViewById(id.layoutH6));
-        boardLayout.add(findViewById(id.layoutA7));
-        boardLayout.add(findViewById(id.layoutB7));
-        boardLayout.add(findViewById(id.layoutC7));
-        boardLayout.add(findViewById(id.layoutD7));
-        boardLayout.add(findViewById(id.layoutE7));
-        boardLayout.add(findViewById(id.layoutF7));
-        boardLayout.add(findViewById(id.layoutG7));
-        boardLayout.add(findViewById(id.layoutH7));
-        boardLayout.add(findViewById(id.layoutA8));
-        boardLayout.add(findViewById(id.layoutB8));
-        boardLayout.add(findViewById(id.layoutC8));
-        boardLayout.add(findViewById(id.layoutD8));
-        boardLayout.add(findViewById(id.layoutE8));
-        boardLayout.add(findViewById(id.layoutF8));
-        boardLayout.add(findViewById(id.layoutG8));
-        boardLayout.add(findViewById(id.layoutH8));
+        //Add layouts to board layout
+        {
+            boardLayout.add(findViewById(id.layoutA1));
+            boardLayout.add(findViewById(id.layoutB1));
+            boardLayout.add(findViewById(id.layoutC1));
+            boardLayout.add(findViewById(id.layoutD1));
+            boardLayout.add(findViewById(id.layoutE1));
+            boardLayout.add(findViewById(id.layoutF1));
+            boardLayout.add(findViewById(id.layoutG1));
+            boardLayout.add(findViewById(id.layoutH1));
+            boardLayout.add(findViewById(id.layoutA2));
+            boardLayout.add(findViewById(id.layoutB2));
+            boardLayout.add(findViewById(id.layoutC2));
+            boardLayout.add(findViewById(id.layoutD2));
+            boardLayout.add(findViewById(id.layoutE2));
+            boardLayout.add(findViewById(id.layoutF2));
+            boardLayout.add(findViewById(id.layoutG2));
+            boardLayout.add(findViewById(id.layoutH2));
+            boardLayout.add(findViewById(id.layoutA3));
+            boardLayout.add(findViewById(id.layoutB3));
+            boardLayout.add(findViewById(id.layoutC3));
+            boardLayout.add(findViewById(id.layoutD3));
+            boardLayout.add(findViewById(id.layoutE3));
+            boardLayout.add(findViewById(id.layoutF3));
+            boardLayout.add(findViewById(id.layoutG3));
+            boardLayout.add(findViewById(id.layoutH3));
+            boardLayout.add(findViewById(id.layoutA4));
+            boardLayout.add(findViewById(id.layoutB4));
+            boardLayout.add(findViewById(id.layoutC4));
+            boardLayout.add(findViewById(id.layoutD4));
+            boardLayout.add(findViewById(id.layoutE4));
+            boardLayout.add(findViewById(id.layoutF4));
+            boardLayout.add(findViewById(id.layoutG4));
+            boardLayout.add(findViewById(id.layoutH4));
+            boardLayout.add(findViewById(id.layoutA5));
+            boardLayout.add(findViewById(id.layoutB5));
+            boardLayout.add(findViewById(id.layoutC5));
+            boardLayout.add(findViewById(id.layoutD5));
+            boardLayout.add(findViewById(id.layoutE5));
+            boardLayout.add(findViewById(id.layoutF5));
+            boardLayout.add(findViewById(id.layoutG5));
+            boardLayout.add(findViewById(id.layoutH5));
+            boardLayout.add(findViewById(id.layoutA6));
+            boardLayout.add(findViewById(id.layoutB6));
+            boardLayout.add(findViewById(id.layoutC6));
+            boardLayout.add(findViewById(id.layoutD6));
+            boardLayout.add(findViewById(id.layoutE6));
+            boardLayout.add(findViewById(id.layoutF6));
+            boardLayout.add(findViewById(id.layoutG6));
+            boardLayout.add(findViewById(id.layoutH6));
+            boardLayout.add(findViewById(id.layoutA7));
+            boardLayout.add(findViewById(id.layoutB7));
+            boardLayout.add(findViewById(id.layoutC7));
+            boardLayout.add(findViewById(id.layoutD7));
+            boardLayout.add(findViewById(id.layoutE7));
+            boardLayout.add(findViewById(id.layoutF7));
+            boardLayout.add(findViewById(id.layoutG7));
+            boardLayout.add(findViewById(id.layoutH7));
+            boardLayout.add(findViewById(id.layoutA8));
+            boardLayout.add(findViewById(id.layoutB8));
+            boardLayout.add(findViewById(id.layoutC8));
+            boardLayout.add(findViewById(id.layoutD8));
+            boardLayout.add(findViewById(id.layoutE8));
+            boardLayout.add(findViewById(id.layoutF8));
+            boardLayout.add(findViewById(id.layoutG8));
+            boardLayout.add(findViewById(id.layoutH8));
+        }
         //Add board image views to array list (From boardA1 -> board H8, bottom to top, left to right)
         {
             boardImages.add(findViewById(id.boardA1));
@@ -221,6 +234,7 @@ public class TimedPvpChessActivity extends AppCompatActivity {
             boardSquares.add(new Square(f,r, v,boardLayout.get(index)));
             index++;
         }
+
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT);
         popupLayout.setOrientation(LinearLayout.VERTICAL);
@@ -234,6 +248,23 @@ public class TimedPvpChessActivity extends AppCompatActivity {
         gameLayout.addView(closeButton,params);
         gameLayout.addView(min15button,params);
         setContentView(mainLayout);
+
+        //Set Alert Dialogue
+        resignDialogue = new AlertDialog.Builder(TimedPvpChessActivity.this);
+
+        //Set Fragment
+        newGameWithTimeFragment = NewGameWithTimeFragment.newInstance();
+        transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(id.newGameWithTimeFragmentContainer, newGameWithTimeFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+        transaction.hide(newGameWithTimeFragment);
+
+        //Get custom time from setting Activity and convert to seconds
+        Intent timeIntent = getIntent();
+        customTime = timeIntent.getIntExtra("TIMER", 601000);
+        customTime = (int)((customTime - 1000) / 1000);
+
         //Set button listeners
         yesButton.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -273,10 +304,10 @@ public class TimedPvpChessActivity extends AppCompatActivity {
                 if (!gameInProgress)
                     returnHome();
                 else {
-                    resignMenu.showAtLocation(gameLayout, Gravity.CENTER,300,80);
-                    resignMenu.update(50,50,300,300);
+                    //resignMenu.showAtLocation(gameLayout, Gravity.CENTER,300,80);
+                    //resignMenu.update(50,50,300,300);
+                    onClickShowAlertResign();
                     prompted = !prompted;
-                    //Are you sure
                 }
             }
         });
@@ -284,11 +315,16 @@ public class TimedPvpChessActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (!gameInProgress){
-                    gameMenu.showAtLocation(gameLayout, Gravity.CENTER,300,80);
-                    gameMenu.update(50,50,300,300);
+                    //gameMenu.showAtLocation(gameLayout, Gravity.CENTER,300,80);
+                    //gameMenu.update(50,50,300,300);
+                    transaction = getSupportFragmentManager().beginTransaction();
+                    transaction.setCustomAnimations(R.anim.slide_down_top, R.anim.slide_up_top);
+                    transaction.show(newGameWithTimeFragment);
+                    transaction.commit();
                 } else {
-                    resignMenu.showAtLocation(gameLayout, Gravity.CENTER,300,80);
-                    resignMenu.update(50,50,300,300);
+                    //resignMenu.showAtLocation(gameLayout, Gravity.CENTER,300,80);
+                    //resignMenu.update(50,50,300,300);
+                    onClickShowAlertResign();
                 }
                 prompted = !prompted;
             }
@@ -303,8 +339,9 @@ public class TimedPvpChessActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (gameInProgress){
-                    resignMenu.showAtLocation(gameLayout, Gravity.CENTER,300,300);
-                    resignMenu.update(50,50,300,300);
+                    //resignMenu.showAtLocation(gameLayout, Gravity.CENTER,300,300);
+                    //resignMenu.update(50,50,300,300);
+                    onClickShowAlertResign();
                     prompted = !prompted;
                 }
             }
@@ -1563,11 +1600,70 @@ public class TimedPvpChessActivity extends AppCompatActivity {
     }
 
 //////Start Handling Button\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+    //Implement methods from fragment
+    public void sendTimeModeToPvpActivity(int mode) {
+        switch(mode) {
+            //15 min.
+            case 0:
+                gameInProgress = true;
+                time = 900;
+                timerSetup();
+                prompted = false;
+                hideTimeFragment();
+                break;
+            //? min
+            case 1:
+                gameInProgress = true;
+                time = 1000;
+                timerSetup();
+                prompted = false;
+                hideTimeFragment();
+                break;
+            //? min
+            case 2:
+                gameInProgress = true;
+                time = 1100;
+                timerSetup();
+                prompted = false;
+                hideTimeFragment();
+                break;
+            //? min
+            case 3:
+                gameInProgress = true;
+                time = 1200;
+                timerSetup();
+                prompted = false;
+                hideTimeFragment();
+                break;
+            //Custom Time
+            case 4:
+                gameInProgress = true;
+                time = customTime;
+                timerSetup();
+                prompted = false;
+                hideTimeFragment();
+                break;
+            //Close
+            case 5:
+                hideTimeFragment();
+                break;
+        }
+    }
+
+    private void hideTimeFragment() {
+        transaction = getSupportFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(R.anim.slide_down_top, R.anim.slide_up_top);
+        transaction.hide(newGameWithTimeFragment);
+        transaction.commit();
+    }
+
     public void returnHome() {
         goBackViaLoadingActivity();
     }
 
+    //Deals with Android's back button
     public void onBackPressed() {
+        onClickShowAlertResign();
         goBackViaLoadingActivity();
     }
 
@@ -1577,6 +1673,28 @@ public class TimedPvpChessActivity extends AppCompatActivity {
         loadingIntent.putExtra("Class Code", 0);
         startActivity(loadingIntent);
         finish();
+    }
+
+    //Show alert dialogue when hitting back, resign, or new game button while in the game
+    private void onClickShowAlertResign() {
+        resignDialogue.setMessage(R.string.prompt_resign_text);
+        resignDialogue.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                prompted = false;
+                gameInProgress = false;
+                dialogInterface.dismiss();
+            }
+        });
+        resignDialogue.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                prompted = false;
+                dialogInterface.dismiss();
+            }
+        });
+        resignDialogue.create();
+        resignDialogue.show();
     }
 //////End Handling Button\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 }

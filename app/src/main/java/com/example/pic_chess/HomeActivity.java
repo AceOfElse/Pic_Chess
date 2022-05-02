@@ -38,8 +38,7 @@ public class HomeActivity extends AppCompatActivity implements SecondMenuChessFr
     private ThirdMenuTimeFragment thirdMenuTimeFragment;
     private FragmentTransaction transaction;
 
-    private Bundle bundleForThirdMenu;
-    private ByteArrayOutputStream byteStreamFirst, byteStreamSecond;
+    //Mode for activity
     private int firstMode;
 
     //default timer is 10 minutes
@@ -81,12 +80,6 @@ public class HomeActivity extends AppCompatActivity implements SecondMenuChessFr
         secondMenuChessFragment = SecondMenuChessFragment.newInstance();
         thirdMenuTimeFragment = ThirdMenuTimeFragment.newInstance();
 
-        //Set tools to transfer data from activity to fragment
-        bundleForThirdMenu = new Bundle();
-        byteStreamFirst = new ByteArrayOutputStream();
-        byteStreamSecond = new ByteArrayOutputStream();
-
-
         //Set button listeners
         chessPreviewButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,8 +115,7 @@ public class HomeActivity extends AppCompatActivity implements SecondMenuChessFr
         switch(mode) {
             case 0:
                 firstMode = 0;
-                transferDataToThirdFragment(BitmapFactory.decodeResource(getResources(), R.drawable.chess_preview_image),
-                        BitmapFactory.decodeResource(getResources(), R.drawable.pvp_preview_image), "CHE", "PVP");
+                openThirdFragment();
                 break;
             case 1:
                 firstMode = 1;
@@ -135,8 +127,7 @@ public class HomeActivity extends AppCompatActivity implements SecondMenuChessFr
                 break;
             case 3:
                 firstMode = 3;
-                transferDataToThirdFragment(BitmapFactory.decodeResource(getResources(), R.drawable.chess_preview_image),
-                        BitmapFactory.decodeResource(getResources(), R.drawable.custom_game_image), "CHE", "CUS");
+                openThirdFragment();
                 break;
             default:
                 break;
@@ -147,13 +138,11 @@ public class HomeActivity extends AppCompatActivity implements SecondMenuChessFr
         switch(mode) {
             case 0:
                 firstMode = 4;
-                transferDataToThirdFragment(BitmapFactory.decodeResource(getResources(), R.drawable.chesspic_preview_image),
-                        BitmapFactory.decodeResource(getResources(), R.drawable.drawing_image), "PIC", "DRW");
+                openThirdFragment();
                 break;
             case 1:
                 firstMode = 5;
-                transferDataToThirdFragment(BitmapFactory.decodeResource(getResources(), R.drawable.chesspic_preview_image),
-                        BitmapFactory.decodeResource(getResources(), R.drawable.guessing_image),"PIC", "GUE");
+                openThirdFragment();
                 break;
             default:
                 break;
@@ -190,7 +179,6 @@ public class HomeActivity extends AppCompatActivity implements SecondMenuChessFr
                 break;
         }
     }
-
 
     //Set activity life cycles
     protected void onStart() {
@@ -239,16 +227,7 @@ public class HomeActivity extends AppCompatActivity implements SecondMenuChessFr
 
 //////Start Helper Methods within Home Activity\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
     //Helper method to establish transaction by encoding images
-    private void transferDataToThirdFragment(Bitmap imageBitmapFirst, Bitmap imageBitmapSecond, String tag1, String tag2) {
-        imageBitmapFirst.compress(Bitmap.CompressFormat.PNG, 100, byteStreamFirst);
-        byte[] byteCodeFirst = byteStreamFirst.toByteArray();
-        imageBitmapSecond.compress(Bitmap.CompressFormat.PNG, 100, byteStreamSecond);
-        byte[] byteCodeSecond = byteStreamSecond.toByteArray();
-        bundleForThirdMenu.putByteArray(tag1, byteCodeFirst);
-        bundleForThirdMenu.putByteArray(tag2, byteCodeSecond);
-        bundleForThirdMenu.putString("First Image", tag1);
-        bundleForThirdMenu.putString("Second Image", tag2);
-        thirdMenuTimeFragment.setArguments(bundleForThirdMenu);
+    private void openThirdFragment() {
         transaction = getSupportFragmentManager().beginTransaction();
         transaction.setCustomAnimations(R.anim.slide_in, R.anim.fade_out, R.anim.fade_in, R.anim.slide_out);
         transaction.replace(R.id.thirdMenuFragmentContainer, thirdMenuTimeFragment);
@@ -268,8 +247,6 @@ public class HomeActivity extends AppCompatActivity implements SecondMenuChessFr
 
     private void openPvpUntimed(boolean isTimed) {
         Intent pvpIntent = new Intent(HomeActivity.this, LoadingActivity.class);
-        pvpIntent.putExtra("TIME", isTimed);
-        pvpIntent.putExtra("TIMER", timer[0]);
         pvpIntent.putExtra("Class Code", 2);
         startActivity(pvpIntent);
         onStop();
@@ -279,7 +256,7 @@ public class HomeActivity extends AppCompatActivity implements SecondMenuChessFr
     private void openPvAI(boolean isTimed) {
         Intent pvpIntent = new Intent(HomeActivity.this, LoadingActivity.class);
         pvpIntent.putExtra("TIME", isTimed);
-        pvpIntent.putExtra("TIMER", timer[0]);
+        pvpIntent.putExtra("TIMER", timer[1]);
         pvpIntent.putExtra("Class Code", 3);
         startActivity(pvpIntent);
         onStop();
@@ -288,8 +265,6 @@ public class HomeActivity extends AppCompatActivity implements SecondMenuChessFr
 
     private void openAIvAI(boolean isTimed) {
         Intent pvpIntent = new Intent(HomeActivity.this, LoadingActivity.class);
-        pvpIntent.putExtra("TIME", isTimed);
-        pvpIntent.putExtra("TIMER", timer[0]);
         pvpIntent.putExtra("Class Code", 4);
         startActivity(pvpIntent);
         onStop();
