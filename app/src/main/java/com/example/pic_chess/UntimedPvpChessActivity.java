@@ -4,19 +4,16 @@ import static com.example.pic_chess.R.drawable;
 import static com.example.pic_chess.R.id;
 import static com.example.pic_chess.R.layout;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.PopupWindow;
-import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
@@ -26,12 +23,8 @@ import java.util.Collections;
 import java.util.Objects;
 
 public class UntimedPvpChessActivity extends AppCompatActivity {
-    private LinearLayout gameLayout;
-    private TextView timerText1;
-    private TextView timerText2;
     private ConstraintLayout deadLayout;
     private final ArrayList<ConstraintLayout> boardLayout = new ArrayList<>();
-    private PopupWindow resignMenu, gameMenu;
     private final ArrayList<ImageView> boardImages = new ArrayList<>();
     private final ArrayList<Square> boardSquares = new ArrayList<>();
     private final ArrayList<Piece> pieces = new ArrayList<>();
@@ -46,32 +39,17 @@ public class UntimedPvpChessActivity extends AppCompatActivity {
     private int numMoves = 0;
     private boolean gameInProgress = false;
     private boolean prompted = false;
+    private AlertDialog.Builder resignDialogue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(layout.activity_untimed_pvp_chess);
-        ConstraintLayout mainLayout = findViewById(id.untimedPvpChessLayout);
         deadLayout = findViewById(id.deadPieceLayout);
-        gameLayout = new LinearLayout(this);
-        LinearLayout popupLayout = new LinearLayout(this);
-        resignMenu = new PopupWindow(this);
-        gameMenu = new PopupWindow(this);
-        TextView resignText = new TextView(this);
-        Button yesButton = new Button(this);
-        yesButton.setText("YES");
-        Button noButton = new Button(this);
-        noButton.setText("NO");
-        Button min15button = new Button(this);
-        min15button.setText("15min");
-        Button closeButton = new Button(this);
-        closeButton.setText("CLOSE");
         ImageButton backButton = findViewById(id.backButton);
         ImageButton newGameButton = findViewById(id.newGameButton);
         ImageButton endButton = findViewById(id.endButton);
         ImageButton resignButton = findViewById(id.resignButton);
-        timerText1 = findViewById(id.timerText1);
-        timerText2 = findViewById(id.timerText2);
         boardLayout.add(findViewById(id.layoutA1));
         boardLayout.add(findViewById(id.layoutB1));
         boardLayout.add(findViewById(id.layoutC1));
@@ -215,72 +193,26 @@ public class UntimedPvpChessActivity extends AppCompatActivity {
             boardSquares.add(new Square(f,r, v,boardLayout.get(index)));
             index++;
         }
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT);
-        popupLayout.setOrientation(LinearLayout.VERTICAL);
-        gameLayout.setOrientation(LinearLayout.VERTICAL);
-        resignText.setText("Are you sure you want to resign?");
-        popupLayout.addView(resignText, params);
-        resignMenu.setContentView(popupLayout);
-        gameMenu.setContentView(gameLayout);
-        popupLayout.addView(yesButton, params);
-        popupLayout.addView(noButton, params);
-        gameLayout.addView(closeButton,params);
-        gameLayout.addView(min15button,params);
-        setContentView(mainLayout);
-        //Set button listeners
-        yesButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick (View view){
-                prompted = false;
-                gameInProgress = false;
-                resignMenu.dismiss();
-            }
-        });
-        noButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick (View view){
-                prompted = false;
-                resignMenu.dismiss();
-            }
-        });
-        closeButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick (View view){
-                prompted = false;
-                gameMenu.dismiss();
-            }
-        });
-        min15button.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick (View view){
-                gameInProgress = true;
-                prompted = false;
-                gameMenu.dismiss();
-            }
-        });
+        //Set Alert Dialogue
+        resignDialogue = new AlertDialog.Builder(UntimedPvpChessActivity.this);
+
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (!gameInProgress)
                     returnHome();
                 else {
-                    resignMenu.showAtLocation(gameLayout, Gravity.CENTER,300,80);
-                    resignMenu.update(50,50,300,300);
-                    prompted = !prompted;
-                    //Are you sure
+                    onClickShowAlertResign();
                 }
             }
         });
         newGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!gameInProgress){
-                    gameMenu.showAtLocation(gameLayout, Gravity.CENTER,300,80);
-                    gameMenu.update(50,50,300,300);
+                if (gameInProgress){
+                    onClickShowAlertResign();
                 } else {
-                    resignMenu.showAtLocation(gameLayout, Gravity.CENTER,300,80);
-                    resignMenu.update(50,50,300,300);
+                    gameInProgress = true;
                 }
                 prompted = !prompted;
             }
@@ -295,9 +227,7 @@ public class UntimedPvpChessActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (gameInProgress){
-                    resignMenu.showAtLocation(gameLayout, Gravity.CENTER,300,300);
-                    resignMenu.update(50,50,300,300);
-                    prompted = !prompted;
+                    onClickShowAlertResign();
                 }
             }
         });
@@ -1318,11 +1248,9 @@ public class UntimedPvpChessActivity extends AppCompatActivity {
     public static class Move {
         private final int currentSquare;
         private final int targetSquare;
-        private int evaluation;
         public Move(int current, int target){
             currentSquare = current;
             targetSquare = target;
-            evaluation = 0;
         }
         public int getCurrentSquare(){
             return currentSquare;
@@ -1330,8 +1258,6 @@ public class UntimedPvpChessActivity extends AppCompatActivity {
         public int getTargetSquare(){
             return targetSquare;
         }
-        public void setEvaluation(int eval){evaluation = eval;}
-
     }
     public static class Square {
         private final int rank;
@@ -1458,6 +1384,27 @@ public class UntimedPvpChessActivity extends AppCompatActivity {
         loadingIntent.putExtra("Class Code", 0);
         startActivity(loadingIntent);
         finish();
+    }
+    //Show alert dialogue when hitting back, resign, or new game button while in the game
+    private void onClickShowAlertResign() {
+        resignDialogue.setMessage("Do you wish to resign?");
+        resignDialogue.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                prompted = false;
+                gameInProgress = false;
+                dialogInterface.dismiss();
+            }
+        });
+        resignDialogue.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                prompted = false;
+                dialogInterface.dismiss();
+            }
+        });
+        resignDialogue.create();
+        resignDialogue.show();
     }
 //////End Handling Button\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 }

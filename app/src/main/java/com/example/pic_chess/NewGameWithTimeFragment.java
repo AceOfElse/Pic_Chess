@@ -15,7 +15,7 @@ public class NewGameWithTimeFragment extends Fragment {
         void sendTimeModeToPvpActivity(int mode);
     }
 
-    private Button mTime1Button, mTime2Button, mTime3Button, mTime4Button, mCustomButton, mCloseButton;
+    private Button mTime1Button, mTime2Button, mTime3Button, mTime4Button, mTime5Button, mTime6Button, mCustomButton, mCloseButton;
     private OnClickSelected mOnClickedSelected;
 
     private static final String TAG = "Time for Game Fragment";

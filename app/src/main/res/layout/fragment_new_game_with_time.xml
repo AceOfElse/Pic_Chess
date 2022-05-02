@@ -59,7 +59,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        android:text="@string/custom_time_button_text"
+        android:text="CUSTOM"
         android:textColor="@color/black" />
 
     <Button
@@ -67,6 +67,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        android:text="@string/close_button_text"
+        android:text="CLOSE"
         android:textColor="@color/black" />
 </LinearLayout>

@@ -11,7 +11,6 @@ import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -67,20 +66,6 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
         setContentView(layout.activity_timed_pvp_chess);
         ConstraintLayout mainLayout = findViewById(id.timedPvpChessLayout);
         deadLayout = findViewById(id.deadPieceLayout);
-
-        gameLayout = new LinearLayout(this);
-        LinearLayout popupLayout = new LinearLayout(this);
-        resignMenu = new PopupWindow(this);
-        gameMenu = new PopupWindow(this);
-        TextView resignText = new TextView(this);
-        Button yesButton = new Button(this);
-        yesButton.setText("YES");
-        Button noButton = new Button(this);
-        noButton.setText("NO");
-        Button min15button = new Button(this);
-        min15button.setText("15min");
-        Button closeButton = new Button(this);
-        closeButton.setText("CLOSE");
         ImageButton backButton = findViewById(id.backButton);
         ImageButton newGameButton = findViewById(id.newGameButton);
         ImageButton endButton = findViewById(id.endButton);
@@ -234,20 +219,6 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
             index++;
         }
 
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT);
-        popupLayout.setOrientation(LinearLayout.VERTICAL);
-        gameLayout.setOrientation(LinearLayout.VERTICAL);
-        resignText.setText("Are you sure you want to resign?");
-        popupLayout.addView(resignText, params);
-        resignMenu.setContentView(popupLayout);
-        gameMenu.setContentView(gameLayout);
-        popupLayout.addView(yesButton, params);
-        popupLayout.addView(noButton, params);
-        gameLayout.addView(closeButton,params);
-        gameLayout.addView(min15button,params);
-        setContentView(mainLayout);
-
         //Set Alert Dialogue
         resignDialogue = new AlertDialog.Builder(TimedPvpChessActivity.this);
 
@@ -264,39 +235,6 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
         customTime = timeIntent.getIntExtra("TIMER", 601000);
         customTime = (int)((customTime - 1000) / 1000);
 
-        //Set button listeners
-        yesButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick (View view){
-                prompted = false;
-                gameInProgress = false;
-                resignMenu.dismiss();
-            }
-        });
-        noButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick (View view){
-                prompted = false;
-                resignMenu.dismiss();
-            }
-        });
-        closeButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick (View view){
-                prompted = false;
-                gameMenu.dismiss();
-            }
-        });
-        min15button.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick (View view){
-                gameInProgress = true;
-                time = 900;
-                timerSetup();
-                prompted = false;
-                gameMenu.dismiss();
-            }
-        });
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -314,15 +252,11 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
             @Override
             public void onClick(View view) {
                 if (!gameInProgress){
-                    //gameMenu.showAtLocation(gameLayout, Gravity.CENTER,300,80);
-                    //gameMenu.update(50,50,300,300);
                     transaction = getSupportFragmentManager().beginTransaction();
                     transaction.setCustomAnimations(R.anim.slide_down_top, R.anim.slide_up_top);
                     transaction.show(newGameWithTimeFragment);
                     transaction.commit();
                 } else {
-                    //resignMenu.showAtLocation(gameLayout, Gravity.CENTER,300,80);
-                    //resignMenu.update(50,50,300,300);
                     onClickShowAlertResign();
                 }
                 prompted = !prompted;

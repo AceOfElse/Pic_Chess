@@ -207,7 +207,7 @@ public class AIvAIChessActivity extends AppCompatActivity {
         int blackMove;
         while (gameInProgress){
             if (getTurn() == "white"){
-                whiteMove = search(10,Integer.MIN_VALUE,Integer.MAX_VALUE);
+                whiteMove = search(5,Integer.MIN_VALUE,Integer.MAX_VALUE);
                 if (whiteMove == Integer.MIN_VALUE){
                     //Checkmate
                     gameInProgress = false;
@@ -215,10 +215,10 @@ public class AIvAIChessActivity extends AppCompatActivity {
                     //Stalemate
                     gameInProgress = false;
                 } else {
-                    //makeMove(whiteMove);
+                    makeMove(getMovebyEval(whiteMove));
                 }
             } else {
-                blackMove = search(3,Integer.MIN_VALUE,Integer.MAX_VALUE);
+                blackMove = search(5,Integer.MIN_VALUE,Integer.MAX_VALUE);
                 if (blackMove == Integer.MIN_VALUE){
                     //Checkmate
                     gameInProgress = false;
@@ -226,83 +226,76 @@ public class AIvAIChessActivity extends AppCompatActivity {
                     //Stalemate
                     gameInProgress = false;
                 } else {
-                    //makeMove(blackMove);
+                    makeMove(getMovebyEval(blackMove));
                 }
             }
             Log.d("ai","done searching for move");
-            break;
-            //numMoves++;
-            //checkEnd();
+            numMoves++;
+            checkEnd();
         }
     }
-    private void makeMove(int move){
-        for (Piece p: pieces) {
-            ArrayList<Move> moves = getMoves(p,false,getTurn());
-            for (Move m : moves) {
-                if (m.getTargetSquare() == move){
-                    int targetSquare = m.getTargetSquare();
-                    if (getPiecebySquare(m.getTargetSquare()) == null) {
-                        setSquare(p, targetSquare);
-                        Square s = getSquarebyView(p.getPic());
-                        if (getSquare(p) == 3 && p.checkFirstMove() && p.getPieceType().equals("king")) {
-                            setSquare(pieces.get(24), 4);
-                            pieces.get(24).setMoved(true);
-                        }
-                        if (getSquare(p) == 7 && p.checkFirstMove() && p.getPieceType().equals("king")) {
-                            setSquare(pieces.get(31), 6);
-                            pieces.get(31).setMoved(true);
-                        }
-                        if (getSquare(p) == 59 && p.checkFirstMove() && p.getPieceType().equals("king")) {
-                            setSquare(pieces.get(0), 60);
-                            pieces.get(0).setMoved(true);
-                        }
-                        if (getSquare(p) == 63 && p.checkFirstMove() && p.getPieceType().equals("king")) {
-                            setSquare(pieces.get(7), 62);
-                            pieces.get(7).setMoved(true);
-                        }
-                        if (getSquare(p) > 56 && getSquare(p) < 65 && p.getPieceType().equals("white pawn")) {
-                            whiteMaterial += 8;
-                            p.promote(true);
-                            pieces.set(pieces.indexOf(p), new Piece(p.getFile(), p.getRank(), p.getPieceColor(), "queen"));
-                        }
-                        if (getSquare(p) > 0 && getSquare(p) < 9 && p.getPieceType().equals("black pawn")) {
-                            blackMaterial += 8;
-                            p.promote(false);
-                            pieces.set(pieces.indexOf(p), new Piece(p.getFile(), p.getRank(), p.getPieceColor(), "queen"));
-                        }
-                        if (p.getPieceType().equals("white pawn") || p.getPieceType().equals("blackPawn")) {
-                            movesSinceLastPawnMove = 0;
-                        } else {
-                            movesSinceLastPawnMove++;
-                        }
-                        if (p.getPieceType().equals("white pawn") && getPiecebySquare(getSquare(s) - 8) != null && getPiecebySquare(getSquare(s) - 8).getMovedTwo()) {
-                            Piece p2 = getPiecebySquare(getSquare(s) - 8);
-                            capture(p2, m);
-                        }
-                        if (p.getPieceType().equals("black pawn") && getPiecebySquare(getSquare(s) + 8) != null && getPiecebySquare(getSquare(s) + 8).getMovedTwo()) {
-                            Piece p2 = getPiecebySquare(getSquare(s) + 8);
-                            capture(p2, m);
-                        }
-                        if (p.getPieceType().equals("white pawn") && !p.getMoved() && getPiecebySquare(getSquare(p) - 16) == null && getPiecebySquare(getSquare(p) - 8) == null) {
-                            p.setMovedTwo(true);
-                        }
-                        if (p.getPieceType().equals("black pawn") && !p.getMoved() && getPiecebySquare(getSquare(p) + 16) == null && getPiecebySquare(getSquare(p) + 8) == null) {
-                            p.setMovedTwo(true);
-                        }
-                    } else {
-                        Piece p2 = getPiecebySquare(m.getTargetSquare());
-                        if (getTurn().equals("white"))
-                            blackMaterial -= getMaterialValue(p);
-                        else
-                            whiteMaterial -= getMaterialValue(p);
-                        setSquare(p, m.getTargetSquare());
-                        capture(p2,m);
-                    }
-                    p.setMoved(true);
-                    positions.add(getFENfromPosition());
-                }
+    private void makeMove(Move m){
+        Piece p = getPiecebySquare(m.getCurrentSquare());
+        int targetSquare = m.getTargetSquare();
+        if (getPiecebySquare(m.getTargetSquare()) == null) {
+            setSquare(p, targetSquare);
+            Square s = getSquarebyView(p.getPic());
+            if (getSquare(p) == 3 && p.checkFirstMove() && p.getPieceType().equals("king")) {
+                setSquare(pieces.get(24), 4);
+                pieces.get(24).setMoved(true);
             }
+            if (getSquare(p) == 7 && p.checkFirstMove() && p.getPieceType().equals("king")) {
+                setSquare(pieces.get(31), 6);
+                pieces.get(31).setMoved(true);
+            }
+            if (getSquare(p) == 59 && p.checkFirstMove() && p.getPieceType().equals("king")) {
+                setSquare(pieces.get(0), 60);
+                pieces.get(0).setMoved(true);
+            }
+            if (getSquare(p) == 63 && p.checkFirstMove() && p.getPieceType().equals("king")) {
+                setSquare(pieces.get(7), 62);
+                pieces.get(7).setMoved(true);
+            }
+            if (getSquare(p) > 56 && getSquare(p) < 65 && p.getPieceType().equals("white pawn")) {
+                whiteMaterial += 8;
+                p.promote(true);
+                pieces.set(pieces.indexOf(p), new Piece(p.getFile(), p.getRank(), p.getPieceColor(), "queen"));
+            }
+            if (getSquare(p) > 0 && getSquare(p) < 9 && p.getPieceType().equals("black pawn")) {
+                blackMaterial += 8;
+                p.promote(false);
+                pieces.set(pieces.indexOf(p), new Piece(p.getFile(), p.getRank(), p.getPieceColor(), "queen"));
+            }
+            if (p.getPieceType().equals("white pawn") || p.getPieceType().equals("blackPawn")) {
+                movesSinceLastPawnMove = 0;
+            } else {
+                movesSinceLastPawnMove++;
+            }
+            if (p.getPieceType().equals("white pawn") && getPiecebySquare(getSquare(s) - 8) != null && getPiecebySquare(getSquare(s) - 8).getMovedTwo()) {
+                Piece p2 = getPiecebySquare(getSquare(s) - 8);
+                capture(p2, m);
+            }
+            if (p.getPieceType().equals("black pawn") && getPiecebySquare(getSquare(s) + 8) != null && getPiecebySquare(getSquare(s) + 8).getMovedTwo()) {
+                Piece p2 = getPiecebySquare(getSquare(s) + 8);
+                capture(p2, m);
+            }
+            if (p.getPieceType().equals("white pawn") && !p.getMoved() && getPiecebySquare(getSquare(p) - 16) == null && getPiecebySquare(getSquare(p) - 8) == null) {
+                p.setMovedTwo(true);
+            }
+            if (p.getPieceType().equals("black pawn") && !p.getMoved() && getPiecebySquare(getSquare(p) + 16) == null && getPiecebySquare(getSquare(p) + 8) == null) {
+                p.setMovedTwo(true);
+            }
+        } else {
+            Piece p2 = getPiecebySquare(m.getTargetSquare());
+            if (getTurn().equals("white"))
+                blackMaterial -= getMaterialValue(p);
+            else
+                whiteMaterial -= getMaterialValue(p);
+            setSquare(p, m.getTargetSquare());
+            capture(p2, m);
         }
+        p.setMoved(true);
+        positions.add(getFENfromPosition());
     }
 
     private void capture(Piece p2, Move m) {
@@ -574,7 +567,20 @@ public class AIvAIChessActivity extends AppCompatActivity {
         Log.d("FEN",FEN);
         return FEN;
     }
-
+    public Move getMovebyEval(int eval){
+        ArrayList<Move> moves;
+        for (Piece p: pieces) {
+            if (getTurn() == p.getPieceColor()) {
+                moves = getLegalMoves(p, false);
+                for (Move m : moves) {
+                    if (m.getEvaluation() == eval){
+                        return m;
+                    }
+                }
+            }
+        }
+        return null;
+    }
     //The following evaluate, search, searchAllCaptures, orderMoves, forceKingtoCornerEndgameEval methods
     //These methods were written differently but heavily inspired by Sebastian Lague's code
     //So credit where credit is due
@@ -611,6 +617,7 @@ public class AIvAIChessActivity extends AppCompatActivity {
                     makeMove(m,p);
                     numMoves++;
                     int eval = -search(depth-1, -beta, -alpha);
+                    m.setEvaluation(eval);
                     numMoves--;
                     unmakeMove(m,p);
                     if (eval >= beta){
@@ -698,18 +705,23 @@ public class AIvAIChessActivity extends AppCompatActivity {
         if (getTurn().equals("white")) {
             if (allLegalMoves.get(0) == null && !notAttacked(getSquare(pieces.get(4)))) {
                 gameInProgress = false; //Checkmate
+                Log.d("end", "White checkmated Black");
             } else if (allLegalMoves.get(0) == null) {
                 gameInProgress = false; //Stalemate
+                Log.d("end", "Stalemate");
             }
         } else {
             if (allLegalMoves.get(0) == null && !notAttacked(getSquare(pieces.get(29)))) {
                 gameInProgress = false; //Checkmate
+                Log.d("end", "Black checkmated White");
             } else if (allLegalMoves.get(0) == null) {
                 gameInProgress = false; //Stalemate
+                Log.d("end", "Stalemate");
             }
         }
         if (movesSinceLastPawnMove == 100){
             gameInProgress = false; //Draw by 50 Move Rule
+            Log.d("end", "Draw by 50 move rule");
         }
         if (positions.size() > 5){
             for (int c1 = 0; c1 < positions.size()-1; c1++) {
@@ -725,6 +737,7 @@ public class AIvAIChessActivity extends AppCompatActivity {
         }
         if (whiteMaterial <= 3 && blackMaterial <= 3) {
             gameInProgress = false; //Draw by Insufficient Material
+            Log.d("end", "Draw by Insufficient Material");
 
         }
         Log.d("game",""+gameInProgress);
@@ -1297,6 +1310,7 @@ public class AIvAIChessActivity extends AppCompatActivity {
     public static class Move {
         private final int currentSquare;
         private final int targetSquare;
+        private int evaluation;
         public Move(int current, int target){
             currentSquare = current;
             targetSquare = target;
@@ -1307,7 +1321,8 @@ public class AIvAIChessActivity extends AppCompatActivity {
         public int getTargetSquare(){
             return targetSquare;
         }
-
+        public void setEvaluation(int eval){evaluation = eval;}
+        public int getEvaluation(){return evaluation;}
     }
     public static class Square {
         private final int rank;
