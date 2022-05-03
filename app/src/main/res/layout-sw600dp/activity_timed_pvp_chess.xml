@@ -46,8 +46,6 @@
         android:id="@+id/layoutH2"
         android:layout_width="90dp"
         android:layout_height="90dp"
-        android:layout_marginEnd="40dp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/layoutG2"
         app:layout_constraintTop_toBottomOf="@+id/layoutH3">
 
@@ -275,8 +273,6 @@
         android:id="@+id/layoutH1"
         android:layout_width="90dp"
         android:layout_height="90dp"
-        android:layout_marginEnd="40dp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/layoutG1"
         app:layout_constraintTop_toBottomOf="@+id/layoutH2">
 
@@ -409,8 +405,6 @@
         android:id="@+id/layoutH3"
         android:layout_width="90dp"
         android:layout_height="90dp"
-        android:layout_marginEnd="40dp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/layoutG3"
         app:layout_constraintTop_toBottomOf="@+id/layoutH4">
 
@@ -663,8 +657,6 @@
         android:id="@+id/layoutH4"
         android:layout_width="90dp"
         android:layout_height="90dp"
-        android:layout_marginEnd="40dp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/layoutG4"
         app:layout_constraintTop_toBottomOf="@+id/layoutH5">
 
@@ -833,8 +825,6 @@
         android:id="@+id/layoutH5"
         android:layout_width="90dp"
         android:layout_height="90dp"
-        android:layout_marginEnd="40dp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/layoutG5"
         app:layout_constraintTop_toBottomOf="@+id/layoutH6">
 
@@ -926,8 +916,6 @@
         android:layout_width="90dp"
         android:layout_height="90dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="40dp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/layoutG8"
         app:layout_constraintTop_toBottomOf="@+id/timerText1">
 
@@ -1142,8 +1130,6 @@
         android:id="@+id/layoutH6"
         android:layout_width="90dp"
         android:layout_height="90dp"
-        android:layout_marginEnd="40dp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/layoutG6"
         app:layout_constraintTop_toBottomOf="@+id/layoutH7">
 
@@ -1332,8 +1318,6 @@
         android:id="@+id/layoutH7"
         android:layout_width="90dp"
         android:layout_height="90dp"
-        android:layout_marginEnd="40dp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/layoutG7"
         app:layout_constraintTop_toBottomOf="@+id/layoutH8">
 
@@ -1802,25 +1786,29 @@
         android:id="@+id/backButton"
         android:layout_width="100dp"
         android:layout_height="100dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="28dp"
         android:adjustViewBounds="true"
         android:contentDescription="@string/empty_string_text"
         android:scaleType="fitCenter"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/back_image"
-        tools:ignore="SpeakableTextPresentCheck"
-        tools:layout_editor_absoluteX="48dp"
-        tools:layout_editor_absoluteY="28dp" />
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <ImageButton
         android:id="@+id/newGameButton"
         android:layout_width="100dp"
         android:layout_height="100dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="28dp"
         android:adjustViewBounds="true"
         android:contentDescription="@string/empty_string_text"
         android:scaleType="fitCenter"
+        app:layout_constraintStart_toEndOf="@+id/backButton"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/new_game_image"
         tools:ignore="SpeakableTextPresentCheck"
-        tools:layout_editor_absoluteX="194dp"
-        tools:layout_editor_absoluteY="28dp"
         tools:srcCompat="@drawable/new_game_image" />
 
     <ImageButton
@@ -1922,17 +1910,18 @@
 
     <FrameLayout
         android:id="@+id/newGameWithTimeFragmentContainer"
-        android:layout_width="102dp"
-        android:layout_height="304dp"
+        android:layout_width="200dp"
+        android:layout_height="472dp"
         android:layout_marginStart="114dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="110dp"
         android:layout_marginEnd="198dp"
         android:layout_marginBottom="341dp"
-        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.214"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.043" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
