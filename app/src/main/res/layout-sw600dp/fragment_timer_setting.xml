@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/timerSettingLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    tools:context=".TimerSettingFragment">
+
+
+    <TextView
+        android:id="@+id/chessPvpTimerText"
+        android:layout_width="359dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="21dp"
+        android:layout_marginEnd="420dp"
+        android:layout_marginBottom="609dp"
+        android:text="@string/timer_pvp_setting_text"
+        android:textAlignment="viewStart"
+        android:textAllCaps="true"
+        android:textColor="@color/white"
+        android:textSize="48sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.014"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/chessPvrTimerText"
+        android:layout_width="364dp"
+        android:layout_height="67dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="28dp"
+        android:text="@string/timer_pvr_setting_text"
+        android:textAlignment="viewStart"
+        android:textAllCaps="true"
+        android:textColor="@color/white"
+        android:textSize="48sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/chessPvpTimerText" />
+
+    <TextView
+        android:id="@+id/chessPicTimerText"
+        android:layout_width="453dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/timer_chess_pic_setting_text"
+        android:textAlignment="viewStart"
+        android:textAllCaps="true"
+        android:textColor="@color/white"
+        android:textSize="48sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/chessPvrTimerText" />
+
+    <TextView
+        android:id="@+id/minute3"
+        android:layout_width="103dp"
+        android:layout_height="58dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="28dp"
+        android:text="@string/minute_text"
+        android:textAlignment="viewStart"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="48sp"
+        app:layout_constraintStart_toEndOf="@+id/chessPicTimerField"
+        app:layout_constraintTop_toBottomOf="@+id/minute2" />
+
+    <TextView
+        android:id="@+id/minute2"
+        android:layout_width="103dp"
+        android:layout_height="62dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/minute_text"
+        android:textAlignment="viewStart"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="48sp"
+        app:layout_constraintStart_toEndOf="@+id/guessingTimerField"
+        app:layout_constraintTop_toBottomOf="@+id/minute1" />
+
+    <TextView
+        android:id="@+id/guessingTimerText"
+        android:layout_width="452dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="28dp"
+        android:text="@string/timer_guess_setting_text"
+        android:textAlignment="textStart"
+        android:textAllCaps="true"
+        android:textColor="@color/white"
+        android:textSize="48sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/chessPicTimerText" />
+
+    <EditText
+        android:id="@+id/chessPicTimerField"
+        android:layout_width="135dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="32dp"
+        android:ems="10"
+        android:inputType="time"
+        android:textSize="48sp"
+        app:layout_constraintStart_toEndOf="@+id/guessingTimerText"
+        app:layout_constraintTop_toBottomOf="@+id/guessingTimerField" />
+
+    <EditText
+        android:id="@+id/guessingTimerField"
+        android:layout_width="136dp"
+        android:layout_height="61dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="32dp"
+        android:ems="10"
+        android:inputType="time"
+        android:textSize="48sp"
+        app:layout_constraintStart_toEndOf="@+id/chessPicTimerText"
+        app:layout_constraintTop_toBottomOf="@+id/chessPvrTimerField" />
+
+    <TextView
+        android:id="@+id/minute1"
+        android:layout_width="105dp"
+        android:layout_height="61dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/minute_text"
+        android:textAlignment="viewStart"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="48sp"
+        app:layout_constraintStart_toEndOf="@+id/chessPvrTimerField"
+        app:layout_constraintTop_toBottomOf="@+id/minute" />
+
+    <EditText
+        android:id="@+id/chessPvrTimerField"
+        android:layout_width="130dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="92dp"
+        android:layout_marginTop="28dp"
+        android:ems="10"
+        android:inputType="time"
+        android:textSize="48sp"
+        app:layout_constraintStart_toEndOf="@+id/chessPvrTimerText"
+        app:layout_constraintTop_toBottomOf="@+id/chessPvpTimerField" />
+
+    <EditText
+        android:id="@+id/chessPvpTimerField"
+        android:layout_width="125dp"
+        android:layout_height="61dp"
+        android:layout_marginStart="96dp"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:inputType="time"
+        android:textSize="48sp"
+        app:layout_constraintStart_toEndOf="@+id/chessPvpTimerText"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/minute"
+        android:layout_width="85dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/minute_text"
+        android:textAlignment="viewStart"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="48sp"
+        app:layout_constraintStart_toEndOf="@+id/chessPvpTimerField"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

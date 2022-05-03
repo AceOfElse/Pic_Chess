@@ -42,4 +42,5 @@
     <string name="Prompt4">Draw a Car</string>
     <string name="Prompt5">Draw a Goat</string>
     <string name="Prompt6">Draw a Cup</string>
+    <string name="title_text">SOME CHESS...</string>
 </resources>

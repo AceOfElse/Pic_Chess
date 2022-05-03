@@ -19,9 +19,11 @@ import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.SoundEffectConstants;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -107,7 +109,6 @@ public class HomeActivity extends AppCompatActivity implements SecondMenuChessFr
                 openSetting();
             }
         });
-
     }
 
     //Implements method from interfaces
