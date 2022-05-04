@@ -23,7 +23,6 @@ import java.util.Collections;
 import java.util.Objects;
 
 public class AIvAIChessActivity extends AppCompatActivity {
-    private ConstraintLayout deadLayout;
     private LinearLayout.LayoutParams layoutParams;
     private LinearLayout deadWhite, deadBlack;
     private final ArrayList<ConstraintLayout> boardLayout = new ArrayList<>();
@@ -37,13 +36,13 @@ public class AIvAIChessActivity extends AppCompatActivity {
     private int movesSinceLastPawnMove = 0;
     private int numMoves = 0;
     private boolean gameInProgress = false;
-    private MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.chess_slam_sfx);
+    private MediaPlayer mediaPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(layout.activity_aivai_chess);
-        deadLayout = findViewById(id.deadPieceLayout);
+        mediaPlayer = MediaPlayer.create(this,R.raw.chess_slam_sfx);
         deadWhite = findViewById(id.deadWhiteLayout);
         deadBlack = findViewById(id.deadBlackLayout);
         deadBlack.setBackgroundColor(Color.DKGRAY);

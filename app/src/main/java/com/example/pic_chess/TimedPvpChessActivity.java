@@ -55,7 +55,7 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
     private boolean prompted = false;
     private CountDownTimer whiteTimer, blackTimer;
     private AlertDialog.Builder resignDialogue;
-    private final MediaPlayer mediaPlayer = MediaPlayer.create(this,R.raw.chess_slam_sfx);
+    private MediaPlayer mediaPlayer;
 
     //Fragment stuffs
     private FragmentTransaction transaction;
@@ -65,6 +65,7 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(layout.activity_timed_pvp_chess);
+        mediaPlayer = MediaPlayer.create(this,R.raw.chess_slam_sfx);
         deadWhite = findViewById(id.deadWhiteLayout);
         deadBlack = findViewById(id.deadBlackLayout);
         deadBlack.setBackgroundColor(Color.DKGRAY);
