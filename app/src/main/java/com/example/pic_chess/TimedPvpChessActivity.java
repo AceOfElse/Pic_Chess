@@ -65,8 +65,8 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
         setContentView(layout.activity_timed_pvp_chess);
         ConstraintLayout mainLayout = findViewById(id.timedPvpChessLayout);
         deadLayout = findViewById(id.deadPieceLayout);
-        deadWhite = new LinearLayout(this);
-        deadBlack = new LinearLayout(this);
+        deadWhite = findViewById(id.deadWhiteLayout);
+        deadBlack = findViewById(id.deadBlackLayout);
         layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT);
         deadBlack.setOrientation(LinearLayout.HORIZONTAL);
