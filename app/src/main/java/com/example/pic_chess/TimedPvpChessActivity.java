@@ -7,6 +7,7 @@ import static com.example.pic_chess.R.layout;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
@@ -54,6 +55,7 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
     private boolean prompted = false;
     private CountDownTimer whiteTimer, blackTimer;
     private AlertDialog.Builder resignDialogue;
+    private final MediaPlayer mediaPlayer = MediaPlayer.create(this,R.raw.chess_slam_sfx);
 
     //Fragment stuffs
     private FragmentTransaction transaction;
@@ -694,6 +696,7 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
     }
 
     private void capture(Piece p, Move m, boolean enPassant) {
+        mediaPlayer.start();
         ImageView v = p.getPic();
         p.setMoved(true);
         p.setRank(69);

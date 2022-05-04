@@ -7,6 +7,7 @@ import static com.example.pic_chess.R.layout;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -44,6 +45,7 @@ public class UntimedPvpChessActivity extends AppCompatActivity {
     private boolean gameInProgress = false;
     private boolean prompted = false;
     private AlertDialog.Builder resignDialogue;
+    private MediaPlayer mediaPlayer = MediaPlayer.create(this,R.raw.chess_slam_sfx);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -552,6 +554,7 @@ public class UntimedPvpChessActivity extends AppCompatActivity {
     }
 
     private void capture(Piece p, Move m, boolean enPassant) {
+        mediaPlayer.start();
         ImageView v = p.getPic();
         p.setMoved(true);
         p.setRank(69);
