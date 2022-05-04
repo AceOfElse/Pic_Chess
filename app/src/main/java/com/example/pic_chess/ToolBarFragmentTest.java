@@ -16,9 +16,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.ToggleButton;
 
 public class ToolBarFragmentTest extends Fragment {
@@ -28,9 +31,11 @@ public class ToolBarFragmentTest extends Fragment {
     }
 
     private ToggleButton mGrabButton, mColorButton, mEraseButton;
+    private TextView mGrabText, mColorText, mEraserText, mClearText;
     private ImageButton mClearButton;
     private ImageView mColorImage;
     private OnClickSelected mOnClickedSelected;
+    private Animation animationUp, animationDown;
 
     //Tag for fragment
     private static final String TAG = "Toolbar Fragment";
@@ -62,11 +67,34 @@ public class ToolBarFragmentTest extends Fragment {
         mEraseButton = view.findViewById(R.id.eraserButton);
         mClearButton = view.findViewById(R.id.clearButton);
         mColorImage = view.findViewById(R.id.colorPreviewImage);
+        mGrabText = view.findViewById(R.id.grabText);
+        mColorText = view.findViewById(R.id.colorText);
+        mEraserText = view.findViewById(R.id.eraserText);
+        mClearText = view.findViewById(R.id.clearText);
+
+        //Set animation
+        animationUp = AnimationUtils.loadAnimation(getContext(), R.anim.slide_text_up_top);
+        animationDown = AnimationUtils.loadAnimation(getContext(), R.anim.slide_text_down_top);
 
         //Set initial color image
         setImageColor(Color.BLACK);
 
         //Set listeners
+        mGrabButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                if (isChecked) {
+                    mColorButton.setChecked(false);
+                    mEraseButton.setChecked(false);
+                    mGrabButton.setBackgroundColor(Color.GRAY);
+                    mOnClickedSelected.sendModeOfToolBar(0);
+                } else {
+                    mGrabButton.setBackgroundColor(Color.WHITE);
+                    mOnClickedSelected.sendModeOfToolBar(1);
+                }
+            }
+        });
+
         mColorButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
@@ -75,9 +103,17 @@ public class ToolBarFragmentTest extends Fragment {
                     mEraseButton.setChecked(false);
                     mColorButton.setBackgroundColor(Color.GRAY);
                     mOnClickedSelected.sendModeOfToolBar(2);
+                    mGrabText.startAnimation(animationUp);
+                    mColorText.startAnimation(animationUp);
+                    mEraserText.startAnimation(animationUp);
+                    mClearText.startAnimation(animationUp);
                 } else {
                     mColorButton.setBackgroundColor(Color.WHITE);
                     mOnClickedSelected.sendModeOfToolBar(3);
+                    mGrabText.startAnimation(animationDown);
+                    mColorText.startAnimation(animationDown);
+                    mEraserText.startAnimation(animationDown);
+                    mClearText.startAnimation(animationDown);
                 }
             }
         });

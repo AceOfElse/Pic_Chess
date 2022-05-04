@@ -48,7 +48,6 @@ public class UntimedPvpChessActivity extends AppCompatActivity {
         deadLayout = findViewById(id.deadPieceLayout);
         ImageButton backButton = findViewById(id.backButton);
         ImageButton newGameButton = findViewById(id.newGameButton);
-        ImageButton endButton = findViewById(id.endButton);
         ImageButton resignButton = findViewById(id.resignButton);
         boardLayout.add(findViewById(id.layoutA1));
         boardLayout.add(findViewById(id.layoutB1));
@@ -217,12 +216,7 @@ public class UntimedPvpChessActivity extends AppCompatActivity {
                 prompted = !prompted;
             }
         });
-        endButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //prompt the other player for a draw
-            }
-        });
+
         resignButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -540,6 +534,7 @@ public class UntimedPvpChessActivity extends AppCompatActivity {
                         numMoves++;
                         positions.add(getFENfromPosition());
                         checkEnd();
+                        rotatePieces();
                         break;
                     }
                 }
@@ -660,6 +655,7 @@ public class UntimedPvpChessActivity extends AppCompatActivity {
                     numMoves++;
                     selectedPiece = null;
                     selectedView = null;
+                    rotatePieces();
                     checkEnd();
                     break;
                 }
@@ -1243,6 +1239,16 @@ public class UntimedPvpChessActivity extends AppCompatActivity {
         else if (i == 64)
             s = findViewById(id.boardH8);
         return s;
+    }
+    public void rotatePieces(){
+        ImageView v;
+        for (Piece p: pieces){
+            v = p.getPic();
+            if (getTurn() == "black")
+                v.setRotation(180);
+            else
+                v.setRotation(0);
+        }
     }
 
     public static class Move {

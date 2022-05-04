@@ -35,10 +35,16 @@
     <string name="loading_text">Loading...</string>
     <string name="chess_text">CHESS</string>
     <string name="chesspic_text">CHESS-PIC</string>
+    <string name="prompt_saving_text">Do you want to save your current canvas?</string>
     <string name="Prompt1">Draw a Duck</string>
     <string name="Prompt2">Draw a House</string>
     <string name="Prompt3">Draw a Dog</string>
     <string name="Prompt4">Draw a Car</string>
     <string name="Prompt5">Draw a Goat</string>
     <string name="Prompt6">Draw a Cup</string>
+    <string name="title_text">SOME CHESS...</string>
+    <string name="grab_text">Grab</string>
+    <string name="color_text">Color</string>
+    <string name="eraser_text">Eraser</string>
+    <string name="clear_text">Clear</string>
 </resources>

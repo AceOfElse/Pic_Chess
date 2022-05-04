@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/chessPicLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:alpha="0.9"
+    android:background="@color/black"
+    android:textAlignment="center"
+    tools:context=".ChessPicActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/buttonLayoutCP"
+        android:layout_width="803dp"
+        android:layout_height="235dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <TextView
+            android:id="@+id/timerTextCP"
+            android:layout_width="205dp"
+            android:layout_height="101dp"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:textSize="34sp"
+            android:textStyle="bold"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.604"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.113" />
+
+        <TextView
+            android:id="@+id/descriptionText"
+            android:layout_width="619dp"
+            android:layout_height="81dp"
+            android:layout_marginStart="98dp"
+            android:layout_marginTop="85dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="24dp"
+            android:autofillHints=""
+            android:ems="10"
+            android:text="@string/drawing_description_text"
+            android:textAlignment="textStart"
+            android:textColor="@color/white"
+            android:textSize="48sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.9"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <ImageButton
+            android:id="@+id/loadFileButtonCP"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="180dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="182dp"
+            android:layout_marginBottom="93dp"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/empty_string_text"
+            android:scaleType="fitCenter"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/load_image"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <ToggleButton
+            android:id="@+id/toolbarButtonCP"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="86dp"
+            android:layout_marginEnd="346dp"
+            android:layout_marginBottom="23dp"
+            android:checked="false"
+            android:contentDescription="@string/empty_string_text"
+            android:textOff="@string/toolbar_togglebutton_text"
+            android:textOn="@string/toolbar_togglebutton_text"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.037"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <ImageButton
+            android:id="@+id/submitFileCP"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="346dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="93dp"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/empty_string_text"
+            android:scaleType="fitCenter"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/upload_image"
+            tools:ignore="SpeakableTextPresentCheck,ImageContrastCheck" />
+
+        <ImageButton
+            android:id="@+id/saveFileCP"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_marginStart="346dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="93dp"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/empty_string_text"
+            android:scaleType="fitCenter"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.951"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/save_image"
+            tools:ignore="SpeakableTextPresentCheck,ImageContrastCheck" />
+
+        <ImageButton
+            android:id="@+id/newCanvasButtonCP"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_marginStart="98dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="264dp"
+            android:layout_marginBottom="93dp"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/empty_string_text"
+            android:scaleType="fitCenter"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.179"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/new_game_image"
+            tools:ignore="SpeakableTextPresentCheck"
+            tools:srcCompat="@drawable/new_game_image" />
+
+        <ImageButton
+            android:id="@+id/backButtonCP"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="346dp"
+            android:layout_marginBottom="93dp"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/empty_string_text"
+            android:scaleType="fitCenter"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.038"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/back_image"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/canvasLayoutCP"
+        android:layout_width="0dp"
+        android:layout_height="763dp"
+        android:layout_marginTop="160dp"
+        android:layout_marginBottom="160dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <view
+            android:id="@+id/drawingViewCP"
+            class="com.example.pic_chess.ChessPicActivity$DrawingView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#ffffff"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <ImageView
+            android:id="@+id/brushView"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="88dp"
+            android:layout_marginTop="252dp"
+            android:visibility="invisible"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/pixelCountText"
+            android:layout_width="71dp"
+            android:layout_height="43dp"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/brushView"
+            app:layout_constraintStart_toEndOf="@+id/brushView"
+            app:layout_constraintTop_toTopOf="@+id/brushView"
+            app:layout_constraintVertical_bias="0.0" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <FrameLayout
+        android:id="@+id/toolbarFragmentContainer"
+        android:layout_width="661dp"
+        android:layout_height="237dp"
+        app:layout_constraintBottom_toBottomOf="@+id/buttonLayoutCP"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <FrameLayout
+        android:id="@+id/colorFragmentContainer"
+        android:layout_width="661dp"
+        android:layout_height="108dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.109">
+
+    </FrameLayout>
+
+    <ImageView
+        android:id="@+id/pieceRookCP"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        app:layout_constraintStart_toEndOf="@+id/piecePawnCP"
+        app:layout_constraintTop_toBottomOf="@+id/canvasLayoutCP"
+        app:srcCompat="@drawable/whiterook" />
+
+    <TextView
+        android:id="@+id/pawnPieceNumber"
+        android:layout_width="130dp"
+        android:layout_height="66dp"
+        android:textAlignment="center"
+        android:textSize="48sp"
+        app:layout_constraintStart_toEndOf="@+id/knightPieceNumber"
+        app:layout_constraintTop_toBottomOf="@+id/piecePawnCP" />
+
+    <ImageView
+        android:id="@+id/pieceKnightCP"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        app:layout_constraintStart_toEndOf="@+id/pieceBishopCP"
+        app:layout_constraintTop_toBottomOf="@+id/canvasLayoutCP"
+        app:srcCompat="@drawable/whiteknight" />
+
+    <TextView
+        android:id="@+id/knightPieceNumber"
+        android:layout_width="130dp"
+        android:layout_height="66dp"
+        android:textAlignment="center"
+        android:textSize="48sp"
+        app:layout_constraintStart_toEndOf="@+id/bishopPieceNumber"
+        app:layout_constraintTop_toBottomOf="@+id/pieceKnightCP" />
+
+    <ImageView
+        android:id="@+id/pieceBishopCP"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/canvasLayoutCP"
+        app:srcCompat="@drawable/whitebishop" />
+
+    <TextView
+        android:id="@+id/bishopPieceNumber"
+        android:layout_width="130dp"
+        android:layout_height="66dp"
+        android:textAlignment="center"
+        android:textSize="48sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pieceBishopCP" />
+
+    <ImageView
+        android:id="@+id/pieceKingCP"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        app:layout_constraintStart_toEndOf="@+id/pieceRookCP"
+        app:layout_constraintTop_toBottomOf="@+id/canvasLayoutCP"
+        app:srcCompat="@drawable/whiteking" />
+
+    <ImageView
+        android:id="@+id/pieceQueenCP"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        app:layout_constraintStart_toEndOf="@+id/pieceKingCP"
+        app:layout_constraintTop_toBottomOf="@+id/canvasLayoutCP"
+        app:srcCompat="@drawable/whitequeen" />
+
+    <ImageView
+        android:id="@+id/piecePawnCP"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        app:layout_constraintStart_toEndOf="@+id/pieceKnightCP"
+        app:layout_constraintTop_toBottomOf="@+id/canvasLayoutCP"
+        app:srcCompat="@drawable/whitepawn" />
+
+    <TextView
+        android:id="@+id/queenPieceNumber"
+        android:layout_width="130dp"
+        android:layout_height="66dp"
+        android:textAlignment="center"
+        android:textSize="48sp"
+        app:layout_constraintStart_toEndOf="@+id/kingPieceNumber"
+        app:layout_constraintTop_toBottomOf="@+id/pieceQueenCP" />
+
+    <TextView
+        android:id="@+id/kingPieceNumber"
+        android:layout_width="130dp"
+        android:layout_height="66dp"
+        android:textAlignment="center"
+        android:textSize="48sp"
+        app:layout_constraintStart_toEndOf="@+id/rookPieceNumber"
+        app:layout_constraintTop_toBottomOf="@+id/pieceKingCP" />
+
+    <TextView
+        android:id="@+id/rookPieceNumber"
+        android:layout_width="130dp"
+        android:layout_height="66dp"
+        android:textAlignment="center"
+        android:textSize="48sp"
+        app:layout_constraintStart_toEndOf="@+id/pawnPieceNumber"
+        app:layout_constraintTop_toBottomOf="@+id/pieceRookCP" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
