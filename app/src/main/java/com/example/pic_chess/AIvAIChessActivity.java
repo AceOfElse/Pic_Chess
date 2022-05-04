@@ -18,6 +18,7 @@ import androidx.constraintlayout.widget.ConstraintSet;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Objects;
 
 public class AIvAIChessActivity extends AppCompatActivity {
     private ConstraintLayout deadLayout;
@@ -268,11 +269,11 @@ public class AIvAIChessActivity extends AppCompatActivity {
                 if (s != null) {
                     if (p.getPieceType().equals("white pawn") && getPiecebySquare(getSquare(s) - 8) != null && getPiecebySquare(getSquare(s) - 8).getMovedTwo()) {
                         Piece p2 = getPiecebySquare(getSquare(s) - 8);
-                        capture(p2);
+                        capture(p2,m,true);
                     }
                     if (p.getPieceType().equals("black pawn") && getPiecebySquare(getSquare(s) + 8) != null && getPiecebySquare(getSquare(s) + 8).getMovedTwo()) {
                         Piece p2 = getPiecebySquare(getSquare(s) + 8);
-                        capture(p2);
+                        capture(p2,m,true);
                     }
                 }
                 if (p.getPieceType().equals("white pawn") && p.getMoved() && getPiecebySquare(getSquare(p) - 16) == null && getPiecebySquare(getSquare(p) - 8) == null) {
@@ -289,24 +290,31 @@ public class AIvAIChessActivity extends AppCompatActivity {
                 else
                     whiteMaterial -= getMaterialValue(p);
                 setSquare(p, m.getTargetSquare());
-                capture(p2);
+                capture(p2,m,false);
             }
             p.setMoved(true);
             positions.add(getFENfromPosition());
         }
     }
 
-    private void capture(Piece p2) {
-        p2.setFile(69);
-        p2.setRank(69);
-        ImageView v = p2.getPic();
-        if ((ViewGroup)v.getParent() != null)
-            ((ViewGroup)v.getParent()).removeView(v);
-        if (p2.getPieceColor() == "white")
+    private void capture(Piece p, Move m, boolean enPassant) {
+        ImageView v = p.getPic();
+        p.setMoved(true);
+        p.setRank(69);
+        p.setFile(69);
+        if (enPassant && getTurn() == "white")
+            Objects.requireNonNull(getSquarebyView(getSquarebyInt(m.getTargetSquare()-8))).getLayout().removeView(v);
+        else if (enPassant)
+            Objects.requireNonNull(getSquarebyView(getSquarebyInt(m.getTargetSquare()+8))).getLayout().removeView(v);
+        else
+            Objects.requireNonNull(getSquarebyView(getSquarebyInt(m.getTargetSquare()))).getLayout().removeView(v);
+        if (p.getPieceColor() == "white")
             deadWhite.addView(v,layoutParams);
         else
             deadBlack.addView(v,layoutParams);
-        captured.add(v);
+        v.setScaleX((float) 0.70 * v.getScaleX());
+        v.setScaleY((float) 0.70 * v.getScaleY());
+        captured.add((ImageView) v);
     }
 
     public Move getMovebyEval(int eval){

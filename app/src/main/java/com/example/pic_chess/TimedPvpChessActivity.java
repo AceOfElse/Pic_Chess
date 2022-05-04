@@ -6,6 +6,7 @@ import static com.example.pic_chess.R.layout;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
@@ -31,7 +32,6 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
     private TextView timerText2;
     private LinearLayout.LayoutParams layoutParams;
     private LinearLayout deadWhite, deadBlack;
-    private ConstraintLayout deadLayout;
     private final ArrayList<ConstraintLayout> boardLayout = new ArrayList<>();
     private final ArrayList<ImageView> boardImages = new ArrayList<>();
     private final ArrayList<Square> boardSquares = new ArrayList<>();
@@ -63,10 +63,12 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(layout.activity_timed_pvp_chess);
-        ConstraintLayout mainLayout = findViewById(id.timedPvpChessLayout);
-        deadLayout = findViewById(id.deadPieceLayout);
         deadWhite = findViewById(id.deadWhiteLayout);
         deadBlack = findViewById(id.deadBlackLayout);
+        deadBlack.setBackgroundColor(Color.DKGRAY);
+        deadWhite.setBackgroundColor(Color.DKGRAY);
+        deadBlack.setPadding(5,0,0,0);
+        deadWhite.setPadding(5,0,0,0);
         layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT);
         deadBlack.setOrientation(LinearLayout.HORIZONTAL);
@@ -638,6 +640,9 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
             else
                 v.setRotation(0);
         }
+        for (ImageView i: captured){
+            i.setRotation(0);
+        }
     }
     public void pieceOnClick(View v){
         if (gameInProgress) {
@@ -661,7 +666,7 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
                         else
                             whiteMaterial -= getMaterialValue(p);
                         setSquare(selectedPiece, m.getTargetSquare());
-                        capture(p,m);
+                        capture(p,m,false);
                         selectedPiece = null;
                         selectedView = null;
                         resetBoardSquares();
@@ -688,19 +693,25 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
         }
     }
 
-    private void capture(Piece p, Move m) {
+    private void capture(Piece p, Move m, boolean enPassant) {
         ImageView v = p.getPic();
         p.setMoved(true);
         p.setRank(69);
         p.setFile(69);
-        Objects.requireNonNull(getSquarebyView(getSquarebyInt(m.getTargetSquare()))).getLayout().removeView(v);
+        if (enPassant && getTurn() == "white") {
+            Objects.requireNonNull(getSquarebyView(getSquarebyInt(m.getTargetSquare() - 8))).getLayout().removeView(v);
+        } else if (enPassant){
+            Objects.requireNonNull(getSquarebyView(getSquarebyInt(m.getTargetSquare()+8))).getLayout().removeView(v);
+        } else {
+            Objects.requireNonNull(getSquarebyView(getSquarebyInt(m.getTargetSquare()))).getLayout().removeView(v);
+        }
         if (p.getPieceColor() == "white") {
             deadWhite.addView(v, layoutParams);
         } else {
             deadBlack.addView(v, layoutParams);
         }
-        v.setScaleX((float) 0.15);
-        v.setScaleY((float) 0.15);
+        v.setScaleX((float) 0.70 * v.getScaleX());
+        v.setScaleY((float) 0.70 * v.getScaleY());
         captured.add((ImageView) v);
     }
 
@@ -805,11 +816,11 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
                     }
                     if (selectedPiece.getPieceType().equals("white pawn") && getPiecebySquare(getSquare(s)-8) != null && getPiecebySquare(getSquare(s)-8).getMovedTwo()){
                         Piece p = getPiecebySquare(getSquare(s)-8);
-                        capture(p,m);
+                        capture(p,m,true);
                     }
                     if (selectedPiece.getPieceType().equals("black pawn") && getPiecebySquare(getSquare(s)+8) != null && getPiecebySquare(getSquare(s)+8).getMovedTwo()){
                         Piece p = getPiecebySquare(getSquare(s)+8);
-                        capture(p,m);
+                        capture(p,m,true);
                     }
                     if (selectedPiece.getPieceType().equals("white pawn") && !selectedPiece.getMoved() && getPiecebySquare(getSquare(selectedPiece)-16) == null && getPiecebySquare(getSquare(selectedPiece)-8) == null){
                         selectedPiece.setMovedTwo(true);
