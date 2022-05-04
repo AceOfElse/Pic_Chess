@@ -67,6 +67,21 @@ public class ToolBarFragmentTest extends Fragment {
         setImageColor(Color.BLACK);
 
         //Set listeners
+        mGrabButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                if (isChecked) {
+                    mColorButton.setChecked(false);
+                    mEraseButton.setChecked(false);
+                    mGrabButton.setBackgroundColor(Color.GRAY);
+                    mOnClickedSelected.sendModeOfToolBar(0);
+                } else {
+                    mGrabButton.setBackgroundColor(Color.WHITE);
+                    mOnClickedSelected.sendModeOfToolBar(1);
+                }
+            }
+        });
+
         mColorButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
