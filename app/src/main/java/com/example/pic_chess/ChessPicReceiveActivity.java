@@ -51,7 +51,7 @@ public class ChessPicReceiveActivity extends AppCompatActivity {
 
         //Sets value for endAttempt which stops the program from infinitely calling receiveImage
         //This number will be increase as more prompts are added.
-        endAttempt = 10;
+        endAttempt = 100;
 
         //This is the number of guesses the user makes until the hint button appears
         hintVisible = 5;
@@ -102,50 +102,73 @@ public class ChessPicReceiveActivity extends AppCompatActivity {
         switch (promptNum) {
             case 1:
                 Toast.makeText(ChessPicReceiveActivity.this, getString(R.string.hint1), Toast.LENGTH_LONG).show();
+                break;
             case 2:
                 Toast.makeText(ChessPicReceiveActivity.this, getString(R.string.hint2), Toast.LENGTH_LONG).show();
+                break;
             case 3:
                 Toast.makeText(ChessPicReceiveActivity.this, getString(R.string.hint3), Toast.LENGTH_LONG).show();
+                break;
             case 4:
                 Toast.makeText(ChessPicReceiveActivity.this, getString(R.string.hint4), Toast.LENGTH_LONG).show();
+                break;
             case 5:
                 Toast.makeText(ChessPicReceiveActivity.this, getString(R.string.hint5), Toast.LENGTH_LONG).show();
+                break;
             case 6:
                 Toast.makeText(ChessPicReceiveActivity.this, getString(R.string.hint6), Toast.LENGTH_LONG).show();
+                break;
             case 7:
                 Toast.makeText(ChessPicReceiveActivity.this, getString(R.string.hint7), Toast.LENGTH_LONG).show();
+                break;
             case 8:
                 Toast.makeText(ChessPicReceiveActivity.this, getString(R.string.hint8), Toast.LENGTH_LONG).show();
+                break;
             case 9:
                 Toast.makeText(ChessPicReceiveActivity.this, getString(R.string.hint9), Toast.LENGTH_LONG).show();
+                break;
             case 10:
                 Toast.makeText(ChessPicReceiveActivity.this, getString(R.string.hint10), Toast.LENGTH_LONG).show();
+                break;
             case 11:
                 Toast.makeText(ChessPicReceiveActivity.this, getString(R.string.hint11), Toast.LENGTH_LONG).show();
+                break;
             case 12:
                 Toast.makeText(ChessPicReceiveActivity.this, getString(R.string.hint12), Toast.LENGTH_LONG).show();
+                break;
             case 13:
                 Toast.makeText(ChessPicReceiveActivity.this, getString(R.string.hint13), Toast.LENGTH_LONG).show();
+                break;
             case 14:
                 Toast.makeText(ChessPicReceiveActivity.this, getString(R.string.hint14), Toast.LENGTH_LONG).show();
+                break;
             case 15:
                 Toast.makeText(ChessPicReceiveActivity.this, getString(R.string.hint15), Toast.LENGTH_LONG).show();
+                break;
             case 16:
                 Toast.makeText(ChessPicReceiveActivity.this, getString(R.string.hint16), Toast.LENGTH_LONG).show();
+                break;
             case 17:
                 Toast.makeText(ChessPicReceiveActivity.this, getString(R.string.hint17), Toast.LENGTH_LONG).show();
+                break;
             case 18:
                 Toast.makeText(ChessPicReceiveActivity.this, getString(R.string.hint18), Toast.LENGTH_LONG).show();
+                break;
             case 19:
                 Toast.makeText(ChessPicReceiveActivity.this, getString(R.string.hint19), Toast.LENGTH_LONG).show();
+                break;
             case 20:
                 Toast.makeText(ChessPicReceiveActivity.this, getString(R.string.hint20), Toast.LENGTH_LONG).show();
+                break;
             case 21:
                 Toast.makeText(ChessPicReceiveActivity.this, getString(R.string.hint21), Toast.LENGTH_LONG).show();
+                break;
             case 22:
                 Toast.makeText(ChessPicReceiveActivity.this, getString(R.string.hint22), Toast.LENGTH_LONG).show();
+                break;
             case 23:
                 Toast.makeText(ChessPicReceiveActivity.this, getString(R.string.hint23), Toast.LENGTH_LONG).show();
+                break;
         }
     }
 
