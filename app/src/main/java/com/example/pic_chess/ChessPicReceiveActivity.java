@@ -36,7 +36,7 @@ public class ChessPicReceiveActivity extends AppCompatActivity {
     private boolean isTimed;
     private Bitmap receiverBitmap;
     private Random rg;
-    private int promptNum;
+    private int promptNum,endAttempt;
     private String correctGuess;
 
 //////Start Creation of Activity and Relevant Connections\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
@@ -48,6 +48,10 @@ public class ChessPicReceiveActivity extends AppCompatActivity {
         //Receive intent from home activity
         Intent chessPic  = getIntent();
         boolean isTimed = chessPic.getBooleanExtra("TIME", false);
+
+        //Sets value for endAttempt which stops the program from infinitely calling receiveImage
+        //This number will be increase as more prompts are added.
+        endAttempt = 10;
 
         //Find views
         backButton = findViewById(R.id.backButtonCR);
@@ -118,72 +122,82 @@ public class ChessPicReceiveActivity extends AppCompatActivity {
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inSampleSize = 1;
         String temp;
-        switch (promptNum){
-            case 1:
-                receiverBitmap = BitmapFactory.decodeFile("/storage/emulated/0/Pictures/ChessPic" + promptNum + ".png", options);
-                if(receiverBitmap == null){
-                    Log .d("debug loading", "Bitmap is null");
-                    receiveImage();
-                } else {
-                    receivedImage.setImageBitmap(receiverBitmap);
-                    temp = getString(R.string.Prompt1);
-                    correctGuess= temp.substring(temp.lastIndexOf(" ")+1);
-                    Log.d("Value of correctGuess", correctGuess);
-                    // Toast.makeText(ChessPicReceiveActivity.this, "Image for prompt 1 loaded", Toast.LENGTH_LONG).show();
-                }
-                break;
-            case 2:
-                receiverBitmap = BitmapFactory.decodeFile("/storage/emulated/0/Pictures/ChessPic" + promptNum + ".png", options);
-                if(receiverBitmap == null){
-                    Log .d("debug loading", "Bitmap is null");
-                    receiveImage();
-                } else {
-                    receivedImage.setImageBitmap(receiverBitmap);
-                    temp = getString(R.string.Prompt2);
-                    correctGuess= temp.substring(temp.lastIndexOf(" ")+1);
-                    Log.d("Value of correctGuess", correctGuess);
-                    //Toast.makeText(ChessPicReceiveActivity.this, "Image for prompt 2 loaded", Toast.LENGTH_LONG).show();
-                }
-                break;
-            case 3:
-                receiverBitmap = BitmapFactory.decodeFile("/storage/emulated/0/Pictures/ChessPic" + promptNum + ".png", options);
-                if(receiverBitmap == null){
-                    Log .d("debug loading", "Bitmap is null");
-                    receiveImage();
-                } else {
-                    receivedImage.setImageBitmap(receiverBitmap);
-                    temp = getString(R.string.Prompt3);
-                    correctGuess= temp.substring(temp.lastIndexOf(" ")+1);
-                    Log.d("Value of correctGuess", correctGuess);
-                    // Toast.makeText(ChessPicReceiveActivity.this,"Image for prompt 3 loaded", Toast.LENGTH_LONG).show();
-                }
-                break;
-            case 4:
-                receiverBitmap = BitmapFactory.decodeFile("/storage/emulated/0/Pictures/ChessPic" + promptNum + ".png", options);
-                if(receiverBitmap == null){
-                    Log .d("debug loading", "Bitmap is null");
-                    receiveImage();
-                } else {
-                    receivedImage.setImageBitmap(receiverBitmap);
-                    temp = getString(R.string.Prompt4);
-                    correctGuess= temp.substring(temp.lastIndexOf(" ")+1);
-                    Log.d("Value of correctGuess", correctGuess);
-                    //  Toast.makeText(ChessPicReceiveActivity.this,"Image for prompt 4 loaded", Toast.LENGTH_LONG).show();
-                }
-                break;
-            case 5:
-                receiverBitmap = BitmapFactory.decodeFile("/storage/emulated/0/Pictures/ChessPic" + promptNum + ".png", options);
-                if(receiverBitmap == null){
-                    Log .d("debug loading", "Bitmap is null");
-                    receiveImage();
-                } else {
-                    receivedImage.setImageBitmap(receiverBitmap);
-                    temp = getString(R.string.Prompt5);
-                    correctGuess= temp.substring(temp.lastIndexOf(" ")+1);
-                    Log.d("Value of correctGuess", correctGuess);
-                    //Toast.makeText(ChessPicReceiveActivity.this,"Image for prompt 5 loaded", Toast.LENGTH_LONG).show();
-                }
-                break;
+        if(endAttempt == 0){
+            receivedImage.setImageResource(R.drawable.default_receive);
+            Toast.makeText(ChessPicReceiveActivity.this, "No Images! You must draw some first!", Toast.LENGTH_LONG).show();
+        } else {
+            switch (promptNum) {
+                case 1:
+                    receiverBitmap = BitmapFactory.decodeFile("/storage/emulated/0/Pictures/ChessPic" + promptNum + ".png", options);
+                    if (receiverBitmap == null) {
+                        Log.d("debug loading", "Bitmap is null");
+                        endAttempt--;
+                        receiveImage();
+                    } else {
+                        receivedImage.setImageBitmap(receiverBitmap);
+                        temp = getString(R.string.Prompt1);
+                        correctGuess = temp.substring(temp.lastIndexOf(" ") + 1);
+                        Log.d("Value of correctGuess", correctGuess);
+                        // Toast.makeText(ChessPicReceiveActivity.this, "Image for prompt 1 loaded", Toast.LENGTH_LONG).show();
+                    }
+                    break;
+                case 2:
+                    receiverBitmap = BitmapFactory.decodeFile("/storage/emulated/0/Pictures/ChessPic" + promptNum + ".png", options);
+                    if (receiverBitmap == null) {
+                        Log.d("debug loading", "Bitmap is null");
+                        endAttempt--;
+                        receiveImage();
+                    } else {
+                        receivedImage.setImageBitmap(receiverBitmap);
+                        temp = getString(R.string.Prompt2);
+                        correctGuess = temp.substring(temp.lastIndexOf(" ") + 1);
+                        Log.d("Value of correctGuess", correctGuess);
+                        //Toast.makeText(ChessPicReceiveActivity.this, "Image for prompt 2 loaded", Toast.LENGTH_LONG).show();
+                    }
+                    break;
+                case 3:
+                    receiverBitmap = BitmapFactory.decodeFile("/storage/emulated/0/Pictures/ChessPic" + promptNum + ".png", options);
+                    if (receiverBitmap == null) {
+                        Log.d("debug loading", "Bitmap is null");
+                        endAttempt--;
+                        receiveImage();
+                    } else {
+                        receivedImage.setImageBitmap(receiverBitmap);
+                        temp = getString(R.string.Prompt3);
+                        correctGuess = temp.substring(temp.lastIndexOf(" ") + 1);
+                        Log.d("Value of correctGuess", correctGuess);
+                        // Toast.makeText(ChessPicReceiveActivity.this,"Image for prompt 3 loaded", Toast.LENGTH_LONG).show();
+                    }
+                    break;
+                case 4:
+                    receiverBitmap = BitmapFactory.decodeFile("/storage/emulated/0/Pictures/ChessPic" + promptNum + ".png", options);
+                    if (receiverBitmap == null) {
+                        Log.d("debug loading", "Bitmap is null");
+                        endAttempt--;
+                        receiveImage();
+                    } else {
+                        receivedImage.setImageBitmap(receiverBitmap);
+                        temp = getString(R.string.Prompt4);
+                        correctGuess = temp.substring(temp.lastIndexOf(" ") + 1);
+                        Log.d("Value of correctGuess", correctGuess);
+                        //  Toast.makeText(ChessPicReceiveActivity.this,"Image for prompt 4 loaded", Toast.LENGTH_LONG).show();
+                    }
+                    break;
+                case 5:
+                    receiverBitmap = BitmapFactory.decodeFile("/storage/emulated/0/Pictures/ChessPic" + promptNum + ".png", options);
+                    if (receiverBitmap == null) {
+                        Log.d("debug loading", "Bitmap is null");
+                        endAttempt--;
+                        receiveImage();
+                    } else {
+                        receivedImage.setImageBitmap(receiverBitmap);
+                        temp = getString(R.string.Prompt5);
+                        correctGuess = temp.substring(temp.lastIndexOf(" ") + 1);
+                        Log.d("Value of correctGuess", correctGuess);
+                        //Toast.makeText(ChessPicReceiveActivity.this,"Image for prompt 5 loaded", Toast.LENGTH_LONG).show();
+                    }
+                    break;
+            }
         }
     }
 
