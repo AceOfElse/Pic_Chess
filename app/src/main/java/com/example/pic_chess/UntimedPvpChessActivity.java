@@ -516,7 +516,8 @@ public class UntimedPvpChessActivity extends AppCompatActivity {
         p.setFile((i-1)%8+1);
     }
     public void pieceOnClick(View v){
-        if (gameInProgress) {
+        ImageView view = (ImageView) v;
+        if (gameInProgress && !captured.contains(view)) {
             Piece p = getPiecebyView(v);
             if (getTurn().equals(p.getPieceColor())) {
                 selectedMoves = getLegalMoves(p, false);
@@ -615,7 +616,8 @@ public class UntimedPvpChessActivity extends AppCompatActivity {
     }
 
     public void squareOnClick(View v){
-        if (selectedView != null && selectedPiece != null && gameInProgress){
+        ImageView view = (ImageView) v;
+        if (selectedView != null && selectedPiece != null && gameInProgress && !captured.contains(view)){
             Square s = getSquarebyView(v);
             for (Move m: selectedMoves) {
                 assert s != null;

@@ -650,7 +650,8 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
     public void pieceOnClick(View v){
         if (gameInProgress) {
             Piece p = getPiecebyView(v);
-            if (getTurn().equals(p.getPieceColor())) {
+            ImageView view = p.getPic();
+            if (getTurn().equals(p.getPieceColor()) && !captured.contains(view)) {
                 selectedMoves = getLegalMoves(p, false);
                 if (selectedPiece != p && selectedPiece != null) {
                     resetBoardSquares();
@@ -661,7 +662,7 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
                 selectedView = (ImageView) v;
                 selectedPiece = p;
                 getSquarebyInt(getSquare(p)).setImageResource(drawable.goldsquare);
-            } else if (selectedPiece != null) {
+            } else if (selectedPiece != null && !captured.contains(view)) {
                 for (Move m : selectedMoves) {
                     if (m.getTargetSquare() == getSquare(p)) {
                         if (getTurn().equals("white"))

@@ -200,10 +200,10 @@ public class ChessPicActivity extends AppCompatActivity implements ToolBarFragme
         setTextviewLeftValues();
         setPrompt();
     }
-
+    //Sets the starting prompt for the users to draw
     private void setPrompt() {
         rg = new Random();
-        promptNum = rg.nextInt(5)+1;
+        promptNum = rg.nextInt(23)+1;
         switch (promptNum){
             case 1:
                 descriptionText.setText(R.string.Prompt1);
@@ -220,6 +220,61 @@ public class ChessPicActivity extends AppCompatActivity implements ToolBarFragme
             case 5:
                 descriptionText.setText(R.string.Prompt5);
                 break;
+            case 6:
+                descriptionText.setText(R.string.Prompt6);
+                break;
+            case 7:
+                descriptionText.setText(R.string.Prompt7);
+                break;
+            case 8:
+                descriptionText.setText(R.string.Prompt8);
+                break;
+            case 9:
+                descriptionText.setText(R.string.Prompt9);
+                break;
+            case 10:
+                descriptionText.setText(R.string.Prompt10);
+                break;
+            case 11:
+                descriptionText.setText(R.string.Prompt11);
+                break;
+            case 12:
+                descriptionText.setText(R.string.Prompt12);
+                break;
+            case 13:
+                descriptionText.setText(R.string.Prompt13);
+                break;
+            case 14:
+                descriptionText.setText(R.string.Prompt14);
+                break;
+            case 15:
+                descriptionText.setText(R.string.Prompt15);
+                break;
+            case 16:
+                descriptionText.setText(R.string.Prompt16);
+                break;
+            case 17:
+                descriptionText.setText(R.string.Prompt17);
+                break;
+            case 18:
+                descriptionText.setText(R.string.Prompt18);
+                break;
+            case 19:
+                descriptionText.setText(R.string.Prompt19);
+                break;
+            case 20:
+                descriptionText.setText(R.string.Prompt20);
+                break;
+            case 21:
+                descriptionText.setText(R.string.Prompt21);
+                break;
+            case 22:
+                descriptionText.setText(R.string.Prompt22);
+                break;
+            case 23:
+                descriptionText.setText(R.string.Prompt23);
+                break;
+
         }
     }
 
