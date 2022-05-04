@@ -64,7 +64,6 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
         deadLayout = findViewById(id.deadPieceLayout);
         ImageButton backButton = findViewById(id.backButton);
         ImageButton newGameButton = findViewById(id.newGameButton);
-        ImageButton endButton = findViewById(id.endButton);
         ImageButton resignButton = findViewById(id.resignButton);
         timerText1 = findViewById(id.timerText1);
         timerText2 = findViewById(id.timerText2);
@@ -258,12 +257,7 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
                 prompted = !prompted;
             }
         });
-        endButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //prompt the other player for a draw
-            }
-        });
+
         resignButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -630,7 +624,7 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
         ImageView v;
         for (Piece p: pieces){
             v = p.getPic();
-            if (getTurn() == "white")
+            if (getTurn() == "black")
                 v.setRotation(180);
             else
                 v.setRotation(0);
@@ -1640,6 +1634,7 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
             public void onClick(DialogInterface dialogInterface, int i) {
                 prompted = false;
                 gameInProgress = false;
+                checkEnd();
                 dialogInterface.dismiss();
             }
         });
