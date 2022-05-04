@@ -13,8 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
@@ -28,12 +26,10 @@ import java.util.Collections;
 import java.util.Objects;
 
 public class TimedPvpChessActivity extends AppCompatActivity implements NewGameWithTimeFragment.OnClickSelected {
-    private LinearLayout gameLayout;
     private TextView timerText1;
     private TextView timerText2;
     private ConstraintLayout deadLayout;
     private final ArrayList<ConstraintLayout> boardLayout = new ArrayList<>();
-    private PopupWindow resignMenu, gameMenu;
     private final ArrayList<ImageView> boardImages = new ArrayList<>();
     private final ArrayList<Square> boardSquares = new ArrayList<>();
     private final ArrayList<Piece> pieces = new ArrayList<>();
@@ -68,7 +64,6 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
         deadLayout = findViewById(id.deadPieceLayout);
         ImageButton backButton = findViewById(id.backButton);
         ImageButton newGameButton = findViewById(id.newGameButton);
-        ImageButton endButton = findViewById(id.endButton);
         ImageButton resignButton = findViewById(id.resignButton);
         timerText1 = findViewById(id.timerText1);
         timerText2 = findViewById(id.timerText2);
@@ -262,12 +257,7 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
                 prompted = !prompted;
             }
         });
-        endButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //prompt the other player for a draw
-            }
-        });
+
         resignButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -630,6 +620,16 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
         p.setRank((i-1)/8+1);
         p.setFile((i-1)%8+1);
     }
+    public void rotatePieces(){
+        ImageView v;
+        for (Piece p: pieces){
+            v = p.getPic();
+            if (getTurn() == "black")
+                v.setRotation(180);
+            else
+                v.setRotation(0);
+        }
+    }
     public void pieceOnClick(View v){
         if (gameInProgress) {
             Piece p = getPiecebyView(v);
@@ -676,6 +676,7 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
                         }
                         positions.add(getFENfromPosition());
                         checkEnd();
+                        rotatePieces();
                         break;
                     }
                 }
@@ -823,6 +824,7 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
                     selectedPiece = null;
                     selectedView = null;
                     checkEnd();
+                    rotatePieces();
                     break;
                 }
             }
@@ -1632,6 +1634,7 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
             public void onClick(DialogInterface dialogInterface, int i) {
                 prompted = false;
                 gameInProgress = false;
+                checkEnd();
                 dialogInterface.dismiss();
             }
         });
