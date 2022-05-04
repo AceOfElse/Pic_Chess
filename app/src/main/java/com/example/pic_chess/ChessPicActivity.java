@@ -709,7 +709,7 @@ public class ChessPicActivity extends AppCompatActivity implements ToolBarFragme
                     if (grabState) {
                         brushView.setX(touchX - 50);
                         brushView.setY(touchY - 50);
-                        pixelCountText.setX(touchX + 100);
+                        pixelCountText.setX(touchX + 50);
                         pixelCountText.setY(touchY);
                         return true;
                     } else {
@@ -717,7 +717,7 @@ public class ChessPicActivity extends AppCompatActivity implements ToolBarFragme
                             //Set translation for brush image view
                             brushView.setX(touchX - 50);
                             brushView.setY(touchY - 50);
-                            pixelCountText.setX(touchX + 100);
+                            pixelCountText.setX(touchX + 50);
                             pixelCountText.setY(touchY);
                             //Connect the point every frame
                             path.lineTo(touchX, touchY);
