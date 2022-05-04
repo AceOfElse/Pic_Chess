@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -20,6 +21,8 @@ import java.util.Collections;
 
 public class AIvAIChessActivity extends AppCompatActivity {
     private ConstraintLayout deadLayout;
+    private LinearLayout.LayoutParams layoutParams;
+    private LinearLayout deadWhite, deadBlack;
     private final ArrayList<ConstraintLayout> boardLayout = new ArrayList<>();
     private final ArrayList<ImageView> boardImages = new ArrayList<>();
     private final ArrayList<Square> boardSquares = new ArrayList<>();
@@ -37,6 +40,12 @@ public class AIvAIChessActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(layout.activity_aivai_chess);
         deadLayout = findViewById(id.deadPieceLayout);
+        deadWhite = new LinearLayout(this);
+        deadBlack = new LinearLayout(this);
+        layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT);
+        deadBlack.setOrientation(LinearLayout.HORIZONTAL);
+        deadWhite.setOrientation(LinearLayout.HORIZONTAL);
         ImageButton backButton = findViewById(id.backButton);
         ImageButton newGameButton = findViewById(id.newGameButton);
         boardLayout.add(findViewById(id.layoutA1));
@@ -293,7 +302,10 @@ public class AIvAIChessActivity extends AppCompatActivity {
         ImageView v = p2.getPic();
         if ((ViewGroup)v.getParent() != null)
             ((ViewGroup)v.getParent()).removeView(v);
-        deadLayout.addView(v);
+        if (p2.getPieceColor() == "white")
+            deadWhite.addView(v,layoutParams);
+        else
+            deadBlack.addView(v,layoutParams);
         captured.add(v);
     }
 
