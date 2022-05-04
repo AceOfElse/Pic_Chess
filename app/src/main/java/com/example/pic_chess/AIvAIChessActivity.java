@@ -4,6 +4,7 @@ import static com.example.pic_chess.R.id;
 import static com.example.pic_chess.R.layout;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -41,8 +42,12 @@ public class AIvAIChessActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(layout.activity_aivai_chess);
         deadLayout = findViewById(id.deadPieceLayout);
-        deadWhite = new LinearLayout(this);
-        deadBlack = new LinearLayout(this);
+        deadWhite = findViewById(id.deadWhiteLayout);
+        deadBlack = findViewById(id.deadBlackLayout);
+        deadBlack.setBackgroundColor(Color.DKGRAY);
+        deadWhite.setBackgroundColor(Color.DKGRAY);
+        deadBlack.setPadding(5,0,0,0);
+        deadWhite.setPadding(5,0,0,0);
         layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT);
         deadBlack.setOrientation(LinearLayout.HORIZONTAL);
