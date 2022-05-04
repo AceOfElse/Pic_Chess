@@ -17,7 +17,6 @@ import androidx.constraintlayout.widget.ConstraintSet;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Objects;
 
 public class AIvAIChessActivity extends AppCompatActivity {
     private ConstraintLayout deadLayout;
@@ -27,7 +26,6 @@ public class AIvAIChessActivity extends AppCompatActivity {
     private final ArrayList<Piece> pieces = new ArrayList<>();
     private final ArrayList<ImageView> captured = new ArrayList<>();
     private final ArrayList<String> positions = new ArrayList<>();
-    private ArrayList<Move> allMoves = new ArrayList<Move>();
     private int whiteMaterial = 0;
     private int blackMaterial = 0;
     private int movesSinceLastPawnMove = 0;
@@ -220,80 +218,431 @@ public class AIvAIChessActivity extends AppCompatActivity {
         }
     }
     private void makeMove(Move m){
-        Piece p = getPiecebySquare(m.getCurrentSquare());
-        int targetSquare = m.getTargetSquare();
-        if (getPiecebySquare(m.getTargetSquare()) == null) {
-            setSquare(p, targetSquare);
-            Square s = getSquarebyView(p.getPic());
-            if (getSquare(p) == 3 && p.checkFirstMove() && p.getPieceType().equals("king")) {
-                setSquare(pieces.get(24), 4);
-                pieces.get(24).setMoved(true);
-            }
-            if (getSquare(p) == 7 && p.checkFirstMove() && p.getPieceType().equals("king")) {
-                setSquare(pieces.get(31), 6);
-                pieces.get(31).setMoved(true);
-            }
-            if (getSquare(p) == 59 && p.checkFirstMove() && p.getPieceType().equals("king")) {
-                setSquare(pieces.get(0), 60);
-                pieces.get(0).setMoved(true);
-            }
-            if (getSquare(p) == 63 && p.checkFirstMove() && p.getPieceType().equals("king")) {
-                setSquare(pieces.get(7), 62);
-                pieces.get(7).setMoved(true);
-            }
-            if (getSquare(p) > 56 && getSquare(p) < 65 && p.getPieceType().equals("white pawn")) {
-                whiteMaterial += 8;
-                p.promote(true);
-                pieces.set(pieces.indexOf(p), new Piece(p.getFile(), p.getRank(), p.getPieceColor(), "queen"));
-            }
-            if (getSquare(p) > 0 && getSquare(p) < 9 && p.getPieceType().equals("black pawn")) {
-                blackMaterial += 8;
-                p.promote(false);
-                pieces.set(pieces.indexOf(p), new Piece(p.getFile(), p.getRank(), p.getPieceColor(), "queen"));
-            }
-            if (p.getPieceType().equals("white pawn") || p.getPieceType().equals("blackPawn")) {
-                movesSinceLastPawnMove = 0;
+        if (m != null){
+            Piece p = getPiecebySquare(m.getCurrentSquare());
+            int targetSquare = m.getTargetSquare();
+            if (getPiecebySquare(m.getTargetSquare()) == null) {
+                Log.d("moveMade","Moved "+ p.getPieceType() + " to " + m.getTargetSquare() + " and did not capture (except en passant)");
+                setSquare(p, targetSquare);
+                Square s = getSquarebyView(p.getPic());
+                if (getSquare(p) == 3 && p.checkFirstMove() && p.getPieceType().equals("king")) {
+                    setSquare(pieces.get(24), 4);
+                    pieces.get(24).setMoved(true);
+                }
+                if (getSquare(p) == 7 && p.checkFirstMove() && p.getPieceType().equals("king")) {
+                    setSquare(pieces.get(31), 6);
+                    pieces.get(31).setMoved(true);
+                }
+                if (getSquare(p) == 59 && p.checkFirstMove() && p.getPieceType().equals("king")) {
+                    setSquare(pieces.get(0), 60);
+                    pieces.get(0).setMoved(true);
+                }
+                if (getSquare(p) == 63 && p.checkFirstMove() && p.getPieceType().equals("king")) {
+                    setSquare(pieces.get(7), 62);
+                    pieces.get(7).setMoved(true);
+                }
+                if (getSquare(p) > 56 && getSquare(p) < 65 && p.getPieceType().equals("white pawn")) {
+                    whiteMaterial += 8;
+                    p.promote(true);
+                    pieces.set(pieces.indexOf(p), new Piece(p.getFile(), p.getRank(), p.getPieceColor(), "queen"));
+                }
+                if (getSquare(p) > 0 && getSquare(p) < 9 && p.getPieceType().equals("black pawn")) {
+                    blackMaterial += 8;
+                    p.promote(false);
+                    pieces.set(pieces.indexOf(p), new Piece(p.getFile(), p.getRank(), p.getPieceColor(), "queen"));
+                }
+                if (p.getPieceType().equals("white pawn") || p.getPieceType().equals("blackPawn")) {
+                    movesSinceLastPawnMove = 0;
+                } else {
+                    movesSinceLastPawnMove++;
+                }
+                if (s != null) {
+                    if (p.getPieceType().equals("white pawn") && getPiecebySquare(getSquare(s) - 8) != null && getPiecebySquare(getSquare(s) - 8).getMovedTwo()) {
+                        Piece p2 = getPiecebySquare(getSquare(s) - 8);
+                        capture(p2);
+                    }
+                    if (p.getPieceType().equals("black pawn") && getPiecebySquare(getSquare(s) + 8) != null && getPiecebySquare(getSquare(s) + 8).getMovedTwo()) {
+                        Piece p2 = getPiecebySquare(getSquare(s) + 8);
+                        capture(p2);
+                    }
+                }
+                if (p.getPieceType().equals("white pawn") && p.getMoved() && getPiecebySquare(getSquare(p) - 16) == null && getPiecebySquare(getSquare(p) - 8) == null) {
+                    p.setMovedTwo(true);
+                }
+                if (p.getPieceType().equals("black pawn") && p.getMoved() && getPiecebySquare(getSquare(p) + 16) == null && getPiecebySquare(getSquare(p) + 8) == null) {
+                    p.setMovedTwo(true);
+                }
             } else {
-                movesSinceLastPawnMove++;
+                Piece p2 = getPiecebySquare(m.getTargetSquare());
+                Log.d("moveMade","Moved "+ p.getPieceType() + " to " + m.getTargetSquare() + " and captured a " + p2.getPieceType());
+                if (getTurn().equals("white"))
+                    blackMaterial -= getMaterialValue(p);
+                else
+                    whiteMaterial -= getMaterialValue(p);
+                setSquare(p, m.getTargetSquare());
+                capture(p2);
             }
-            if (s != null) {
-                if (p.getPieceType().equals("white pawn") && getPiecebySquare(getSquare(s) - 8) != null && getPiecebySquare(getSquare(s) - 8).getMovedTwo()) {
-                    Piece p2 = getPiecebySquare(getSquare(s) - 8);
-                    capture(p2, m);
-                }
-                if (p.getPieceType().equals("black pawn") && getPiecebySquare(getSquare(s) + 8) != null && getPiecebySquare(getSquare(s) + 8).getMovedTwo()) {
-                    Piece p2 = getPiecebySquare(getSquare(s) + 8);
-                    capture(p2, m);
-                }
-            }
-            if (p.getPieceType().equals("white pawn") && !p.getMoved() && getPiecebySquare(getSquare(p) - 16) == null && getPiecebySquare(getSquare(p) - 8) == null) {
-                p.setMovedTwo(true);
-            }
-            if (p.getPieceType().equals("black pawn") && !p.getMoved() && getPiecebySquare(getSquare(p) + 16) == null && getPiecebySquare(getSquare(p) + 8) == null) {
-                p.setMovedTwo(true);
-            }
-        } else {
-            Piece p2 = getPiecebySquare(m.getTargetSquare());
-            if (getTurn().equals("white"))
-                blackMaterial -= getMaterialValue(p);
-            else
-                whiteMaterial -= getMaterialValue(p);
-            setSquare(p, m.getTargetSquare());
-            capture(p2, m);
+            p.setMoved(true);
+            positions.add(getFENfromPosition());
         }
-        p.setMoved(true);
-        positions.add(getFENfromPosition());
     }
 
-    private void capture(Piece p2, Move m) {
+    private void capture(Piece p2) {
         p2.setFile(69);
         p2.setRank(69);
-        ImageView view = p2.getPic();
-        Objects.requireNonNull(getSquarebyView(getSquarebyInt(m.getTargetSquare() + 8))).getLayout().removeView(view);
-        deadLayout.addView(view);
-        captured.add(view);
+        ImageView v = p2.getPic();
+        if ((ViewGroup)v.getParent() != null)
+            ((ViewGroup)v.getParent()).removeView(v);
+        deadLayout.addView(v);
+        captured.add(v);
     }
 
+    public Move getMovebyEval(int eval){
+        ArrayList<Move> moves;
+        for (Piece p: pieces) {
+            if (getTurn().equals(p.getPieceColor())) {
+                moves = getLegalMoves(p, false);
+                for (Move m : moves) {
+                    if (m.getEvaluation() == eval){
+                        Log.d("moveFound", "Move found");
+                        return m;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+    public ArrayList<Move> generateAllMoves(String turn){
+        ArrayList<ArrayList<Move>> movesSquared = new ArrayList<ArrayList<Move>>();
+        ArrayList<Move> moves = new ArrayList<Move>();
+        for (Piece p: pieces){
+            if (p.getPieceColor().equals(turn)){
+                movesSquared.add(getLegalMoves(p,false));
+            }
+        }
+        for (ArrayList<Move> move:movesSquared){
+            moves.addAll(move);
+        }
+        return moves;
+    }
+
+    //The following evaluate, search, searchAllCaptures, orderMoves, forceKingtoCornerEndgameEval methods
+    //These methods were written differently but heavily inspired by Sebastian Lague's code
+    //So credit where credit is due
+    public int evaluate(){
+        int whiteEval = whiteMaterial * 100;
+        int blackEval = blackMaterial * 100;
+        int evaluation = whiteEval - blackEval;
+        int perspective;
+        if (getTurn().equals("white"))
+            perspective = 1;
+        else
+            perspective = -1;
+        return evaluation * perspective;
+    }
+    public int search (int depth, int alpha, int beta){
+        ArrayList<Move> moves = generateAllMoves(getTurn());
+        if (depth == 0)
+            return searchAllCaptures(alpha,beta);
+        int myKing=-1;
+        for (Piece p: pieces){
+            if (p.getPieceColor().equals(getTurn()) && p.getPieceType().equals("king")){
+                myKing = getSquare(p);
+            }
+        }
+        if (moves.size() == 0) {
+            if (playerInCheck(getTurn(),myKing))
+                return Integer.MIN_VALUE;
+            return 0;
+        }
+        for (Move m: moves){
+            makeMove(m,m.getPiece());
+            numMoves++;
+            int eval = -search(depth-1, -beta, -alpha);
+            m.setEvaluation(eval);
+            numMoves--;
+            unmakeMove(m,m.getPiece());
+            if (eval >= beta){
+                //Move was too good, opponent will avoid this pos
+                return beta;
+            }
+            alpha = Math.max(alpha, eval);
+        }
+        return alpha;
+    }
+    public int searchAllCaptures(int alpha, int beta){
+        ArrayList<Move> moves;
+        int eval = evaluate();
+        if (eval >= beta)
+            return beta;
+        alpha = Math.max(alpha,eval);
+        for(Piece p: pieces) {
+            moves = getLegalMoves(p,true);
+            orderMoves(moves,p);
+            for(Move m: moves){
+                makeMove(m,p);
+                numMoves++;
+                eval = -searchAllCaptures(-beta,-alpha);
+                numMoves--;
+                unmakeMove(m,p);
+                if (eval >= beta)
+                    return beta;
+                alpha = Math.max(alpha,eval);
+            }
+        }
+        return alpha;
+    }
+    public void orderMoves (ArrayList<Move> moves,Piece p){
+        for (Move m: moves){
+            int moveScoreGuess = 0;
+            int movePieceType = getMaterialValue(p);
+            int capturePieceType = getMaterialValue(p);
+            if (capturePieceType != 1) {
+                moveScoreGuess += 10 * capturePieceType - movePieceType;
+            }
+            if (!notAttacked(m.getTargetSquare())){
+                moveScoreGuess -= movePieceType;
+            }
+            if (p.getPieceType().equals("white") && p.getRank() == 7){
+                moveScoreGuess += 80;
+            }
+            moveScoreGuess += forceKingtoCornerEndgameEval((float)numMoves/50);
+            m.setEvaluation(moveScoreGuess);
+        }
+        Move move;
+        for (int c = 0; c < moves.size(); c++){
+            for (int c1 = 1; c1 < moves.size(); c1++){
+                if (moves.get(c1).getEvaluation() > moves.get(c).getEvaluation() && getTurn().equals("white")){
+                    move = moves.get(c1);
+                    moves.set(c1, moves.get(c));
+                    moves.set(c,move);
+                } else if (moves.get(c1).getEvaluation() < moves.get(c).getEvaluation() && getTurn().equals("black")){
+                    move = moves.get(c1);
+                    moves.set(c1, moves.get(c));
+                    moves.set(c,move);
+                }
+            }
+        }
+    }
+    public int forceKingtoCornerEndgameEval (float endgameWeight){
+        int opponentKingRank = pieces.get(4).getRank();
+        int opponentKingFile = pieces.get(4).getFile();
+        int opponentKingDstToCenterFile = Math.max(3-opponentKingFile,opponentKingFile-4);
+        int opponentKingDstToCenterRank = Math.max(3-opponentKingRank,opponentKingRank-4);
+        int eval = opponentKingDstToCenterFile + opponentKingDstToCenterRank;
+        int friendlyKingRank = pieces.get(4).getRank();
+        int friendlyKingFile = pieces.get(4).getFile();
+        int fileDst = Math.abs(friendlyKingFile-opponentKingFile);
+        int rankDst = Math.abs(friendlyKingRank-opponentKingRank);
+        int dstBetweenKings = fileDst + rankDst;
+        eval += 14-dstBetweenKings;
+        return (int)(eval * 10 * endgameWeight);
+    }
+    public void makeMove(Move move,Piece p){
+        int i = move.getTargetSquare();
+        p.setRank((i-1)/8+1);
+        p.setFile((i-1)%8+1);
+    }
+
+    public void unmakeMove(Move move,Piece p){
+        int i = move.getCurrentSquare();
+        p.setRank((i-1)/8+1);
+        p.setFile((i-1)%8+1);
+    }
+
+    private void checkEnd() {
+        ArrayList<ArrayList<Move>> allLegalMoves = new ArrayList<>();
+        for (Piece p:pieces){
+            if (getTurn().equals(p.getPieceColor()))
+                allLegalMoves.add(getLegalMoves(p,false));
+        }
+        if (getTurn().equals("white")) {
+            if (allLegalMoves.get(0) == null && !notAttacked(getSquare(pieces.get(4)))) {
+                gameInProgress = false; //Checkmate
+                Log.d("end", "White checkmated Black");
+            } else if (allLegalMoves.get(0) == null) {
+                gameInProgress = false; //Stalemate
+                Log.d("end", "Stalemate");
+            }
+        } else {
+            if (allLegalMoves.get(0) == null && !notAttacked(getSquare(pieces.get(29)))) {
+                gameInProgress = false; //Checkmate
+                Log.d("end", "Black checkmated White");
+            } else if (allLegalMoves.get(0) == null) {
+                gameInProgress = false; //Stalemate
+                Log.d("end", "Stalemate");
+            }
+        }
+        if (movesSinceLastPawnMove == 100){
+            gameInProgress = false; //Draw by 50 Move Rule
+            Log.d("end", "Draw by 50 move rule");
+        }
+        if (positions.size() > 5){
+            for (int c1 = 0; c1 < positions.size()-1; c1++) {
+                for (int c2 = c1++; c2 < positions.size()-1; c2++) {
+                    for (int c3 = c2++; c3 < positions.size()-1; c3++) {
+                        if (positions.get(c3).equals(positions.get(c2)) && positions.get(c2).equals(positions.get(c1)) && c2 != c3 && c1 != c2) {
+                            gameInProgress = false; //Draw by 3 fold repetition
+                            Log.d("end", "Draw by 3 fold repetition");
+                        }
+                    }
+                }
+            }
+        }
+        if (whiteMaterial <= 3 && blackMaterial <= 3) {
+            gameInProgress = false; //Draw by Insufficient Material
+            Log.d("end", "Draw by Insufficient Material");
+
+        }
+        Log.d("game",""+gameInProgress);
+    }
+
+    private Square getSquarebyView(View v) {
+        for (Square square:boardSquares){
+            if (square.getView() == (ImageView) v){
+                return square;
+            }
+        }
+        return null;
+    }
+
+    private void setSquare (Piece p, Integer i){
+        ImageView v = p.getPic();
+        ImageView square = getSquarebyInt(i);
+        Square s = getSquarebyView(square);
+        if ((ViewGroup)v.getParent() != null)
+            ((ViewGroup)v.getParent()).removeView(v);
+        if (s != null) {
+            s.getLayout().addView(v);
+            ConstraintSet constraintSet = new ConstraintSet();
+            constraintSet.clone(s.getLayout());
+            constraintSet.connect(v.getId(),ConstraintSet.START,square.getId(),ConstraintSet.START);
+            constraintSet.connect(v.getId(),ConstraintSet.END,square.getId(),ConstraintSet.END);
+            constraintSet.connect(v.getId(),ConstraintSet.TOP,square.getId(),ConstraintSet.TOP);
+            constraintSet.connect(v.getId(),ConstraintSet.BOTTOM,square.getId(),ConstraintSet.BOTTOM);
+            p.setRank((i-1)/8+1);
+            p.setFile((i-1)%8+1);
+            constraintSet.setVisibility(v.getId(),View.VISIBLE);
+            constraintSet.setTranslationZ(v.getId(),1);
+            constraintSet.applyTo(s.getLayout());
+        }
+    }
+    private int getSquare(Piece p){
+        int rank = p.getRank();
+        int file = p.getFile();
+        return (rank-1)*8+file;
+    }
+    private int getSquare(Square s){
+        int rank = s.getRank();
+        int file = s.getFile();
+        return (rank-1)*8+file;
+    }
+    public Piece getPiecebySquare(int square){
+        for(Piece p: pieces){
+            if (getSquare(p) == square) {
+                return p;
+            }
+        }
+        return null;
+    }
+
+    private boolean movedTwoBySquare(int square) {
+        Piece p = getPiecebySquare(square);
+        return p.getMovedTwo();
+    }
+
+    private ArrayList<Move> getLegalMoves (Piece p, boolean capturesOnly){
+        ArrayList<Move> moves = getMoves(p,capturesOnly,getTurn());
+        int myKingSquare=0;
+        String otherTurn = "white";
+        if (getTurn().equals(otherTurn))
+            otherTurn = "black";
+        for (Piece piece:pieces){
+            if (getTurn().equals(piece.getPieceColor()) && piece.getPieceType().equals("king")){
+                myKingSquare = getSquare(piece);
+            }
+        }
+        ArrayList <Integer> movesToDelete = new ArrayList<>();
+        for (Move moveToVerify:moves){
+            makeMove(moveToVerify,p);
+            Log.d("chess6","move made " + moveToVerify.getCurrentSquare() + " to " + moveToVerify.getTargetSquare());
+            if (playerInCheck(otherTurn, myKingSquare)){
+                movesToDelete.add(moves.indexOf(moveToVerify));
+            }
+            unmakeMove(moveToVerify,p);
+            Log.d("chess6","move unmade " + moveToVerify.getTargetSquare() + " to " + moveToVerify.getCurrentSquare());
+        }
+        Collections.reverse(movesToDelete);
+        for (Integer i: movesToDelete){
+            moves.remove(i);
+        }
+        return moves;
+    }
+    private boolean openSquare(int square){
+        for(Piece p:pieces) {
+            if (getSquare(p) == square) {
+                return false;
+            }
+        }
+        return true;
+    }
+    private boolean notAttacked(int square) {
+        ArrayList <Move> pieceMoves;
+        for (Piece p: pieces){
+            if (!p.getPieceColor().equals(getTurn()) && !p.getPieceType().equals("king")) {
+                pieceMoves = getMoves(p,true, p.getPieceColor());
+                for (Move m : pieceMoves) {
+                    if (m.getTargetSquare() == square)
+                        return false;
+                }
+            }
+        }
+        Log.d("notattacked",square + " is not attacked");
+        return true;
+    }
+    private boolean notAttacked(int square, String otherTurn) {
+        ArrayList <Move> pieceMoves;
+        for (Piece p: pieces){
+            if (!p.getPieceColor().equals(otherTurn) && !p.getPieceType().equals("king")) {
+                pieceMoves = getMoves(p,true, p.getPieceColor());
+                for (Move m : pieceMoves) {
+                    if (m.getTargetSquare() == square)
+                        return false;
+                }
+            }
+        }
+        Log.d("notattacked",square + " is not attacked");
+        return true;
+    }
+    private boolean playerInCheck(String otherTurn, int myKing){
+        return !notAttacked(myKing,otherTurn);
+    }
+    private String getTurn(){
+        if(numMoves%2==0)
+            return "white";
+        else
+            return "black";
+    }
+    private int getMaterialValue(Piece p){
+        String piece = p.getPieceType();
+        if (piece.equals("bishop") || piece.equals("knight") || piece.equals("king"))
+            return 3;
+        else if (piece.equals("rook"))
+            return 5;
+        else if (piece.equals("queen"))
+            return 9;
+        else
+            return 1;
+    }
+    private void calculateMaterial(){
+        for(Piece p: pieces){
+            if (p.getPieceColor().equals("white")){
+                whiteMaterial += getMaterialValue(p);
+            } else {
+                blackMaterial += getMaterialValue(p);
+            }
+        }
+    }
     private void generatePositionfromFEN(String s) {
         int square = 57;
         int index = 0;
@@ -469,6 +818,7 @@ public class AIvAIChessActivity extends AppCompatActivity {
         }
         calculateMaterial();
     }
+
     public String getFENfromPosition(){
         String FEN = "";
         int square = 57;
@@ -553,239 +903,6 @@ public class AIvAIChessActivity extends AppCompatActivity {
         }
         Log.d("FEN",FEN);
         return FEN;
-    }
-    public Move getMovebyEval(int eval){
-        ArrayList<Move> moves;
-        for (Piece p: pieces) {
-            if (getTurn().equals(p.getPieceColor())) {
-                moves = getLegalMoves(p, false);
-                for (Move m : moves) {
-                    if (m.getEvaluation() == eval){
-                        Log.d("moveFound", "Move found");
-                        return m;
-                    }
-                }
-            }
-        }
-        return null;
-    }
-    public void generateAllMoves(String turn){
-        ArrayList<ArrayList<Move>> movesSquared = new ArrayList<ArrayList<Move>>();
-        allMoves = new ArrayList<Move>();
-        for (Piece p: pieces){
-            if (p.getPieceColor().equals(turn)){
-                movesSquared.add(getLegalMoves(p,false));
-            }
-        }
-        for (ArrayList<Move> moves:movesSquared){
-            allMoves.addAll(moves);
-        }
-    }
-    //The following evaluate, search, searchAllCaptures, orderMoves, forceKingtoCornerEndgameEval methods
-    //These methods were written differently but heavily inspired by Sebastian Lague's code
-    //So credit where credit is due
-    public int evaluate(){
-        int whiteEval = whiteMaterial * 100;
-        int blackEval = blackMaterial * 100;
-        int evaluation = whiteEval - blackEval;
-        int perspective;
-        if (getTurn().equals("white"))
-            perspective = 1;
-        else
-            perspective = -1;
-        return evaluation * perspective;
-    }
-    public int search (int depth, int alpha, int beta){
-        if (depth == 0)
-            return searchAllCaptures(alpha,beta);
-        int myKing=-1;
-        for (Piece p: pieces){
-            if (p.getPieceColor().equals(getTurn()) && p.getPieceType().equals("king")){
-                myKing = getSquare(p);
-            }
-        }
-        if (allMoves.size() == 0) {
-            if (playerInCheck(getTurn(),myKing))
-                return Integer.MIN_VALUE;
-            return 0;
-        }
-        for (Move m: allMoves){
-            makeMove(m,m.getPiece());
-            numMoves++;
-            int eval = -search(depth-1, -beta, -alpha);
-            m.setEvaluation(eval);
-            numMoves--;
-            unmakeMove(m,m.getPiece());
-            if (eval >= beta){
-                //Move was too good, opponent will avoid this pos
-                return beta;
-            }
-            alpha = Math.max(alpha, eval);
-        }
-        return alpha;
-    }
-    public int searchAllCaptures(int alpha, int beta){
-        int eval = evaluate();
-        if (eval >= beta)
-            return beta;
-        alpha = Math.max(alpha,eval);
-
-        ArrayList<Move> captureMoves;
-        for(Piece p: pieces) {
-            captureMoves = getLegalMoves(p,true);
-            orderMoves(captureMoves,p);
-            for(Move m: captureMoves){
-                makeMove(m,p);
-                numMoves++;
-                eval = -searchAllCaptures(-beta,-alpha);
-                numMoves--;
-                unmakeMove(m,p);
-                if (eval >= beta)
-                    return beta;
-                alpha = Math.max(alpha,eval);
-            }
-        }
-        return alpha;
-    }
-    public void orderMoves (ArrayList<Move> moves,Piece p){
-        for (Move m: moves){
-            int moveScoreGuess = 0;
-            int movePieceType = getMaterialValue(p);
-            int capturePieceType = getMaterialValue(p);
-            if (capturePieceType != 1) {
-                moveScoreGuess += 10 * capturePieceType - movePieceType;
-            }
-            if (!notAttacked(m.getTargetSquare())){
-                moveScoreGuess -= movePieceType;
-            }
-            if (p.getPieceType().equals("white") && p.getRank() == 7){
-                moveScoreGuess += 80;
-            }
-            moveScoreGuess += forceKingtoCornerEndgameEval((float)numMoves/50);
-        }
-    }
-    public int forceKingtoCornerEndgameEval (float endgameWeight){
-        int opponentKingRank = pieces.get(4).getRank();
-        int opponentKingFile = pieces.get(4).getFile();
-        int opponentKingDstToCenterFile = Math.max(3-opponentKingFile,opponentKingFile-4);
-        int opponentKingDstToCenterRank = Math.max(3-opponentKingRank,opponentKingRank-4);
-        int eval = opponentKingDstToCenterFile + opponentKingDstToCenterRank;
-        int friendlyKingRank = pieces.get(4).getRank();
-        int friendlyKingFile = pieces.get(4).getFile();
-        int fileDst = Math.abs(friendlyKingFile-opponentKingFile);
-        int rankDst = Math.abs(friendlyKingRank-opponentKingRank);
-        int dstBetweenKings = fileDst + rankDst;
-        eval += 14-dstBetweenKings;
-        return (int)(eval * 10 * endgameWeight);
-    }
-    public void makeMove(Move move,Piece p){
-        int i = move.getTargetSquare();
-        p.setRank((i-1)/8+1);
-        p.setFile((i-1)%8+1);
-    }
-
-    public void unmakeMove(Move move,Piece p){
-        int i = move.getCurrentSquare();
-        p.setRank((i-1)/8+1);
-        p.setFile((i-1)%8+1);
-    }
-
-    private void checkEnd() {
-        ArrayList<ArrayList<Move>> allLegalMoves = new ArrayList<>();
-        for (Piece p:pieces){
-            if (getTurn().equals(p.getPieceColor()))
-                allLegalMoves.add(getLegalMoves(p,false));
-        }
-        if (getTurn().equals("white")) {
-            if (allLegalMoves.get(0) == null && !notAttacked(getSquare(pieces.get(4)))) {
-                gameInProgress = false; //Checkmate
-                Log.d("end", "White checkmated Black");
-            } else if (allLegalMoves.get(0) == null) {
-                gameInProgress = false; //Stalemate
-                Log.d("end", "Stalemate");
-            }
-        } else {
-            if (allLegalMoves.get(0) == null && !notAttacked(getSquare(pieces.get(29)))) {
-                gameInProgress = false; //Checkmate
-                Log.d("end", "Black checkmated White");
-            } else if (allLegalMoves.get(0) == null) {
-                gameInProgress = false; //Stalemate
-                Log.d("end", "Stalemate");
-            }
-        }
-        if (movesSinceLastPawnMove == 100){
-            gameInProgress = false; //Draw by 50 Move Rule
-            Log.d("end", "Draw by 50 move rule");
-        }
-        if (positions.size() > 5){
-            for (int c1 = 0; c1 < positions.size()-1; c1++) {
-                for (int c2 = c1++; c2 < positions.size()-1; c2++) {
-                    for (int c3 = c2++; c3 < positions.size()-1; c3++) {
-                        if (positions.get(c3).equals(positions.get(c2)) && positions.get(c2).equals(positions.get(c1)) && c2 != c3 && c1 != c2) {
-                            gameInProgress = false; //Draw by 3 fold repetition
-                            Log.d("end", "Draw by 3 fold repetition");
-                        }
-                    }
-                }
-            }
-        }
-        if (whiteMaterial <= 3 && blackMaterial <= 3) {
-            gameInProgress = false; //Draw by Insufficient Material
-            Log.d("end", "Draw by Insufficient Material");
-
-        }
-        Log.d("game",""+gameInProgress);
-    }
-
-    private Square getSquarebyView(View v) {
-        for (Square square:boardSquares){
-            if (square.getView() == v){
-                return square;
-            }
-        }
-        return null;
-    }
-
-    private void setSquare (Piece p, Integer i){
-        ImageView v = p.getPic();
-        ImageView square = getSquarebyInt(i);
-        Square s = getSquarebyView(square);
-        assert s != null;
-        if ((ViewGroup)v.getParent() != null)
-            ((ViewGroup)v.getParent()).removeView(v);
-        s.getLayout().addView(v);
-        ConstraintSet constraintSet = new ConstraintSet();
-        constraintSet.clone(s.getLayout());
-        constraintSet.connect(v.getId(),ConstraintSet.START,square.getId(),ConstraintSet.START);
-        constraintSet.connect(v.getId(),ConstraintSet.END,square.getId(),ConstraintSet.END);
-        constraintSet.connect(v.getId(),ConstraintSet.TOP,square.getId(),ConstraintSet.TOP);
-        constraintSet.connect(v.getId(),ConstraintSet.BOTTOM,square.getId(),ConstraintSet.BOTTOM);
-        p.setRank((i-1)/8+1);
-        p.setFile((i-1)%8+1);
-        Log.d("chess1",s.toString());
-        Log.d("chess1","Rank"+p.getRank());
-        Log.d("chess1","File"+p.getFile());
-        constraintSet.setVisibility(v.getId(),View.VISIBLE);
-        constraintSet.setTranslationZ(v.getId(),1);
-        constraintSet.applyTo(s.getLayout());
-    }
-    private int getSquare(Piece p){
-        int rank = p.getRank();
-        int file = p.getFile();
-        return (rank-1)*8+file;
-    }
-    private int getSquare(Square s){
-        int rank = s.getRank();
-        int file = s.getFile();
-        return (rank-1)*8+file;
-    }
-    public Piece getPiecebySquare(int square){
-        for(Piece p: pieces){
-            if (getSquare(p) == square) {
-                return p;
-            }
-        }
-        return null;
     }
     public ArrayList<Move> getMoves(Piece p, boolean capturesOnly, String turn) {
         ArrayList<Move> moves = new ArrayList<>();
@@ -1062,112 +1179,6 @@ public class AIvAIChessActivity extends AppCompatActivity {
         }
         return moves;
     }
-
-    private boolean movedTwoBySquare(int square) {
-        Piece p = getPiecebySquare(square);
-        return p.getMovedTwo();
-    }
-
-    private ArrayList<Move> getLegalMoves (Piece p, boolean capturesOnly){
-        ArrayList<Move> moves = getMoves(p,capturesOnly,getTurn());
-        int myKingSquare=0;
-        String otherTurn = "white";
-        if (getTurn().equals(otherTurn))
-            otherTurn = "black";
-        for (Piece piece:pieces){
-            if (getTurn().equals(piece.getPieceColor()) && piece.getPieceType().equals("king")){
-                myKingSquare = getSquare(piece);
-            }
-        }
-        ArrayList <Integer> movesToDelete = new ArrayList<>();
-        for (Move moveToVerify:moves){
-            makeMove(moveToVerify,p);
-            Log.d("chess6","move made " + moveToVerify.getCurrentSquare() + " to " + moveToVerify.getTargetSquare());
-            if (playerInCheck(otherTurn, myKingSquare)){
-                movesToDelete.add(moves.indexOf(moveToVerify));
-            }
-            unmakeMove(moveToVerify,p);
-            Log.d("chess6","move unmade " + moveToVerify.getTargetSquare() + " to " + moveToVerify.getCurrentSquare());
-        }
-        Collections.reverse(movesToDelete);
-        for (Integer i: movesToDelete){
-            moves.remove(i);
-        }
-        return moves;
-    }
-    private boolean openSquare(int square){
-        for(Piece p:pieces) {
-            if (getSquare(p) == square) {
-                return false;
-            }
-        }
-        return true;
-    }
-    private boolean notAttacked(int square) {
-        ArrayList <Move> pieceMoves;
-        for (Piece p: pieces){
-            if (!p.getPieceColor().equals(getTurn()) && !p.getPieceType().equals("king")) {
-                pieceMoves = getMoves(p,true, p.getPieceColor());
-                for (Move m : pieceMoves) {
-                    if (m.getTargetSquare() == square)
-                        return false;
-                }
-            }
-        }
-        Log.d("notattacked",square + " is not attacked");
-        return true;
-    }
-    private boolean notAttacked(int square, String otherTurn) {
-        ArrayList <Move> pieceMoves;
-        for (Piece p: pieces){
-            if (!p.getPieceColor().equals(otherTurn) && !p.getPieceType().equals("king")) {
-                pieceMoves = getMoves(p,true, p.getPieceColor());
-                for (Move m : pieceMoves) {
-                    if (m.getTargetSquare() == square)
-                        return false;
-                }
-            }
-        }
-        Log.d("notattacked",square + " is not attacked");
-        return true;
-    }
-    private boolean playerInCheck(String otherTurn, int myKing){
-        return !notAttacked(myKing,otherTurn);
-    }
-    private String getTurn(){
-        if(numMoves%2==0)
-            return "white";
-        else
-            return "black";
-    }
-    private int getMaterialValue(Piece p){
-        String piece = p.getPieceType();
-        if (piece.equals("bishop") || piece.equals("knight") || piece.equals("king"))
-            return 3;
-        else if (piece.equals("rook"))
-            return 5;
-        else if (piece.equals("queen"))
-            return 9;
-        else
-            return 1;
-    }
-    private void calculateMaterial(){
-        for(Piece p: pieces){
-            if (p.getPieceColor().equals("white")){
-                whiteMaterial += getMaterialValue(p);
-            } else {
-                blackMaterial += getMaterialValue(p);
-            }
-        }
-    }
-    public Piece getPiecebyView(View v){
-        for (Piece p: pieces){
-            if (p.getPic() == v){
-                return p;
-            }
-        }
-        return null;
-    }
     private ImageView getSquarebyInt(int i){
         ImageView s = new ImageView(this);
         if (i == 1)
@@ -1305,7 +1316,7 @@ public class AIvAIChessActivity extends AppCompatActivity {
         private final int currentSquare;
         private final int targetSquare;
         private int evaluation;
-        private Piece piece;
+        private final Piece piece;
         public Move(int current, int target, Piece p){
             currentSquare = current;
             targetSquare = target;
@@ -1425,7 +1436,7 @@ public class AIvAIChessActivity extends AppCompatActivity {
         }
 
         public boolean getMoved() {
-            return moved;
+            return !moved;
         }
 
         public int getMovesSinceMovedTwo() {

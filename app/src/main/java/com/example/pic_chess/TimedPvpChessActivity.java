@@ -13,8 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
@@ -28,12 +26,10 @@ import java.util.Collections;
 import java.util.Objects;
 
 public class TimedPvpChessActivity extends AppCompatActivity implements NewGameWithTimeFragment.OnClickSelected {
-    private LinearLayout gameLayout;
     private TextView timerText1;
     private TextView timerText2;
     private ConstraintLayout deadLayout;
     private final ArrayList<ConstraintLayout> boardLayout = new ArrayList<>();
-    private PopupWindow resignMenu, gameMenu;
     private final ArrayList<ImageView> boardImages = new ArrayList<>();
     private final ArrayList<Square> boardSquares = new ArrayList<>();
     private final ArrayList<Piece> pieces = new ArrayList<>();
@@ -630,6 +626,16 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
         p.setRank((i-1)/8+1);
         p.setFile((i-1)%8+1);
     }
+    public void rotatePieces(){
+        ImageView v;
+        for (Piece p: pieces){
+            v = p.getPic();
+            if (getTurn() == "white")
+                v.setRotation(180);
+            else
+                v.setRotation(0);
+        }
+    }
     public void pieceOnClick(View v){
         if (gameInProgress) {
             Piece p = getPiecebyView(v);
@@ -676,6 +682,7 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
                         }
                         positions.add(getFENfromPosition());
                         checkEnd();
+                        rotatePieces();
                         break;
                     }
                 }
@@ -823,6 +830,7 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
                     selectedPiece = null;
                     selectedView = null;
                     checkEnd();
+                    rotatePieces();
                     break;
                 }
             }
