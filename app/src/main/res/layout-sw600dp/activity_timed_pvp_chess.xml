@@ -11,6 +11,18 @@
     tools:layout_editor_absoluteX="0dp"
     tools:layout_editor_absoluteY="16dp">
 
+    <LinearLayout
+        android:id="@+id/deadBlackLayout"
+        android:layout_width="599dp"
+        android:layout_height="88dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layoutD1"
+        app:layout_constraintVertical_bias="0.0"></LinearLayout>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/deadPieceLayout"
         android:layout_width="500000dp"
@@ -22,8 +34,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutB2"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         app:layout_constraintEnd_toStartOf="@+id/layoutC2"
         app:layout_constraintStart_toEndOf="@+id/layoutA2"
         app:layout_constraintTop_toBottomOf="@+id/layoutB3">
@@ -44,8 +56,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutH2"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         app:layout_constraintStart_toEndOf="@+id/layoutG2"
         app:layout_constraintTop_toBottomOf="@+id/layoutH3">
 
@@ -64,8 +76,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutC2"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         app:layout_constraintEnd_toStartOf="@+id/layoutD2"
         app:layout_constraintStart_toEndOf="@+id/layoutB2"
         app:layout_constraintTop_toBottomOf="@+id/layoutC3">
@@ -86,8 +98,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutE2"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         app:layout_constraintEnd_toStartOf="@+id/layoutF2"
         app:layout_constraintStart_toEndOf="@+id/layoutD2"
         app:layout_constraintTop_toBottomOf="@+id/layoutE3">
@@ -108,8 +120,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutD2"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         app:layout_constraintEnd_toStartOf="@+id/layoutE2"
         app:layout_constraintStart_toEndOf="@+id/layoutC2"
         app:layout_constraintTop_toBottomOf="@+id/layoutD3">
@@ -128,8 +140,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutG2"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         app:layout_constraintEnd_toStartOf="@+id/layoutH2"
         app:layout_constraintStart_toEndOf="@+id/layoutF2"
         app:layout_constraintTop_toBottomOf="@+id/layoutG3">
@@ -150,8 +162,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutF2"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         app:layout_constraintEnd_toStartOf="@+id/layoutG2"
         app:layout_constraintStart_toEndOf="@+id/layoutE2"
         app:layout_constraintTop_toBottomOf="@+id/layoutF3">
@@ -170,8 +182,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutA3"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         android:layout_marginStart="40dp"
         app:layout_constraintEnd_toStartOf="@+id/layoutB3"
         app:layout_constraintStart_toStartOf="parent"
@@ -191,8 +203,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutB1"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         app:layout_constraintEnd_toStartOf="@+id/layoutC1"
         app:layout_constraintStart_toEndOf="@+id/layoutA1"
         app:layout_constraintTop_toBottomOf="@+id/layoutB2">
@@ -213,8 +225,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutE1"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         app:layout_constraintEnd_toStartOf="@+id/layoutF1"
         app:layout_constraintStart_toEndOf="@+id/layoutD1"
         app:layout_constraintTop_toBottomOf="@+id/layoutE2">
@@ -233,8 +245,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutC1"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         app:layout_constraintEnd_toStartOf="@+id/layoutD1"
         app:layout_constraintStart_toEndOf="@+id/layoutB1"
         app:layout_constraintTop_toBottomOf="@+id/layoutC2">
@@ -254,8 +266,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutD1"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         app:layout_constraintEnd_toStartOf="@+id/layoutE1"
         app:layout_constraintStart_toEndOf="@+id/layoutC1"
         app:layout_constraintTop_toBottomOf="@+id/layoutD2">
@@ -276,8 +288,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutH1"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         app:layout_constraintStart_toEndOf="@+id/layoutG1"
         app:layout_constraintTop_toBottomOf="@+id/layoutH2">
 
@@ -298,8 +310,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutF1"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         app:layout_constraintEnd_toStartOf="@+id/layoutG1"
         app:layout_constraintStart_toEndOf="@+id/layoutE1"
         app:layout_constraintTop_toBottomOf="@+id/layoutF2">
@@ -320,8 +332,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutG1"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         app:layout_constraintEnd_toStartOf="@+id/layoutH1"
         app:layout_constraintStart_toEndOf="@+id/layoutF1"
         app:layout_constraintTop_toBottomOf="@+id/layoutG2">
@@ -341,8 +353,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutA2"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         android:layout_marginStart="40dp"
         app:layout_constraintEnd_toStartOf="@+id/layoutB2"
         app:layout_constraintStart_toStartOf="parent"
@@ -364,8 +376,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutB3"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         app:layout_constraintEnd_toStartOf="@+id/layoutC3"
         app:layout_constraintStart_toEndOf="@+id/layoutA3"
         app:layout_constraintTop_toBottomOf="@+id/layoutB4">
@@ -386,8 +398,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutF3"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         app:layout_constraintEnd_toStartOf="@+id/layoutG3"
         app:layout_constraintStart_toEndOf="@+id/layoutE3"
         app:layout_constraintTop_toBottomOf="@+id/layoutF4">
@@ -408,8 +420,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutH3"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         app:layout_constraintStart_toEndOf="@+id/layoutG3"
         app:layout_constraintTop_toBottomOf="@+id/layoutH4">
 
@@ -429,8 +441,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutG3"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         app:layout_constraintEnd_toStartOf="@+id/layoutH3"
         app:layout_constraintStart_toEndOf="@+id/layoutF3"
         app:layout_constraintTop_toBottomOf="@+id/layoutG4">
@@ -449,8 +461,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutC3"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         app:layout_constraintEnd_toStartOf="@+id/layoutD3"
         app:layout_constraintStart_toEndOf="@+id/layoutB3"
         app:layout_constraintTop_toBottomOf="@+id/layoutC4">
@@ -469,8 +481,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutE3"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         app:layout_constraintEnd_toStartOf="@+id/layoutF3"
         app:layout_constraintStart_toEndOf="@+id/layoutD3"
         app:layout_constraintTop_toBottomOf="@+id/layoutE4">
@@ -489,8 +501,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutD3"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         app:layout_constraintEnd_toStartOf="@+id/layoutE3"
         app:layout_constraintStart_toEndOf="@+id/layoutC3"
         app:layout_constraintTop_toBottomOf="@+id/layoutD4">
@@ -511,8 +523,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutA1"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         android:layout_marginStart="40dp"
         app:layout_constraintEnd_toStartOf="@+id/layoutB1"
         app:layout_constraintStart_toStartOf="parent"
@@ -533,8 +545,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutA4"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         android:layout_marginStart="40dp"
         app:layout_constraintEnd_toStartOf="@+id/layoutB4"
         app:layout_constraintStart_toStartOf="parent"
@@ -556,8 +568,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutB4"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         app:layout_constraintEnd_toStartOf="@+id/layoutC4"
         app:layout_constraintStart_toEndOf="@+id/layoutA4"
         app:layout_constraintTop_toBottomOf="@+id/layoutB5">
@@ -576,8 +588,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutE4"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         app:layout_constraintEnd_toStartOf="@+id/layoutF4"
         app:layout_constraintStart_toEndOf="@+id/layoutD4"
         app:layout_constraintTop_toBottomOf="@+id/layoutE5">
@@ -598,8 +610,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutF4"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         app:layout_constraintEnd_toStartOf="@+id/layoutG4"
         app:layout_constraintStart_toEndOf="@+id/layoutE4"
         app:layout_constraintTop_toBottomOf="@+id/layoutF5">
@@ -618,8 +630,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutD4"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         app:layout_constraintEnd_toStartOf="@+id/layoutE4"
         app:layout_constraintStart_toEndOf="@+id/layoutC4"
         app:layout_constraintTop_toBottomOf="@+id/layoutD5">
@@ -638,8 +650,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutG4"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         app:layout_constraintEnd_toStartOf="@+id/layoutH4"
         app:layout_constraintStart_toEndOf="@+id/layoutF4"
         app:layout_constraintTop_toBottomOf="@+id/layoutG5">
@@ -660,8 +672,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutH4"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         app:layout_constraintStart_toEndOf="@+id/layoutG4"
         app:layout_constraintTop_toBottomOf="@+id/layoutH5">
 
@@ -679,8 +691,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutC4"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         app:layout_constraintEnd_toStartOf="@+id/layoutD4"
         app:layout_constraintStart_toEndOf="@+id/layoutB4"
         app:layout_constraintTop_toBottomOf="@+id/layoutC5">
@@ -701,8 +713,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutA5"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         android:layout_marginStart="40dp"
         app:layout_constraintEnd_toStartOf="@+id/layoutB5"
         app:layout_constraintStart_toStartOf="parent"
@@ -722,8 +734,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutB5"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         app:layout_constraintEnd_toStartOf="@+id/layoutC5"
         app:layout_constraintStart_toEndOf="@+id/layoutA5"
         app:layout_constraintTop_toBottomOf="@+id/layoutB6">
@@ -744,8 +756,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutD5"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         app:layout_constraintEnd_toStartOf="@+id/layoutE5"
         app:layout_constraintStart_toEndOf="@+id/layoutC5"
         app:layout_constraintTop_toBottomOf="@+id/layoutD6">
@@ -766,8 +778,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutF5"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         app:layout_constraintEnd_toStartOf="@+id/layoutG5"
         app:layout_constraintStart_toEndOf="@+id/layoutE5"
         app:layout_constraintTop_toBottomOf="@+id/layoutF6">
@@ -788,8 +800,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutE5"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         app:layout_constraintEnd_toStartOf="@+id/layoutF5"
         app:layout_constraintStart_toEndOf="@+id/layoutD5"
         app:layout_constraintTop_toBottomOf="@+id/layoutE6">
@@ -808,8 +820,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutG5"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         app:layout_constraintEnd_toStartOf="@+id/layoutH5"
         app:layout_constraintStart_toEndOf="@+id/layoutF5"
         app:layout_constraintTop_toBottomOf="@+id/layoutG6">
@@ -828,8 +840,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutH5"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         app:layout_constraintStart_toEndOf="@+id/layoutG5"
         app:layout_constraintTop_toBottomOf="@+id/layoutH6">
 
@@ -849,8 +861,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutC5"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         app:layout_constraintEnd_toStartOf="@+id/layoutD5"
         app:layout_constraintStart_toEndOf="@+id/layoutB5"
         app:layout_constraintTop_toBottomOf="@+id/layoutC6">
@@ -869,8 +881,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutA8"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         android:layout_marginStart="40dp"
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toStartOf="@+id/layoutB8"
@@ -895,8 +907,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutG8"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toStartOf="@+id/layoutH8"
         app:layout_constraintStart_toEndOf="@+id/layoutF8"
@@ -918,8 +930,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutH8"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         android:layout_marginTop="16dp"
         app:layout_constraintStart_toEndOf="@+id/layoutG8"
         app:layout_constraintTop_toBottomOf="@+id/timerText1">
@@ -938,8 +950,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutE8"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toStartOf="@+id/layoutF8"
         app:layout_constraintStart_toEndOf="@+id/layoutD8"
@@ -961,8 +973,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutF8"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toStartOf="@+id/layoutG8"
         app:layout_constraintStart_toEndOf="@+id/layoutE8"
@@ -982,8 +994,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutD8"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toStartOf="@+id/layoutE8"
         app:layout_constraintStart_toEndOf="@+id/layoutC8"
@@ -1003,8 +1015,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutC8"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toStartOf="@+id/layoutD8"
         app:layout_constraintStart_toEndOf="@+id/layoutB8"
@@ -1026,8 +1038,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutB8"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toStartOf="@+id/layoutC8"
         app:layout_constraintStart_toEndOf="@+id/layoutA8"
@@ -1048,8 +1060,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutA6"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         android:layout_marginStart="40dp"
         app:layout_constraintEnd_toStartOf="@+id/layoutB6"
         app:layout_constraintStart_toStartOf="parent"
@@ -1071,8 +1083,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutB6"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         app:layout_constraintEnd_toStartOf="@+id/layoutC6"
         app:layout_constraintStart_toEndOf="@+id/layoutA6"
         app:layout_constraintTop_toBottomOf="@+id/layoutB7">
@@ -1091,8 +1103,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutD6"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         app:layout_constraintEnd_toStartOf="@+id/layoutE6"
         app:layout_constraintStart_toEndOf="@+id/layoutC6"
         app:layout_constraintTop_toBottomOf="@+id/layoutD7">
@@ -1111,8 +1123,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutE6"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         app:layout_constraintEnd_toStartOf="@+id/layoutF6"
         app:layout_constraintStart_toEndOf="@+id/layoutD6"
         app:layout_constraintTop_toBottomOf="@+id/layoutE7">
@@ -1133,8 +1145,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutH6"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         app:layout_constraintStart_toEndOf="@+id/layoutG6"
         app:layout_constraintTop_toBottomOf="@+id/layoutH7">
 
@@ -1152,8 +1164,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutF6"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         app:layout_constraintEnd_toStartOf="@+id/layoutG6"
         app:layout_constraintStart_toEndOf="@+id/layoutE6"
         app:layout_constraintTop_toBottomOf="@+id/layoutF7">
@@ -1172,8 +1184,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutG6"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         app:layout_constraintEnd_toStartOf="@+id/layoutH6"
         app:layout_constraintStart_toEndOf="@+id/layoutF6"
         app:layout_constraintTop_toBottomOf="@+id/layoutG7">
@@ -1194,8 +1206,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutC6"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         app:layout_constraintEnd_toStartOf="@+id/layoutD6"
         app:layout_constraintStart_toEndOf="@+id/layoutB6"
         app:layout_constraintTop_toBottomOf="@+id/layoutC7">
@@ -1216,8 +1228,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutA7"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         android:layout_marginStart="40dp"
         app:layout_constraintEnd_toStartOf="@+id/layoutB7"
         app:layout_constraintStart_toStartOf="parent"
@@ -1237,8 +1249,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutB7"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         app:layout_constraintEnd_toStartOf="@+id/layoutC7"
         app:layout_constraintStart_toEndOf="@+id/layoutA7"
         app:layout_constraintTop_toBottomOf="@+id/layoutB8">
@@ -1259,8 +1271,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutF7"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         app:layout_constraintEnd_toStartOf="@+id/layoutG7"
         app:layout_constraintStart_toEndOf="@+id/layoutE7"
         app:layout_constraintTop_toBottomOf="@+id/layoutF8">
@@ -1281,8 +1293,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutG7"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         app:layout_constraintEnd_toStartOf="@+id/layoutH7"
         app:layout_constraintStart_toEndOf="@+id/layoutF7"
         app:layout_constraintTop_toBottomOf="@+id/layoutG8">
@@ -1301,8 +1313,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutE7"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         app:layout_constraintEnd_toStartOf="@+id/layoutF7"
         app:layout_constraintStart_toEndOf="@+id/layoutD7"
         app:layout_constraintTop_toBottomOf="@+id/layoutE8">
@@ -1321,8 +1333,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutH7"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         app:layout_constraintStart_toEndOf="@+id/layoutG7"
         app:layout_constraintTop_toBottomOf="@+id/layoutH8">
 
@@ -1342,8 +1354,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutD7"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         app:layout_constraintEnd_toStartOf="@+id/layoutE7"
         app:layout_constraintStart_toEndOf="@+id/layoutC7"
         app:layout_constraintTop_toBottomOf="@+id/layoutD8">
@@ -1364,8 +1376,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutC7"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         app:layout_constraintEnd_toStartOf="@+id/layoutD7"
         app:layout_constraintStart_toEndOf="@+id/layoutB7"
         app:layout_constraintTop_toBottomOf="@+id/layoutC8">
@@ -1789,8 +1801,8 @@
 
     <ImageButton
         android:id="@+id/backButton"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:layout_marginTop="20dp"
         android:adjustViewBounds="true"
         android:contentDescription="@string/empty_string_text"
@@ -1804,8 +1816,8 @@
 
     <ImageButton
         android:id="@+id/newGameButton"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:layout_marginTop="20dp"
         android:adjustViewBounds="true"
         android:contentDescription="@string/empty_string_text"
@@ -1820,8 +1832,8 @@
 
     <ImageButton
         android:id="@+id/resignButton"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:layout_marginTop="20dp"
         android:adjustViewBounds="true"
         android:contentDescription="@string/empty_string_text"
@@ -1836,8 +1848,8 @@
 
     <ImageButton
         android:id="@+id/endButton"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:layout_marginTop="20dp"
         android:adjustViewBounds="true"
         android:contentDescription="@string/empty_string_text"
@@ -1854,40 +1866,41 @@
         android:id="@+id/player1NameText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="8dp"
         android:text="black"
         android:textColor="@color/white"
-        android:textSize="48sp"
+        android:textSize="34sp"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.065"
+        app:layout_constraintHorizontal_bias="0.064"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/resignButton" />
 
     <TextView
         android:id="@+id/player2NameText"
-        android:layout_width="146dp"
-        android:layout_height="68dp"
+        android:layout_width="118dp"
+        android:layout_height="46dp"
         android:layout_marginBottom="64dp"
         android:text="white"
+        android:textAlignment="center"
         android:textColor="@color/white"
-        android:textSize="48sp"
+        android:textSize="34sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.954"
+        app:layout_constraintHorizontal_bias="0.953"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/timerText2"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/timerText1"
-        android:layout_width="130dp"
-        android:layout_height="76dp"
+        android:layout_width="122dp"
+        android:layout_height="41dp"
         android:text="0:00"
         android:textAlignment="center"
         android:textAllCaps="true"
         android:textColor="@color/white"
-        android:textSize="48sp"
+        android:textSize="34sp"
         android:textStyle="bold"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -1899,20 +1912,31 @@
 
     <TextView
         android:id="@+id/timerText2"
-        android:layout_width="152dp"
-        android:layout_height="71dp"
+        android:layout_width="121dp"
+        android:layout_height="37dp"
         android:text="0:00"
         android:textAlignment="center"
         android:textAllCaps="true"
         android:textColor="@color/white"
-        android:textSize="48sp"
+        android:textSize="34sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.953"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/layoutH1"
-        app:layout_constraintVertical_bias="0.097" />
+        app:layout_constraintVertical_bias="0.0" />
+
+    <LinearLayout
+        android:id="@+id/deadWhiteLayout"
+        android:layout_width="599dp"
+        android:layout_height="88dp"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/endButton"></LinearLayout>
 
     <FrameLayout
         android:id="@+id/newGameWithTimeFragmentContainer"

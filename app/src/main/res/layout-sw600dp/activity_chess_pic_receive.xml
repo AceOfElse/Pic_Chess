@@ -12,7 +12,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/canvasReceiverLayout"
         android:layout_width="0dp"
-        android:layout_height="763dp"
+        android:layout_height="650dp"
         android:layout_marginTop="160dp"
         android:layout_marginBottom="160dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -35,8 +35,8 @@
 
     <EditText
         android:id="@+id/descriptionTextField"
-        android:layout_width="800dp"
-        android:layout_height="172dp"
+        android:layout_width="768dp"
+        android:layout_height="139dp"
         android:layout_marginBottom="10dp"
         android:autofillHints=""
         android:ems="10"
@@ -54,8 +54,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/buttonLayoutCR"
-        android:layout_width="796dp"
-        android:layout_height="261dp"
+        android:layout_width="772dp"
+        android:layout_height="184dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

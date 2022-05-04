@@ -6,12 +6,15 @@ import static com.example.pic_chess.R.layout;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,7 +26,8 @@ import java.util.Collections;
 import java.util.Objects;
 
 public class UntimedPvpChessActivity extends AppCompatActivity {
-    private ConstraintLayout deadLayout;
+    private LinearLayout.LayoutParams layoutParams;
+    private LinearLayout deadWhite, deadBlack;
     private final ArrayList<ConstraintLayout> boardLayout = new ArrayList<>();
     private final ArrayList<ImageView> boardImages = new ArrayList<>();
     private final ArrayList<Square> boardSquares = new ArrayList<>();
@@ -40,12 +44,23 @@ public class UntimedPvpChessActivity extends AppCompatActivity {
     private boolean gameInProgress = false;
     private boolean prompted = false;
     private AlertDialog.Builder resignDialogue;
+    private MediaPlayer mediaPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(layout.activity_untimed_pvp_chess);
-        deadLayout = findViewById(id.deadPieceLayout);
+        mediaPlayer = MediaPlayer.create(this,R.raw.chess_slam_sfx);
+        deadWhite = findViewById(id.deadWhiteLayout);
+        deadBlack = findViewById(id.deadBlackLayout);
+        deadBlack.setBackgroundColor(Color.DKGRAY);
+        deadWhite.setBackgroundColor(Color.DKGRAY);
+        deadBlack.setPadding(5,0,0,0);
+        deadWhite.setPadding(5,0,0,0);
+        layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT);
+        deadBlack.setOrientation(LinearLayout.HORIZONTAL);
+        deadWhite.setOrientation(LinearLayout.HORIZONTAL);
         ImageButton backButton = findViewById(id.backButton);
         ImageButton newGameButton = findViewById(id.newGameButton);
         ImageButton resignButton = findViewById(id.resignButton);
@@ -522,12 +537,7 @@ public class UntimedPvpChessActivity extends AppCompatActivity {
                         else
                             whiteMaterial -= getMaterialValue(p);
                         setSquare(selectedPiece, m.getTargetSquare());
-                        p.setMoved(true);
-                        p.setRank(69);
-                        p.setFile(69);
-                        Objects.requireNonNull(getSquarebyView(getSquarebyInt(m.getTargetSquare()))).getLayout().removeView(v);
-                        deadLayout.addView(v);
-                        captured.add((ImageView) v);
+                        capture(p,m,false);
                         selectedPiece = null;
                         selectedView = null;
                         resetBoardSquares();
@@ -541,6 +551,28 @@ public class UntimedPvpChessActivity extends AppCompatActivity {
             }
         }
     }
+
+    private void capture(Piece p, Move m, boolean enPassant) {
+        mediaPlayer.start();
+        ImageView v = p.getPic();
+        p.setMoved(true);
+        p.setRank(69);
+        p.setFile(69);
+        if (enPassant && getTurn() == "white")
+            Objects.requireNonNull(getSquarebyView(getSquarebyInt(m.getTargetSquare()-8))).getLayout().removeView(v);
+        else if (enPassant)
+            Objects.requireNonNull(getSquarebyView(getSquarebyInt(m.getTargetSquare()+8))).getLayout().removeView(v);
+        else
+            Objects.requireNonNull(getSquarebyView(getSquarebyInt(m.getTargetSquare()))).getLayout().removeView(v);
+        if (p.getPieceColor() == "white")
+            deadWhite.addView(v,layoutParams);
+        else
+            deadBlack.addView(v,layoutParams);
+        v.setScaleX((float) 0.70 * v.getScaleX());
+        v.setScaleY((float) 0.70 * v.getScaleY());
+        captured.add((ImageView) v);
+    }
+
     private void checkEnd() {
         ArrayList<ArrayList<Move>> allLegalMoves = new ArrayList<>();
         for (Piece p:pieces){
@@ -628,21 +660,11 @@ public class UntimedPvpChessActivity extends AppCompatActivity {
                     }
                     if (selectedPiece.getPieceType().equals("white pawn") && getPiecebySquare(getSquare(s)-8) != null && getPiecebySquare(getSquare(s)-8).getMovedTwo()){
                         Piece p = getPiecebySquare(getSquare(s)-8);
-                        p.setFile(69);
-                        p.setRank(69);
-                        ImageView view = p.getPic();
-                        Objects.requireNonNull(getSquarebyView(getSquarebyInt(m.getTargetSquare() - 8))).getLayout().removeView(view);
-                        deadLayout.addView(view);
-                        captured.add(view);
+                        capture(p,m,true);
                     }
                     if (selectedPiece.getPieceType().equals("black pawn") && getPiecebySquare(getSquare(s)+8) != null && getPiecebySquare(getSquare(s)+8).getMovedTwo()){
                         Piece p = getPiecebySquare(getSquare(s)+8);
-                        p.setFile(69);
-                        p.setRank(69);
-                        ImageView view = p.getPic();
-                        Objects.requireNonNull(getSquarebyView(getSquarebyInt(m.getTargetSquare() + 8))).getLayout().removeView(view);
-                        deadLayout.addView(view);
-                        captured.add(view);
+                        capture(p,m,true);
                     }
                     if (selectedPiece.getPieceType().equals("white pawn") && !selectedPiece.getMoved() && getPiecebySquare(getSquare(selectedPiece)-16) == null && getPiecebySquare(getSquare(selectedPiece)-8) == null){
                         selectedPiece.setMovedTwo(true);
