@@ -93,4 +93,56 @@
         app:layout_constraintStart_toEndOf="@+id/eraserButton"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/colorText"
+        android:layout_width="100dp"
+        android:layout_height="31dp"
+        android:text="Color"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/colorButton"
+        app:layout_constraintStart_toStartOf="@+id/colorButton"
+        app:layout_constraintTop_toBottomOf="@+id/colorButton" />
+
+    <TextView
+        android:id="@+id/grabText"
+        android:layout_width="100dp"
+        android:layout_height="32dp"
+        android:text="Grab"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/grabButton"
+        app:layout_constraintStart_toStartOf="@+id/grabButton"
+        app:layout_constraintTop_toBottomOf="@+id/grabButton" />
+
+    <TextView
+        android:id="@+id/clearText"
+        android:layout_width="101dp"
+        android:layout_height="31dp"
+        android:text="Clear"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/clearButton"
+        app:layout_constraintStart_toStartOf="@+id/clearButton"
+        app:layout_constraintTop_toBottomOf="@+id/clearButton" />
+
+    <TextView
+        android:id="@+id/eraserText"
+        android:layout_width="100dp"
+        android:layout_height="32dp"
+        android:text="Eraser"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/eraserButton"
+        app:layout_constraintStart_toStartOf="@+id/eraserButton"
+        app:layout_constraintTop_toBottomOf="@+id/eraserButton" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

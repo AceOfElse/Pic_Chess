@@ -246,7 +246,6 @@ public class ChessPicActivity extends AppCompatActivity implements ToolBarFragme
     }
 
     //Implement methods from interface
-
     public void sendModeOfToolBar(int mode) {
         switch (mode) {
             //Open grab
@@ -647,7 +646,7 @@ public class ChessPicActivity extends AppCompatActivity implements ToolBarFragme
     }
 //////End Handling Drag Pieces into Canvas\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
-    //////Start Creating Canvas Properties\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+//////Start Creating Canvas Properties\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
     //Making custom drawing view
     public static class DrawingView extends View {
         private static ArrayList<Path> pathList = new ArrayList<>();
@@ -698,12 +697,11 @@ public class ChessPicActivity extends AppCompatActivity implements ToolBarFragme
                         if (grabState) {
                             brushView.setX(touchX - 50);
                             brushView.setY(touchY - 50);
-                            return true;
                         } else {
                             path.moveTo(touchX, touchY);
                             invalidate();
-                            return true;
                         }
+                        return true;
                     } else {
                         return false;
                     }

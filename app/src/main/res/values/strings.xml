@@ -43,4 +43,8 @@
     <string name="Prompt5">Draw a Goat</string>
     <string name="Prompt6">Draw a Cup</string>
     <string name="title_text">SOME CHESS...</string>
+    <string name="grab_text">Grab</string>
+    <string name="color_text">Color</string>
+    <string name="eraser_text">Eraser</string>
+    <string name="clear_text">Clear</string>
 </resources>
