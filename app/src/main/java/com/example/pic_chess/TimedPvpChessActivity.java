@@ -17,6 +17,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,7 +29,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Objects;
 
-public class TimedPvpChessActivity extends AppCompatActivity implements NewGameWithTimeFragment.OnClickSelected {
+public class TimedPvpChessActivity extends AppCompatActivity implements NewGameWithTimeFragment.OnClickSelected, WinnerFragment.OnClickSelected {
     private TextView timerText1;
     private TextView timerText2;
     private LinearLayout.LayoutParams layoutParams;
@@ -60,6 +61,8 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
     //Fragment stuffs
     private FragmentTransaction transaction;
     private NewGameWithTimeFragment newGameWithTimeFragment;
+    private WinnerFragment winnerFragment;
+    public Bundle winnerBundle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -238,6 +241,12 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
         transaction.addToBackStack(null);
         transaction.commit();
         transaction.hide(newGameWithTimeFragment);
+
+        winnerFragment = WinnerFragment.newInstance();
+        transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(id.winnerFragmentContainer, winnerFragment);
+        transaction.commit();
+        transaction.hide(winnerFragment);
 
         //Get custom time from setting Activity and convert to seconds
         Intent timeIntent = getIntent();
@@ -1572,6 +1581,7 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
                 timerSetup();
                 prompted = false;
                 hideTimeFragment();
+                Toast.makeText(TimedPvpChessActivity.this, "Game started!", Toast.LENGTH_LONG).show();
                 break;
             //3 min
             case 1:
@@ -1580,6 +1590,7 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
                 timerSetup();
                 prompted = false;
                 hideTimeFragment();
+                Toast.makeText(TimedPvpChessActivity.this, "Game started!", Toast.LENGTH_LONG).show();
                 break;
             //5 min
             case 2:
@@ -1588,6 +1599,7 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
                 timerSetup();
                 prompted = false;
                 hideTimeFragment();
+                Toast.makeText(TimedPvpChessActivity.this, "Game started!", Toast.LENGTH_LONG).show();
                 break;
             //10 min
             case 3:
@@ -1596,6 +1608,7 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
                 timerSetup();
                 prompted = false;
                 hideTimeFragment();
+                Toast.makeText(TimedPvpChessActivity.this, "Game started!", Toast.LENGTH_LONG).show();
                 break;
             //15 min
             case 4:
@@ -1604,6 +1617,7 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
                 timerSetup();
                 prompted = false;
                 hideTimeFragment();
+                Toast.makeText(TimedPvpChessActivity.this, "Game started!", Toast.LENGTH_LONG).show();
                 break;
             //30 min
             case 5:
@@ -1612,6 +1626,7 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
                 timerSetup();
                 prompted = false;
                 hideTimeFragment();
+                Toast.makeText(TimedPvpChessActivity.this, "Game started!", Toast.LENGTH_LONG).show();
                 break;
                 //Custom Time
             case 6:
@@ -1620,10 +1635,23 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
                 timerSetup();
                 prompted = false;
                 hideTimeFragment();
+                Toast.makeText(TimedPvpChessActivity.this, "Game started!", Toast.LENGTH_LONG).show();
                 break;
             //Close
             case 7:
                 hideTimeFragment();
+                break;
+        }
+    }
+
+    public void sendModeFromWinnerFragment(int mode) {
+        switch (mode) {
+            //New game
+            case 0:
+                break;
+            //Return home
+            case 1:
+                goBackViaLoadingActivity();
                 break;
         }
     }
@@ -1662,6 +1690,8 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
                 prompted = false;
                 gameInProgress = false;
                 checkEnd();
+                //Test fragment
+                openWinnerFragment(true);
                 dialogInterface.dismiss();
             }
         });
@@ -1674,6 +1704,17 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
         });
         resignDialogue.create();
         resignDialogue.show();
+    }
+
+    //Method to open the winner fragment (true if white wins, false if black wins)
+    private void openWinnerFragment(boolean isWhiteWin) {
+        winnerBundle = new Bundle();
+        winnerBundle.putBoolean("WINNER", isWhiteWin);
+        winnerFragment.getData(winnerBundle);
+        transaction = getSupportFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(R.anim.scale_in, R.anim.scale_out);
+        transaction.commit();
+        transaction.show(winnerFragment);
     }
 //////End Handling Button\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 }

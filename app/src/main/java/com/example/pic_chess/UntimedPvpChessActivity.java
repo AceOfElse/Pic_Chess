@@ -15,17 +15,19 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
+import androidx.fragment.app.FragmentTransaction;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Objects;
 
-public class UntimedPvpChessActivity extends AppCompatActivity {
+public class UntimedPvpChessActivity extends AppCompatActivity implements WinnerFragment.OnClickSelected{
     private LinearLayout.LayoutParams layoutParams;
     private LinearLayout deadWhite, deadBlack;
     private final ArrayList<ConstraintLayout> boardLayout = new ArrayList<>();
@@ -45,6 +47,11 @@ public class UntimedPvpChessActivity extends AppCompatActivity {
     private boolean prompted = false;
     private AlertDialog.Builder resignDialogue;
     private MediaPlayer mediaPlayer;
+
+    //Fragment stuffs
+    private FragmentTransaction transaction;
+    private WinnerFragment winnerFragment;
+    public Bundle winnerBundle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -210,6 +217,13 @@ public class UntimedPvpChessActivity extends AppCompatActivity {
         //Set Alert Dialogue
         resignDialogue = new AlertDialog.Builder(UntimedPvpChessActivity.this);
 
+        //Set Fragment
+        winnerFragment = WinnerFragment.newInstance();
+        transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(id.winnerFragmentContainer, winnerFragment);
+        transaction.commit();
+        transaction.hide(winnerFragment);
+
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -226,6 +240,7 @@ public class UntimedPvpChessActivity extends AppCompatActivity {
                 if (gameInProgress){
                     onClickShowAlertResign();
                 } else {
+                    Toast.makeText(UntimedPvpChessActivity.this, "Game started!", Toast.LENGTH_LONG).show();
                     gameInProgress = true;
                 }
                 prompted = !prompted;
@@ -1399,7 +1414,20 @@ public class UntimedPvpChessActivity extends AppCompatActivity {
         }
     }
 
-    //////Start Handling Button\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+//////Start Handling Button\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+    //Implement method from interface
+    public void sendModeFromWinnerFragment(int mode) {
+        switch (mode) {
+            //New game
+            case 0:
+                break;
+            //Return home
+            case 1:
+                goBackViaLoadingActivity();
+                break;
+        }
+    }
+
     public void returnHome() {
         goBackViaLoadingActivity();
     }
@@ -1415,6 +1443,7 @@ public class UntimedPvpChessActivity extends AppCompatActivity {
         startActivity(loadingIntent);
         finish();
     }
+
     //Show alert dialogue when hitting back, resign, or new game button while in the game
     private void onClickShowAlertResign() {
         resignDialogue.setMessage("Do you wish to resign?");
@@ -1423,6 +1452,8 @@ public class UntimedPvpChessActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialogInterface, int i) {
                 prompted = false;
                 gameInProgress = false;
+                //Test fragment
+                openWinnerFragment(true);
                 dialogInterface.dismiss();
             }
         });
@@ -1435,6 +1466,17 @@ public class UntimedPvpChessActivity extends AppCompatActivity {
         });
         resignDialogue.create();
         resignDialogue.show();
+    }
+
+    //Method to open the winner fragment (true if white wins, false if black wins)
+    private void openWinnerFragment(boolean isWhiteWin) {
+        winnerBundle = new Bundle();
+        winnerBundle.putBoolean("WINNER", isWhiteWin);
+        winnerFragment.getData(winnerBundle);
+        transaction = getSupportFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(R.anim.scale_in, R.anim.scale_out);
+        transaction.commit();
+        transaction.show(winnerFragment);
     }
 //////End Handling Button\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 }

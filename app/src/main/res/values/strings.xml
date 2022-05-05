@@ -82,9 +82,19 @@
     <string name="Prompt21">Draw a Cat</string>
     <string name="Prompt22">Draw a Yoyo</string>
     <string name="Prompt23">Draw an Alien</string>
-    <string name="title_text">SOME CHESS...</string>
+    <string name="title_text">PIC_CHESS</string>
     <string name="grab_text">Grab</string>
     <string name="color_text">Color</string>
     <string name="eraser_text">Eraser</string>
     <string name="clear_text">Clear</string>
+    <string name="new_button_text">New</string>
+    <string name="return_button_text">Return</string>
+    <string name="pvp_text">Player vs. Player</string>
+    <string name="pvai_text">Player vs. AI</string>
+    <string name="aivai_text">AI vs. AI</string>
+    <string name="custom_board_text">Custom Board</string>
+    <string name="drawing_text">Drawing</string>
+    <string name="guessing_text">Guessing</string>
+    <string name="time_description_text">Timed</string>
+    <string name="unlimited_time_text">Unlimited Time</string>
 </resources>

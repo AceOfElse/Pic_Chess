@@ -35,8 +35,8 @@
 
     <EditText
         android:id="@+id/descriptionTextField"
-        android:layout_width="768dp"
-        android:layout_height="139dp"
+        android:layout_width="767dp"
+        android:layout_height="138dp"
         android:layout_marginBottom="10dp"
         android:autofillHints=""
         android:ems="10"
@@ -54,11 +54,11 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/buttonLayoutCR"
-        android:layout_width="772dp"
-        android:layout_height="184dp"
+        android:layout_width="773dp"
+        android:layout_height="188dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0">
@@ -92,10 +92,9 @@
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintHorizontal_bias="0.437"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.38" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
             android:id="@+id/submitFileCR"
@@ -106,13 +105,32 @@
             android:scaleType="fitCenter"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.893"
+            app:layout_constraintHorizontal_bias="0.936"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.327"
+            app:layout_constraintVertical_bias="0.322"
             app:srcCompat="@drawable/upload_image"
             tools:ignore="SpeakableTextPresentCheck,ImageContrastCheck"
             tools:srcCompat="@drawable/upload_image" />
+
+        <ImageButton
+            android:id="@+id/hintCR"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_marginEnd="48dp"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/empty_string_text"
+            android:scaleType="fitCenter"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/submitFileCR"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/timerTextCR"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.322"
+            app:srcCompat="@drawable/guessing_image"
+            tools:ignore="SpeakableTextPresentCheck,ImageContrastCheck"
+            tools:srcCompat="@drawable/guessing_image" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

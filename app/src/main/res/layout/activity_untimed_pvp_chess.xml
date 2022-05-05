@@ -8,6 +8,30 @@
     android:alpha="0.9"
     android:background="@color/black"
     tools:context=".UntimedPvpChessActivity">
+
+    <LinearLayout
+        android:id="@+id/deadBlackLayout"
+        android:layout_width="340dp"
+        android:layout_height="65dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/player2NameText"
+        app:layout_constraintHorizontal_bias="0.2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layoutD1"
+        app:layout_constraintVertical_bias="0.255"></LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/deadWhiteLayout"
+        android:layout_width="330dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="40dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.222"
+        app:layout_constraintStart_toEndOf="@+id/player1NameText"
+        app:layout_constraintTop_toBottomOf="@+id/endButton"></LinearLayout>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/deadPieceLayout"
         android:visibility="gone"
