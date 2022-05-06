@@ -24,7 +24,7 @@ import java.util.Random;
 
 public class ChessPicReceiveActivity extends AppCompatActivity {
     private ImageButton backButton, submitButton,hintButton;
-    private TextView timerText;
+    private TextView timerText,hintDisplay;
     private EditText descriptionTextField;
     private AlertDialog.Builder alertDialogue;
     private ImageView receivedImage;
@@ -54,7 +54,7 @@ public class ChessPicReceiveActivity extends AppCompatActivity {
         endAttempt = 100;
 
         //This is the number of guesses the user makes until the hint button appears
-        hintVisible = 5;
+        hintVisible = 4;
 
         //Find views
         backButton = findViewById(R.id.backButtonCR);
@@ -63,7 +63,7 @@ public class ChessPicReceiveActivity extends AppCompatActivity {
         descriptionTextField = findViewById(R.id.descriptionTextField);
         receivedImage = findViewById(R.id.receivedImg);
         hintButton = findViewById(R.id.hintCR);
-
+        hintDisplay = findViewById(R.id.hintDisplay);
         //Set up alert dialogue
         alertDialogue = new AlertDialog.Builder(ChessPicReceiveActivity.this);
 
@@ -101,73 +101,73 @@ public class ChessPicReceiveActivity extends AppCompatActivity {
     private void giveHint() {
         switch (promptNum) {
             case 1:
-                Toast.makeText(ChessPicReceiveActivity.this, getString(R.string.hint1), Toast.LENGTH_LONG).show();
+                hintDisplay.setText(R.string.hint1);
                 break;
             case 2:
-                Toast.makeText(ChessPicReceiveActivity.this, getString(R.string.hint2), Toast.LENGTH_LONG).show();
+                hintDisplay.setText(R.string.hint2);
                 break;
             case 3:
-                Toast.makeText(ChessPicReceiveActivity.this, getString(R.string.hint3), Toast.LENGTH_LONG).show();
+                hintDisplay.setText(R.string.hint3);
                 break;
             case 4:
-                Toast.makeText(ChessPicReceiveActivity.this, getString(R.string.hint4), Toast.LENGTH_LONG).show();
+                hintDisplay.setText(R.string.hint4);
                 break;
             case 5:
-                Toast.makeText(ChessPicReceiveActivity.this, getString(R.string.hint5), Toast.LENGTH_LONG).show();
+                hintDisplay.setText(R.string.hint5);
                 break;
             case 6:
-                Toast.makeText(ChessPicReceiveActivity.this, getString(R.string.hint6), Toast.LENGTH_LONG).show();
+                hintDisplay.setText(R.string.hint6);
                 break;
             case 7:
-                Toast.makeText(ChessPicReceiveActivity.this, getString(R.string.hint7), Toast.LENGTH_LONG).show();
+                hintDisplay.setText(R.string.hint7);
                 break;
             case 8:
-                Toast.makeText(ChessPicReceiveActivity.this, getString(R.string.hint8), Toast.LENGTH_LONG).show();
+                hintDisplay.setText(R.string.hint8);
                 break;
             case 9:
-                Toast.makeText(ChessPicReceiveActivity.this, getString(R.string.hint9), Toast.LENGTH_LONG).show();
+                hintDisplay.setText(R.string.hint9);
                 break;
             case 10:
-                Toast.makeText(ChessPicReceiveActivity.this, getString(R.string.hint10), Toast.LENGTH_LONG).show();
+                hintDisplay.setText(R.string.hint10);
                 break;
             case 11:
-                Toast.makeText(ChessPicReceiveActivity.this, getString(R.string.hint11), Toast.LENGTH_LONG).show();
+                hintDisplay.setText(R.string.hint11);
                 break;
             case 12:
-                Toast.makeText(ChessPicReceiveActivity.this, getString(R.string.hint12), Toast.LENGTH_LONG).show();
+                hintDisplay.setText(R.string.hint12);
                 break;
             case 13:
-                Toast.makeText(ChessPicReceiveActivity.this, getString(R.string.hint13), Toast.LENGTH_LONG).show();
+                hintDisplay.setText(R.string.hint13);
                 break;
             case 14:
-                Toast.makeText(ChessPicReceiveActivity.this, getString(R.string.hint14), Toast.LENGTH_LONG).show();
+                hintDisplay.setText(R.string.hint14);
                 break;
             case 15:
-                Toast.makeText(ChessPicReceiveActivity.this, getString(R.string.hint15), Toast.LENGTH_LONG).show();
+                hintDisplay.setText(R.string.hint15);
                 break;
             case 16:
-                Toast.makeText(ChessPicReceiveActivity.this, getString(R.string.hint16), Toast.LENGTH_LONG).show();
+                hintDisplay.setText(R.string.hint16);
                 break;
             case 17:
-                Toast.makeText(ChessPicReceiveActivity.this, getString(R.string.hint17), Toast.LENGTH_LONG).show();
+                hintDisplay.setText(R.string.hint17);
                 break;
             case 18:
-                Toast.makeText(ChessPicReceiveActivity.this, getString(R.string.hint18), Toast.LENGTH_LONG).show();
+                hintDisplay.setText(R.string.hint18);
                 break;
             case 19:
-                Toast.makeText(ChessPicReceiveActivity.this, getString(R.string.hint19), Toast.LENGTH_LONG).show();
+                hintDisplay.setText(R.string.hint19);
                 break;
             case 20:
-                Toast.makeText(ChessPicReceiveActivity.this, getString(R.string.hint20), Toast.LENGTH_LONG).show();
+                hintDisplay.setText(R.string.hint20);
                 break;
             case 21:
-                Toast.makeText(ChessPicReceiveActivity.this, getString(R.string.hint21), Toast.LENGTH_LONG).show();
+                hintDisplay.setText(R.string.hint21);
                 break;
             case 22:
-                Toast.makeText(ChessPicReceiveActivity.this, getString(R.string.hint22), Toast.LENGTH_LONG).show();
+                hintDisplay.setText(R.string.hint22);
                 break;
             case 23:
-                Toast.makeText(ChessPicReceiveActivity.this, getString(R.string.hint23), Toast.LENGTH_LONG).show();
+                hintDisplay.setText(R.string.hint23);
                 break;
         }
     }
@@ -189,7 +189,7 @@ public class ChessPicReceiveActivity extends AppCompatActivity {
                 }
             }
             if(numChanged > 0 ){
-                Toast.makeText(ChessPicReceiveActivity.this, "Your guess was WRONG. Please Guess again.", Toast.LENGTH_LONG).show();
+                Toast.makeText(ChessPicReceiveActivity.this, "Your guess was WRONG. Please Guess again.", Toast.LENGTH_SHORT).show();
                 hintVisible--;
             } else{
                 Toast.makeText(ChessPicReceiveActivity.this, "Your guess was Right!", Toast.LENGTH_LONG).show();
