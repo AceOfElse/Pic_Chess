@@ -24,15 +24,15 @@ import java.util.Random;
 
 public class ChessPicReceiveActivity extends AppCompatActivity {
     private ImageButton backButton, submitButton,hintButton;
-    private TextView timerText,hintDisplay;
+    private TextView timerText, hintText;
     private EditText descriptionTextField;
     private AlertDialog.Builder alertDialogue;
     private ImageView receivedImage;
 
     private CountDownTimer countDownTimer;
-    private static final long START_TIME_IN_MILLISECOND = 601000;
     private boolean isTimerRunning;
-    private long timeLeftInMilliSecond = START_TIME_IN_MILLISECOND;
+    private static long startTime;
+    private long timeLeftInMilliSecond;
     private boolean isTimed;
     private Bitmap receiverBitmap;
     private Random rg;
@@ -46,15 +46,18 @@ public class ChessPicReceiveActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chess_pic_receive);
 
         //Receive intent from home activity
-        Intent chessPic  = getIntent();
+        Intent chessPic = getIntent();
         boolean isTimed = chessPic.getBooleanExtra("TIME", false);
+        startTime = chessPic.getLongExtra("TIMER", 601000);
+        timeLeftInMilliSecond = startTime;
+
 
         //Sets value for endAttempt which stops the program from infinitely calling receiveImage
         //This number will be increase as more prompts are added.
         endAttempt = 100;
 
         //This is the number of guesses the user makes until the hint button appears
-        hintVisible = 4;
+        hintVisible = 5;
 
         //Find views
         backButton = findViewById(R.id.backButtonCR);
@@ -63,7 +66,8 @@ public class ChessPicReceiveActivity extends AppCompatActivity {
         descriptionTextField = findViewById(R.id.descriptionTextField);
         receivedImage = findViewById(R.id.receivedImg);
         hintButton = findViewById(R.id.hintCR);
-        hintDisplay = findViewById(R.id.hintDisplay);
+        hintText = findViewById(R.id.hintText);
+
         //Set up alert dialogue
         alertDialogue = new AlertDialog.Builder(ChessPicReceiveActivity.this);
 
@@ -77,7 +81,8 @@ public class ChessPicReceiveActivity extends AppCompatActivity {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                checkGuess();
+                if (!descriptionTextField.getText().toString().equals(""))
+                    checkGuess();
             }
         });
         hintButton.setOnClickListener(new View.OnClickListener() {
@@ -93,90 +98,188 @@ public class ChessPicReceiveActivity extends AppCompatActivity {
         } else {
             timerText.setVisibility(View.INVISIBLE);
         }
+
+        //Others
         updateCountDownText();
         receiveImage();
+    }
 
+    //Set activity life cycles
+    protected void onStart() {
+        super.onStart();
+    }
+
+    protected void onRestart() {
+        super.onRestart();
+    }
+
+    protected void onPause() {
+        super.onPause();
+    }
+
+    protected void onResume() {
+        super.onResume();
     }
 
     private void giveHint() {
         switch (promptNum) {
             case 1:
-                hintDisplay.setText(R.string.hint1);
+                hintText.setText(getString(R.string.hint1));
+                //Toast.makeText(ChessPicReceiveActivity.this, getString(R.string.hint1), Toast.LENGTH_LONG).show();
                 break;
             case 2:
-                hintDisplay.setText(R.string.hint2);
+                hintText.setText(getString(R.string.hint2));
+                //Toast.makeText(ChessPicReceiveActivity.this, getString(R.string.hint2), Toast.LENGTH_LONG).show();
                 break;
             case 3:
-                hintDisplay.setText(R.string.hint3);
+                hintText.setText(getString(R.string.hint3));
+                //Toast.makeText(ChessPicReceiveActivity.this, getString(R.string.hint3), Toast.LENGTH_LONG).show();
                 break;
             case 4:
-                hintDisplay.setText(R.string.hint4);
+                hintText.setText(getString(R.string.hint4));
+                //Toast.makeText(ChessPicReceiveActivity.this, getString(R.string.hint4), Toast.LENGTH_LONG).show();
                 break;
             case 5:
-                hintDisplay.setText(R.string.hint5);
+                hintText.setText(getString(R.string.hint5));
+                //Toast.makeText(ChessPicReceiveActivity.this, getString(R.string.hint5), Toast.LENGTH_LONG).show();
                 break;
             case 6:
-                hintDisplay.setText(R.string.hint6);
+                hintText.setText(getString(R.string.hint6));
+                //Toast.makeText(ChessPicReceiveActivity.this, getString(R.string.hint6), Toast.LENGTH_LONG).show();
                 break;
             case 7:
-                hintDisplay.setText(R.string.hint7);
+                hintText.setText(getString(R.string.hint7));
+                //Toast.makeText(ChessPicReceiveActivity.this, getString(R.string.hint7), Toast.LENGTH_LONG).show();
                 break;
             case 8:
-                hintDisplay.setText(R.string.hint8);
+                hintText.setText(getString(R.string.hint8));
+                //Toast.makeText(ChessPicReceiveActivity.this, getString(R.string.hint8), Toast.LENGTH_LONG).show();
                 break;
             case 9:
-                hintDisplay.setText(R.string.hint9);
+                hintText.setText(getString(R.string.hint9));
+                //Toast.makeText(ChessPicReceiveActivity.this, getString(R.string.hint9), Toast.LENGTH_LONG).show();
                 break;
             case 10:
-                hintDisplay.setText(R.string.hint10);
+                hintText.setText(getString(R.string.hint10));
+                //Toast.makeText(ChessPicReceiveActivity.this, getString(R.string.hint10), Toast.LENGTH_LONG).show();
                 break;
             case 11:
-                hintDisplay.setText(R.string.hint11);
+                hintText.setText(getString(R.string.hint11));
+                //Toast.makeText(ChessPicReceiveActivity.this, getString(R.string.hint11), Toast.LENGTH_LONG).show();
                 break;
             case 12:
-                hintDisplay.setText(R.string.hint12);
+                hintText.setText(getString(R.string.hint12));
+                //Toast.makeText(ChessPicReceiveActivity.this, getString(R.string.hint12), Toast.LENGTH_LONG).show();
                 break;
             case 13:
-                hintDisplay.setText(R.string.hint13);
+                hintText.setText(getString(R.string.hint13));
+                //Toast.makeText(ChessPicReceiveActivity.this, getString(R.string.hint13), Toast.LENGTH_LONG).show();
                 break;
             case 14:
-                hintDisplay.setText(R.string.hint14);
+                hintText.setText(getString(R.string.hint14));
+                //Toast.makeText(ChessPicReceiveActivity.this, getString(R.string.hint14), Toast.LENGTH_LONG).show();
                 break;
             case 15:
-                hintDisplay.setText(R.string.hint15);
+                hintText.setText(getString(R.string.hint15));
+                //Toast.makeText(ChessPicReceiveActivity.this, getString(R.string.hint15), Toast.LENGTH_LONG).show();
                 break;
             case 16:
-                hintDisplay.setText(R.string.hint16);
+                hintText.setText(getString(R.string.hint16));
+                //Toast.makeText(ChessPicReceiveActivity.this, getString(R.string.hint16), Toast.LENGTH_LONG).show();
                 break;
             case 17:
-                hintDisplay.setText(R.string.hint17);
+                hintText.setText(getString(R.string.hint17));
+                //Toast.makeText(ChessPicReceiveActivity.this, getString(R.string.hint17), Toast.LENGTH_LONG).show();
                 break;
             case 18:
-                hintDisplay.setText(R.string.hint18);
+                hintText.setText(getString(R.string.hint18));
+                //Toast.makeText(ChessPicReceiveActivity.this, getString(R.string.hint18), Toast.LENGTH_LONG).show();
                 break;
             case 19:
-                hintDisplay.setText(R.string.hint19);
+                hintText.setText(getString(R.string.hint19));
+                //Toast.makeText(ChessPicReceiveActivity.this, getString(R.string.hint19), Toast.LENGTH_LONG).show();
                 break;
             case 20:
-                hintDisplay.setText(R.string.hint20);
+                hintText.setText(getString(R.string.hint20));
+                //Toast.makeText(ChessPicReceiveActivity.this, getString(R.string.hint20), Toast.LENGTH_LONG).show();
                 break;
             case 21:
-                hintDisplay.setText(R.string.hint21);
+                hintText.setText(getString(R.string.hint21));
+                //Toast.makeText(ChessPicReceiveActivity.this, getString(R.string.hint21), Toast.LENGTH_LONG).show();
                 break;
             case 22:
-                hintDisplay.setText(R.string.hint22);
+                hintText.setText(getString(R.string.hint22));
+                //Toast.makeText(ChessPicReceiveActivity.this, getString(R.string.hint22), Toast.LENGTH_LONG).show();
                 break;
             case 23:
-                hintDisplay.setText(R.string.hint23);
+                hintText.setText(getString(R.string.hint23));
+                //Toast.makeText(ChessPicReceiveActivity.this, getString(R.string.hint23), Toast.LENGTH_LONG).show();
                 break;
         }
     }
 
+    protected void onStop() {
+        super.onStop();
+    }
+
+    //Dealing with app's back button
+    private void onClickShowAlert(View view) {
+        alertDialogue.setMessage(R.string.prompt_back_text);
+        alertDialogue.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+                goBackViaLoadingActivity();
+            }
+        });
+        alertDialogue.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+                startTimer();
+            }
+        });
+        alertDialogue.create();
+        alertDialogue.show();
+    }
+
+    //Dealing with Android's back button
+    public void onBackPressed() {
+        alertDialogue.setMessage(R.string.prompt_back_text);
+        alertDialogue.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+                goBackViaLoadingActivity();
+            }
+        });
+        alertDialogue.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+                startTimer();
+            }
+        });
+        alertDialogue.create();
+        alertDialogue.show();
+    }
+
+    //Loading animation goes up when returning back to Home Activity.
+    private void goBackViaLoadingActivity() {
+        Intent loadingIntent = new Intent(ChessPicReceiveActivity.this, LoadingActivity.class);
+        loadingIntent.putExtra("Class Code", 0);
+        startActivity(loadingIntent);
+        finish();
+    }
+//////End Creation of Activity and Relevant Connections\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+//////Start Handling Image Loading and Checking\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
     //Checks the users input and sees if it matches the original prompt
     private void checkGuess() {
         int numChanged =0;
         if(hintVisible == 0){
             hintButton.setVisibility(View.VISIBLE);
+            Toast.makeText(ChessPicReceiveActivity.this, "Hint is available", Toast.LENGTH_LONG).show();
         }
         String userInput = descriptionTextField.getText().toString();
         Log.d("Value for userinput", userInput);
@@ -189,7 +292,7 @@ public class ChessPicReceiveActivity extends AppCompatActivity {
                 }
             }
             if(numChanged > 0 ){
-                Toast.makeText(ChessPicReceiveActivity.this, "Your guess was WRONG. Please Guess again.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ChessPicReceiveActivity.this, "Your guess was WRONG. Please Guess again.", Toast.LENGTH_LONG).show();
                 hintVisible--;
             } else{
                 Toast.makeText(ChessPicReceiveActivity.this, "Your guess was Right!", Toast.LENGTH_LONG).show();
@@ -210,9 +313,16 @@ public class ChessPicReceiveActivity extends AppCompatActivity {
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inSampleSize = 1;
         String temp;
+
+        //If the image is not available, disable every functions except back button
         if(endAttempt == 0){
             receivedImage.setImageResource(R.drawable.default_receive);
             Toast.makeText(ChessPicReceiveActivity.this, "No Images! You must draw some first!", Toast.LENGTH_LONG).show();
+            pauseTimer();
+            submitButton.setActivated(false);
+            submitButton.setVisibility(View.INVISIBLE);
+            descriptionTextField.setActivated(false);
+            descriptionTextField.setVisibility(View.INVISIBLE);
         } else {
             switch (promptNum) {
                 case 1:
@@ -540,81 +650,7 @@ public class ChessPicReceiveActivity extends AppCompatActivity {
             }
         }
     }
-
-
-
-
-    //Set activity life cycles
-    protected void onStart() {
-        super.onStart();
-    }
-
-    protected void onRestart() {
-        super.onRestart();
-    }
-
-    protected void onPause() {
-        super.onPause();
-    }
-
-    protected void onResume() {
-        super.onResume();
-    }
-
-    protected void onStop() {
-        super.onStop();
-    }
-
-    //Dealing with app's back button
-    private void onClickShowAlert(View view) {
-        alertDialogue.setMessage(R.string.prompt_back_text);
-        alertDialogue.setPositiveButton("YES", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.dismiss();
-                goBackViaLoadingActivity();
-            }
-        });
-        alertDialogue.setNegativeButton("NO", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.dismiss();
-                startTimer();
-            }
-        });
-        alertDialogue.create();
-        alertDialogue.show();
-    }
-
-    //Dealing with Android's back button
-    public void onBackPressed() {
-        alertDialogue.setMessage(R.string.prompt_back_text);
-        alertDialogue.setPositiveButton("YES", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.dismiss();
-                goBackViaLoadingActivity();
-            }
-        });
-        alertDialogue.setNegativeButton("NO", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.dismiss();
-                startTimer();
-            }
-        });
-        alertDialogue.create();
-        alertDialogue.show();
-    }
-
-    //Loading animation goes up when returning back to Home Activity.
-    private void goBackViaLoadingActivity() {
-        Intent loadingIntent = new Intent(ChessPicReceiveActivity.this, LoadingActivity.class);
-        loadingIntent.putExtra("Class Code", 0);
-        startActivity(loadingIntent);
-        finish();
-    }
-//////End Creation of Activity and Relevant Connections\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+//////End Handling Image Loading and Checking\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
 //////Start Handling Timer\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
     private void startTimer() {
@@ -639,7 +675,7 @@ public class ChessPicReceiveActivity extends AppCompatActivity {
     }
 
     private void resetTimer() {
-        timeLeftInMilliSecond = START_TIME_IN_MILLISECOND;
+        timeLeftInMilliSecond = startTime;
         updateCountDownText();
         isTimerRunning = false;
         startTimer();

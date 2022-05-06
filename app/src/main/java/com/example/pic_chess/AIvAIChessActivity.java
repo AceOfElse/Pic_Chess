@@ -236,8 +236,9 @@ public class AIvAIChessActivity extends AppCompatActivity {
     private void makeMove(Move m){
         if (m != null){
             Piece p = getPiecebySquare(m.getCurrentSquare());
+            ImageView view = p.getPic();
             int targetSquare = m.getTargetSquare();
-            if (getPiecebySquare(m.getTargetSquare()) == null) {
+            if (getPiecebySquare(m.getTargetSquare()) == null && !captured.contains(view)) {
                 Log.d("moveMade","Moved "+ p.getPieceType() + " to " + m.getTargetSquare() + " and did not capture (except en passant)");
                 setSquare(p, targetSquare);
                 Square s = getSquarebyView(p.getPic());
@@ -288,7 +289,7 @@ public class AIvAIChessActivity extends AppCompatActivity {
                 if (p.getPieceType().equals("black pawn") && p.getMoved() && getPiecebySquare(getSquare(p) + 16) == null && getPiecebySquare(getSquare(p) + 8) == null) {
                     p.setMovedTwo(true);
                 }
-            } else {
+            } else if (!captured.contains(view)){
                 Piece p2 = getPiecebySquare(m.getTargetSquare());
                 Log.d("moveMade","Moved "+ p.getPieceType() + " to " + m.getTargetSquare() + " and captured a " + p2.getPieceType());
                 if (getTurn().equals("white"))

@@ -9,6 +9,28 @@
     android:background="@color/black"
     tools:context=".TimedPvpChessActivity">
 
+    <LinearLayout
+        android:id="@+id/deadBlackLayout"
+        android:layout_width="340dp"
+        android:layout_height="65dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/timerText2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layoutD1"
+        app:layout_constraintVertical_bias="0.255"></LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/deadWhiteLayout"
+        android:layout_width="330dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="40dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/timerText1"
+        app:layout_constraintTop_toBottomOf="@+id/endButton"></LinearLayout>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/deadPieceLayout"
         android:layout_width="500000dp"
@@ -763,6 +785,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/lightsquare"
             tools:srcCompat="@drawable/lightsquare" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -1929,12 +1952,24 @@
 
     <FrameLayout
         android:id="@+id/newGameWithTimeFragmentContainer"
-        android:layout_width="102dp"
-        android:layout_height="304dp"
+        android:layout_width="106dp"
+        android:layout_height="383dp"
         android:layout_marginStart="114dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="130dp"
         android:layout_marginEnd="198dp"
         android:layout_marginBottom="341dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </FrameLayout>
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/winnerFragmentContainer"
+        android:name="com.example.pic_chess.WinnerFragment"
+        android:layout_width="262dp"
+        android:layout_height="210dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
