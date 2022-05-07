@@ -57,6 +57,7 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
     private CountDownTimer whiteTimer, blackTimer;
     private AlertDialog.Builder resignDialogue;
     private MediaPlayer mediaPlayer;
+    private Intent bgmIntent;
 
     //Fragment stuffs
     private FragmentTransaction transaction;
@@ -247,6 +248,10 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
         transaction.replace(id.winnerFragmentContainer, winnerFragment);
         transaction.commit();
         transaction.hide(winnerFragment);
+
+        //Set BGM Intent
+        bgmIntent = new Intent(TimedPvpChessActivity.this, BGMService.class);
+        bgmIntent.putExtra("SONG", R.raw.farm_bgm);
 
         //Get custom time from setting Activity and convert to seconds
         Intent timeIntent = getIntent();
@@ -1606,6 +1611,7 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
                 gameInProgress = true;
                 time = 60;
                 timerSetup();
+                startService(bgmIntent);
                 prompted = false;
                 hideTimeFragment();
                 Toast.makeText(TimedPvpChessActivity.this, "Game started!", Toast.LENGTH_LONG).show();
@@ -1615,6 +1621,7 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
                 gameInProgress = true;
                 time = 180;
                 timerSetup();
+                startService(bgmIntent);
                 prompted = false;
                 hideTimeFragment();
                 Toast.makeText(TimedPvpChessActivity.this, "Game started!", Toast.LENGTH_LONG).show();
@@ -1624,6 +1631,7 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
                 gameInProgress = true;
                 time = 300;
                 timerSetup();
+                startService(bgmIntent);
                 prompted = false;
                 hideTimeFragment();
                 Toast.makeText(TimedPvpChessActivity.this, "Game started!", Toast.LENGTH_LONG).show();
@@ -1633,6 +1641,7 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
                 gameInProgress = true;
                 time = 600;
                 timerSetup();
+                startService(bgmIntent);
                 prompted = false;
                 hideTimeFragment();
                 Toast.makeText(TimedPvpChessActivity.this, "Game started!", Toast.LENGTH_LONG).show();
@@ -1642,6 +1651,7 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
                 gameInProgress = true;
                 time = 900;
                 timerSetup();
+                startService(bgmIntent);
                 prompted = false;
                 hideTimeFragment();
                 Toast.makeText(TimedPvpChessActivity.this, "Game started!", Toast.LENGTH_LONG).show();
@@ -1651,6 +1661,7 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
                 gameInProgress = true;
                 time = 1800;
                 timerSetup();
+                startService(bgmIntent);
                 prompted = false;
                 hideTimeFragment();
                 Toast.makeText(TimedPvpChessActivity.this, "Game started!", Toast.LENGTH_LONG).show();
@@ -1660,6 +1671,7 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
                 gameInProgress = true;
                 time = customTime;
                 timerSetup();
+                startService(bgmIntent);
                 prompted = false;
                 hideTimeFragment();
                 Toast.makeText(TimedPvpChessActivity.this, "Game started!", Toast.LENGTH_LONG).show();
@@ -1695,6 +1707,7 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
     }
 
     public void returnHome() {
+        stopService(bgmIntent);
         goBackViaLoadingActivity();
     }
 

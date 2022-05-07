@@ -26,7 +26,7 @@ public class BGMService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         volume = intent.getFloatExtra("VOLUME", 50f);
-        songID = intent.getIntExtra("SONG", 0);
+        songID = intent.getIntExtra("SONG", R.raw.farm_bgm);
 
         if (bgmMediaPLayer == null) {
             bgmMediaPLayer = MediaPlayer.create(this, songID);

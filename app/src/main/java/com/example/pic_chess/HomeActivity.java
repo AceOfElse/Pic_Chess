@@ -3,7 +3,6 @@ package com.example.pic_chess;
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContract;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
@@ -11,25 +10,10 @@ import androidx.fragment.app.FragmentTransaction;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Paint;
-import android.media.AudioAttributes;
-import android.media.AudioManager;
-import android.media.MediaPlayer;
-import android.media.SoundPool;
-import android.os.Build;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
-import android.util.Log;
-import android.view.SoundEffectConstants;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
-
-import java.io.ByteArrayOutputStream;
-import java.io.Serializable;
 
 public class HomeActivity extends AppCompatActivity implements SecondMenuChessFragment.OnClickSelection, SecondMenuChessPicFragment.OnClickSelection, ThirdMenuTimeFragment.OnClickSelection {
     private TextView titleText;
@@ -90,7 +74,7 @@ public class HomeActivity extends AppCompatActivity implements SecondMenuChessFr
         //Set BGM Sound Intent, default volume is 50
         bgmIntent = new Intent(HomeActivity.this, BGMService.class);
         bgmIntent.putExtra("VOLUME", 50f);
-        bgmIntent.putExtra("SONG", R.raw.farm_music);
+        bgmIntent.putExtra("SONG", R.raw.farm_bgm);
 
         //Set button listeners
         chessPreviewButton.setOnClickListener(new View.OnClickListener() {

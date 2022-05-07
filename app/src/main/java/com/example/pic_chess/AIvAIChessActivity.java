@@ -41,6 +41,7 @@ public class AIvAIChessActivity extends AppCompatActivity {
     private FragmentTransaction transaction;
     private WinnerFragment winnerFragment;
     public Bundle winnerBundle;
+    private Intent bgmIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -207,6 +208,11 @@ public class AIvAIChessActivity extends AppCompatActivity {
         transaction.replace(id.winnerFragmentContainer, winnerFragment);
         transaction.commit();
         transaction.hide(winnerFragment);
+
+        //Set BGM Intent
+        bgmIntent = new Intent(AIvAIChessActivity.this, BGMService.class);
+        bgmIntent.putExtra("SONG", R.raw.farm_bgm);
+
         //Set button listeners
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -227,6 +233,7 @@ public class AIvAIChessActivity extends AppCompatActivity {
     }
     private void startNewGame(){
         gameInProgress = true;
+        startService(bgmIntent);
         int whiteMove;
         int blackMove;
         while (gameInProgress){

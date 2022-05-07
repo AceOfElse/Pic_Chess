@@ -47,6 +47,7 @@ public class UntimedPvpChessActivity extends AppCompatActivity implements Winner
     private boolean prompted = false;
     private AlertDialog.Builder resignDialogue;
     private MediaPlayer mediaPlayer;
+    private Intent bgmIntent;
 
     //Fragment stuffs
     private FragmentTransaction transaction;
@@ -224,6 +225,11 @@ public class UntimedPvpChessActivity extends AppCompatActivity implements Winner
         transaction.commit();
         transaction.hide(winnerFragment);
 
+        //Set BGM Intent
+        bgmIntent = new Intent(UntimedPvpChessActivity.this, BGMService.class);
+        bgmIntent.putExtra("SONG", R.raw.farm_bgm);
+
+        //Set listeners
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -241,6 +247,7 @@ public class UntimedPvpChessActivity extends AppCompatActivity implements Winner
                     onClickShowAlertResign();
                 } else {
                     Toast.makeText(UntimedPvpChessActivity.this, "Game started!", Toast.LENGTH_LONG).show();
+                    startService(bgmIntent);
                     gameInProgress = true;
                 }
                 prompted = !prompted;
@@ -1449,10 +1456,12 @@ public class UntimedPvpChessActivity extends AppCompatActivity implements Winner
     }
 
     public void returnHome() {
+        stopService(bgmIntent);
         goBackViaLoadingActivity();
     }
 
     public void onBackPressed() {
+        stopService(bgmIntent);
         goBackViaLoadingActivity();
     }
 

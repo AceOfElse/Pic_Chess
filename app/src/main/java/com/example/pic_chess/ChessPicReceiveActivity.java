@@ -15,11 +15,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.FileNotFoundException;
 import java.util.Locale;
 import java.util.Random;
 
@@ -694,7 +692,7 @@ public class ChessPicReceiveActivity extends AppCompatActivity {
 //////Start Handling Sound\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
     private void playBGM() {
         if (bgmMediaPLayer == null) {
-            bgmMediaPLayer = MediaPlayer.create(ChessPicReceiveActivity.this, R.raw.farm_music);
+            bgmMediaPLayer = MediaPlayer.create(ChessPicReceiveActivity.this, R.raw.farm_bgm);
             bgmMediaPLayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                 @Override
                 public void onCompletion(MediaPlayer mediaPlayer) {

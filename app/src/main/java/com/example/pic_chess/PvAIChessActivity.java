@@ -5,7 +5,6 @@ import static com.example.pic_chess.R.id;
 import static com.example.pic_chess.R.layout;
 
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -220,7 +219,7 @@ public class PvAIChessActivity extends AppCompatActivity {
 
         //Set BGM Sound Intent
         bgmIntent = new Intent(PvAIChessActivity.this, BGMService.class);
-        bgmIntent.putExtra("SONG", R.raw.farm_music);
+        bgmIntent.putExtra("SONG", R.raw.farm_bgm);
 
         //Set button listeners
         yesButton.setOnClickListener(new View.OnClickListener(){
