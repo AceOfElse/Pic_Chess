@@ -319,13 +319,13 @@ public class AIvAIChessActivity extends AppCompatActivity {
         p.setMoved(true);
         p.setRank(69);
         p.setFile(69);
-        if (enPassant && getTurn() == "white")
+        if (enPassant && getTurn().equals("white"))
             Objects.requireNonNull(getSquarebyView(getSquarebyInt(m.getTargetSquare()-8))).getLayout().removeView(v);
         else if (enPassant)
             Objects.requireNonNull(getSquarebyView(getSquarebyInt(m.getTargetSquare()+8))).getLayout().removeView(v);
         else
             Objects.requireNonNull(getSquarebyView(getSquarebyInt(m.getTargetSquare()))).getLayout().removeView(v);
-        if (p.getPieceColor() == "white")
+        if (p.getPieceColor().equals("white"))
             deadWhite.addView(v,layoutParams);
         else
             deadBlack.addView(v,layoutParams);
@@ -488,11 +488,7 @@ public class AIvAIChessActivity extends AppCompatActivity {
     }
 
     private void checkEnd() {
-        ArrayList<ArrayList<Move>> allLegalMoves = new ArrayList<>();
-        for (Piece p:pieces){
-            if (getTurn().equals(p.getPieceColor()))
-                allLegalMoves.add(getLegalMoves(p,false));
-        }
+        ArrayList<Move> allLegalMoves = generateAllMoves(getTurn());
         if (getTurn().equals("white")) {
             if (allLegalMoves.get(0) == null && !notAttacked(getSquare(pieces.get(4)))) {
                 gameInProgress = false; //Checkmate

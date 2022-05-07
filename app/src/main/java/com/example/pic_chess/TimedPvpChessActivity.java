@@ -728,54 +728,73 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
         v.setScaleY((float) 0.70 * v.getScaleY());
         captured.add((ImageView) v);
     }
-
-    private void checkEnd() {
-        ArrayList<ArrayList<Move>> allLegalMoves = new ArrayList<>();
-        for (Piece p:pieces){
-            if (getTurn().equals(p.getPieceColor()))
-                allLegalMoves.add(getLegalMoves(p));
+    public ArrayList<Move> generateAllMoves(String turn){
+        ArrayList<ArrayList<Move>> movesSquared = new ArrayList<ArrayList<Move>>();
+        ArrayList<Move> moves = new ArrayList<Move>();
+        for (Piece p: pieces){
+            if (p.getPieceColor().equals(turn)){
+                movesSquared.add(getLegalMoves(p));
+            }
         }
+        for (ArrayList<Move> move:movesSquared){
+            moves.addAll(move);
+        }
+        return moves;
+    }
+    private void checkEnd() {
+        ArrayList<Move> allLegalMoves = generateAllMoves(getTurn());
         if (getTurn().equals("white")) {
             if (allLegalMoves.get(0) == null && !notAttacked(getSquare(pieces.get(4)))) {
                 gameInProgress = false; //Checkmate
+                openWinnerFragment("Black Won By Checkmate");
             } else if (allLegalMoves.get(0) == null) {
                 gameInProgress = false; //Stalemate
+                openWinnerFragment("Draw By Stalemate");
             }
         } else {
             if (allLegalMoves.get(0) == null && !notAttacked(getSquare(pieces.get(29)))) {
                 gameInProgress = false; //Checkmate
+                openWinnerFragment("White Won By Checkmate");
             } else if (allLegalMoves.get(0) == null) {
                 gameInProgress = false; //Stalemate
+                openWinnerFragment("Draw By Stalemate");
             }
         }
-        if (movesSinceLastPawnMove == 100){
+        if (movesSinceLastPawnMove == 100) {
             gameInProgress = false; //Draw by 50 Move Rule
+            openWinnerFragment("Draw By 50 Move Rule");
         }
-        if (positions.size() > 5){
-            for (int c1 = 0; c1 < positions.size()-1; c1++) {
-                for (int c2 = c1++; c2 < positions.size()-1; c2++) {
-                    for (int c3 = c2++; c3 < positions.size()-1; c3++) {
+        if (positions.size() > 5) {
+            for (int c1 = 0; c1 < positions.size() - 1; c1++) {
+                for (int c2 = c1++; c2 < positions.size() - 1; c2++) {
+                    for (int c3 = c2++; c3 < positions.size() - 1; c3++) {
                         if (positions.get(c3).equals(positions.get(c2)) && positions.get(c2).equals(positions.get(c1)) && c2 != c3 && c1 != c2) {
                             gameInProgress = false; //Draw by 3 fold repetition
+                            openWinnerFragment("Draw By 3-fold Repetition");
                             Log.d("end", "Draw by 3 fold repetition");
                         }
                     }
                 }
             }
         }
-        if (whiteTime <= 0 && blackMaterial > 3){
+        if (whiteTime <= 0 && blackMaterial > 3) {
             gameInProgress = false; //Black wins by timeout
-            Log.d("end","Black wins by timeout");
-        } else if (whiteTime <= 0 && blackMaterial == 3)
+            openWinnerFragment("Black Wins by Timeout");
+        } else if (whiteTime <= 0 && blackMaterial == 3) {
             gameInProgress = false; //Draw by Timeout vs Insufficient Material
-        if (blackTime <= 0 && whiteMaterial > 3){
+            openWinnerFragment("Draw by Timeout vs Insufficient Material");
+        }
+        if (blackTime <= 0 && whiteMaterial > 3) {
             gameInProgress = false; //White wins by timeout
-            Log.d("end","White wins by timeout");
-        } else if (blackTime <= 0 && whiteMaterial == 3)
+            openWinnerFragment("White Wins by Timeout");
+            Log.d("end", "White wins by timeout");
+        } else if (blackTime <= 0 && whiteMaterial == 3){
             gameInProgress = false; // Draw by Timeout vs Insufficient Material
+            openWinnerFragment("Draw by Timeout vs Insufficient Material");
+        }
         if (whiteMaterial <= 3 && blackMaterial <= 3) {
             gameInProgress = false; //Draw by Insufficient Material
-
+            openWinnerFragment("Draw by Insufficient Material");
         }
         if (!gameInProgress){
             whiteTimer.cancel();
