@@ -29,14 +29,15 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="80dp"
         android:text="@string/sfx_text"
         android:textAlignment="center"
         android:textAllCaps="true"
         android:textColor="@color/white"
         android:textSize="20sp"
-        app:layout_constraintTop_toBottomOf="@+id/backButtonSetting"
-        tools:layout_editor_absoluteX="59dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/backButtonSetting" />
 
     <TextView
         android:id="@+id/settingTitleText"
@@ -63,14 +64,15 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
         android:text="@string/volume_text"
         android:textAlignment="center"
         android:textAllCaps="true"
         android:textColor="@color/white"
         android:textSize="20sp"
-        app:layout_constraintTop_toBottomOf="@+id/backButtonSetting"
-        tools:layout_editor_absoluteX="59dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/backButtonSetting" />
 
     <SeekBar
         android:id="@+id/volumeSeekBar"
@@ -80,6 +82,8 @@
         android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
         android:max="100"
+        android:thumbTint="@color/white"
+        android:progressTint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -93,6 +97,8 @@
         android:layout_marginTop="80dp"
         android:layout_marginEnd="16dp"
         android:max="100"
+        android:thumbTint="@color/white"
+        android:progressTint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"

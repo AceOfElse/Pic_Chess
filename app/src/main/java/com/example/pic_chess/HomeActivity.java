@@ -31,6 +31,9 @@ public class HomeActivity extends AppCompatActivity implements SecondMenuChessFr
     //Mode for activity
     private int firstMode;
 
+    //default sfx volume is 100f
+    private float sfxVolume = 100f;
+
     //default timer is 10 minutes
     private long[] timer = {601000, 601000, 601000, 601000};
 
@@ -42,6 +45,7 @@ public class HomeActivity extends AppCompatActivity implements SecondMenuChessFr
                 Intent settingIntent = result.getData();
                 if (settingIntent != null) {
                     timer = settingIntent.getLongArrayExtra("Timer List Back");
+                    sfxVolume = settingIntent.getFloatExtra("VOLUME", sfxVolume);
                 }
             }
         }
@@ -302,6 +306,7 @@ public class HomeActivity extends AppCompatActivity implements SecondMenuChessFr
     private void openSetting() {
         Intent settingIntent = new Intent(HomeActivity.this, SettingActivity.class);
         settingIntent.putExtra("Timer List", timer);
+        settingIntent.putExtra("VOLUME", sfxVolume);
         resultLauncher.launch(settingIntent);
     }
 //////End Helper Methods within Home Activity\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
