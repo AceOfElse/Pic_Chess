@@ -17,7 +17,6 @@ import android.widget.LinearLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
-import androidx.fragment.app.FragmentTransaction;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -37,16 +36,16 @@ public class AIvAIChessActivity extends AppCompatActivity {
     private int movesSinceLastPawnMove = 0;
     private int numMoves = 0;
     private boolean gameInProgress = false;
-    private MediaPlayer mediaPlayer;
-    private FragmentTransaction transaction;
-    private WinnerFragment winnerFragment;
-    public Bundle winnerBundle;
+
+    //Sound stuffs
+    private MediaPlayer sfxMediaPlayer;
+    private Intent bgmIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(layout.activity_aivai_chess);
-        mediaPlayer = MediaPlayer.create(this,R.raw.chess_slam_sfx);
+        sfxMediaPlayer = MediaPlayer.create(this,R.raw.chess_slam_sfx);
         deadWhite = findViewById(id.deadWhiteLayout);
         deadBlack = findViewById(id.deadBlackLayout);
         deadBlack.setBackgroundColor(Color.DKGRAY);
@@ -202,11 +201,10 @@ public class AIvAIChessActivity extends AppCompatActivity {
             boardSquares.add(new Square(f,r, v,boardLayout.get(index)));
             index++;
         }
-        winnerFragment = WinnerFragment.newInstance();
-        transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(id.winnerFragmentContainer, winnerFragment);
-        transaction.commit();
-        transaction.hide(winnerFragment);
+        //Set BGM Sound Intent
+        bgmIntent = new Intent(AIvAIChessActivity.this, BGMService.class);
+        bgmIntent.putExtra("SONG", R.raw.farm_music);
+
         //Set button listeners
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -227,6 +225,7 @@ public class AIvAIChessActivity extends AppCompatActivity {
     }
     private void startNewGame(){
         gameInProgress = true;
+        startService(bgmIntent);
         int whiteMove;
         int blackMove;
         while (gameInProgress){
@@ -314,18 +313,18 @@ public class AIvAIChessActivity extends AppCompatActivity {
     }
 
     private void capture(Piece p, Move m, boolean enPassant) {
-        mediaPlayer.start();
+        sfxMediaPlayer.start();
         ImageView v = p.getPic();
         p.setMoved(true);
         p.setRank(69);
         p.setFile(69);
-        if (enPassant && getTurn().equals("white"))
+        if (enPassant && getTurn() == "white")
             Objects.requireNonNull(getSquarebyView(getSquarebyInt(m.getTargetSquare()-8))).getLayout().removeView(v);
         else if (enPassant)
             Objects.requireNonNull(getSquarebyView(getSquarebyInt(m.getTargetSquare()+8))).getLayout().removeView(v);
         else
             Objects.requireNonNull(getSquarebyView(getSquarebyInt(m.getTargetSquare()))).getLayout().removeView(v);
-        if (p.getPieceColor().equals("white"))
+        if (p.getPieceColor() == "white")
             deadWhite.addView(v,layoutParams);
         else
             deadBlack.addView(v,layoutParams);
@@ -488,7 +487,11 @@ public class AIvAIChessActivity extends AppCompatActivity {
     }
 
     private void checkEnd() {
-        ArrayList<Move> allLegalMoves = generateAllMoves(getTurn());
+        ArrayList<ArrayList<Move>> allLegalMoves = new ArrayList<>();
+        for (Piece p:pieces){
+            if (getTurn().equals(p.getPieceColor()))
+                allLegalMoves.add(getLegalMoves(p,false));
+        }
         if (getTurn().equals("white")) {
             if (allLegalMoves.get(0) == null && !notAttacked(getSquare(pieces.get(4)))) {
                 gameInProgress = false; //Checkmate
@@ -656,12 +659,6 @@ public class AIvAIChessActivity extends AppCompatActivity {
         else
             return "black";
     }
-    private String getOtherTurn(){
-        if(numMoves%2==0)
-            return "black";
-        else
-            return "white";
-    }
     private int getMaterialValue(Piece p){
         String piece = p.getPieceType();
         if (piece.equals("bishop") || piece.equals("knight") || piece.equals("king"))
@@ -674,8 +671,6 @@ public class AIvAIChessActivity extends AppCompatActivity {
             return 1;
     }
     private void calculateMaterial(){
-        whiteMaterial = 0;
-        blackMaterial = 0;
         for(Piece p: pieces){
             if (p.getPieceColor().equals("white")){
                 whiteMaterial += getMaterialValue(p);
@@ -1487,10 +1482,12 @@ public class AIvAIChessActivity extends AppCompatActivity {
 
     //////Start Handling Button\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
     public void returnHome() {
+        stopService(bgmIntent);
         goBackViaLoadingActivity();
     }
 
     public void onBackPressed() {
+        stopService(bgmIntent);
         goBackViaLoadingActivity();
     }
 
@@ -1500,30 +1497,6 @@ public class AIvAIChessActivity extends AppCompatActivity {
         loadingIntent.putExtra("Class Code", 0);
         startActivity(loadingIntent);
         finish();
-    }
-    public void sendModeFromWinnerFragment(int mode) {
-        switch (mode) {
-            //New game
-            case 0:
-                Intent loadingIntent = new Intent(AIvAIChessActivity.this, AIvAIChessActivity.class);
-                loadingIntent.putExtra("Class Code", 0);
-                startActivity(loadingIntent);
-                finish();
-                break;
-            //Return home
-            case 1:
-                goBackViaLoadingActivity();
-                break;
-        }
-    }
-    private void openWinnerFragment(String winner) {
-        winnerBundle = new Bundle();
-        winnerBundle.putString("WINNER", winner);
-        winnerFragment.getData(winnerBundle);
-        transaction = getSupportFragmentManager().beginTransaction();
-        transaction.setCustomAnimations(R.anim.scale_in, R.anim.scale_out);
-        transaction.commit();
-        transaction.show(winnerFragment);
     }
 //////End Handling Button\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 }

@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
@@ -38,6 +39,8 @@ public class ChessPicReceiveActivity extends AppCompatActivity {
     private Random rg;
     private int promptNum,endAttempt,hintVisible;
     private String correctGuess;
+
+    private MediaPlayer bgmMediaPLayer;
 
 //////Start Creation of Activity and Relevant Connections\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
     @Override
@@ -102,6 +105,7 @@ public class ChessPicReceiveActivity extends AppCompatActivity {
         //Others
         updateCountDownText();
         receiveImage();
+        playBGM();
     }
 
     //Set activity life cycles
@@ -218,10 +222,6 @@ public class ChessPicReceiveActivity extends AppCompatActivity {
         }
     }
 
-    protected void onStop() {
-        super.onStop();
-    }
-
     //Dealing with app's back button
     private void onClickShowAlert(View view) {
         alertDialogue.setMessage(R.string.prompt_back_text);
@@ -229,6 +229,7 @@ public class ChessPicReceiveActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 dialogInterface.dismiss();
+                stopBGM();
                 goBackViaLoadingActivity();
             }
         });
@@ -250,6 +251,7 @@ public class ChessPicReceiveActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 dialogInterface.dismiss();
+                stopBGM();
                 goBackViaLoadingActivity();
             }
         });
@@ -688,5 +690,37 @@ public class ChessPicReceiveActivity extends AppCompatActivity {
         timerText.setText("TIME\n" + timeLeftFormatted);
     }
 //////End Handling Timer\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+//////Start Handling Sound\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+    private void playBGM() {
+        if (bgmMediaPLayer == null) {
+            bgmMediaPLayer = MediaPlayer.create(ChessPicReceiveActivity.this, R.raw.farm_music);
+            bgmMediaPLayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mediaPlayer) {
+                    stopMediaPlayer();
+                }
+            });
+        }
+        bgmMediaPLayer.start();
+    }
+
+    private void stopBGM() {
+        stopMediaPlayer();
+    }
+
+    private void stopMediaPlayer() {
+        if (bgmMediaPLayer != null) {
+            bgmMediaPLayer.release();
+            bgmMediaPLayer = null;
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        stopMediaPlayer();
+    }
+//////End Handling Sound\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
 }

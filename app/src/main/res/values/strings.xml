@@ -97,4 +97,7 @@
     <string name="guessing_text">Guessing</string>
     <string name="time_description_text">Timed</string>
     <string name="unlimited_time_text">Unlimited Time</string>
+    <string name="music_one_license_text">--Farm by Alexander Nakarada--\nhttps://www.serpentsoundstudios.com\nMusic promoted by https://www.chosic.com/free-music/all/\nCreative Commons CC BY 4.0\nhttps://creativecommons.org/licenses/by/4.0/</string>
+    <string name="music_two_license_text">--Mozart Piano Concerto no. 21 in C major, K. 467 - II. Andante by Markus Staab--\nhttps://musopen.org/music/2635-piano-concerto-no-21-in-c-major-k-467/\nAttribution 3.0 Unported (CC BY 3.0)\nhttps://creativecommons.org/licenses/by/3.0/\nMusic promoted on https://www.chosic.com/free-music/all/</string>
+    <string name="music_title_text">MUSIC</string>
 </resources>

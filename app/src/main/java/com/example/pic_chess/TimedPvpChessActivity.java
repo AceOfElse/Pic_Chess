@@ -10,6 +10,7 @@ import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,7 +57,10 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
     private boolean prompted = false;
     private CountDownTimer whiteTimer, blackTimer;
     private AlertDialog.Builder resignDialogue;
-    private MediaPlayer mediaPlayer;
+
+    //Sound stuffs
+    private MediaPlayer sfxMediaPlayer;
+    private Intent bgmIntent;
 
     //Fragment stuffs
     private FragmentTransaction transaction;
@@ -68,7 +72,7 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(layout.activity_timed_pvp_chess);
-        mediaPlayer = MediaPlayer.create(this,R.raw.chess_slam_sfx);
+        sfxMediaPlayer = MediaPlayer.create(this,R.raw.chess_slam_sfx);
         deadWhite = findViewById(id.deadWhiteLayout);
         deadBlack = findViewById(id.deadBlackLayout);
         deadBlack.setBackgroundColor(Color.DKGRAY);
@@ -247,6 +251,10 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
         transaction.replace(id.winnerFragmentContainer, winnerFragment);
         transaction.commit();
         transaction.hide(winnerFragment);
+
+        //Set BGM Sound Intent
+        bgmIntent = new Intent(TimedPvpChessActivity.this, BGMService.class);
+        bgmIntent.putExtra("SONG", R.raw.farm_music);
 
         //Get custom time from setting Activity and convert to seconds
         Intent timeIntent = getIntent();
@@ -707,7 +715,7 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
     }
 
     private void capture(Piece p, Move m, boolean enPassant) {
-        mediaPlayer.start();
+        sfxMediaPlayer.start();
         ImageView v = p.getPic();
         p.setMoved(true);
         p.setRank(69);
@@ -728,73 +736,54 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
         v.setScaleY((float) 0.70 * v.getScaleY());
         captured.add((ImageView) v);
     }
-    public ArrayList<Move> generateAllMoves(String turn){
-        ArrayList<ArrayList<Move>> movesSquared = new ArrayList<ArrayList<Move>>();
-        ArrayList<Move> moves = new ArrayList<Move>();
-        for (Piece p: pieces){
-            if (p.getPieceColor().equals(turn)){
-                movesSquared.add(getLegalMoves(p));
-            }
-        }
-        for (ArrayList<Move> move:movesSquared){
-            moves.addAll(move);
-        }
-        return moves;
-    }
+
     private void checkEnd() {
-        ArrayList<Move> allLegalMoves = generateAllMoves(getTurn());
+        ArrayList<ArrayList<Move>> allLegalMoves = new ArrayList<>();
+        for (Piece p:pieces){
+            if (getTurn().equals(p.getPieceColor()))
+                allLegalMoves.add(getLegalMoves(p));
+        }
         if (getTurn().equals("white")) {
             if (allLegalMoves.get(0) == null && !notAttacked(getSquare(pieces.get(4)))) {
                 gameInProgress = false; //Checkmate
-                openWinnerFragment("Black Won By Checkmate");
             } else if (allLegalMoves.get(0) == null) {
                 gameInProgress = false; //Stalemate
-                openWinnerFragment("Draw By Stalemate");
             }
         } else {
             if (allLegalMoves.get(0) == null && !notAttacked(getSquare(pieces.get(29)))) {
                 gameInProgress = false; //Checkmate
-                openWinnerFragment("White Won By Checkmate");
             } else if (allLegalMoves.get(0) == null) {
                 gameInProgress = false; //Stalemate
-                openWinnerFragment("Draw By Stalemate");
             }
         }
-        if (movesSinceLastPawnMove == 100) {
+        if (movesSinceLastPawnMove == 100){
             gameInProgress = false; //Draw by 50 Move Rule
-            openWinnerFragment("Draw By 50 Move Rule");
         }
-        if (positions.size() > 5) {
-            for (int c1 = 0; c1 < positions.size() - 1; c1++) {
-                for (int c2 = c1++; c2 < positions.size() - 1; c2++) {
-                    for (int c3 = c2++; c3 < positions.size() - 1; c3++) {
+        if (positions.size() > 5){
+            for (int c1 = 0; c1 < positions.size()-1; c1++) {
+                for (int c2 = c1++; c2 < positions.size()-1; c2++) {
+                    for (int c3 = c2++; c3 < positions.size()-1; c3++) {
                         if (positions.get(c3).equals(positions.get(c2)) && positions.get(c2).equals(positions.get(c1)) && c2 != c3 && c1 != c2) {
                             gameInProgress = false; //Draw by 3 fold repetition
-                            openWinnerFragment("Draw By 3-fold Repetition");
                             Log.d("end", "Draw by 3 fold repetition");
                         }
                     }
                 }
             }
         }
-        if (whiteTime <= 0 && blackMaterial > 3) {
+        if (whiteTime <= 0 && blackMaterial > 3){
             gameInProgress = false; //Black wins by timeout
-            openWinnerFragment("Black Wins by Timeout");
-        } else if (whiteTime <= 0 && blackMaterial == 3) {
+            Log.d("end","Black wins by timeout");
+        } else if (whiteTime <= 0 && blackMaterial == 3)
             gameInProgress = false; //Draw by Timeout vs Insufficient Material
-            openWinnerFragment("Draw by Timeout vs Insufficient Material");
-        }
-        if (blackTime <= 0 && whiteMaterial > 3) {
+        if (blackTime <= 0 && whiteMaterial > 3){
             gameInProgress = false; //White wins by timeout
-            openWinnerFragment("White Wins by Timeout");
-            Log.d("end", "White wins by timeout");
-        } else if (blackTime <= 0 && whiteMaterial == 3){
+            Log.d("end","White wins by timeout");
+        } else if (blackTime <= 0 && whiteMaterial == 3)
             gameInProgress = false; // Draw by Timeout vs Insufficient Material
-            openWinnerFragment("Draw by Timeout vs Insufficient Material");
-        }
         if (whiteMaterial <= 3 && blackMaterial <= 3) {
             gameInProgress = false; //Draw by Insufficient Material
-            openWinnerFragment("Draw by Insufficient Material");
+
         }
         if (!gameInProgress){
             whiteTimer.cancel();
@@ -1303,12 +1292,6 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
         else
             return "black";
     }
-    private String getOtherTurn(){
-        if(numMoves%2==0)
-            return "black";
-        else
-            return "white";
-    }
     private int getMaterialValue(Piece p){
         String piece = p.getPieceType();
         if (piece.equals("bishop") || piece.equals("knight") || piece.equals("king"))
@@ -1321,8 +1304,6 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
             return 1;
     }
     private void calculateMaterial(){
-        whiteMaterial = 0;
-        blackMaterial = 0;
         for(Piece p: pieces){
             if (p.getPieceColor().equals("white")){
                 whiteMaterial += getMaterialValue(p);
@@ -1606,6 +1587,7 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
                 gameInProgress = true;
                 time = 60;
                 timerSetup();
+                startService(bgmIntent);
                 prompted = false;
                 hideTimeFragment();
                 Toast.makeText(TimedPvpChessActivity.this, "Game started!", Toast.LENGTH_LONG).show();
@@ -1615,6 +1597,7 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
                 gameInProgress = true;
                 time = 180;
                 timerSetup();
+                startService(bgmIntent);
                 prompted = false;
                 hideTimeFragment();
                 Toast.makeText(TimedPvpChessActivity.this, "Game started!", Toast.LENGTH_LONG).show();
@@ -1624,6 +1607,7 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
                 gameInProgress = true;
                 time = 300;
                 timerSetup();
+                startService(bgmIntent);
                 prompted = false;
                 hideTimeFragment();
                 Toast.makeText(TimedPvpChessActivity.this, "Game started!", Toast.LENGTH_LONG).show();
@@ -1633,6 +1617,7 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
                 gameInProgress = true;
                 time = 600;
                 timerSetup();
+                startService(bgmIntent);
                 prompted = false;
                 hideTimeFragment();
                 Toast.makeText(TimedPvpChessActivity.this, "Game started!", Toast.LENGTH_LONG).show();
@@ -1642,6 +1627,7 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
                 gameInProgress = true;
                 time = 900;
                 timerSetup();
+                startService(bgmIntent);
                 prompted = false;
                 hideTimeFragment();
                 Toast.makeText(TimedPvpChessActivity.this, "Game started!", Toast.LENGTH_LONG).show();
@@ -1651,6 +1637,7 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
                 gameInProgress = true;
                 time = 1800;
                 timerSetup();
+                startService(bgmIntent);
                 prompted = false;
                 hideTimeFragment();
                 Toast.makeText(TimedPvpChessActivity.this, "Game started!", Toast.LENGTH_LONG).show();
@@ -1660,6 +1647,7 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
                 gameInProgress = true;
                 time = customTime;
                 timerSetup();
+                startService(bgmIntent);
                 prompted = false;
                 hideTimeFragment();
                 Toast.makeText(TimedPvpChessActivity.this, "Game started!", Toast.LENGTH_LONG).show();
@@ -1675,10 +1663,6 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
         switch (mode) {
             //New game
             case 0:
-                Intent loadingIntent = new Intent(TimedPvpChessActivity.this, TimedPvpChessActivity.class);
-                loadingIntent.putExtra("Class Code", 0);
-                startActivity(loadingIntent);
-                finish();
                 break;
             //Return home
             case 1:
@@ -1701,7 +1685,6 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
     //Deals with Android's back button
     public void onBackPressed() {
         onClickShowAlertResign();
-        goBackViaLoadingActivity();
     }
 
     //Loading animation goes up when returning back to Home Activity.
@@ -1722,7 +1705,8 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
                 gameInProgress = false;
                 checkEnd();
                 //Test fragment
-                openWinnerFragment(getOtherTurn() + "Won By Resignation");
+                openWinnerFragment(true);
+                stopService(bgmIntent);
                 dialogInterface.dismiss();
             }
         });
@@ -1738,9 +1722,9 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
     }
 
     //Method to open the winner fragment (true if white wins, false if black wins)
-    private void openWinnerFragment(String winner) {
+    private void openWinnerFragment(boolean isWhiteWin) {
         winnerBundle = new Bundle();
-        winnerBundle.putString("WINNER", winner);
+        winnerBundle.putBoolean("WINNER", isWhiteWin);
         winnerFragment.getData(winnerBundle);
         transaction = getSupportFragmentManager().beginTransaction();
         transaction.setCustomAnimations(R.anim.scale_in, R.anim.scale_out);

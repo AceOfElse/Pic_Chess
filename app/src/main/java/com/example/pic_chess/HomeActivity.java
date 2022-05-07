@@ -16,6 +16,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Paint;
 import android.media.AudioAttributes;
 import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.media.SoundPool;
 import android.os.Build;
 import android.os.Bundle;
@@ -32,9 +33,11 @@ import java.io.Serializable;
 
 public class HomeActivity extends AppCompatActivity implements SecondMenuChessFragment.OnClickSelection, SecondMenuChessPicFragment.OnClickSelection, ThirdMenuTimeFragment.OnClickSelection {
     private TextView titleText;
-    private ImageButton settingButton, chessPreviewButton, drawPreviewButton;
+    private ImageButton settingButton, musicLicenseButton, chessPreviewButton, drawPreviewButton;
     private AlertDialog.Builder alertDialogue;
+    private Intent bgmIntent;
 
+    private MusicLicensingFragment musicLicensingFragment;
     private SecondMenuChessFragment secondMenuChessFragment;
     private SecondMenuChessPicFragment secondMenuChessPicFragment;
     private ThirdMenuTimeFragment thirdMenuTimeFragment;
@@ -76,11 +79,18 @@ public class HomeActivity extends AppCompatActivity implements SecondMenuChessFr
         chessPreviewButton = findViewById(R.id.chessPreviewButton);
         drawPreviewButton = findViewById(R.id.drawPreviewButton);
         settingButton = findViewById(R.id.settingButton);
+        musicLicenseButton = findViewById(R.id.licenseButton);
 
         //Set fragments
+        musicLicensingFragment = MusicLicensingFragment.newInstance();
         secondMenuChessPicFragment = SecondMenuChessPicFragment.newInstance();
         secondMenuChessFragment = SecondMenuChessFragment.newInstance();
         thirdMenuTimeFragment = ThirdMenuTimeFragment.newInstance();
+
+        //Set BGM Sound Intent, default volume is 50
+        bgmIntent = new Intent(HomeActivity.this, BGMService.class);
+        bgmIntent.putExtra("VOLUME", 50f);
+        bgmIntent.putExtra("SONG", R.raw.farm_music);
 
         //Set button listeners
         chessPreviewButton.setOnClickListener(new View.OnClickListener() {
@@ -109,6 +119,19 @@ public class HomeActivity extends AppCompatActivity implements SecondMenuChessFr
                 openSetting();
             }
         });
+        musicLicenseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                transaction = getSupportFragmentManager().beginTransaction();
+                transaction.setCustomAnimations(R.anim.slide_in, R.anim.fade_out, R.anim.fade_in, R.anim.slide_out);
+                transaction.replace(R.id.musicLicenseFragmentContainer, musicLicensingFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
+
+        //Other
+        startService(bgmIntent);
     }
 
     //Implements method from interfaces
@@ -155,6 +178,7 @@ public class HomeActivity extends AppCompatActivity implements SecondMenuChessFr
         for (int i = 0; i < getSupportFragmentManager().getBackStackEntryCount(); i++) {
             getSupportFragmentManager().popBackStack();
         }
+        stopService(bgmIntent);
         switch (firstMode) {
             case 0:
                 if (mode == 0)
@@ -194,9 +218,6 @@ public class HomeActivity extends AppCompatActivity implements SecondMenuChessFr
     protected void onResume() {
         super.onResume();
     }
-    protected void onStop() {
-        super.onStop();
-    }
     protected void onDestroy() {
         super.onDestroy();
     }
@@ -209,6 +230,7 @@ public class HomeActivity extends AppCompatActivity implements SecondMenuChessFr
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     dialogInterface.dismiss();
+                    stopService(bgmIntent);
                     finishAffinity();
                 }
             });
@@ -296,8 +318,6 @@ public class HomeActivity extends AppCompatActivity implements SecondMenuChessFr
         Intent settingIntent = new Intent(HomeActivity.this, SettingActivity.class);
         settingIntent.putExtra("Timer List", timer);
         resultLauncher.launch(settingIntent);
-        onStop();
-        onRestart();
     }
 //////End Helper Methods within Home Activity\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 }
