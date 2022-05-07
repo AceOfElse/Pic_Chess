@@ -14,6 +14,7 @@
         <entry key="..\:/Users/nguye/Desktop/AndroidStudioProjects/Pic_Chess/app/src/main/res/layout-sw600dp/activity_timed_pvp_chess.xml" value="0.25" />
         <entry key="..\:/Users/nguye/Desktop/AndroidStudioProjects/Pic_Chess/app/src/main/res/layout-sw600dp/activity_untimed_pvp_chess.xml" value="0.25" />
         <entry key="..\:/Users/nguye/Desktop/AndroidStudioProjects/Pic_Chess/app/src/main/res/layout-sw600dp/fragment_color.xml" value="0.25" />
+        <entry key="..\:/Users/nguye/Desktop/AndroidStudioProjects/Pic_Chess/app/src/main/res/layout-sw600dp/fragment_music_licensing.xml" value="0.33984375" />
         <entry key="..\:/Users/nguye/Desktop/AndroidStudioProjects/Pic_Chess/app/src/main/res/layout-sw600dp/fragment_new_game_with_time.xml" value="0.22" />
         <entry key="..\:/Users/nguye/Desktop/AndroidStudioProjects/Pic_Chess/app/src/main/res/layout-sw600dp/fragment_second_menu_chess.xml" value="0.18125" />
         <entry key="..\:/Users/nguye/Desktop/AndroidStudioProjects/Pic_Chess/app/src/main/res/layout-sw600dp/fragment_second_menu_chess_pic.xml" value="0.18125" />
@@ -32,6 +33,7 @@
         <entry key="..\:/Users/nguye/Desktop/AndroidStudioProjects/Pic_Chess/app/src/main/res/layout/activity_timed_pvp_chess.xml" value="0.33" />
         <entry key="..\:/Users/nguye/Desktop/AndroidStudioProjects/Pic_Chess/app/src/main/res/layout/activity_untimed_pvp_chess.xml" value="0.3625" />
         <entry key="..\:/Users/nguye/Desktop/AndroidStudioProjects/Pic_Chess/app/src/main/res/layout/fragment_color.xml" value="0.67" />
+        <entry key="..\:/Users/nguye/Desktop/AndroidStudioProjects/Pic_Chess/app/src/main/res/layout/fragment_music_licensing.xml" value="0.3625" />
         <entry key="..\:/Users/nguye/Desktop/AndroidStudioProjects/Pic_Chess/app/src/main/res/layout/fragment_new_canvas_prompt.xml" value="0.3625" />
         <entry key="..\:/Users/nguye/Desktop/AndroidStudioProjects/Pic_Chess/app/src/main/res/layout/fragment_new_game_with_time.xml" value="0.3625" />
         <entry key="..\:/Users/nguye/Desktop/AndroidStudioProjects/Pic_Chess/app/src/main/res/layout/fragment_second_menu_chess.xml" value="0.3625" />

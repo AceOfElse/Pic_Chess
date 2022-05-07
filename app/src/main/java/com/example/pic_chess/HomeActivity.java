@@ -11,6 +11,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -74,7 +75,7 @@ public class HomeActivity extends AppCompatActivity implements SecondMenuChessFr
         //Set BGM Sound Intent, default volume is 50
         bgmIntent = new Intent(HomeActivity.this, BGMService.class);
         bgmIntent.putExtra("VOLUME", 50f);
-        bgmIntent.putExtra("SONG", R.raw.farm_bgm);
+        bgmIntent.putExtra("SONG", R.raw.routine_bgm);
 
         //Set button listeners
         chessPreviewButton.setOnClickListener(new View.OnClickListener() {

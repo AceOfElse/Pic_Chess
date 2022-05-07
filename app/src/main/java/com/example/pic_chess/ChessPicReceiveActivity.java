@@ -38,7 +38,7 @@ public class ChessPicReceiveActivity extends AppCompatActivity {
     private int promptNum,endAttempt,hintVisible;
     private String correctGuess;
 
-    private MediaPlayer bgmMediaPLayer;
+    private Intent bgmIntent;
 
 //////Start Creation of Activity and Relevant Connections\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
     @Override
@@ -72,6 +72,10 @@ public class ChessPicReceiveActivity extends AppCompatActivity {
         //Set up alert dialogue
         alertDialogue = new AlertDialog.Builder(ChessPicReceiveActivity.this);
 
+        //Set BGM Intent
+        bgmIntent = new Intent(ChessPicReceiveActivity.this, BGMService.class);
+        bgmIntent.putExtra("SONG", R.raw.classical_bgm);
+
         //Set button listeners
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,7 +107,7 @@ public class ChessPicReceiveActivity extends AppCompatActivity {
         //Others
         updateCountDownText();
         receiveImage();
-        playBGM();
+        startService(bgmIntent);
     }
 
     //Set activity life cycles
@@ -227,7 +231,6 @@ public class ChessPicReceiveActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 dialogInterface.dismiss();
-                stopBGM();
                 goBackViaLoadingActivity();
             }
         });
@@ -249,7 +252,6 @@ public class ChessPicReceiveActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 dialogInterface.dismiss();
-                stopBGM();
                 goBackViaLoadingActivity();
             }
         });
@@ -266,6 +268,7 @@ public class ChessPicReceiveActivity extends AppCompatActivity {
 
     //Loading animation goes up when returning back to Home Activity.
     private void goBackViaLoadingActivity() {
+        stopService(bgmIntent);
         Intent loadingIntent = new Intent(ChessPicReceiveActivity.this, LoadingActivity.class);
         loadingIntent.putExtra("Class Code", 0);
         startActivity(loadingIntent);
@@ -688,37 +691,5 @@ public class ChessPicReceiveActivity extends AppCompatActivity {
         timerText.setText("TIME\n" + timeLeftFormatted);
     }
 //////End Handling Timer\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-
-//////Start Handling Sound\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-    private void playBGM() {
-        if (bgmMediaPLayer == null) {
-            bgmMediaPLayer = MediaPlayer.create(ChessPicReceiveActivity.this, R.raw.farm_bgm);
-            bgmMediaPLayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                @Override
-                public void onCompletion(MediaPlayer mediaPlayer) {
-                    stopMediaPlayer();
-                }
-            });
-        }
-        bgmMediaPLayer.start();
-    }
-
-    private void stopBGM() {
-        stopMediaPlayer();
-    }
-
-    private void stopMediaPlayer() {
-        if (bgmMediaPLayer != null) {
-            bgmMediaPLayer.release();
-            bgmMediaPLayer = null;
-        }
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        stopMediaPlayer();
-    }
-//////End Handling Sound\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
 }

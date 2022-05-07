@@ -4,6 +4,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.IBinder;
+import android.util.Log;
 
 public class BGMService extends Service {
     private MediaPlayer bgmMediaPLayer;
@@ -25,14 +26,12 @@ public class BGMService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        volume = intent.getFloatExtra("VOLUME", 50f);
-        songID = intent.getIntExtra("SONG", R.raw.farm_bgm);
+        volume = intent.getFloatExtra("VOLUME",  50f);
+        songID = intent.getIntExtra("SONG", 0);
 
-        if (bgmMediaPLayer == null) {
-            bgmMediaPLayer = MediaPlayer.create(this, songID);
-            bgmMediaPLayer.setLooping(true);
-            bgmMediaPLayer.setVolume(volume, volume);
-        }
+        bgmMediaPLayer = MediaPlayer.create(this, songID);
+        bgmMediaPLayer.setLooping(true);
+        bgmMediaPLayer.setVolume(volume, volume);
         bgmMediaPLayer.start();
         return START_STICKY;
     }
@@ -41,9 +40,7 @@ public class BGMService extends Service {
     public void onDestroy() {
         super.onDestroy();
         bgmMediaPLayer.stop();
-        if (bgmMediaPLayer != null) {
-            bgmMediaPLayer.release();
-            bgmMediaPLayer = null;
-        }
+        bgmMediaPLayer.release();
+        bgmMediaPLayer = null;
     }
 }

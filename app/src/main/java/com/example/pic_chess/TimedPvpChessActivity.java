@@ -1707,7 +1707,6 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
     }
 
     public void returnHome() {
-        stopService(bgmIntent);
         goBackViaLoadingActivity();
     }
 
@@ -1719,6 +1718,7 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
 
     //Loading animation goes up when returning back to Home Activity.
     private void goBackViaLoadingActivity() {
+        stopService(bgmIntent);
         Intent loadingIntent = new Intent(TimedPvpChessActivity.this, LoadingActivity.class);
         loadingIntent.putExtra("Class Code", 0);
         startActivity(loadingIntent);
