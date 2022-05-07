@@ -1465,7 +1465,7 @@ public class UntimedPvpChessActivity extends AppCompatActivity implements Winner
                 prompted = false;
                 gameInProgress = false;
                 //Test fragment
-                openWinnerFragment(true);
+                openWinnerFragment(getOtherTurn() + "Won By Resignation");
                 dialogInterface.dismiss();
             }
         });
@@ -1481,9 +1481,9 @@ public class UntimedPvpChessActivity extends AppCompatActivity implements Winner
     }
 
     //Method to open the winner fragment (true if white wins, false if black wins)
-    private void openWinnerFragment(boolean isWhiteWin) {
+    private void openWinnerFragment(String winner) {
         winnerBundle = new Bundle();
-        winnerBundle.putBoolean("WINNER", isWhiteWin);
+        winnerBundle.putString("WINNER", winner);
         winnerFragment.getData(winnerBundle);
         transaction = getSupportFragmentManager().beginTransaction();
         transaction.setCustomAnimations(R.anim.scale_in, R.anim.scale_out);

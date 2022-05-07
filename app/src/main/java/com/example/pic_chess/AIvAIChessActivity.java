@@ -1520,9 +1520,9 @@ public class AIvAIChessActivity extends AppCompatActivity {
                 break;
         }
     }
-    private void openWinnerFragment(boolean isWhiteWin) {
+    private void openWinnerFragment(String winner) {
         winnerBundle = new Bundle();
-        winnerBundle.putBoolean("WINNER", isWhiteWin);
+        winnerBundle.putString("WINNER", winner);
         winnerFragment.getData(winnerBundle);
         transaction = getSupportFragmentManager().beginTransaction();
         transaction.setCustomAnimations(R.anim.scale_in, R.anim.scale_out);
