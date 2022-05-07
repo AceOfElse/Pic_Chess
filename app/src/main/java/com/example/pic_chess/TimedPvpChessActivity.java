@@ -647,7 +647,7 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
         ImageView v;
         for (Piece p: pieces){
             v = p.getPic();
-            if (getTurn() == "black")
+            if (getTurn().equals("black"))
                 v.setRotation(180);
             else
                 v.setRotation(0);
@@ -661,7 +661,7 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
             Piece p = getPiecebyView(v);
             ImageView view = p.getPic();
             if (getTurn().equals(p.getPieceColor()) && !captured.contains(view)) {
-                selectedMoves = getLegalMoves(p, false);
+                selectedMoves = getLegalMoves(p);
                 if (selectedPiece != p && selectedPiece != null) {
                     resetBoardSquares();
                 }
@@ -712,14 +712,14 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
         p.setMoved(true);
         p.setRank(69);
         p.setFile(69);
-        if (enPassant && getTurn() == "white") {
+        if (enPassant && getTurn().equals("white")) {
             Objects.requireNonNull(getSquarebyView(getSquarebyInt(m.getTargetSquare() - 8))).getLayout().removeView(v);
         } else if (enPassant){
             Objects.requireNonNull(getSquarebyView(getSquarebyInt(m.getTargetSquare()+8))).getLayout().removeView(v);
         } else {
             Objects.requireNonNull(getSquarebyView(getSquarebyInt(m.getTargetSquare()))).getLayout().removeView(v);
         }
-        if (p.getPieceColor() == "white") {
+        if (p.getPieceColor().equals("white")) {
             deadWhite.addView(v, layoutParams);
         } else {
             deadBlack.addView(v, layoutParams);
@@ -733,7 +733,7 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
         ArrayList<ArrayList<Move>> allLegalMoves = new ArrayList<>();
         for (Piece p:pieces){
             if (getTurn().equals(p.getPieceColor()))
-                allLegalMoves.add(getLegalMoves(p,false));
+                allLegalMoves.add(getLegalMoves(p));
         }
         if (getTurn().equals("white")) {
             if (allLegalMoves.get(0) == null && !notAttacked(getSquare(pieces.get(4)))) {
@@ -836,10 +836,10 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
                         Piece p = getPiecebySquare(getSquare(s)+8);
                         capture(p,m,true);
                     }
-                    if (selectedPiece.getPieceType().equals("white pawn") && !selectedPiece.getMoved() && getPiecebySquare(getSquare(selectedPiece)-16) == null && getPiecebySquare(getSquare(selectedPiece)-8) == null){
+                    if (selectedPiece.getPieceType().equals("white pawn") && selectedPiece.getMoved() && getPiecebySquare(getSquare(selectedPiece)-16) == null && getPiecebySquare(getSquare(selectedPiece)-8) == null){
                         selectedPiece.setMovedTwo(true);
                     }
-                    if (selectedPiece.getPieceType().equals("black pawn") && !selectedPiece.getMoved() && getPiecebySquare(getSquare(selectedPiece)+16) == null && getPiecebySquare(getSquare(selectedPiece)+8) == null){
+                    if (selectedPiece.getPieceType().equals("black pawn") && selectedPiece.getMoved() && getPiecebySquare(getSquare(selectedPiece)+16) == null && getPiecebySquare(getSquare(selectedPiece)+8) == null){
                         selectedPiece.setMovedTwo(true);
                     }
                     selectedPiece.setMoved(true);
@@ -1212,8 +1212,8 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
         return p.getMovedTwo();
     }
 
-    private ArrayList<Move> getLegalMoves (Piece p, boolean capturesOnly){
-        ArrayList<Move> moves = getMoves(p,capturesOnly,getTurn());
+    private ArrayList<Move> getLegalMoves (Piece p){
+        ArrayList<Move> moves = getMoves(p,false,getTurn());
         int myKingSquare=0;
         String otherTurn = "white";
         if (getTurn().equals(otherTurn))
@@ -1562,7 +1562,7 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
         }
 
         public boolean getMoved() {
-            return moved;
+            return !moved;
         }
 
         public int getMovesSinceMovedTwo() {
