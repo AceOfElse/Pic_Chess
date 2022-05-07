@@ -1284,6 +1284,12 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
         else
             return "black";
     }
+    private String getOtherTurn(){
+        if(numMoves%2==0)
+            return "black";
+        else
+            return "white";
+    }
     private int getMaterialValue(Piece p){
         String piece = p.getPieceType();
         if (piece.equals("bishop") || piece.equals("knight") || piece.equals("king"))
@@ -1296,6 +1302,8 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
             return 1;
     }
     private void calculateMaterial(){
+        whiteMaterial = 0;
+        blackMaterial = 0;
         for(Piece p: pieces){
             if (p.getPieceColor().equals("white")){
                 whiteMaterial += getMaterialValue(p);
@@ -1648,6 +1656,10 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
         switch (mode) {
             //New game
             case 0:
+                Intent loadingIntent = new Intent(TimedPvpChessActivity.this, TimedPvpChessActivity.class);
+                loadingIntent.putExtra("Class Code", 0);
+                startActivity(loadingIntent);
+                finish();
                 break;
             //Return home
             case 1:
@@ -1691,7 +1703,7 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
                 gameInProgress = false;
                 checkEnd();
                 //Test fragment
-                openWinnerFragment(true);
+                openWinnerFragment(getOtherTurn() + "Won By Resignation");
                 dialogInterface.dismiss();
             }
         });
@@ -1707,9 +1719,9 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
     }
 
     //Method to open the winner fragment (true if white wins, false if black wins)
-    private void openWinnerFragment(boolean isWhiteWin) {
+    private void openWinnerFragment(String winner) {
         winnerBundle = new Bundle();
-        winnerBundle.putBoolean("WINNER", isWhiteWin);
+        winnerBundle.putString("WINNER", winner);
         winnerFragment.getData(winnerBundle);
         transaction = getSupportFragmentManager().beginTransaction();
         transaction.setCustomAnimations(R.anim.scale_in, R.anim.scale_out);

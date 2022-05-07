@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
+import androidx.fragment.app.FragmentTransaction;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -37,6 +38,9 @@ public class AIvAIChessActivity extends AppCompatActivity {
     private int numMoves = 0;
     private boolean gameInProgress = false;
     private MediaPlayer mediaPlayer;
+    private FragmentTransaction transaction;
+    private WinnerFragment winnerFragment;
+    public Bundle winnerBundle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -198,6 +202,11 @@ public class AIvAIChessActivity extends AppCompatActivity {
             boardSquares.add(new Square(f,r, v,boardLayout.get(index)));
             index++;
         }
+        winnerFragment = WinnerFragment.newInstance();
+        transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(id.winnerFragmentContainer, winnerFragment);
+        transaction.commit();
+        transaction.hide(winnerFragment);
         //Set button listeners
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -651,6 +660,12 @@ public class AIvAIChessActivity extends AppCompatActivity {
         else
             return "black";
     }
+    private String getOtherTurn(){
+        if(numMoves%2==0)
+            return "black";
+        else
+            return "white";
+    }
     private int getMaterialValue(Piece p){
         String piece = p.getPieceType();
         if (piece.equals("bishop") || piece.equals("knight") || piece.equals("king"))
@@ -663,6 +678,8 @@ public class AIvAIChessActivity extends AppCompatActivity {
             return 1;
     }
     private void calculateMaterial(){
+        whiteMaterial = 0;
+        blackMaterial = 0;
         for(Piece p: pieces){
             if (p.getPieceColor().equals("white")){
                 whiteMaterial += getMaterialValue(p);
@@ -1487,6 +1504,30 @@ public class AIvAIChessActivity extends AppCompatActivity {
         loadingIntent.putExtra("Class Code", 0);
         startActivity(loadingIntent);
         finish();
+    }
+    public void sendModeFromWinnerFragment(int mode) {
+        switch (mode) {
+            //New game
+            case 0:
+                Intent loadingIntent = new Intent(AIvAIChessActivity.this, AIvAIChessActivity.class);
+                loadingIntent.putExtra("Class Code", 0);
+                startActivity(loadingIntent);
+                finish();
+                break;
+            //Return home
+            case 1:
+                goBackViaLoadingActivity();
+                break;
+        }
+    }
+    private void openWinnerFragment(boolean isWhiteWin) {
+        winnerBundle = new Bundle();
+        winnerBundle.putBoolean("WINNER", isWhiteWin);
+        winnerFragment.getData(winnerBundle);
+        transaction = getSupportFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(R.anim.scale_in, R.anim.scale_out);
+        transaction.commit();
+        transaction.show(winnerFragment);
     }
 //////End Handling Button\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 }

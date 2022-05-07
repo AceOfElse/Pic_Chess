@@ -1119,6 +1119,12 @@ public class UntimedPvpChessActivity extends AppCompatActivity implements Winner
         else
             return "black";
     }
+    private String getOtherTurn(){
+        if(numMoves%2==0)
+            return "black";
+        else
+            return "white";
+    }
     private int getMaterialValue(Piece p){
         String piece = p.getPieceType();
         if (piece.equals("bishop") || piece.equals("knight") || piece.equals("king"))
@@ -1131,6 +1137,8 @@ public class UntimedPvpChessActivity extends AppCompatActivity implements Winner
             return 1;
     }
     private void calculateMaterial(){
+        whiteMaterial = 0;
+        blackMaterial = 0;
         for(Piece p: pieces){
             if (p.getPieceColor().equals("white")){
                 whiteMaterial += getMaterialValue(p);
@@ -1420,6 +1428,10 @@ public class UntimedPvpChessActivity extends AppCompatActivity implements Winner
         switch (mode) {
             //New game
             case 0:
+                Intent loadingIntent = new Intent(UntimedPvpChessActivity.this, UntimedPvpChessActivity.class);
+                loadingIntent.putExtra("Class Code", 0);
+                startActivity(loadingIntent);
+                finish();
                 break;
             //Return home
             case 1:
