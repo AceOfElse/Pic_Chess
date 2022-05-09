@@ -369,7 +369,7 @@ public class AIvAIChessActivity extends AppCompatActivity {
         ArrayList<Move> moves = new ArrayList<Move>();
         for (Piece p: pieces){
             if (p.getPieceColor().equals(turn)){
-                movesSquared.add(getLegalMoves(p,false));
+                movesSquared.add(getLegalMoves(p,false,false));
             }
         }
         for (ArrayList<Move> move:movesSquared){
@@ -403,7 +403,7 @@ public class AIvAIChessActivity extends AppCompatActivity {
             }
         }
         if (moves.size() == 0) {
-            if (playerInCheck(getTurn(),myKing))
+            if (!notAttacked(myKing))
                 return Integer.MIN_VALUE;
             return 0;
         }
@@ -427,7 +427,7 @@ public class AIvAIChessActivity extends AppCompatActivity {
             return beta;
         alpha = Math.max(alpha,eval);
         for(Piece p: pieces) {
-            moves = orderMoves(getLegalMoves(p,true),p);
+            moves = orderMoves(getLegalMoves(p,true,false),p);
             for(Move m: moves){
                 makeMove(m,p);
                 numMoves++;
@@ -600,7 +600,7 @@ public class AIvAIChessActivity extends AppCompatActivity {
         return p.getMovedTwo();
     }
 
-    private ArrayList<Move> getLegalMoves (Piece p, boolean capturesOnly){
+    private ArrayList<Move> getLegalMoves (Piece p, boolean capturesOnly, boolean calledByMethod){
         ArrayList<Move> moves = getMoves(p,capturesOnly,getTurn());
         int myKingSquare=0;
         String otherTurn = getOtherTurn();
@@ -613,8 +613,10 @@ public class AIvAIChessActivity extends AppCompatActivity {
         for (Move moveToVerify:moves){
             makeMove(moveToVerify,p);
             Log.d("chess6","move made " + moveToVerify.getCurrentSquare() + " to " + moveToVerify.getTargetSquare());
-            if (playerInCheck(otherTurn, myKingSquare)){
-                movesToDelete.add(moves.indexOf(moveToVerify));
+            if (!calledByMethod){
+                if (!notAttacked(myKingSquare)) {
+                    movesToDelete.add(moves.indexOf(moveToVerify));
+                }
             }
             unmakeMove(moveToVerify,p);
             Log.d("chess6","move unmade " + moveToVerify.getTargetSquare() + " to " + moveToVerify.getCurrentSquare());
@@ -634,36 +636,20 @@ public class AIvAIChessActivity extends AppCompatActivity {
         return true;
     }
     private boolean notAttacked(int square) {
-        ArrayList <Move> pieceMoves;
+        ArrayList<Move> moves;
         for (Piece p: pieces){
-            if (!p.getPieceColor().equals(getTurn()) && !p.getPieceType().equals("king")) {
-                pieceMoves = getMoves(p,true, p.getPieceColor());
-                for (Move m : pieceMoves) {
-                    if (m.getTargetSquare() == square)
+            if (p.getPieceColor().equals(getOtherTurn())) {
+                moves = getLegalMoves(p, true,true);
+                for (Move m: moves){
+                    if (m.getTargetSquare() == square) {
                         return false;
+                    }
                 }
             }
         }
-        Log.d("notattacked",square + " is not attacked");
         return true;
     }
-    private boolean notAttacked(int square, String otherTurn) {
-        ArrayList <Move> pieceMoves;
-        for (Piece p: pieces){
-            if (!p.getPieceColor().equals(otherTurn) && !p.getPieceType().equals("king")) {
-                pieceMoves = getMoves(p,true, p.getPieceColor());
-                for (Move m : pieceMoves) {
-                    if (m.getTargetSquare() == square)
-                        return false;
-                }
-            }
-        }
-        Log.d("notattacked",square + " is not attacked");
-        return true;
-    }
-    private boolean playerInCheck(String otherTurn, int myKing){
-        return !notAttacked(myKing,otherTurn);
-    }
+
     private String getTurn(){
         if(numMoves%2==0)
             return "white";
