@@ -6,7 +6,6 @@ import static com.example.pic_chess.R.layout;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -34,7 +33,7 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
     private TextView timerText1;
     private TextView timerText2;
     private LinearLayout.LayoutParams layoutParams;
-    private LinearLayout deadWhite, deadBlack;
+    //private LinearLayout deadWhite, deadBlack;
     private final ArrayList<ConstraintLayout> boardLayout = new ArrayList<>();
     private final ArrayList<ImageView> boardImages = new ArrayList<>();
     private final ArrayList<Square> boardSquares = new ArrayList<>();
@@ -71,16 +70,16 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
         super.onCreate(savedInstanceState);
         setContentView(layout.activity_timed_pvp_chess);
         mediaPlayer = MediaPlayer.create(this,R.raw.chess_slam_sfx);
-        deadWhite = findViewById(id.deadWhiteLayout);
-        deadBlack = findViewById(id.deadBlackLayout);
-        deadBlack.setBackgroundColor(Color.DKGRAY);
-        deadWhite.setBackgroundColor(Color.DKGRAY);
-        deadBlack.setPadding(5,0,0,0);
-        deadWhite.setPadding(5,0,0,0);
+        //deadWhite = findViewById(id.deadWhiteLayout);
+        //deadBlack = findViewById(id.deadBlackLayout);
+        //deadBlack.setBackgroundColor(Color.DKGRAY);
+        //deadWhite.setBackgroundColor(Color.DKGRAY);
+        //deadBlack.setPadding(5,0,0,0);
+        //deadWhite.setPadding(5,0,0,0);
         layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT);
-        deadBlack.setOrientation(LinearLayout.HORIZONTAL);
-        deadWhite.setOrientation(LinearLayout.HORIZONTAL);
+        //deadBlack.setOrientation(LinearLayout.HORIZONTAL);
+        //deadWhite.setOrientation(LinearLayout.HORIZONTAL);
         ImageButton backButton = findViewById(id.backButton);
         ImageButton newGameButton = findViewById(id.newGameButton);
         ImageButton resignButton = findViewById(id.resignButton);
@@ -726,9 +725,9 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
             Objects.requireNonNull(getSquarebyView(getSquarebyInt(m.getTargetSquare()))).getLayout().removeView(v);
         }
         if (p.getPieceColor().equals("white")) {
-            deadWhite.addView(v, layoutParams);
+            //deadWhite.addView(v, layoutParams);
         } else {
-            deadBlack.addView(v, layoutParams);
+            //deadBlack.addView(v, layoutParams);
         }
         v.setScaleX((float) 0.70 * v.getScaleX());
         v.setScaleY((float) 0.70 * v.getScaleY());

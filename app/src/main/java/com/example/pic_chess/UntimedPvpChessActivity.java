@@ -6,7 +6,6 @@ import static com.example.pic_chess.R.layout;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -29,8 +27,8 @@ import java.util.Locale;
 import java.util.Objects;
 
 public class UntimedPvpChessActivity extends AppCompatActivity implements WinnerFragment.OnClickSelected{
-    private LinearLayout.LayoutParams layoutParams;
-    private LinearLayout deadWhite, deadBlack;
+    //private LinearLayout.LayoutParams layoutParams;
+    //private LinearLayout deadWhite, deadBlack;
     private final ArrayList<ConstraintLayout> boardLayout = new ArrayList<>();
     private final ArrayList<ImageView> boardImages = new ArrayList<>();
     private final ArrayList<Square> boardSquares = new ArrayList<>();
@@ -60,16 +58,16 @@ public class UntimedPvpChessActivity extends AppCompatActivity implements Winner
         super.onCreate(savedInstanceState);
         setContentView(layout.activity_untimed_pvp_chess);
         mediaPlayer = MediaPlayer.create(this,R.raw.chess_slam_sfx);
-        deadWhite = findViewById(id.deadWhiteLayout);
-        deadBlack = findViewById(id.deadBlackLayout);
-        deadBlack.setBackgroundColor(Color.DKGRAY);
-        deadWhite.setBackgroundColor(Color.DKGRAY);
-        deadBlack.setPadding(5,0,0,0);
-        deadWhite.setPadding(5,0,0,0);
-        layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT);
-        deadBlack.setOrientation(LinearLayout.HORIZONTAL);
-        deadWhite.setOrientation(LinearLayout.HORIZONTAL);
+        //deadWhite = findViewById(id.deadWhiteLayout);
+        //deadBlack = findViewById(id.deadBlackLayout);
+        //deadBlack.setBackgroundColor(Color.DKGRAY);
+        //deadWhite.setBackgroundColor(Color.DKGRAY);
+        //deadBlack.setPadding(5,0,0,0);
+        //deadWhite.setPadding(5,0,0,0);
+        //layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
+                //LinearLayout.LayoutParams.WRAP_CONTENT);
+        //deadBlack.setOrientation(LinearLayout.HORIZONTAL);
+        //deadWhite.setOrientation(LinearLayout.HORIZONTAL);
         ImageButton backButton = findViewById(id.backButton);
         ImageButton newGameButton = findViewById(id.newGameButton);
         ImageButton resignButton = findViewById(id.resignButton);
@@ -588,10 +586,10 @@ public class UntimedPvpChessActivity extends AppCompatActivity implements Winner
             Objects.requireNonNull(getSquarebyView(getSquarebyInt(m.getTargetSquare()+8))).getLayout().removeView(v);
         else
             Objects.requireNonNull(getSquarebyView(getSquarebyInt(m.getTargetSquare()))).getLayout().removeView(v);
-        if (p.getPieceColor().equals("white"))
-            deadWhite.addView(v,layoutParams);
-        else
-            deadBlack.addView(v,layoutParams);
+        //if (p.getPieceColor().equals("white"))
+            //deadWhite.addView(v,layoutParams);
+        //else
+            //deadBlack.addView(v,layoutParams);
         v.setScaleX((float) 0.70 * v.getScaleX());
         v.setScaleY((float) 0.70 * v.getScaleY());
         captured.add(v);
