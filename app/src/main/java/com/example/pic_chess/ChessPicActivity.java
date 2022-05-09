@@ -497,6 +497,7 @@ public class ChessPicActivity extends AppCompatActivity implements ToolBarFragme
                 } else {
                     drawingView.resetCanvas();
                     resetPieceCount();
+                    setPrompt();
                     returnState = true;
                     onClickShowAlertOnSave();
                 }
@@ -932,6 +933,8 @@ public class ChessPicActivity extends AppCompatActivity implements ToolBarFragme
         } else {
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outStream);
             Toast.makeText(ChessPicActivity.this, "Image has been saved!", Toast.LENGTH_LONG).show();
+            setPrompt();
+            drawingView.resetCanvas();
         }
         try {
             outStream.flush();
