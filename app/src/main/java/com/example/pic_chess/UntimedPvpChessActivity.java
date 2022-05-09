@@ -1085,7 +1085,7 @@ public class UntimedPvpChessActivity extends AppCompatActivity implements Winner
         }
         Collections.reverse(movesToDelete);
         for (Integer i: movesToDelete){
-            moves.remove(i);
+            moves.remove(moves.get(i));
         }
         return moves;
     }

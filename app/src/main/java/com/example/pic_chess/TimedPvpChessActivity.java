@@ -256,7 +256,7 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
         //Get custom time from setting Activity and convert to seconds
         Intent timeIntent = getIntent();
         customTime = timeIntent.getIntExtra("TIMER", 601000);
-        customTime = (int)((customTime - 1000) / 1000);
+        customTime = (customTime - 1000) / 1000;
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -731,7 +731,7 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
         }
         v.setScaleX((float) 0.70 * v.getScaleX());
         v.setScaleY((float) 0.70 * v.getScaleY());
-        captured.add((ImageView) v);
+        captured.add(v);
     }
     public ArrayList<Move> generateAllMoves(String turn){
         ArrayList<ArrayList<Move>> movesSquared = new ArrayList<ArrayList<Move>>();
@@ -1259,7 +1259,7 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
         }
         Collections.reverse(movesToDelete);
         for (Integer i: movesToDelete){
-            moves.remove(i);
+            moves.remove(moves.get(i));
         }
         return moves;
     }

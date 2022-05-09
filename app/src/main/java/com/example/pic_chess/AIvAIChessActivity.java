@@ -239,10 +239,10 @@ public class AIvAIChessActivity extends AppCompatActivity {
         int blackMove;
         while (gameInProgress){
             if (getTurn().equals("white")){
-                whiteMove = search(5,Integer.MIN_VALUE,Integer.MAX_VALUE);
+                whiteMove = search(4,Integer.MIN_VALUE,Integer.MAX_VALUE);
                 makeMove(getMovebyEval(whiteMove));
             } else {
-                blackMove = search(5,Integer.MIN_VALUE,Integer.MAX_VALUE);
+                blackMove = search(4,Integer.MIN_VALUE,Integer.MAX_VALUE);
                 makeMove(getMovebyEval(blackMove));
             }
             Log.d("ai","done searching for move");
@@ -616,7 +616,7 @@ public class AIvAIChessActivity extends AppCompatActivity {
         }
         Collections.reverse(movesToDelete);
         for (Integer i: movesToDelete){
-            moves.remove(i);
+            moves.remove(moves.get(i));
         }
         return moves;
     }
