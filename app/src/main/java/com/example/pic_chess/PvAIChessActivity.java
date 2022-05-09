@@ -1,21 +1,16 @@
 package com.example.pic_chess;
 
 import static com.example.pic_chess.R.id;
-import static com.example.pic_chess.R.id.aivaiChessLayout;
 import static com.example.pic_chess.R.layout;
 
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -28,7 +23,7 @@ import java.util.Locale;
 import java.util.Objects;
 
 public class PvAIChessActivity extends AppCompatActivity {
-    private LinearLayout.LayoutParams layoutParams;
+    //private LinearLayout.LayoutParams layoutParams;
     //private LinearLayout deadWhite, deadBlack;
     private final ArrayList<ConstraintLayout> boardLayout = new ArrayList<>();
     private final ArrayList<ImageView> boardImages = new ArrayList<>();
@@ -51,13 +46,13 @@ public class PvAIChessActivity extends AppCompatActivity {
     public Bundle winnerBundle;
     private Intent bgmIntent;
     private String ai = "black";
-    private Button youBlack, youWhite;
-    private boolean prompted = false;
+    //private Button youBlack, youWhite;
+    //private boolean prompted = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(layout.activity_aivai_chess);
+        setContentView(layout.activity_untimed_pvp_chess);
         mediaPlayer = MediaPlayer.create(this,R.raw.chess_slam_sfx);
         //deadWhite = findViewById(id.deadWhiteLayout);
         //deadBlack = findViewById(id.deadBlackLayout);
@@ -65,21 +60,21 @@ public class PvAIChessActivity extends AppCompatActivity {
         //deadWhite.setBackgroundColor(Color.DKGRAY);
         //deadBlack.setPadding(5,0,0,0);
         //deadWhite.setPadding(5,0,0,0);
-        layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT);
+        //layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
+                //LinearLayout.LayoutParams.WRAP_CONTENT);
         //deadBlack.setOrientation(LinearLayout.HORIZONTAL);
         //deadWhite.setOrientation(LinearLayout.HORIZONTAL);
         ImageButton backButton = findViewById(id.backButton);
         ImageButton newGameButton = findViewById(id.newGameButton);
-        PopupWindow gameMenu = new PopupWindow(this);
-        LinearLayout gameLayout = new LinearLayout(this);
-        gameLayout.setOrientation(LinearLayout.HORIZONTAL);
-        youBlack = new Button(this);
-        youWhite = new Button(this);
-        youBlack.setText("Play as Black");
-        youWhite.setText("Play as White");
-        gameLayout.addView(youBlack,layoutParams);
-        gameLayout.addView(youWhite,layoutParams);
+        //PopupWindow gameMenu = new PopupWindow(this);
+        //LinearLayout gameLayout = new LinearLayout(this);
+        //gameLayout.setOrientation(LinearLayout.HORIZONTAL);
+        //youBlack = new Button(this);
+        //youWhite = new Button(this);
+        //youBlack.setText("Play as Black");
+        //youWhite.setText("Play as White");
+        //gameLayout.addView(youBlack,layoutParams);
+        //gameLayout.addView(youWhite,layoutParams);
         boardLayout.add(findViewById(id.layoutA1));
         boardLayout.add(findViewById(id.layoutB1));
         boardLayout.add(findViewById(id.layoutC1));
@@ -245,28 +240,8 @@ public class PvAIChessActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (!gameInProgress){
-                    gameMenu.showAtLocation(findViewById(aivaiChessLayout), Gravity.CENTER, 400, 80);
-                    prompted = !prompted;
-                    gameMenu.update(50,50,300,80);
+                    startNewGame();
                 }
-            }
-        });
-        youBlack.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
-                ai = getTurn();
-                prompted = false;
-                gameMenu.dismiss();
-                startNewGame();
-            }
-        });
-        youWhite.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
-                ai = getOtherTurn();
-                prompted = false;
-                gameMenu.dismiss();
-                startNewGame();
             }
         });
         generatePositionfromFEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
@@ -301,6 +276,11 @@ public class PvAIChessActivity extends AppCompatActivity {
                         numMoves++;
                         positions.add(getFENfromPosition());
                         checkEnd();
+                        int aiMove;
+                        aiMove = search(5,Integer.MIN_VALUE,Integer.MAX_VALUE);
+                        makeMove(getMovebyEval(aiMove));
+                        Log.d("ai","done searching for move");
+                        numMoves++;
                         break;
                     }
                 }
@@ -372,6 +352,12 @@ public class PvAIChessActivity extends AppCompatActivity {
                     selectedPiece = null;
                     selectedView = null;
                     checkEnd();
+                    int aiMove;
+                    aiMove = search(5,Integer.MIN_VALUE,Integer.MAX_VALUE);
+                    makeMove(getMovebyEval(aiMove));
+                    Log.d("ai","done searching for move");
+                    numMoves++;
+                    checkEnd();
                     break;
                 }
             }
@@ -404,14 +390,12 @@ public class PvAIChessActivity extends AppCompatActivity {
         gameInProgress = true;
         startService(bgmIntent);
         int aiMove;
-        while (gameInProgress){
-            if (getTurn().equals(ai)){
-                aiMove = search(5,Integer.MIN_VALUE,Integer.MAX_VALUE);
-                makeMove(getMovebyEval(aiMove));
-                Log.d("ai","done searching for move");
-                numMoves++;
-                checkEnd();
-            }
+        if (getTurn().equals(ai)){
+            aiMove = search(5,Integer.MIN_VALUE,Integer.MAX_VALUE);
+            makeMove(getMovebyEval(aiMove));
+            Log.d("ai","done searching for move");
+            numMoves++;
+            checkEnd();
         }
     }
     private void makeMove(Move m){
