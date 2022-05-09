@@ -32,6 +32,7 @@ public class AIvAIChessActivity extends AppCompatActivity {
     private final ArrayList<Piece> pieces = new ArrayList<>();
     private final ArrayList<ImageView> captured = new ArrayList<>();
     private final ArrayList<String> positions = new ArrayList<>();
+    private ArrayList<Move> allMoves = new ArrayList<Move>();
     private int whiteMaterial = 0;
     private int blackMaterial = 0;
     private int movesSinceLastPawnMove = 0;
@@ -338,23 +339,25 @@ public class AIvAIChessActivity extends AppCompatActivity {
             deadBlack.addView(v,layoutParams);
         v.setScaleX((float) 0.70 * v.getScaleX());
         v.setScaleY((float) 0.70 * v.getScaleY());
-        captured.add((ImageView) v);
+        captured.add(v);
     }
 
     public Move getMovebyEval(int eval){
-        ArrayList<Move> moves;
-        for (Piece p: pieces) {
-            if (getTurn().equals(p.getPieceColor())) {
-                moves = getLegalMoves(p, false);
-                for (Move m : moves) {
-                    if (m.getEvaluation() == eval){
-                        Log.d("moveFound", "Move found");
-                        return m;
-                    }
-                }
+        ArrayList<Integer> indexes = new ArrayList<Integer>();
+        ArrayList<Move> moves = allMoves;
+        for (Move m: moves){
+            if (m.getEvaluation() == eval){
+                indexes.add(moves.indexOf(m));
             }
         }
-        return null;
+        Log.d("moveFound","Found " + indexes.size() + " moves.");
+        if (indexes.size() > 1){
+            return moves.get(indexes.get((int) (Math.random() * indexes.size())));
+        } else if (indexes.size() == 1){
+            return moves.get(indexes.get(0));
+        } else {
+            return null;
+        }
     }
     public ArrayList<Move> generateAllMoves(String turn){
         ArrayList<ArrayList<Move>> movesSquared = new ArrayList<ArrayList<Move>>();
@@ -412,6 +415,7 @@ public class AIvAIChessActivity extends AppCompatActivity {
             }
             alpha = Math.max(alpha, eval);
         }
+        allMoves = (ArrayList<Move>) moves.clone();
         return alpha;
     }
     public int searchAllCaptures(int alpha, int beta){
@@ -539,7 +543,7 @@ public class AIvAIChessActivity extends AppCompatActivity {
 
     private Square getSquarebyView(View v) {
         for (Square square:boardSquares){
-            if (square.getView() == (ImageView) v){
+            if (square.getView() == v){
                 return square;
             }
         }
@@ -550,7 +554,7 @@ public class AIvAIChessActivity extends AppCompatActivity {
         ImageView v = p.getPic();
         ImageView square = getSquarebyInt(i);
         Square s = getSquarebyView(square);
-        if ((ViewGroup)v.getParent() != null)
+        if (v.getParent() != null)
             ((ViewGroup)v.getParent()).removeView(v);
         if (s != null) {
             s.getLayout().addView(v);
@@ -594,9 +598,7 @@ public class AIvAIChessActivity extends AppCompatActivity {
     private ArrayList<Move> getLegalMoves (Piece p, boolean capturesOnly){
         ArrayList<Move> moves = getMoves(p,capturesOnly,getTurn());
         int myKingSquare=0;
-        String otherTurn = "white";
-        if (getTurn().equals(otherTurn))
-            otherTurn = "black";
+        String otherTurn = getOtherTurn();
         for (Piece piece:pieces){
             if (getTurn().equals(piece.getPieceColor()) && piece.getPieceType().equals("king")){
                 myKingSquare = getSquare(piece);
