@@ -1257,7 +1257,7 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
             makeMove(moveToVerify,p);
             Log.d("chess6","move made " + moveToVerify.getCurrentSquare() + " to " + moveToVerify.getTargetSquare());
             if (!calledByMethod) {
-                if (!notAttacked(myKingSquare)) {
+                if (!notAttacked(myKingSquare) && !p.getPieceType().equals("king")) {
                     movesToDelete.add(moves.indexOf(moveToVerify));
                 }
             }

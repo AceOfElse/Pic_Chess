@@ -21,6 +21,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Locale;
 import java.util.Objects;
 
 public class AIvAIChessActivity extends AppCompatActivity {
@@ -504,6 +505,12 @@ public class AIvAIChessActivity extends AppCompatActivity {
     }
 
     private void checkEnd() {
+        for (Piece p:pieces){
+            if (getSquare(p) == 613 && p.getPieceType() == "king"){
+                gameInProgress = false; //This should in theory never happen
+                openWinnerFragment(getOtherTurn().substring(0,1).toUpperCase(Locale.ROOT).charAt(0) + getOtherTurn().substring(1) + " Won By Taking King");
+            }
+        }
         ArrayList<Move> allLegalMoves = generateAllMoves(getTurn());
         if (getTurn().equals("white")) {
             if (allLegalMoves.get(0) == null && !notAttacked(getSquare(pieces.get(4)))) {

@@ -25,6 +25,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Locale;
 import java.util.Objects;
 
 public class UntimedPvpChessActivity extends AppCompatActivity implements WinnerFragment.OnClickSelected{
@@ -542,7 +543,7 @@ public class UntimedPvpChessActivity extends AppCompatActivity implements Winner
         if (gameInProgress && !captured.contains(view)) {
             Piece p = getPiecebyView(v);
             if (getTurn().equals(p.getPieceColor())) {
-                selectedMoves = getLegalMoves(p);
+                selectedMoves = getLegalMoves(p,false);
                 if (selectedPiece != p && selectedPiece != null) {
                     resetBoardSquares();
                 }
@@ -593,10 +594,16 @@ public class UntimedPvpChessActivity extends AppCompatActivity implements Winner
             deadBlack.addView(v,layoutParams);
         v.setScaleX((float) 0.70 * v.getScaleX());
         v.setScaleY((float) 0.70 * v.getScaleY());
-        captured.add((ImageView) v);
+        captured.add(v);
     }
 
     private void checkEnd() {
+        for (Piece p:pieces){
+            if (getSquare(p) == 613 && p.getPieceType().equals("king")){
+                gameInProgress = false; //This should in theory never happen
+                openWinnerFragment(getOtherTurn().substring(0,1).toUpperCase(Locale.ROOT).charAt(0) + getOtherTurn().substring(1) + " Won By Taking King");
+            }
+        }
         ArrayList<Move> allLegalMoves = generateAllMoves(getTurn());
         if (getTurn().equals("white")) {
             if (allLegalMoves.get(0) == null && !notAttacked(getSquare(pieces.get(29)))) {
@@ -733,7 +740,7 @@ public class UntimedPvpChessActivity extends AppCompatActivity implements Winner
         ImageView square = getSquarebyInt(i);
         Square s = getSquarebyView(square);
         assert s != null;
-        if ((ViewGroup)v.getParent() != null)
+        if (v.getParent() != null)
             ((ViewGroup)v.getParent()).removeView(v);
         s.getLayout().addView(v);
         ConstraintSet constraintSet = new ConstraintSet();
@@ -1054,7 +1061,7 @@ public class UntimedPvpChessActivity extends AppCompatActivity implements Winner
         ArrayList<Move> moves = new ArrayList<Move>();
         for (Piece p: pieces){
             if (p.getPieceColor().equals(turn)){
-                movesSquared.add(getLegalMoves(p));
+                movesSquared.add(getLegalMoves(p,false));
             }
         }
         for (ArrayList<Move> move:movesSquared){
@@ -1062,12 +1069,9 @@ public class UntimedPvpChessActivity extends AppCompatActivity implements Winner
         }
         return moves;
     }
-    private ArrayList<Move> getLegalMoves (Piece p){
+    private ArrayList<Move> getLegalMoves (Piece p, boolean calledByMethod){
         ArrayList<Move> moves = getMoves(p,false,getTurn());
         int myKingSquare=0;
-        String otherTurn = "white";
-        if (getTurn().equals(otherTurn))
-            otherTurn = "black";
         for (Piece piece:pieces){
             if (getTurn().equals(piece.getPieceColor()) && piece.getPieceType().equals("king")){
                 myKingSquare = getSquare(piece);
@@ -1077,8 +1081,10 @@ public class UntimedPvpChessActivity extends AppCompatActivity implements Winner
         for (Move moveToVerify:moves){
             makeMove(moveToVerify,p);
             Log.d("chess6","move made " + moveToVerify.getCurrentSquare() + " to " + moveToVerify.getTargetSquare());
-            if (playerInCheck(otherTurn, myKingSquare)){
-                movesToDelete.add(moves.indexOf(moveToVerify));
+            if (!calledByMethod){
+                if (!notAttacked(myKingSquare) && !p.getPieceType().equals("king")){
+                    movesToDelete.add(moves.indexOf(moveToVerify));
+                }
             }
             unmakeMove(moveToVerify,p);
             Log.d("chess6","move unmade " + moveToVerify.getTargetSquare() + " to " + moveToVerify.getCurrentSquare());
@@ -1098,36 +1104,28 @@ public class UntimedPvpChessActivity extends AppCompatActivity implements Winner
         return true;
     }
     private boolean notAttacked(int square) {
-        ArrayList <Move> pieceMoves;
+        ArrayList<Move> moves;
         for (Piece p: pieces){
-            if (!p.getPieceColor().equals(getTurn()) && !p.getPieceType().equals("king")) {
-                pieceMoves = getMoves(p,true, p.getPieceColor());
-                for (Move m : pieceMoves) {
-                    if (m.getTargetSquare() == square)
-                        return false;
+            if (p.getPieceColor().equals(getOtherTurn()) && !p.getPieceType().equals("king")) {
+                moves = getLegalMoves(p,true);
+                for (Move m: moves){
+                    if (m.getTargetSquare() == square) {
+                        if (p.getPieceType().equals("white pawn") && m.getCurrentSquare() + 8 != square){
+                            return false;
+                        } else if (p.getPieceType().equals("black pawn") && m.getCurrentSquare() - 8 != square){
+                            return false;
+                        } else if (p.getPieceType() == "queen" || p.getPieceType() == "rook" || p.getPieceType() == "bishop"){
+                            return false;
+                        } else if (p.getPieceType() == "knight"){
+                            return false;
+                        }
+                    }
                 }
             }
         }
-        Log.d("notattacked",square + " is not attacked");
         return true;
     }
-    private boolean notAttacked(int square, String otherTurn) {
-        ArrayList <Move> pieceMoves;
-        for (Piece p: pieces){
-            if (!p.getPieceColor().equals(otherTurn) && !p.getPieceType().equals("king")) {
-                pieceMoves = getMoves(p,true, p.getPieceColor());
-                for (Move m : pieceMoves) {
-                    if (m.getTargetSquare() == square)
-                        return false;
-                }
-            }
-        }
-        Log.d("notattacked",square + " is not attacked");
-        return true;
-    }
-    private boolean playerInCheck(String otherTurn, int myKing){
-        return !notAttacked(myKing,otherTurn);
-    }
+
     private String getTurn(){
         if(numMoves%2==0)
             return "white";
@@ -1486,7 +1484,7 @@ public class UntimedPvpChessActivity extends AppCompatActivity implements Winner
                 prompted = false;
                 gameInProgress = false;
                 //Test fragment
-                openWinnerFragment(getOtherTurn() + "Won By Resignation");
+                openWinnerFragment(getOtherTurn() + " Won By Resignation");
                 dialogInterface.dismiss();
             }
         });
