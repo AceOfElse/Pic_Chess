@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -23,7 +24,7 @@ import java.util.Collections;
 import java.util.Locale;
 import java.util.Objects;
 
-public class AIvAIChessActivity extends AppCompatActivity {
+public class AIvAIChessActivity extends AppCompatActivity implements WinnerFragment.OnClickSelected {
     private LinearLayout.LayoutParams layoutParams;
     //private LinearLayout deadWhite, deadBlack;
     private final ArrayList<ConstraintLayout> boardLayout = new ArrayList<>();
@@ -1544,6 +1545,7 @@ public class AIvAIChessActivity extends AppCompatActivity {
     }
     private void openWinnerFragment(String winner) {
         winnerBundle = new Bundle();
+        Toast.makeText(AIvAIChessActivity.this, "Game finished", Toast.LENGTH_LONG).show();
         winnerBundle.putString("WINNER", winner);
         winnerFragment.getData(winnerBundle);
         transaction = getSupportFragmentManager().beginTransaction();

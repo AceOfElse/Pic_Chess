@@ -1450,7 +1450,7 @@ public class UntimedPvpChessActivity extends AppCompatActivity implements Winner
                 break;
             //Return home
             case 1:
-                goBackViaLoadingActivity();
+                returnHome();
                 break;
         }
     }
@@ -1461,8 +1461,11 @@ public class UntimedPvpChessActivity extends AppCompatActivity implements Winner
     }
 
     public void onBackPressed() {
-        stopService(bgmIntent);
-        goBackViaLoadingActivity();
+        if (!gameInProgress)
+            returnHome();
+        else {
+            onClickShowAlertResign();
+        }
     }
 
     //Loading animation goes up when returning back to Home Activity.

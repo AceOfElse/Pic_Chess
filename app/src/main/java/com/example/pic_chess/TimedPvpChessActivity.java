@@ -1688,7 +1688,7 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
                 break;
             //Return home
             case 1:
-                goBackViaLoadingActivity();
+                returnHome();
                 break;
         }
     }
@@ -1701,13 +1701,18 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
     }
 
     public void returnHome() {
+        stopService(bgmIntent);
         goBackViaLoadingActivity();
     }
 
     //Deals with Android's back button
     public void onBackPressed() {
-        onClickShowAlertResign();
-        goBackViaLoadingActivity();
+        if (!gameInProgress)
+            returnHome();
+        else {
+            onClickShowAlertResign();
+            prompted = !prompted;
+        }
     }
 
     //Loading animation goes up when returning back to Home Activity.

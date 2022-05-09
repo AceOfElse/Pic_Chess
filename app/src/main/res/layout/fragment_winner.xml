@@ -5,6 +5,7 @@
     android:id="@+id/winningLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:alpha="0.7"
     android:background="@color/black"
     tools:context=".WinnerFragment">
 
@@ -26,6 +27,7 @@
         android:id="@+id/winnerImage"
         android:layout_width="80dp"
         android:layout_height="80dp"
+        android:alpha="0.5"
         android:background="@color/white"
         app:layout_constraintEnd_toEndOf="@+id/winnerText"
         app:layout_constraintHorizontal_bias="0.488"

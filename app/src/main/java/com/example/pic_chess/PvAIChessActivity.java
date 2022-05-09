@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -22,7 +23,7 @@ import java.util.Collections;
 import java.util.Locale;
 import java.util.Objects;
 
-public class PvAIChessActivity extends AppCompatActivity {
+public class PvAIChessActivity extends AppCompatActivity implements WinnerFragment.OnClickSelected {
     //private LinearLayout.LayoutParams layoutParams;
     //private LinearLayout deadWhite, deadBlack;
     private final ArrayList<ConstraintLayout> boardLayout = new ArrayList<>();
@@ -241,6 +242,7 @@ public class PvAIChessActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (!gameInProgress){
                     startNewGame();
+                    Toast.makeText(PvAIChessActivity.this, "Game started!", Toast.LENGTH_LONG).show();
                 }
             }
         });
