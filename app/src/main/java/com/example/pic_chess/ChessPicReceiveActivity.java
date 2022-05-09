@@ -58,7 +58,7 @@ public class ChessPicReceiveActivity extends AppCompatActivity {
         endAttempt = 100;
 
         //This is the number of guesses the user makes until the hint button appears
-        hintVisible = 5;
+        hintVisible = 4;
 
         //Find views
         backButton = findViewById(R.id.backButtonCR);
@@ -280,7 +280,7 @@ public class ChessPicReceiveActivity extends AppCompatActivity {
     //Checks the users input and sees if it matches the original prompt
     private void checkGuess() {
         int numChanged =0;
-        if(hintVisible == 0){
+        if(hintVisible <= 0){
             hintButton.setVisibility(View.VISIBLE);
             Toast.makeText(ChessPicReceiveActivity.this, "Hint is available", Toast.LENGTH_LONG).show();
         }
@@ -295,7 +295,7 @@ public class ChessPicReceiveActivity extends AppCompatActivity {
                 }
             }
             if(numChanged > 0 ){
-                Toast.makeText(ChessPicReceiveActivity.this, "Your guess was WRONG. Please Guess again.", Toast.LENGTH_LONG).show();
+                Toast.makeText(ChessPicReceiveActivity.this, "Your guess was WRONG. Please Guess again.", Toast.LENGTH_SHORT).show();
                 hintVisible--;
             } else{
                 Toast.makeText(ChessPicReceiveActivity.this, "Your guess was Right!", Toast.LENGTH_LONG).show();
@@ -303,6 +303,7 @@ public class ChessPicReceiveActivity extends AppCompatActivity {
             }
         } else {
             Toast.makeText(ChessPicReceiveActivity.this, "Your guess was WRONG. Please Guess again.", Toast.LENGTH_LONG).show();
+            hintVisible--;
         }
     }//End of method!
 

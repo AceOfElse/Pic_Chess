@@ -139,7 +139,7 @@
         android:id="@+id/hintText"
         android:layout_width="0dp"
         android:layout_height="69dp"
-        android:textAlignment="textStart"
+        android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/canvasReceiverLayout"
