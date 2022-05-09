@@ -673,14 +673,16 @@ public class AIvAIChessActivity extends AppCompatActivity {
     }
     private int getMaterialValue(Piece p){
         String piece = p.getPieceType();
-        if (piece.equals("bishop") || piece.equals("knight") || piece.equals("king"))
+        if (piece.equals("bishop") || piece.equals("knight"))
             return 3;
         else if (piece.equals("rook"))
             return 5;
         else if (piece.equals("queen"))
             return 9;
-        else
+        else if (piece.equals("pawn"))
             return 1;
+        else
+            return 0;
     }
     private void calculateMaterial(){
         whiteMaterial = 0;
