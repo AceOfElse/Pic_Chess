@@ -12,7 +12,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/canvasReceiverLayout"
         android:layout_width="0dp"
-        android:layout_height="650dp"
+        android:layout_height="600dp"
         android:layout_marginTop="160dp"
         android:layout_marginBottom="160dp"
         app:layout_constraintBottom_toBottomOf="parent"
