@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
@@ -14,11 +15,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.FileNotFoundException;
 import java.util.Locale;
 import java.util.Random;
 
@@ -38,6 +37,8 @@ public class ChessPicReceiveActivity extends AppCompatActivity {
     private Random rg;
     private int promptNum,endAttempt,hintVisible;
     private String correctGuess;
+
+    private Intent bgmIntent;
 
 //////Start Creation of Activity and Relevant Connections\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
     @Override
@@ -71,6 +72,10 @@ public class ChessPicReceiveActivity extends AppCompatActivity {
         //Set up alert dialogue
         alertDialogue = new AlertDialog.Builder(ChessPicReceiveActivity.this);
 
+        //Set BGM Intent
+        bgmIntent = new Intent(ChessPicReceiveActivity.this, BGMService.class);
+        bgmIntent.putExtra("SONG", R.raw.classical_bgm);
+
         //Set button listeners
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,6 +107,7 @@ public class ChessPicReceiveActivity extends AppCompatActivity {
         //Others
         updateCountDownText();
         receiveImage();
+        startService(bgmIntent);
     }
 
     //Set activity life cycles
@@ -218,10 +224,6 @@ public class ChessPicReceiveActivity extends AppCompatActivity {
         }
     }
 
-    protected void onStop() {
-        super.onStop();
-    }
-
     //Dealing with app's back button
     private void onClickShowAlert(View view) {
         alertDialogue.setMessage(R.string.prompt_back_text);
@@ -266,6 +268,7 @@ public class ChessPicReceiveActivity extends AppCompatActivity {
 
     //Loading animation goes up when returning back to Home Activity.
     private void goBackViaLoadingActivity() {
+        stopService(bgmIntent);
         Intent loadingIntent = new Intent(ChessPicReceiveActivity.this, LoadingActivity.class);
         loadingIntent.putExtra("Class Code", 0);
         startActivity(loadingIntent);

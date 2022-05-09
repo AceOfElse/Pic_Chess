@@ -17,9 +17,11 @@ import android.widget.LinearLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
+import androidx.fragment.app.FragmentTransaction;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Locale;
 import java.util.Objects;
 
 public class AIvAIChessActivity extends AppCompatActivity {
@@ -31,12 +33,17 @@ public class AIvAIChessActivity extends AppCompatActivity {
     private final ArrayList<Piece> pieces = new ArrayList<>();
     private final ArrayList<ImageView> captured = new ArrayList<>();
     private final ArrayList<String> positions = new ArrayList<>();
+    private ArrayList<Move> allMoves = new ArrayList<Move>();
     private int whiteMaterial = 0;
     private int blackMaterial = 0;
     private int movesSinceLastPawnMove = 0;
     private int numMoves = 0;
     private boolean gameInProgress = false;
     private MediaPlayer mediaPlayer;
+    private FragmentTransaction transaction;
+    private WinnerFragment winnerFragment;
+    public Bundle winnerBundle;
+    private Intent bgmIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -198,6 +205,16 @@ public class AIvAIChessActivity extends AppCompatActivity {
             boardSquares.add(new Square(f,r, v,boardLayout.get(index)));
             index++;
         }
+        winnerFragment = WinnerFragment.newInstance();
+        transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(id.winnerFragmentContainer, winnerFragment);
+        transaction.commit();
+        transaction.hide(winnerFragment);
+
+        //Set BGM Intent
+        bgmIntent = new Intent(AIvAIChessActivity.this, BGMService.class);
+        bgmIntent.putExtra("SONG", R.raw.farm_bgm);
+
         //Set button listeners
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -218,15 +235,21 @@ public class AIvAIChessActivity extends AppCompatActivity {
     }
     private void startNewGame(){
         gameInProgress = true;
+        startService(bgmIntent);
         int whiteMove;
         int blackMove;
         while (gameInProgress){
             if (getTurn().equals("white")){
-                whiteMove = search(5,Integer.MIN_VALUE,Integer.MAX_VALUE);
+                whiteMove = search(3,Integer.MIN_VALUE,Integer.MAX_VALUE);
                 makeMove(getMovebyEval(whiteMove));
             } else {
-                blackMove = search(5,Integer.MIN_VALUE,Integer.MAX_VALUE);
+                blackMove = search(3,Integer.MIN_VALUE,Integer.MAX_VALUE);
                 makeMove(getMovebyEval(blackMove));
+            }
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
             Log.d("ai","done searching for move");
             numMoves++;
@@ -240,6 +263,11 @@ public class AIvAIChessActivity extends AppCompatActivity {
             int targetSquare = m.getTargetSquare();
             if (getPiecebySquare(m.getTargetSquare()) == null && !captured.contains(view)) {
                 Log.d("moveMade","Moved "+ p.getPieceType() + " to " + m.getTargetSquare() + " and did not capture (except en passant)");
+                for (Piece piece: pieces){
+                    if (piece.getMovedTwo()){
+                        piece.setMovesSinceMovedTwo(piece.getMovesSinceMovedTwo()+1);
+                    }
+                }
                 setSquare(p, targetSquare);
                 Square s = getSquarebyView(p.getPic());
                 if (getSquare(p) == 3 && p.checkFirstMove() && p.getPieceType().equals("king")) {
@@ -310,42 +338,44 @@ public class AIvAIChessActivity extends AppCompatActivity {
         p.setMoved(true);
         p.setRank(69);
         p.setFile(69);
-        if (enPassant && getTurn() == "white")
+        if (enPassant && getTurn().equals("white"))
             Objects.requireNonNull(getSquarebyView(getSquarebyInt(m.getTargetSquare()-8))).getLayout().removeView(v);
         else if (enPassant)
             Objects.requireNonNull(getSquarebyView(getSquarebyInt(m.getTargetSquare()+8))).getLayout().removeView(v);
         else
             Objects.requireNonNull(getSquarebyView(getSquarebyInt(m.getTargetSquare()))).getLayout().removeView(v);
-        if (p.getPieceColor() == "white")
+        if (p.getPieceColor().equals("white"))
             deadWhite.addView(v,layoutParams);
         else
             deadBlack.addView(v,layoutParams);
         v.setScaleX((float) 0.70 * v.getScaleX());
         v.setScaleY((float) 0.70 * v.getScaleY());
-        captured.add((ImageView) v);
+        captured.add(v);
     }
 
     public Move getMovebyEval(int eval){
-        ArrayList<Move> moves;
-        for (Piece p: pieces) {
-            if (getTurn().equals(p.getPieceColor())) {
-                moves = getLegalMoves(p, false);
-                for (Move m : moves) {
-                    if (m.getEvaluation() == eval){
-                        Log.d("moveFound", "Move found");
-                        return m;
-                    }
-                }
+        ArrayList<Integer> indexes = new ArrayList<Integer>();
+        ArrayList<Move> moves = allMoves;
+        for (Move m: moves){
+            if (m.getEvaluation() == eval){
+                indexes.add(moves.indexOf(m));
             }
         }
-        return null;
+        Log.d("moveFound","Found " + indexes.size() + " moves.");
+        if (indexes.size() > 1){
+            return moves.get(indexes.get((int) (Math.random() * indexes.size())));
+        } else if (indexes.size() == 1){
+            return moves.get(indexes.get(0));
+        } else {
+            return null;
+        }
     }
     public ArrayList<Move> generateAllMoves(String turn){
         ArrayList<ArrayList<Move>> movesSquared = new ArrayList<ArrayList<Move>>();
         ArrayList<Move> moves = new ArrayList<Move>();
         for (Piece p: pieces){
             if (p.getPieceColor().equals(turn)){
-                movesSquared.add(getLegalMoves(p,false));
+                movesSquared.add(getLegalMoves(p,false,false));
             }
         }
         for (ArrayList<Move> move:movesSquared){
@@ -369,9 +399,9 @@ public class AIvAIChessActivity extends AppCompatActivity {
         return evaluation * perspective;
     }
     public int search (int depth, int alpha, int beta){
-        ArrayList<Move> moves = generateAllMoves(getTurn());
         if (depth == 0)
             return searchAllCaptures(alpha,beta);
+        ArrayList<Move> moves = generateAllMoves(getTurn());
         int myKing=-1;
         for (Piece p: pieces){
             if (p.getPieceColor().equals(getTurn()) && p.getPieceType().equals("king")){
@@ -379,34 +409,34 @@ public class AIvAIChessActivity extends AppCompatActivity {
             }
         }
         if (moves.size() == 0) {
-            if (playerInCheck(getTurn(),myKing))
+            if (!notAttacked(myKing))
                 return Integer.MIN_VALUE;
             return 0;
         }
         for (Move m: moves){
             makeMove(m,m.getPiece());
-            numMoves++;
-            int eval = -search(depth-1, -beta, -alpha);
-            m.setEvaluation(eval);
-            numMoves--;
+            m.setEvaluation(-search(depth-1, -beta, -alpha));
+            Log.d("ai","Depth: " + depth);
+            Log.d("ai","Move: " + m.getCurrentSquare());
+            Log.d("ai","Target: " + m.getTargetSquare());
             unmakeMove(m,m.getPiece());
-            if (eval >= beta){
+            if (m.getEvaluation() >= beta){
                 //Move was too good, opponent will avoid this pos
                 return beta;
             }
-            alpha = Math.max(alpha, eval);
+            alpha = Math.max(alpha, m.getEvaluation());
         }
+        allMoves = (ArrayList<Move>) moves.clone();
         return alpha;
     }
     public int searchAllCaptures(int alpha, int beta){
-        ArrayList<Move> moves;
+        ArrayList<Move> moves = new ArrayList<Move>();
         int eval = evaluate();
         if (eval >= beta)
             return beta;
         alpha = Math.max(alpha,eval);
         for(Piece p: pieces) {
-            moves = getLegalMoves(p,true);
-            orderMoves(moves,p);
+            moves = orderMoves(getLegalMoves(p,true,false),p);
             for(Move m: moves){
                 makeMove(m,p);
                 numMoves++;
@@ -418,15 +448,16 @@ public class AIvAIChessActivity extends AppCompatActivity {
                 alpha = Math.max(alpha,eval);
             }
         }
+        allMoves = (ArrayList<Move>) moves.clone();
         return alpha;
     }
-    public void orderMoves (ArrayList<Move> moves,Piece p){
+    public ArrayList<Move> orderMoves (ArrayList<Move> moves,Piece p){
         for (Move m: moves){
             int moveScoreGuess = 0;
             int movePieceType = getMaterialValue(p);
             int capturePieceType = getMaterialValue(p);
             if (capturePieceType != 1) {
-                moveScoreGuess += 10 * capturePieceType - movePieceType;
+                moveScoreGuess += 100 * capturePieceType - movePieceType;
             }
             if (!notAttacked(m.getTargetSquare())){
                 moveScoreGuess -= movePieceType;
@@ -451,6 +482,7 @@ public class AIvAIChessActivity extends AppCompatActivity {
                 }
             }
         }
+        return moves;
     }
     public int forceKingtoCornerEndgameEval (float endgameWeight){
         int opponentKingRank = pieces.get(4).getRank();
@@ -470,33 +502,37 @@ public class AIvAIChessActivity extends AppCompatActivity {
         int i = move.getTargetSquare();
         p.setRank((i-1)/8+1);
         p.setFile((i-1)%8+1);
+        numMoves++;
     }
 
     public void unmakeMove(Move move,Piece p){
         int i = move.getCurrentSquare();
         p.setRank((i-1)/8+1);
         p.setFile((i-1)%8+1);
+        numMoves--;
     }
 
     private void checkEnd() {
-        ArrayList<ArrayList<Move>> allLegalMoves = new ArrayList<>();
         for (Piece p:pieces){
-            if (getTurn().equals(p.getPieceColor()))
-                allLegalMoves.add(getLegalMoves(p,false));
+            if (getSquare(p) == 613 && p.getPieceType().equals("king")){
+                gameInProgress = false; //This should in theory never happen
+                openWinnerFragment(getOtherTurn().substring(0,1).toUpperCase(Locale.ROOT).charAt(0) + getOtherTurn().substring(1) + " Won By Taking King");
+            }
         }
+        ArrayList<Move> allLegalMoves = generateAllMoves(getTurn());
         if (getTurn().equals("white")) {
-            if (allLegalMoves.get(0) == null && !notAttacked(getSquare(pieces.get(4)))) {
+            if (allLegalMoves.size() == 0 && !notAttacked(getSquare(pieces.get(4)))) {
                 gameInProgress = false; //Checkmate
                 Log.d("end", "White checkmated Black");
-            } else if (allLegalMoves.get(0) == null) {
+            } else if (allLegalMoves.size() == 0) {
                 gameInProgress = false; //Stalemate
                 Log.d("end", "Stalemate");
             }
         } else {
-            if (allLegalMoves.get(0) == null && !notAttacked(getSquare(pieces.get(29)))) {
+            if (allLegalMoves.size() == 0 && !notAttacked(getSquare(pieces.get(29)))) {
                 gameInProgress = false; //Checkmate
                 Log.d("end", "Black checkmated White");
-            } else if (allLegalMoves.get(0) == null) {
+            } else if (allLegalMoves.size() == 0) {
                 gameInProgress = false; //Stalemate
                 Log.d("end", "Stalemate");
             }
@@ -527,7 +563,7 @@ public class AIvAIChessActivity extends AppCompatActivity {
 
     private Square getSquarebyView(View v) {
         for (Square square:boardSquares){
-            if (square.getView() == (ImageView) v){
+            if (square.getView() == v){
                 return square;
             }
         }
@@ -538,7 +574,7 @@ public class AIvAIChessActivity extends AppCompatActivity {
         ImageView v = p.getPic();
         ImageView square = getSquarebyInt(i);
         Square s = getSquarebyView(square);
-        if ((ViewGroup)v.getParent() != null)
+        if (v.getParent() != null)
             ((ViewGroup)v.getParent()).removeView(v);
         if (s != null) {
             s.getLayout().addView(v);
@@ -579,12 +615,9 @@ public class AIvAIChessActivity extends AppCompatActivity {
         return p.getMovedTwo();
     }
 
-    private ArrayList<Move> getLegalMoves (Piece p, boolean capturesOnly){
+    private ArrayList<Move> getLegalMoves (Piece p, boolean capturesOnly, boolean calledByMethod){
         ArrayList<Move> moves = getMoves(p,capturesOnly,getTurn());
         int myKingSquare=0;
-        String otherTurn = "white";
-        if (getTurn().equals(otherTurn))
-            otherTurn = "black";
         for (Piece piece:pieces){
             if (getTurn().equals(piece.getPieceColor()) && piece.getPieceType().equals("king")){
                 myKingSquare = getSquare(piece);
@@ -593,16 +626,16 @@ public class AIvAIChessActivity extends AppCompatActivity {
         ArrayList <Integer> movesToDelete = new ArrayList<>();
         for (Move moveToVerify:moves){
             makeMove(moveToVerify,p);
-            Log.d("chess6","move made " + moveToVerify.getCurrentSquare() + " to " + moveToVerify.getTargetSquare());
-            if (playerInCheck(otherTurn, myKingSquare)){
-                movesToDelete.add(moves.indexOf(moveToVerify));
+            if (!calledByMethod){
+                if (!notAttacked(myKingSquare)) {
+                    movesToDelete.add(moves.indexOf(moveToVerify));
+                }
             }
             unmakeMove(moveToVerify,p);
-            Log.d("chess6","move unmade " + moveToVerify.getTargetSquare() + " to " + moveToVerify.getCurrentSquare());
         }
         Collections.reverse(movesToDelete);
         for (Integer i: movesToDelete){
-            moves.remove(i);
+            moves.remove(moves.get(i));
         }
         return moves;
     }
@@ -615,59 +648,63 @@ public class AIvAIChessActivity extends AppCompatActivity {
         return true;
     }
     private boolean notAttacked(int square) {
-        ArrayList <Move> pieceMoves;
+        ArrayList<Move> moves;
         for (Piece p: pieces){
-            if (!p.getPieceColor().equals(getTurn()) && !p.getPieceType().equals("king")) {
-                pieceMoves = getMoves(p,true, p.getPieceColor());
-                for (Move m : pieceMoves) {
-                    if (m.getTargetSquare() == square)
-                        return false;
+            if (p.getPieceColor().equals(getOtherTurn()) && !p.getPieceType().equals("king")) {
+                moves = getLegalMoves(p,true,true);
+                for (Move m: moves){
+                    if (m.getTargetSquare() == square) {
+                        if (p.getPieceType().equals("white pawn") && m.getCurrentSquare() + 8 != square){
+                            return false;
+                        } else if (p.getPieceType().equals("black pawn") && m.getCurrentSquare() - 8 != square){
+                            return false;
+                        } else if (p.getPieceType().equals("queen") || p.getPieceType().equals("rook") || p.getPieceType().equals("bishop")){
+                            return false;
+                        } else if (p.getPieceType().equals("knight")){
+                            return false;
+                        }
+                    }
                 }
             }
         }
-        Log.d("notattacked",square + " is not attacked");
         return true;
     }
-    private boolean notAttacked(int square, String otherTurn) {
-        ArrayList <Move> pieceMoves;
-        for (Piece p: pieces){
-            if (!p.getPieceColor().equals(otherTurn) && !p.getPieceType().equals("king")) {
-                pieceMoves = getMoves(p,true, p.getPieceColor());
-                for (Move m : pieceMoves) {
-                    if (m.getTargetSquare() == square)
-                        return false;
-                }
-            }
-        }
-        Log.d("notattacked",square + " is not attacked");
-        return true;
-    }
-    private boolean playerInCheck(String otherTurn, int myKing){
-        return !notAttacked(myKing,otherTurn);
-    }
+
     private String getTurn(){
         if(numMoves%2==0)
             return "white";
         else
             return "black";
     }
+    private String getOtherTurn(){
+        if(numMoves%2==0)
+            return "black";
+        else
+            return "white";
+    }
     private int getMaterialValue(Piece p){
         String piece = p.getPieceType();
-        if (piece.equals("bishop") || piece.equals("knight") || piece.equals("king"))
+        if (piece.equals("bishop") || piece.equals("knight"))
             return 3;
         else if (piece.equals("rook"))
             return 5;
         else if (piece.equals("queen"))
             return 9;
-        else
+        else if (piece.equals("pawn"))
             return 1;
+        else
+            return 0;
     }
     private void calculateMaterial(){
+        whiteMaterial = 0;
+        blackMaterial = 0;
         for(Piece p: pieces){
-            if (p.getPieceColor().equals("white")){
-                whiteMaterial += getMaterialValue(p);
-            } else {
-                blackMaterial += getMaterialValue(p);
+            if (p.getRank() != 69) {
+                if (p.getPieceColor().equals("white")) {
+                    whiteMaterial += getMaterialValue(p);
+                } else {
+                    blackMaterial += getMaterialValue(p);
+                }
             }
         }
     }
@@ -932,10 +969,12 @@ public class AIvAIChessActivity extends AppCompatActivity {
         Log.d("FEN",FEN);
         return FEN;
     }
+
     public ArrayList<Move> getMoves(Piece p, boolean capturesOnly, String turn) {
         ArrayList<Move> moves = new ArrayList<>();
         String piece = p.getPieceType();
         int currentSquare = getSquare(p);
+        if (currentSquare != 613){
         if (piece.equals("bishop")) {
             for (int upRight = currentSquare+9; upRight < 64; upRight += 9) {
                 if (upRight % 8 == 1){
@@ -1163,47 +1202,48 @@ public class AIvAIChessActivity extends AppCompatActivity {
                 } else if (!capturesOnly)
                     moves.add(new Move(currentSquare, downLeft,p));
             }
-        } else if (piece.equals("rook")){
-            for (int y = currentSquare+8; y < 65; y += 8)
+        } else if (piece.equals("rook")) {
+            for (int y = currentSquare + 8; y < 65; y += 8)
                 if (!openSquare(y) && !turn.equals(getPiecebySquare(y).getPieceColor()) && !capturesOnly) {
-                    moves.add(new Move(currentSquare, y,p));
+                    moves.add(new Move(currentSquare, y, p));
                     break;
                 } else if (!openSquare(y)) {
                     break;
                 } else if (!capturesOnly) {
-                    moves.add(new Move(currentSquare, y,p));
+                    moves.add(new Move(currentSquare, y, p));
                 }
-            for (int y = currentSquare-8; y > 0; y -= 8)
-                if (!openSquare(y) && !turn.equals(getPiecebySquare(y).getPieceColor()) && !capturesOnly){
-                    moves.add(new Move(currentSquare, y,p));
+            for (int y = currentSquare - 8; y > 0; y -= 8)
+                if (!openSquare(y) && !turn.equals(getPiecebySquare(y).getPieceColor()) && !capturesOnly) {
+                    moves.add(new Move(currentSquare, y, p));
                     break;
                 } else if (!openSquare(y)) {
                     break;
                 } else if (!capturesOnly) {
-                    moves.add(new Move(currentSquare, y,p));
+                    moves.add(new Move(currentSquare, y, p));
                 }
             for (int x = currentSquare + 1; x < 65; x++)
-                if (x % 8 == 1){
+                if (x % 8 == 1) {
                     break;
                 } else if (!openSquare(x) && !turn.equals(getPiecebySquare(x).getPieceColor()) && !capturesOnly) {
-                    moves.add(new Move(currentSquare, currentSquare + x,p));
+                    moves.add(new Move(currentSquare, currentSquare + x, p));
                     break;
                 } else if (!openSquare(x)) {
                     break;
                 } else if (!capturesOnly) {
-                    moves.add(new Move(currentSquare, x,p));
+                    moves.add(new Move(currentSquare, x, p));
                 }
             for (int x = currentSquare - 1; x > 0; x--)
-                if (x % 8 == 0){
+                if (x % 8 == 0) {
                     break;
-                } else if (!openSquare(x) && !turn.equals(getPiecebySquare(x).getPieceColor()) && !capturesOnly){
-                    moves.add(new Move (currentSquare,x,p));
+                } else if (!openSquare(x) && !turn.equals(getPiecebySquare(x).getPieceColor()) && !capturesOnly) {
+                    moves.add(new Move(currentSquare, x, p));
                     break;
-                }else if (!openSquare(x)) {
+                } else if (!openSquare(x)) {
                     break;
                 } else if (!capturesOnly) {
-                    moves.add(new Move(currentSquare, x,p));
+                    moves.add(new Move(currentSquare, x, p));
                 }
+        }
         }
         return moves;
     }
@@ -1487,6 +1527,30 @@ public class AIvAIChessActivity extends AppCompatActivity {
         loadingIntent.putExtra("Class Code", 0);
         startActivity(loadingIntent);
         finish();
+    }
+    public void sendModeFromWinnerFragment(int mode) {
+        switch (mode) {
+            //New game
+            case 0:
+                Intent loadingIntent = new Intent(AIvAIChessActivity.this, AIvAIChessActivity.class);
+                loadingIntent.putExtra("Class Code", 0);
+                startActivity(loadingIntent);
+                finish();
+                break;
+            //Return home
+            case 1:
+                goBackViaLoadingActivity();
+                break;
+        }
+    }
+    private void openWinnerFragment(String winner) {
+        winnerBundle = new Bundle();
+        winnerBundle.putString("WINNER", winner);
+        winnerFragment.getData(winnerBundle);
+        transaction = getSupportFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(R.anim.scale_in, R.anim.scale_out);
+        transaction.commit();
+        transaction.show(winnerFragment);
     }
 //////End Handling Button\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 }

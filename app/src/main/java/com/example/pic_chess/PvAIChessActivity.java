@@ -44,6 +44,9 @@ public class PvAIChessActivity extends AppCompatActivity {
     private boolean gameInProgress = false;
     private boolean prompted = false;
 
+    //Sound stuffs
+    private Intent bgmIntent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -213,6 +216,11 @@ public class PvAIChessActivity extends AppCompatActivity {
         popupLayout.addView(yesButton, params);
         popupLayout.addView(noButton, params);
         setContentView(mainLayout);
+
+        //Set BGM Sound Intent
+        bgmIntent = new Intent(PvAIChessActivity.this, BGMService.class);
+        bgmIntent.putExtra("SONG", R.raw.farm_bgm);
+
         //Set button listeners
         yesButton.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -1508,10 +1516,12 @@ public class PvAIChessActivity extends AppCompatActivity {
 
     //////Start Handling Button\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
     public void returnHome() {
+        stopService(bgmIntent);
         goBackViaLoadingActivity();
     }
 
     public void onBackPressed() {
+        stopService(bgmIntent);
         goBackViaLoadingActivity();
     }
 
@@ -1522,5 +1532,6 @@ public class PvAIChessActivity extends AppCompatActivity {
         startActivity(loadingIntent);
         finish();
     }
+
 //////End Handling Button\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 }

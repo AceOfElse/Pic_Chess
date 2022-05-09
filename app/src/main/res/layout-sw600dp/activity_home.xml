@@ -72,6 +72,22 @@
         tools:srcCompat="@drawable/setting_image" />
 
     <ImageButton
+        android:id="@+id/licenseButton"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/empty_string_text"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.926"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.959"
+        app:srcCompat="@drawable/music_image"
+        tools:srcCompat="@drawable/music_image" />
+
+    <ImageButton
         android:id="@+id/chessPreviewButton"
         android:layout_width="300dp"
         android:layout_height="300dp"
@@ -100,6 +116,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/chessPreviewButton"
         app:layout_constraintVertical_bias="0.338" />
+
+    <FrameLayout
+        android:id="@+id/musicLicenseFragmentContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </FrameLayout>
 
     <FrameLayout
         android:id="@+id/secondMenuFragmentContainer"

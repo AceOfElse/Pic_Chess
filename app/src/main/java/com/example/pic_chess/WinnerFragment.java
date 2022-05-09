@@ -1,11 +1,7 @@
 package com.example.pic_chess;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.fragment.app.Fragment;
 
 
 public class WinnerFragment extends Fragment {
@@ -24,7 +22,7 @@ public class WinnerFragment extends Fragment {
     private ImageView mWinnerImage;
     private Button mNewButton, mReturnButton;
     private OnClickSelected mOnCLickSelected;
-    private boolean isWhiteWin;
+    private String winner;
 
     private static final String TAG = "Winner Fragment";
 
@@ -83,15 +81,16 @@ public class WinnerFragment extends Fragment {
 
     public void getData(Bundle bundle) {
         //Retrieve data from activity
-        isWhiteWin = bundle.getBoolean("WINNER");
+        winner = bundle.getString("WINNER");
 
         //Set text and image view based on the data passed by bundle
-        if (isWhiteWin) {
-            mWinnerText.setText("White won!");
+        mWinnerText.setText(winner);
+        if (winner.substring(winner.length()-9).equals("Checkmate") && winner.substring(0,5).equals("White")){
             mWinnerImage.setImageResource(R.drawable.whiteking);
-        } else {
-            mWinnerText.setText("Black won!");
+        } else if (winner.substring(winner.length()-9).equals("Checkmate")){
             mWinnerImage.setImageResource(R.drawable.blackking);
+        } else {
+
         }
     }
 }

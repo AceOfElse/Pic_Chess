@@ -3,8 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/ajf61/AndroidStudioProjects/Pic_Chess/app/src/main/res/layout/activity_aivai_chess.xml" value="0.264" />
         <entry key="..\:/Users/ajf61/AndroidStudioProjects/Pic_Chess/app/src/main/res/layout/activity_chess_pic.xml" value="0.1" />
         <entry key="..\:/Users/ajf61/AndroidStudioProjects/Pic_Chess/app/src/main/res/layout/activity_pvp_chess.xml" value="0.264" />
+        <entry key="..\:/Users/ajf61/AndroidStudioProjects/Pic_Chess/app/src/main/res/layout/activity_timed_pvp_chess.xml" value="0.1359375" />
         <entry key="..\:/Users/nguye/Desktop/AndroidStudioProjects/Pic_Chess/app/src/main/res/layout-sw600dp/activity_aivai_chess.xml" value="0.18125" />
         <entry key="..\:/Users/nguye/Desktop/AndroidStudioProjects/Pic_Chess/app/src/main/res/layout-sw600dp/activity_chess_pic.xml" value="0.18" />
         <entry key="..\:/Users/nguye/Desktop/AndroidStudioProjects/Pic_Chess/app/src/main/res/layout-sw600dp/activity_chess_pic_receive.xml" value="0.25" />

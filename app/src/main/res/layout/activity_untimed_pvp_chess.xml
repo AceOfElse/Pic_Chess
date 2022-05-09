@@ -19,7 +19,9 @@
         app:layout_constraintHorizontal_bias="0.2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/layoutD1"
-        app:layout_constraintVertical_bias="0.255"></LinearLayout>
+        app:layout_constraintVertical_bias="0.255">
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/deadWhiteLayout"
@@ -30,7 +32,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.222"
         app:layout_constraintStart_toEndOf="@+id/player1NameText"
-        app:layout_constraintTop_toBottomOf="@+id/endButton"></LinearLayout>
+        app:layout_constraintTop_toBottomOf="@+id/endButton">
+
+    </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/deadPieceLayout"
@@ -1911,4 +1915,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.95"
         app:layout_constraintStart_toStartOf="parent" />
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/winnerFragmentContainer"
+        android:name="com.example.pic_chess.WinnerFragment"
+        android:layout_width="262dp"
+        android:layout_height="210dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

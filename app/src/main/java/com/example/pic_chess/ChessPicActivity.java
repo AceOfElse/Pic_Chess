@@ -76,6 +76,8 @@ public class ChessPicActivity extends AppCompatActivity implements ToolBarFragme
     private static boolean isSaved;
     private Random rg;
 
+    private Intent bgmIntent;
+
     //Tags for fragment
     private static final String TAG2 = "ToolbarFragment";
 
@@ -146,6 +148,11 @@ public class ChessPicActivity extends AppCompatActivity implements ToolBarFragme
         transaction.commit();
         transaction.hide(colorFragment);
 
+        //Set BGM Intent
+        bgmIntent = new Intent(ChessPicActivity.this, BGMService.class);
+        bgmIntent.putExtra("SONG", R.raw.classical_bgm);
+
+
         //Set button listeners
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -199,6 +206,7 @@ public class ChessPicActivity extends AppCompatActivity implements ToolBarFragme
         createDraggableImage();
         setTextviewLeftValues();
         setPrompt();
+        startService(bgmIntent);
     }
     //Sets the starting prompt for the users to draw
     private void setPrompt() {
@@ -516,6 +524,7 @@ public class ChessPicActivity extends AppCompatActivity implements ToolBarFragme
 
     //Loading animation goes up when returning back to Home Activity.
     private void goBackViaLoadingActivity() {
+        stopService(bgmIntent);
         Intent loadingIntent = new Intent(ChessPicActivity.this, LoadingActivity.class);
         loadingIntent.putExtra("Class Code", 0);
         startActivity(loadingIntent);
@@ -854,10 +863,6 @@ public class ChessPicActivity extends AppCompatActivity implements ToolBarFragme
     }
 //////End Creating Canvas Properties\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
-//////Start Handling Game Logic\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-
-//////End Handling Game Logic\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-
 //////Start Handling Timer\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
     private void startTimer() {
         countDownTimer = new CountDownTimer(timeLeftInMilliSecond, 1000) {
@@ -951,6 +956,7 @@ public class ChessPicActivity extends AppCompatActivity implements ToolBarFragme
         if (getReturn()) {
             drawingView.resetCanvas();
             resetPieceCount();
+            stopService(bgmIntent);
             goBackViaLoadingActivity();
         }
     }
