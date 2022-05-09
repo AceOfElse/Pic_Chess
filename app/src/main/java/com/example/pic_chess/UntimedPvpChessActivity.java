@@ -1157,10 +1157,12 @@ public class UntimedPvpChessActivity extends AppCompatActivity implements Winner
         whiteMaterial = 0;
         blackMaterial = 0;
         for(Piece p: pieces){
-            if (p.getPieceColor().equals("white")){
-                whiteMaterial += getMaterialValue(p);
-            } else {
-                blackMaterial += getMaterialValue(p);
+            if (p.getRank() != 69) {
+                if (p.getPieceColor().equals("white")) {
+                    whiteMaterial += getMaterialValue(p);
+                } else {
+                    blackMaterial += getMaterialValue(p);
+                }
             }
         }
     }

@@ -257,6 +257,11 @@ public class AIvAIChessActivity extends AppCompatActivity {
             int targetSquare = m.getTargetSquare();
             if (getPiecebySquare(m.getTargetSquare()) == null && !captured.contains(view)) {
                 Log.d("moveMade","Moved "+ p.getPieceType() + " to " + m.getTargetSquare() + " and did not capture (except en passant)");
+                for (Piece piece: pieces){
+                    if (piece.getMovedTwo()){
+                        piece.setMovesSinceMovedTwo(piece.getMovesSinceMovedTwo()+1);
+                    }
+                }
                 setSquare(p, targetSquare);
                 Square s = getSquarebyView(p.getPic());
                 if (getSquare(p) == 3 && p.checkFirstMove() && p.getPieceType().equals("king")) {
@@ -388,9 +393,9 @@ public class AIvAIChessActivity extends AppCompatActivity {
         return evaluation * perspective;
     }
     public int search (int depth, int alpha, int beta){
-        ArrayList<Move> moves = generateAllMoves(getTurn());
         if (depth == 0)
             return searchAllCaptures(alpha,beta);
+        ArrayList<Move> moves = generateAllMoves(getTurn());
         int myKing=-1;
         for (Piece p: pieces){
             if (p.getPieceColor().equals(getTurn()) && p.getPieceType().equals("king")){
@@ -404,29 +409,25 @@ public class AIvAIChessActivity extends AppCompatActivity {
         }
         for (Move m: moves){
             makeMove(m,m.getPiece());
-            numMoves++;
-            int eval = -search(depth-1, -beta, -alpha);
-            m.setEvaluation(eval);
-            numMoves--;
+            m.setEvaluation(-search(depth-1, -beta, -alpha));
             unmakeMove(m,m.getPiece());
-            if (eval >= beta){
+            if (m.getEvaluation() >= beta){
                 //Move was too good, opponent will avoid this pos
                 return beta;
             }
-            alpha = Math.max(alpha, eval);
+            alpha = Math.max(alpha, m.getEvaluation());
         }
         allMoves = (ArrayList<Move>) moves.clone();
         return alpha;
     }
     public int searchAllCaptures(int alpha, int beta){
-        ArrayList<Move> moves;
+        ArrayList<Move> moves = new ArrayList<Move>();
         int eval = evaluate();
         if (eval >= beta)
             return beta;
         alpha = Math.max(alpha,eval);
         for(Piece p: pieces) {
-            moves = getLegalMoves(p,true);
-            orderMoves(moves,p);
+            moves = orderMoves(getLegalMoves(p,true),p);
             for(Move m: moves){
                 makeMove(m,p);
                 numMoves++;
@@ -438,9 +439,10 @@ public class AIvAIChessActivity extends AppCompatActivity {
                 alpha = Math.max(alpha,eval);
             }
         }
+        allMoves = (ArrayList<Move>) moves.clone();
         return alpha;
     }
-    public void orderMoves (ArrayList<Move> moves,Piece p){
+    public ArrayList<Move> orderMoves (ArrayList<Move> moves,Piece p){
         for (Move m: moves){
             int moveScoreGuess = 0;
             int movePieceType = getMaterialValue(p);
@@ -471,6 +473,7 @@ public class AIvAIChessActivity extends AppCompatActivity {
                 }
             }
         }
+        return moves;
     }
     public int forceKingtoCornerEndgameEval (float endgameWeight){
         int opponentKingRank = pieces.get(4).getRank();
@@ -490,12 +493,14 @@ public class AIvAIChessActivity extends AppCompatActivity {
         int i = move.getTargetSquare();
         p.setRank((i-1)/8+1);
         p.setFile((i-1)%8+1);
+        numMoves++;
     }
 
     public void unmakeMove(Move move,Piece p){
         int i = move.getCurrentSquare();
         p.setRank((i-1)/8+1);
         p.setFile((i-1)%8+1);
+        numMoves--;
     }
 
     private void checkEnd() {
@@ -688,10 +693,12 @@ public class AIvAIChessActivity extends AppCompatActivity {
         whiteMaterial = 0;
         blackMaterial = 0;
         for(Piece p: pieces){
-            if (p.getPieceColor().equals("white")){
-                whiteMaterial += getMaterialValue(p);
-            } else {
-                blackMaterial += getMaterialValue(p);
+            if (p.getRank() != 69) {
+                if (p.getPieceColor().equals("white")) {
+                    whiteMaterial += getMaterialValue(p);
+                } else {
+                    blackMaterial += getMaterialValue(p);
+                }
             }
         }
     }
@@ -956,6 +963,7 @@ public class AIvAIChessActivity extends AppCompatActivity {
         Log.d("FEN",FEN);
         return FEN;
     }
+
     public ArrayList<Move> getMoves(Piece p, boolean capturesOnly, String turn) {
         ArrayList<Move> moves = new ArrayList<>();
         String piece = p.getPieceType();

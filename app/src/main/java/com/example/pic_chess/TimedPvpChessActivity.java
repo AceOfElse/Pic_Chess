@@ -940,12 +940,12 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
     private int getSquare(Piece p){
         int rank = p.getRank();
         int file = p.getFile();
-        return (rank-1)*8+file;
+        return (rank - 1) * 8 + file;
     }
     private int getSquare(Square s){
         int rank = s.getRank();
         int file = s.getFile();
-        return (rank-1)*8+file;
+        return (rank - 1) * 8 + file;
     }
     public Piece getPiecebySquare(int square){
         for(Piece p: pieces){
@@ -1239,14 +1239,13 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
     private ArrayList<Move> getLegalMoves (Piece p){
         ArrayList<Move> moves = getMoves(p,false,getTurn());
         int myKingSquare=0;
-        String otherTurn = "white";
-        if (getTurn().equals(otherTurn))
-            otherTurn = "black";
+        String otherTurn = getOtherTurn();
         for (Piece piece:pieces){
             if (getTurn().equals(piece.getPieceColor()) && piece.getPieceType().equals("king")){
                 myKingSquare = getSquare(piece);
             }
         }
+        Log.d("king",getTurn() + " king is on " + myKingSquare);
         ArrayList <Integer> movesToDelete = new ArrayList<>();
         for (Move moveToVerify:moves){
             makeMove(moveToVerify,p);
@@ -1272,29 +1271,23 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
         return true;
     }
     private boolean notAttacked(int square) {
-        ArrayList <Move> pieceMoves;
-        for (Piece p: pieces){
-            if (!p.getPieceColor().equals(getTurn()) && !p.getPieceType().equals("king")) {
-                pieceMoves = getMoves(p,true, p.getPieceColor());
-                for (Move m : pieceMoves) {
-                    if (m.getTargetSquare() == square)
-                        return false;
-                }
-            }
+        ArrayList <Move> pieceMoves = generateAllMoves(getTurn());
+        for (Move m : pieceMoves) {
+            if (m.getTargetSquare() == square)
+                return false;
         }
         Log.d("notattacked",square + " is not attacked");
         return true;
     }
     private boolean notAttacked(int square, String otherTurn) {
-        ArrayList <Move> pieceMoves;
-        for (Piece p: pieces){
-            if (!p.getPieceColor().equals(otherTurn) && !p.getPieceType().equals("king")) {
-                pieceMoves = getMoves(p,true, p.getPieceColor());
-                for (Move m : pieceMoves) {
-                    if (m.getTargetSquare() == square)
-                        return false;
-                }
+        if (getPiecebySquare(square) != null && !getPiecebySquare(square).getPieceType().equals("king")){
+            ArrayList <Move> pieceMoves = generateAllMoves(otherTurn);
+            for (Move m : pieceMoves) {
+                if (m.getTargetSquare() == square)
+                    return false;
             }
+        } else if (getPiecebySquare(square) != null){
+            return true;
         }
         Log.d("notattacked",square + " is not attacked");
         return true;
@@ -1331,10 +1324,12 @@ public class TimedPvpChessActivity extends AppCompatActivity implements NewGameW
         whiteMaterial = 0;
         blackMaterial = 0;
         for(Piece p: pieces){
-            if (p.getPieceColor().equals("white")){
-                whiteMaterial += getMaterialValue(p);
-            } else {
-                blackMaterial += getMaterialValue(p);
+            if (p.getRank() != 69) {
+                if (p.getPieceColor().equals("white")) {
+                    whiteMaterial += getMaterialValue(p);
+                } else {
+                    blackMaterial += getMaterialValue(p);
+                }
             }
         }
     }
